@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
 
-public class RoutesModel
+public class RouteModel
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -9,7 +9,7 @@ public class RoutesModel
     [JsonPropertyName("duration")]
     public int Duration { get; set; }
 
-    public RoutesModel(int id, int duration)
+    public RouteModel(int id, int duration)
     {
         Id = id;
         Duration = duration;
