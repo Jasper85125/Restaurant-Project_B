@@ -5,15 +5,15 @@ using System.Text.Json;
 
 public class RoutesLogic
 {
-    private List<RoutesModel> _routes;
-    static public RoutesModel? CurrentRoute { get; private set; }
+    private List<RouteModel> _routes;
+    static public RouteModel? CurrentRoute { get; private set; }
 
     public RoutesLogic()
     {
         _routes = RoutesAccess.LoadAll();
     }
 
-    public void UpdateList(RoutesModel route)
+    public void UpdateList(RouteModel route)
     {
         //Find if there is already an model with the same id
         int index = _routes.FindIndex(s => s.Id == route.Id);
@@ -31,14 +31,14 @@ public class RoutesLogic
         RoutesAccess.WriteAll(_routes);
     }
 
-    public RoutesModel GetById(int id)
+    public RouteModel GetById(int id)
     {
         return _routes.Find(i => i.Id == id);
     }
 
-    public List<RoutesModel> GetAllRoutes()
+    public List<RouteModel> GetAllRoutes()
     {
-        List<RoutesModel> list_Routes = _routes;
+        List<RouteModel> list_Routes = _routes;
         return list_Routes;
     }
 }
