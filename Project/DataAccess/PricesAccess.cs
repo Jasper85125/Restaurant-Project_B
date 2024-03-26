@@ -12,10 +12,10 @@ static class PricesAccess
     }
 
 
-    public static void WriteAll(List<PriceModel> accounts)
+    public static void WriteAll(List<PriceModel> prices)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(accounts, options);
+        string json = JsonSerializer.Serialize(prices, options);
         File.WriteAllText(path, json);
     }
 
