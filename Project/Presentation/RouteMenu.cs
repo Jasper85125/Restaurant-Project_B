@@ -1,3 +1,5 @@
+using System.Data.Common;
+
 static public class RouteMenu
 {
     static public void Welcome()
@@ -24,8 +26,9 @@ static public class RouteMenu
     {
         if (input == "1")
         {
-            Console.WriteLine("Wat is het id van de route");
-            string? new_id = Console.ReadLine();
+            List<RoutesModel> list_of_routes = Overview();
+            int int_id = list_of_routes.Count();
+            int new_id = int_id++;
             Console.WriteLine("Hoelang duurt de route in uur?");
             string? new_duration = Console.ReadLine();
             RoutesModel new_route = new RoutesModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
