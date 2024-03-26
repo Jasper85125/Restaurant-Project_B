@@ -33,7 +33,7 @@ static public class RouteMenu
             Console.WriteLine("Hoelang duurt de route in uur?");
             string? new_duration = Console.ReadLine();
             RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
-            RoutesLogic new_logic = new RoutesLogic();
+            RouteLogic new_logic = new RouteLogic();
             new_logic.UpdateList(new_route);
             Welcome();
         }
@@ -43,7 +43,7 @@ static public class RouteMenu
         }
         else if (input == "3")
         {
-            RoutesLogic loading = new RoutesLogic();
+            RouteLogic loading = new RouteLogic();
             Console.WriteLine("Which of these IDs would you like to update.");
             foreach (RouteModel Route in loading.GetAllRoutes())
             {
@@ -92,7 +92,7 @@ static public class RouteMenu
 
     public static List<RouteModel> Overview()
     {
-        RoutesLogic LogicInstance = new RoutesLogic();
+        RouteLogic LogicInstance = new RouteLogic();
         List<RouteModel> overview = LogicInstance.GetAllRoutes();
         return overview;
     }

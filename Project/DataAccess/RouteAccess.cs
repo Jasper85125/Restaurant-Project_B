@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-static class RoutesAccess
+static class RouteAccess
 {
     static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Routes.json"));
 

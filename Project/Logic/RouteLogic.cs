@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-public class RoutesLogic
+public class RouteLogic
 {
     private List<RouteModel> _routes;
     static public RouteModel? CurrentRoute { get; private set; }
 
-    public RoutesLogic()
+    public RouteLogic()
     {
-        _routes = RoutesAccess.LoadAll();
+        _routes = RouteAccess.LoadAll();
     }
 
     public void UpdateList(RouteModel route)
@@ -28,7 +28,7 @@ public class RoutesLogic
             //add new model
             _routes.Add(route);
         }
-        RoutesAccess.WriteAll(_routes);
+        RouteAccess.WriteAll(_routes);
     }
 
     public RouteModel GetById(int id)
