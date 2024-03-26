@@ -3,6 +3,8 @@ class PriceLogic
     private List<PriceModel> _prices;
 
     // static public PriceModel? CurrentPrice{ get; private set; }
+    public List<PriceModel> Prices {get => _prices;} // Readonly
+
 
     public PriceLogic()
     {
