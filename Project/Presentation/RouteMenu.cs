@@ -38,7 +38,7 @@ static public class RouteMenu
         }
         else if (input == "2")
         {
-            
+            Console.WriteLine("Waiting for bus code to be finished");
         }
         else if (input == "3")
         {
@@ -49,13 +49,29 @@ static public class RouteMenu
                 Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
             }
             string? id_to_be_updated = Console.ReadLine();
-            RoutesModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
-            Console.WriteLine("What is the new duration of the route?");
-            string? new_duration = Console.ReadLine();
-            RouteObject.Duration = Convert.ToInt32(new_duration);
-            loading.UpdateList(RouteObject);
-            Console.WriteLine("Route has been updated");
-            Welcome();
+            if (id_to_be_updated is int)
+            {
+                RoutesModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
+                if (RouteObject == null)
+                {
+                    Console.WriteLine("That's not a valid id!");
+                    Welcome();
+                }
+                else
+                {
+                    Console.WriteLine("What is the new duration of the route?");
+                    string? new_duration = Console.ReadLine();
+                    RouteObject.Duration = Convert.ToInt32(new_duration);
+                    loading.UpdateList(RouteObject);
+                    Console.WriteLine("Route has been updated");
+                    Welcome();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Not an valid input");
+                Welcome();
+            }
         }
         else if (input == "4")
         {
@@ -64,6 +80,7 @@ static public class RouteMenu
             {
                 Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
             }
+            Welcome();
         }
         else
         {
