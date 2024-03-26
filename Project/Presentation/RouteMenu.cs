@@ -26,12 +26,12 @@ static public class RouteMenu
     {
         if (input == "1")
         {
-            List<RoutesModel> list_of_routes = Overview();
+            List<RouteModel> list_of_routes = Overview();
             int int_id = list_of_routes.Count();
             int new_id = int_id++;
             Console.WriteLine("Hoelang duurt de route in uur?");
             string? new_duration = Console.ReadLine();
-            RoutesModel new_route = new RoutesModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
+            RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
             RoutesLogic new_logic = new RoutesLogic();
             new_logic.UpdateList(new_route);
             Welcome();
@@ -44,14 +44,14 @@ static public class RouteMenu
         {
             RoutesLogic loading = new RoutesLogic();
             Console.WriteLine("Which of these IDs would you like to update.");
-            foreach (RoutesModel Route in loading.GetAllRoutes())
+            foreach (RouteModel Route in loading.GetAllRoutes())
             {
                 Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
             }
             string? id_to_be_updated = Console.ReadLine();
             if (id_to_be_updated is int)
             {
-                RoutesModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
+                RouteModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
                 if (RouteObject == null)
                 {
                     Console.WriteLine("That's not a valid id!");
@@ -75,8 +75,8 @@ static public class RouteMenu
         }
         else if (input == "4")
         {
-            List<RoutesModel> overview = RouteMenu.Overview();
-            foreach (RoutesModel Route in overview)
+            List<RouteModel> overview = RouteMenu.Overview();
+            foreach (RouteModel Route in overview)
             {
                 Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
             }
@@ -89,10 +89,10 @@ static public class RouteMenu
         }
     }
 
-    public static List<RoutesModel> Overview()
+    public static List<RouteModel> Overview()
     {
         RoutesLogic LogicInstance = new RoutesLogic();
-        List<RoutesModel> overview = LogicInstance.GetAllRoutes();
+        List<RouteModel> overview = LogicInstance.GetAllRoutes();
         return overview;
     }
 }
