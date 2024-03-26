@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 
 //This class is not static so later on we can use inheritance and interfaces
 class AccountsLogic
 {
     private List<AccountModel> _accounts;
+    private List<int> IdsList = new List<int>();
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -19,6 +21,37 @@ class AccountsLogic
         _accounts = AccountsAccess.LoadAll();
     }
 
+    public bool IsValidEmail(string email)
+    {
+        string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        return Regex.IsMatch(email, pattern);
+    }
+    public bool EmailExists(string email)
+    {
+        foreach (var account in _accounts)
+        {
+            if (account.EmailAddress == email)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int FindNewId()
+    {
+        foreach(AccountModel account in _accounts)
+        {
+            IdsList.Add(account.Id);
+        }
+        int newId = 1;
+        while (IdsList.Contains(newId))
+        {
+            newId++;
+        }
+
+    return newId;
+    }
 
     public void UpdateList(AccountModel acc)
     {

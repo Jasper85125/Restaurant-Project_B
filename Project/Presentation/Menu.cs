@@ -7,7 +7,8 @@ static class Menu
     static public void Start()
     {
         Console.WriteLine("Enter 1 to login");
-        Console.WriteLine("Druk 2 om informatie over de app te zien.");
+        Console.WriteLine("Druk 2 om een account aan te maken.");
+        Console.WriteLine("Druk 3 om informatie over de app te zien.");
 
         string input = Console.ReadLine();
         if (input == "1")
@@ -15,6 +16,9 @@ static class Menu
             UserLogin.Start();
         }
         else if (input == "2")
+            UserSignUp.Start();
+
+        else if (input == "3")
         {
             Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
             Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
