@@ -32,10 +32,18 @@ static public class RouteMenu
             int new_id = int_id++;
             Console.WriteLine("Hoelang duurt de route in uur?");
             string? new_duration = Console.ReadLine();
-            RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
-            RouteLogic new_logic = new RouteLogic();
-            new_logic.UpdateList(new_route);
-            Welcome();
+            try
+            {
+                RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
+                RouteLogic new_logic = new RouteLogic();
+                new_logic.UpdateList(new_route);
+                Welcome();
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input! Please try again.");
+                Welcome();
+            }
         }
         else if (input == "2")
         {
@@ -50,7 +58,7 @@ static public class RouteMenu
                 Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
             }
             string? id_to_be_updated = Console.ReadLine();
-            if (id_to_be_updated is int)
+            try
             {
                 RouteModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
                 if (RouteObject == null)
@@ -68,7 +76,7 @@ static public class RouteMenu
                     Welcome();
                 }
             }
-            else
+            catch (FormatException)
             {
                 Console.WriteLine("Not an valid input");
                 Welcome();
