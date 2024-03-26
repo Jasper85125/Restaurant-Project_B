@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 
-
 class BusModel
 {
     [JsonPropertyName("id")]
