@@ -1,51 +1,38 @@
 class PriceLogic
 {
-    private List<PriceLogic> prices;
+    private List<PriceModel> _prices;
 
-    //Static properties are shared across all instances of the class
-    //This can be used to get the current logged in account from anywhere in the program
-    //private set, so this can only be set by the class itself
-    static public AccountModel? CurrentAccount { get; private set; }
+    // static public PriceModel? CurrentPrice{ get; private set; }
 
     public PriceLogic()
     {
-        prices = AccountsAccess.LoadAll();
+        _prices = PricesAccess.LoadAll();
     }
 
-
-    public void UpdateList(AccountModel acc)
+    public void UpdateList(PriceModel price)
     {
         //Find if there is already an model with the same id
-        int index = _accounts.FindIndex(s => s.Id == acc.Id);
+        int index = _prices.FindIndex(p => p.Id == price.Id);
 
         if (index != -1)
         {
             //update existing model
-            _accounts[index] = acc;
+            _prices[index] = price;
         }
         else
         {
             //add new model
-            _accounts.Add(acc);
+            _prices.Add(price);
         }
-        AccountsAccess.WriteAll(_accounts);
-
+        PricesAccess.WriteAll(_prices);
     }
 
-    public AccountModel GetById(int id)
+    public PriceModel GetById(int id)
     {
-        return _accounts.Find(i => i.Id == id);
+        return _prices.Find(p => p.Id == id);
     }
 
-    public AccountModel CheckLogin(string email, string password)
-    {
-        if (email == null || password == null)
-        {
-            return null;
-        }
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
-        return CurrentAccount;
-    }
+
 }
 
 
