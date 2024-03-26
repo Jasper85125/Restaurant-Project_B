@@ -42,7 +42,20 @@ static public class RouteMenu
         }
         else if (input == "3")
         {
-            
+            RoutesLogic loading = new RoutesLogic();
+            Console.WriteLine("Which of these IDs would you like to update.");
+            foreach (RoutesModel Route in loading.GetAllRoutes())
+            {
+                Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
+            }
+            string? id_to_be_updated = Console.ReadLine();
+            RoutesModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
+            Console.WriteLine("What is the new duration of the route?");
+            string? new_duration = Console.ReadLine();
+            RouteObject.Duration = Convert.ToInt32(new_duration);
+            loading.UpdateList(RouteObject);
+            Console.WriteLine("Route has been updated");
+            Welcome();
         }
         else if (input == "4")
         {
