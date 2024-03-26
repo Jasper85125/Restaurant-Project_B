@@ -6,9 +6,9 @@ class BusModel
     public int Id { get; set; }
 
     [JsonPropertyName("seats")]
-    public string Seats { get; set; }
+    public int Seats { get; set; }
 
-    public BusModel(int id, string seats)
+    public BusModel(int id, int seats)
     {
         Id = id;
         Seats = seats;
