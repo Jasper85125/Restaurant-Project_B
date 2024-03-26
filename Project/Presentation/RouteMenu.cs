@@ -14,6 +14,7 @@ static public class RouteMenu
         string? input = Console.ReadLine();
         if (input == null)
         {
+            Console.WriteLine("Verkeerde input!");
             RouteMenu.Welcome();
         }
         else
