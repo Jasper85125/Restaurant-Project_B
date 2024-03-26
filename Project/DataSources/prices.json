@@ -1,0 +1,20 @@
+[
+	{
+		"id": 1,
+		"minage": 0,
+		"maxage": 12,
+		"price": 10
+	},
+	{
+		"id": 2,
+		"minage": 13,
+		"maxage": 65,
+		"price": 20
+	},
+	{
+		"id": 3,
+		"minage": 66,
+		"maxage": 150,
+		"price": 15
+	}
+]
