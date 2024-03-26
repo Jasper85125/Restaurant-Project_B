@@ -6,10 +6,11 @@ static class Menu
     //You could edit this to show different menus depending on the user's role
     static public void Start()
     {
-        Console.WriteLine("Enter 1 to login");
-        Console.WriteLine("Druk 2 om informatie over de app te zien.");
+        Console.WriteLine("[1] Inloggen op uw account");
+        Console.WriteLine("[2] informatie over de app.");
+        Console.WriteLine("[3] Menu voor routes toevoegen");
 
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         if (input == "1")
         {
             UserLogin.Start();
@@ -20,10 +21,14 @@ static class Menu
             Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
             Console.WriteLine("En op deze app/site kan je reserveren waar en wanneer je met ons mee wil rijden.");
         }
+        else if (input == "3")
+        {
+            RouteMenu.Welcome();
+        }
         else
         {
             Console.WriteLine("Invalid input");
-            Start();
+            Menu.Start();
         }
 
     }
