@@ -1,4 +1,4 @@
-static public class Informatie
+static public class Information
 {
     static public void Info()
     {

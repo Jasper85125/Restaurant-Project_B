@@ -22,7 +22,7 @@ static class Menu
         }
         else if (input == "3")
         {
-            Informatie.Info();
+            Information.Info();
         }
         else if (input == "4")
         {
