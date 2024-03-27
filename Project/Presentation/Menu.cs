@@ -11,6 +11,7 @@ static class Menu
         Console.WriteLine("[3] informatie over de app.");
         Console.WriteLine("[4] Menu voor routes toevoegen");
         Console.WriteLine("[5] Menu voor prijscategorieën");
+        Console.WriteLine("[6] Menu voor bussen");
 
         string? input = Console.ReadLine();
         switch (input)
@@ -29,6 +30,9 @@ static class Menu
                 break;
             case "5":
                 PriceMenu.Start();
+                break;
+            case "6":
+                BusMenu.Start();
                 break;
             default:
                 Console.WriteLine("Invalid input");
