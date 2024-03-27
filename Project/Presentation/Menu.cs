@@ -22,9 +22,7 @@ static class Menu
                 UserSignUp.Start();
                 break;
             case "3":
-                Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
-                Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt.");
-                Console.WriteLine("En op deze app/site kan je reserveren waar en wanneer je met ons mee wil rijden.");
+                Information.Info();
                 break;
             case "4":
                 RouteMenu.Welcome();
