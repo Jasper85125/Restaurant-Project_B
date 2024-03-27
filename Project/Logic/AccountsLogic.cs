@@ -38,7 +38,7 @@ class AccountsLogic
         return false;
     }
     
-    public int FindNewId()
+    public int GenerateNewId()
     {
         foreach(AccountModel account in _accounts)
         {
@@ -50,7 +50,7 @@ class AccountsLogic
             newId++;
         }
 
-    return newId;
+        return newId;
     }
 
     public void UpdateList(AccountModel acc)

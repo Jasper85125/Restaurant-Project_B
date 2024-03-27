@@ -10,9 +10,9 @@ class PriceModel
     public string Passenger { get; set; }
 
     [JsonPropertyName("price")]
-    public int Price { get; set; }
+    public double Price { get; set; }
 
-    public PriceModel(int id, string passenger, int price)
+    public PriceModel(int id, string passenger, double price)
     {
         ID = id;
         Passenger = passenger;

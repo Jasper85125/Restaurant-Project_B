@@ -21,6 +21,7 @@ static class UserSignUp
             if (!accountsLogic.IsValidEmail(email))
             {
                 Console.WriteLine("Ongeldig emailadres. Probeer opnieuw.");
+                continue;
             }
             if (!accountsLogic.EmailExists(email))
             {
@@ -47,13 +48,13 @@ static class UserSignUp
             }
         }
         string fullName = $"{firstName} {lastName}";
-        AccountModel newAcc = new AccountModel(accountsLogic.FindNewId(), email, password, fullName);
+        AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName);
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         Console.WriteLine($"Welcome {acc.FullName}.");
         Console.WriteLine("Uw account is aangemaakt.");
 
-        Console.WriteLine("Uw keert terug naar het menu.");
+        Console.WriteLine("U keert terug naar het menu.");
         Menu.Start();
     }
 }
