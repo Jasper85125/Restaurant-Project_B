@@ -2,6 +2,7 @@ public class StopMenu
 {
     public static void Start()
     {
+        Console.Clear();
         Console.WriteLine("\nWelkom bij het overzicht voor tussenstops.");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een tussenstop toevoegen.");

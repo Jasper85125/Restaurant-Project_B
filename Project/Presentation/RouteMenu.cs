@@ -127,7 +127,8 @@ static public class RouteMenu
         List<RouteModel> overview = RouteMenu.Overview();
             foreach (RouteModel Route in overview)
             {
-                Console.WriteLine($"Het route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
+                Console.WriteLine($"\nHet route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
+                Console.WriteLine($"De route heeft {Route.Stops.Count()} tussenstops");
             }
     }
 
