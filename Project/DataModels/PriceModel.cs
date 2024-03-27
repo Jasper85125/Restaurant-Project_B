@@ -18,7 +18,6 @@ class PriceModel
         Passenger = passenger;
         Price = price;
     }
-
 }
 
 

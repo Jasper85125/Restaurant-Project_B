@@ -3,28 +3,30 @@ using System.Formats.Asn1;
 static class PriceMenu
 {
     static private PriceLogic pricesLogic = new();
-
     public static void Start()
     {
         Console.WriteLine("\nWelkom bij het overzicht voor prijzen.");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een prijs categorie toevoegen.");
-        Console.WriteLine("[2] Een prijs categorie Editen.");
-        Console.WriteLine("[3] Een overzicht van alle prijscategorieën.");
+        Console.WriteLine("[2] Een prijs categorie editen.");
+        Console.WriteLine("[3] Een prijs categorie verwijderen.");
+        Console.WriteLine("[4] Een overzicht van alle prijscategorieën.");
         string? input = Console.ReadLine();
         if (input != null)
         {
             switch (input)
             {
                 case "1":
-                    AddPrice();
+                    AddPriceCategory();
                     break;
                 case "2":
-                    EditPrice();
+                    EditPriceCategory();
                     break;
                 case "3":
+                    DeletePriceCategory();
+                    break;
+                case "4":
                     ShowAllPricesInforamtion();
-
                     break;
                 default:
                     Console.WriteLine("Verkeerde input!");
@@ -38,24 +40,43 @@ static class PriceMenu
             Console.WriteLine("Verkeerde input!");
             Start();
         }
-    
-        // AccountModel acc = accountsLogic.CheckLogin(email, password);
-        // if (acc != null)
-        // {
-        //     Console.WriteLine("Welcome back " + acc.FullName);
-        //     Console.WriteLine("Your email number is " + acc.EmailAddress);
-
-        //     //Write some code to go back to the menu
-        //     //Menu.Start();
-        // }
-        // else
-        // {
-        //     Console.WriteLine("No account found with that email and password");
-        // }
-
     }
 
-    public static void AddPrice()
+    public static void DeletePriceCategory()
+    {
+        Console.WriteLine("Een overzicht van alle prijscategorieën");
+        ShowAllPricesInforamtion();
+        Console.WriteLine("Voer het nummer van de ID in dat u wilt verwijderen: ");
+        PriceModel priceModel = SearchByID();
+
+        if (priceModel != null)
+        {
+            ShowPriceInformation(priceModel);
+            Console.WriteLine("Wilt u deze prijscategorie verwijderen? Y/N: ");
+            string? answer = Console.ReadLine();
+            if (answer!= null && answer.ToLower() == "n")
+            {
+                Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
+                Menu.Start();
+            }
+            else if (answer!= null && answer.ToLower() != "y")
+            {
+                Console.WriteLine("Verkeerde input!");
+                DeletePriceCategory();
+            }
+
+            pricesLogic.DeletePriceCategory(priceModel.ID);
+            Console.WriteLine("De verwijdering is voltooid");
+        }
+        else
+        {
+            Console.WriteLine("Geen prijscategorie gevonden");
+        }
+        Console.WriteLine("U keert terug naar het startscherm.\n");
+        Menu.Start();
+
+    }
+    public static void AddPriceCategory()
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
         ShowAllPricesInforamtion();
@@ -70,31 +91,31 @@ static class PriceMenu
         else if (answer!= null && answer.ToLower() != "y")
         {
             Console.WriteLine("Verkeerde input!");
-            AddPrice();
+            AddPriceCategory();
         }
 
         Console.WriteLine("Voer de naam van het nieuwe passenger type in: ");
-        string? passenger = Console.ReadLine();
+        string? NewPassenger = Console.ReadLine();
         Console.WriteLine("Bepaal de prijs voor de nieuwe passenger: ");
-        double price = Convert.ToDouble(Console.ReadLine());
+        double NewPrice = Convert.ToDouble(Console.ReadLine());
 
-        PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), passenger, price);
+        PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), NewPassenger, NewPrice);
         pricesLogic.UpdateList(NewPriceCategory);
-        Console.WriteLine($"De prijs categorie '{passenger}' is toevoegd");
+        Console.WriteLine($"De prijs categorie '{NewPassenger}' is toevoegd");
         ShowPriceInformation(NewPriceCategory);
         Console.WriteLine($"\nU keert terug naar het startscherm.\n");
         Menu.Start(); 
     }
-
-    public static void EditPrice()
+    public static void EditPriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
         ShowAllPricesInforamtion();
-        PriceModel price = SearchByID();
-        if (price != null)
+        Console.WriteLine("Voer het nummer van de ID in dat u wilt bewerken: ");
+        PriceModel priceModel = SearchByID();
+        if (priceModel != null)
         {
-            ShowPriceInformation(price);
-            Console.WriteLine("Wilt u deze prijscategorie bewerken ? Y/N: ");
+            ShowPriceInformation(priceModel);
+            Console.WriteLine("Wilt u deze prijscategorie bewerken? Y/N: ");
             string? answer = Console.ReadLine();
             if (answer!= null && answer.ToLower() == "n")
             {
@@ -104,9 +125,9 @@ static class PriceMenu
             else if (answer!= null && answer.ToLower() != "y")
             {
                 Console.WriteLine("Verkeerde input!");
-                EditPrice();
+                EditPriceCategory();
             }
-            UpdatePrice(price);
+            UpdatePriceCategory(priceModel);
         }
         else
         {
@@ -116,15 +137,37 @@ static class PriceMenu
         Menu.Start();
     
     }
-    public static void UpdatePrice(PriceModel price)
+    public static void UpdatePriceCategory(PriceModel priceModel)
     {
+        Console.WriteLine("Voer de nieuwe ID: ");
+        int NewID = Convert.ToInt32(Console.ReadLine());
 
+        // Check if the new ID already exists in the list
+        if (NewID != priceModel.ID && pricesLogic.GetPrices.Any(p => p.ID == NewID)) // pricesLogic.GetPrices is een list
+        {
+            Console.WriteLine("Dit ID bestaat al. Kies een ander ID.");
+            UpdatePriceCategory(priceModel);
+            return;
+        }
+        priceModel.ID = NewID;
+    
+        Console.WriteLine("Voer de naam van het nieuwe passenger type in: ");
+        string? NewPassenger = Console.ReadLine();
+        priceModel.Passenger = NewPassenger;
+
+        Console.WriteLine("Bepaal de nieuwe prijs: ");
+        double NewPrice = Convert.ToDouble(Console.ReadLine());
+        priceModel.Price = NewPrice;
+
+        pricesLogic.UpdateList(priceModel);
+        Console.WriteLine("De bewerking is voltooid, hier is het resultaat: ");
+        ShowPriceInformation(priceModel);
     }
-    public static void ShowPriceInformation(PriceModel price)
+    public static void ShowPriceInformation(PriceModel priceModel)
     {
-        Console.WriteLine($"ID: {price.ID}");
-        Console.WriteLine($"Passenger: {price.Passenger}");
-        Console.WriteLine($"Price: {price.Price}");
+        Console.WriteLine($"ID: {priceModel.ID}");
+        Console.WriteLine($"Passenger: {priceModel.Passenger}");
+        Console.WriteLine($"Price: {priceModel.Price}");
         Console.WriteLine("---------------");
     }
 
@@ -143,7 +186,6 @@ static class PriceMenu
 
     public static PriceModel SearchByID()
     {
-        Console.WriteLine("Voer een ID in om te zoeken: ");
         int ID = Convert.ToInt32(Console.ReadLine());
         PriceModel price = pricesLogic.GetById(ID);
         return price;
