@@ -10,31 +10,34 @@ static class Menu
         Console.WriteLine("[2] Account aanmaken.");
         Console.WriteLine("[3] informatie over de app.");
         Console.WriteLine("[4] Menu voor routes toevoegen");
+        Console.WriteLine("[5] Menu voor prijscategorieën");
+        Console.WriteLine("[6] Menu voor bussen");
 
         string? input = Console.ReadLine();
-        if (input == "1")
+        switch (input)
         {
-            UserLogin.Start();
+            case "1":
+                UserLogin.Start();
+                break;
+            case "2":
+                UserSignUp.Start();
+                break;
+            case "3":
+                Information.Info();
+                break;
+            case "4":
+                RouteMenu.Welcome();
+                break;
+            case "5":
+                PriceMenu.Start();
+                break;
+            case "6":
+                BusMenu.Start();
+                break;
+            default:
+                Console.WriteLine("Invalid input");
+                Menu.Start();
+                break;
         }
-        else if (input == "2")
-        {
-            UserSignUp.Start();
-        }
-        else if (input == "3")
-        {
-            Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
-            Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
-            Console.WriteLine("En op deze app/site kan je reserveren waar en wanneer je met ons mee wil rijden.");
-        }
-        else if (input == "4")
-        {
-            RouteMenu.Welcome();
-        }
-        else
-        {
-            Console.WriteLine("Invalid input");
-            Menu.Start();
-        }
-
     }
 }
