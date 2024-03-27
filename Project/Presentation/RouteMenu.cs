@@ -1,4 +1,5 @@
 using System.Data.Common;
+using System.Runtime.InteropServices;
 
 static public class RouteMenu
 {
@@ -7,9 +8,10 @@ static public class RouteMenu
         Console.WriteLine("\nWelkom bij het overzicht voor routes.");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
-        Console.WriteLine("[2] Een route aan een bus geven.");
-        Console.WriteLine("[3] Een route updaten.");
-        Console.WriteLine("[4] Een overzicht van alle routes.");
+        Console.WriteLine("[2] Een route updaten.");
+        Console.WriteLine("[3] Een overzicht van alle routes.");
+        Console.WriteLine("[4] ga naar menu voor tussenstops.");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
         
         string? input = Console.ReadLine();
         if (input == null)
@@ -25,11 +27,49 @@ static public class RouteMenu
     
     static public void Choice (string input)
     {
-        if (input == "1")
+        switch (input)
         {
-            List<RouteModel> list_of_routes = Overview();
+            case "1":
+                RouteMenu.AddRoute();
+                Welcome();
+                break;
+            case "2":
+                RouteMenu.UpdateRoute();
+                Welcome();
+                break;
+            case "3":
+                List<RouteModel> overview = RouteMenu.Overview();
+                foreach (RouteModel Route in overview)
+                {
+                    Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
+                }
+                Welcome();
+                break;
+            case "4":
+                StopMenu.Start();
+                break;
+            case "5":
+                Menu.Start();
+                break;
+            default:
+                Console.WriteLine($"\nDat is geen geldige opties. Let goed op u keuze.");
+                RouteMenu.Welcome();
+                break;
+        }
+    }
+
+    public static List<RouteModel> Overview()
+    {
+        RouteLogic LogicInstance = new RouteLogic();
+        List<RouteModel> overview = LogicInstance.GetAllRoutes();
+        return overview;
+    }
+
+    public static void AddRoute()
+    {
+        List<RouteModel> list_of_routes = Overview();
             int int_id = list_of_routes.Count();
-            int new_id = int_id++;
+            int new_id = int_id + 1;
             Console.WriteLine("Hoelang duurt de route in uur?");
             string? new_duration = Console.ReadLine();
             try
@@ -37,21 +77,16 @@ static public class RouteMenu
                 RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
                 RouteLogic new_logic = new RouteLogic();
                 new_logic.UpdateList(new_route);
-                Welcome();
             }
             catch (FormatException)
             {
                 Console.WriteLine("Invalid input! Please try again.");
-                Welcome();
             }
-        }
-        else if (input == "2")
-        {
-            Console.WriteLine("Waiting for bus code to be finished");
-        }
-        else if (input == "3")
-        {
-            RouteLogic loading = new RouteLogic();
+    }
+
+    public static void UpdateRoute()
+    {
+        RouteLogic loading = new RouteLogic();
             Console.WriteLine("Which of these IDs would you like to update.");
             foreach (RouteModel Route in loading.GetAllRoutes())
             {
@@ -64,7 +99,6 @@ static public class RouteMenu
                 if (RouteObject == null)
                 {
                     Console.WriteLine("That's not a valid id!");
-                    Welcome();
                 }
                 else
                 {
@@ -73,35 +107,11 @@ static public class RouteMenu
                     RouteObject.Duration = Convert.ToInt32(new_duration);
                     loading.UpdateList(RouteObject);
                     Console.WriteLine("Route has been updated");
-                    Welcome();
                 }
             }
             catch (FormatException)
             {
                 Console.WriteLine("Not an valid input");
-                Welcome();
             }
-        }
-        else if (input == "4")
-        {
-            List<RouteModel> overview = RouteMenu.Overview();
-            foreach (RouteModel Route in overview)
-            {
-                Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
-            }
-            Welcome();
-        }
-        else
-        {
-            Console.WriteLine($"\nDat is geen geldige opties. Let goed op u keuze.");
-            RouteMenu.Welcome();
-        }
-    }
-
-    public static List<RouteModel> Overview()
-    {
-        RouteLogic LogicInstance = new RouteLogic();
-        List<RouteModel> overview = LogicInstance.GetAllRoutes();
-        return overview;
     }
 }
