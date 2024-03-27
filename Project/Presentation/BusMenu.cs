@@ -20,14 +20,9 @@ static class BusMenu
                     // UpdatePrice();
                     break;
                 case "3":
-                    try{
                     BusLogic busLogic = new();
                     List<BusModel> ListAllBusses = busLogic.GetAllBusses();
                     ShowAllBusforamtion(ListAllBusses);
-                    break;
-                    }catch(Exception e){
-                        Console.WriteLine($"Error: {e.Message}");
-                    }
                     break;
                 default:
                     Console.WriteLine("Invalid input");
