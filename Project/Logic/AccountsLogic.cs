@@ -38,7 +38,7 @@ class AccountsLogic
         return false;
     }
     
-    public int FindNewId()
+    public int GenerateNewId()
     {
         foreach(AccountModel account in _accounts)
         {
