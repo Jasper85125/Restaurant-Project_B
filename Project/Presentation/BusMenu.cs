@@ -36,7 +36,7 @@ static class BusMenu
                     Menu.Start();
                     break;
                 default:
-                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("Verkeerde input!");
                     Start();
                     break;
             }

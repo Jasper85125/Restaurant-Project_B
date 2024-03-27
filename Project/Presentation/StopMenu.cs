@@ -26,19 +26,23 @@ public class StopMenu
         switch (input)
         {
             case "1":
+                Console.Clear();
                 StopMenu.AddStop();
                 Start();
                 break;
         
             case "2":
+                Console.Clear();
                 StopMenu.AddToRoute();
                 Start();
                 break;
             case "3":
+                Console.Clear();
                 PrintedOverview();
                 Start();
                 break;
             case "4":
+                Console.Clear();
                 RouteMenu.Welcome();
                 break;
             default:

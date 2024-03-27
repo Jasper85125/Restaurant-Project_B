@@ -9,9 +9,10 @@ static public class RouteMenu
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
-        Console.WriteLine("[3] Een overzicht van alle routes.");
-        Console.WriteLine("[4] ga naar menu voor tussenstops.");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
+        Console.WriteLine("[3] Een route aan bus toevoegen");
+        Console.WriteLine("[4] Een overzicht van alle routes.");
+        Console.WriteLine("[5] ga naar menu voor tussenstops.");
+        Console.WriteLine("[6] Ga terug naar het vorige menu.");
         
         string? input = Console.ReadLine();
         if (input == null)
@@ -30,21 +31,31 @@ static public class RouteMenu
         switch (input)
         {
             case "1":
+                Console.Clear();
                 RouteMenu.AddRoute();
                 Welcome();
                 break;
             case "2":
+                Console.Clear();
                 RouteMenu.UpdateRoute();
                 Welcome();
                 break;
             case "3":
-                RouteMenu.PrintedOverview();
+                Console.Clear();
+                AddToBus();
                 Welcome();
                 break;
             case "4":
-                StopMenu.Start();
+                Console.Clear();
+                RouteMenu.PrintedOverview();
+                Welcome();
                 break;
             case "5":
+                Console.Clear();
+                StopMenu.Start();
+                break;
+            case "6":
+                Console.Clear();
                 Menu.Start();
                 break;
             default:
@@ -118,5 +129,49 @@ static public class RouteMenu
             {
                 Console.WriteLine($"Het route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
             }
+    }
+
+    public static void AddToBus()
+    {
+        BusLogic busLogic = new();
+        List<BusModel> ListAllBusses = busLogic.GetAllBusses();
+        BusMenu.ShowAllBusforamtion(ListAllBusses);
+        Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
+        string? inputBus = Console.ReadLine();
+        try
+        {
+            BusLogic LogicInstance = new BusLogic ();
+            int intInputBus = Convert.ToInt32(inputBus);
+            BusModel bus = LogicInstance.GetById(intInputBus);
+            PrintedOverview();
+            Console.WriteLine($"Welke route wilt u toevoegen aan de bus met ID: {bus.Id}?");
+            string? inputRoute = Console.ReadLine();
+            try
+            {
+                int intInputRoute = Convert.ToInt32(inputRoute);
+                RouteLogic routeLogicInstance = new RouteLogic ();
+                RouteModel routeModel = routeLogicInstance.GetById(intInputRoute);
+                if (routeModel == null)
+                {
+                    Console.WriteLine("Verkeerde input. Er bestaat geen  met dat ID.");
+                    AddToBus();
+                }
+                else
+                {
+
+                    bus.AddRoute(intInputRoute);
+                    LogicInstance.UpdateList(bus);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Verkeerde input. Probeer het nog een keer.");
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"Verkeerde input. Probeer het nog een keer.");
+            AddToBus();
+        }
     }
 }
