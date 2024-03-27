@@ -63,7 +63,7 @@ static class BusMenu
         List<BusModel> list_of_busses = Overview();
             int int_id = list_of_busses.Count();
             int new_id = int_id + 1;
-            Console.WriteLine("Hoeveel zitplaatsen heef deze bus?");
+            Console.WriteLine("Hoeveel zitplaatsen heeft deze bus?");
             string? new_seats = Console.ReadLine();
             Console.WriteLine("Wat is de kenteken van de bus?");
             string? new_licensePlate = Console.ReadLine();
