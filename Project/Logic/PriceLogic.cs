@@ -2,7 +2,7 @@ class PriceLogic
 {
     private List<PriceModel> _prices;
 
-    // static public PriceModel? CurrentPrice{ get; private set; }
+    static public PriceModel? CurrentPrice{ get; private set; }
     public List<PriceModel> Prices {get => _prices;} // Readonly
 
 
@@ -14,7 +14,7 @@ class PriceLogic
     public void UpdateList(PriceModel price)
     {
         //Find if there is already an model with the same id
-        int index = _prices.FindIndex(p => p.Id == price.Id);
+        int index = _prices.FindIndex(p => p.ID == price.ID);
 
         if (index != -1)
         {
@@ -31,9 +31,8 @@ class PriceLogic
 
     public PriceModel GetById(int id)
     {
-        return _prices.Find(p => p.Id == id);
+        return _prices.Find(p => p.ID == id);
     }
-
 
 }
 

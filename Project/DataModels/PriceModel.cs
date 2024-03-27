@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 class PriceModel
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public int ID { get; set; }
 
     [JsonPropertyName("passenger")]
     public string Passenger { get; set; }
@@ -14,7 +14,7 @@ class PriceModel
 
     public PriceModel(int id, string passenger, int price)
     {
-        Id = id;
+        ID = id;
         Passenger = passenger;
         Price = price;
     }
