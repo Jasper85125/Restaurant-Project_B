@@ -139,9 +139,18 @@ static class PriceMenu
     }
     public static void UpdatePriceCategory(PriceModel priceModel)
     {
-        Console.WriteLine("Voer een ID: ");
+        Console.WriteLine("Voer de nieuwe ID: ");
         int NewID = Convert.ToInt32(Console.ReadLine());
+
+        // Check if the new ID already exists in the list
+        if (NewID != priceModel.ID && pricesLogic.GetPrices.Any(p => p.ID == NewID)) // pricesLogic.GetPrices is een list
+        {
+            Console.WriteLine("Dit ID bestaat al. Kies een ander ID.");
+            UpdatePriceCategory(priceModel);
+            return;
+        }
         priceModel.ID = NewID;
+    
         Console.WriteLine("Voer de naam van het nieuwe passenger type in: ");
         string? NewPassenger = Console.ReadLine();
         priceModel.Passenger = NewPassenger;
