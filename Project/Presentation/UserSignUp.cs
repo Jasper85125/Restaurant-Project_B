@@ -54,7 +54,7 @@ static class UserSignUp
         Console.WriteLine($"Welcome {acc.FullName}.");
         Console.WriteLine("Uw account is aangemaakt.");
 
-        Console.WriteLine("Uw keert terug naar het menu.");
+        Console.WriteLine("U keert terug naar het menu.");
         Menu.Start();
     }
 }

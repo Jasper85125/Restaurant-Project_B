@@ -1,9 +1,9 @@
 class PriceLogic
 {
     private List<PriceModel> _prices;
-
+    private List<int> IDsList = new List<int>();
     static public PriceModel? CurrentPrice{ get; private set; }
-    public List<PriceModel> Prices {get => _prices;} // Readonly
+    public List<PriceModel> GetPrices {get => _prices;} // Readonly
 
 
     public PriceLogic()
@@ -32,6 +32,21 @@ class PriceLogic
     public PriceModel GetById(int id)
     {
         return _prices.Find(p => p.ID == id);
+    }
+
+    public int GenerateNewId()
+    {
+        foreach(PriceModel price in _prices)
+        {
+            IDsList.Add(price.ID);
+        }
+        int newId = 1;
+        while (IDsList.Contains(newId))
+        {
+            newId++;
+        }
+
+        return newId;
     }
 
 }

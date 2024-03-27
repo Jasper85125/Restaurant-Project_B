@@ -50,7 +50,7 @@ class AccountsLogic
             newId++;
         }
 
-    return newId;
+        return newId;
     }
 
     public void UpdateList(AccountModel acc)
