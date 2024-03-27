@@ -38,11 +38,7 @@ static public class RouteMenu
                 Welcome();
                 break;
             case "3":
-                List<RouteModel> overview = RouteMenu.Overview();
-                foreach (RouteModel Route in overview)
-                {
-                    Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
-                }
+                RouteMenu.PrintedOverview();
                 Welcome();
                 break;
             case "4":
@@ -80,17 +76,17 @@ static public class RouteMenu
             }
             catch (FormatException)
             {
-                Console.WriteLine("Invalid input! Please try again.");
+                Console.WriteLine("Verkeerde input. Probeer het nog eens.");
             }
     }
 
     public static void UpdateRoute()
     {
         RouteLogic loading = new RouteLogic();
-            Console.WriteLine("Which of these IDs would you like to update.");
+            Console.WriteLine("Welk van deze IDs zou u willen updaten.");
             foreach (RouteModel Route in loading.GetAllRoutes())
             {
-                Console.WriteLine($"The Route ID is {Route.Id} and the duration of the trip is {Route.Duration} hours");
+                Console.WriteLine($"Het Route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
             }
             string? id_to_be_updated = Console.ReadLine();
             try
@@ -98,20 +94,29 @@ static public class RouteMenu
                 RouteModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
                 if (RouteObject == null)
                 {
-                    Console.WriteLine("That's not a valid id!");
+                    Console.WriteLine("Dat is geen geldig ID!");
                 }
                 else
                 {
-                    Console.WriteLine("What is the new duration of the route?");
+                    Console.WriteLine("Wat is de duur van de route?");
                     string? new_duration = Console.ReadLine();
                     RouteObject.Duration = Convert.ToInt32(new_duration);
                     loading.UpdateList(RouteObject);
-                    Console.WriteLine("Route has been updated");
+                    Console.WriteLine("Route is geüpdatet");
                 }
             }
             catch (FormatException)
             {
-                Console.WriteLine("Not an valid input");
+                Console.WriteLine("Geen gelidg input");
+            }
+    }
+
+    public static void PrintedOverview()
+    {
+        List<RouteModel> overview = RouteMenu.Overview();
+            foreach (RouteModel Route in overview)
+            {
+                Console.WriteLine($"Het route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
             }
     }
 }
