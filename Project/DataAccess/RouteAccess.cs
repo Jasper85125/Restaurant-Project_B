@@ -2,7 +2,7 @@ using System.Text.Json;
 
 static class RouteAccess
 {
-    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Routes.json"));
+    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/routes.json"));
 
 
     public static List<RouteModel> LoadAll()
@@ -18,7 +18,5 @@ static class RouteAccess
         string json = JsonSerializer.Serialize(routes, options);
         File.WriteAllText(path, json);
     }
-
-
 
 }
