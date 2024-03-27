@@ -8,10 +8,14 @@ class BusModel
     [JsonPropertyName("seats")]
     public int Seats { get; set; }
 
-    public BusModel(int id, int seats)
+    [JsonPropertyName("licensePlate")]
+    public string LicensePlate { get; set; }
+
+    public BusModel(int id, int seats, string licensePlate)
     {
         Id = id;
         Seats = seats;
+        LicensePlate = licensePlate;
     }
 
 }
