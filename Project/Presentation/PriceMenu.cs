@@ -1,3 +1,5 @@
+using System.Formats.Asn1;
+
 static class PriceMenu
 {
     static private PriceLogic pricesLogic = new();
@@ -7,7 +9,7 @@ static class PriceMenu
         Console.WriteLine("\nWelkom bij het overzicht voor prijzen.");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een prijs categorie toevoegen.");
-        Console.WriteLine("[2] Een prijs categorie updaten.");
+        Console.WriteLine("[2] Een prijs categorie Editen.");
         Console.WriteLine("[3] Een overzicht van alle prijscategorieën.");
         string? input = Console.ReadLine();
         if (input != null)
@@ -18,14 +20,14 @@ static class PriceMenu
                     AddPrice();
                     break;
                 case "2":
-                    // UpdatePrice();
+                    EditPrice();
                     break;
                 case "3":
-                    List<PriceModel> ListAllPrices = pricesLogic.Prices;
-                    ShowAllPriceInforamtion(ListAllPrices);
+                    ShowAllPricesInforamtion();
+
                     break;
                 default:
-                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("Verkeerde input!");
                     Start();
                     break;
             }
@@ -55,7 +57,64 @@ static class PriceMenu
 
     public static void AddPrice()
     {
+        Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
+        ShowAllPricesInforamtion();
+        Console.WriteLine("Wilt u nog een prijs categorie toevoegen? Y/N: ");
+        string? answer = Console.ReadLine();
 
+        if (answer!= null && answer.ToLower() == "n")
+        {
+            Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
+            Menu.Start();
+        }
+        else if (answer!= null && answer.ToLower() != "y")
+        {
+            Console.WriteLine("Verkeerde input!");
+            AddPrice();
+        }
+
+        Console.WriteLine("Voer de naam van het nieuwe passenger type in: ");
+        string? passenger = Console.ReadLine();
+        Console.WriteLine("Bepaal de prijs voor de nieuwe passenger: ");
+        double price = Convert.ToDouble(Console.ReadLine());
+
+        PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), passenger, price);
+        pricesLogic.UpdateList(NewPriceCategory);
+        Console.WriteLine($"De prijs categorie '{passenger}' is toevoegd");
+        ShowPriceInformation(NewPriceCategory);
+        Console.WriteLine($"\nU keert terug naar het startscherm.\n");
+        Menu.Start(); 
+    }
+
+    public static void EditPrice()
+    {
+        Console.WriteLine("Een overzicht van alle prijscategorieën");
+        ShowAllPricesInforamtion();
+        PriceModel price = SearchByID();
+        if (price != null)
+        {
+            ShowPriceInformation(price);
+            Console.WriteLine("Wilt u deze prijscategorie bewerken ? Y/N: ");
+            string? answer = Console.ReadLine();
+            if (answer!= null && answer.ToLower() == "n")
+            {
+                Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
+                Menu.Start();
+            }
+            else if (answer!= null && answer.ToLower() != "y")
+            {
+                Console.WriteLine("Verkeerde input!");
+                EditPrice();
+            }
+            UpdatePrice(price);
+        }
+        else
+        {
+            Console.WriteLine("Geen prijscategorie gevonden");
+        }
+        Console.WriteLine("U keert terug naar het startscherm.\n");
+        Menu.Start();
+    
     }
     public static void UpdatePrice(PriceModel price)
     {
@@ -66,22 +125,25 @@ static class PriceMenu
         Console.WriteLine($"ID: {price.ID}");
         Console.WriteLine($"Passenger: {price.Passenger}");
         Console.WriteLine($"Price: {price.Price}");
+        Console.WriteLine("---------------");
     }
 
-    public static void ShowAllPriceInforamtion (List<PriceModel> listAllPrices)
+    public static void ShowAllPricesInforamtion()
     {
-        foreach (PriceModel price in listAllPrices)
+        List<PriceModel> ListAllPrices = pricesLogic.GetPrices;
+        
+        foreach (PriceModel price in ListAllPrices)
         {
             Console.WriteLine($"ID: {price.ID}");
             Console.WriteLine($"Passenger: {price.Passenger}");
             Console.WriteLine($"Price: {price.Price}");
+            Console.WriteLine("---------------");
         }
-
-    } 
+    }
 
     public static PriceModel SearchByID()
     {
-        Console.WriteLine("Enter an ID to search: ");
+        Console.WriteLine("Voer een ID in om te zoeken: ");
         int ID = Convert.ToInt32(Console.ReadLine());
         PriceModel price = pricesLogic.GetById(ID);
         return price;

@@ -1,14 +1,12 @@
 [
-	{
-		"id": 1,
-		"seats": 60
-	},
-	{
-		"id": 2,
-		"seats": 60
-	},
-	{
-		"id": 3,
-		"seats": 60
-	}
+  {
+    "id": 1,
+    "seats": 40,
+    "licensePlate": "WW-56-28"
+  },
+  {
+    "id": 2,
+    "seats": 60,
+    "licensePlate": "63-WP-GG"
+  }
 ]
