@@ -18,4 +18,9 @@ public class RouteModel
         Duration = duration;
         Stops = new List<int>{};
     }
+
+    public void AddStop(int id)
+    {
+        Stops.Add(id);
+    }
 }

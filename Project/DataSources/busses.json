@@ -2,11 +2,21 @@
   {
     "id": 1,
     "seats": 40,
-    "licensePlate": "WW-56-28"
+    "licensePlate": "WW-56-28",
+    "route": [
+      1
+    ]
   },
   {
     "id": 2,
     "seats": 60,
-    "licensePlate": "63-WP-GG"
+    "licensePlate": "63-WP-GG",
+    "route": []
+  },
+  {
+    "id": 3,
+    "seats": 60,
+    "licensePlate": "WW-123-MK",
+    "route": []
   }
 ]

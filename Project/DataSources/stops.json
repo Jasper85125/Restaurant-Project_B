@@ -1,14 +1,30 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "name": "Beurs"
   },
   {
-    "id": 1,
+    "id": 2,
     "name": "Stadhuis"
   },
   {
     "id": 3,
     "name": "Leuvehaven"
+  },
+  {
+    "id": 4,
+    "name": "Blaak"
+  },
+  {
+    "id": 5,
+    "name": "Gouda"
+  },
+  {
+    "id": 6,
+    "name": "Prinsenstraat"
+  },
+  {
+    "id": 7,
+    "name": "Maashaven"
   }
 ]

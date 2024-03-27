@@ -26,23 +26,23 @@ public class StopMenu
         switch (input)
         {
             case "1":
+                Console.Clear();
                 StopMenu.AddStop();
                 Start();
                 break;
         
             case "2":
-                //StopMenu.UpdateStops();
+                Console.Clear();
+                StopMenu.AddToRoute();
                 Start();
                 break;
             case "3":
-                List<StopModel> overview = Overview();
-                foreach (StopModel stop in overview)
-                {
-                    Console.WriteLine($"The Stop ID is {stop.Id} and the name of the stop is {stop.Name}.");
-                }
+                Console.Clear();
+                PrintedOverview();
                 Start();
                 break;
             case "4":
+                Console.Clear();
                 RouteMenu.Welcome();
                 break;
             default:
@@ -57,6 +57,15 @@ public class StopMenu
         StopLogic LogicInstance = new StopLogic();
         List<StopModel> overview = LogicInstance.GetAllStops();
         return overview;
+    }
+
+    public static void PrintedOverview()
+    {
+        List<StopModel> overview = Overview();
+            foreach (StopModel stop in overview)
+            {
+                Console.WriteLine($"Het Stop ID is {stop.Id} en de naam van de stop is {stop.Name}.");
+            }
     }
 
     public static void AddStop()
@@ -74,7 +83,50 @@ public class StopMenu
         }
         catch (FormatException)
         {
-            Console.WriteLine("Invalid input! Please try again.");
+            Console.WriteLine("Verkeerde input. Probeer het nog een keer.");
+            AddStop();
+        }
+    }
+
+    public static void AddToRoute()
+    {
+        RouteMenu.PrintedOverview();
+        Console.WriteLine("\nAan welke van deze routes wilt u een stop toevoegen?");
+        string? inputRoute = Console.ReadLine();
+        try
+        {
+            RouteLogic LogicInstance = new RouteLogic ();
+            int intInputRoute = Convert.ToInt32(inputRoute);
+            RouteModel route = LogicInstance.GetById(intInputRoute);
+            PrintedOverview();
+            Console.WriteLine($"Welke stop wilt u toevoegen aan de route met ID: {route.Id}?");
+            string? inputStop = Console.ReadLine();
+            try
+            {
+                int intInputStop = Convert.ToInt32(inputStop);
+                StopLogic stopLogicInstance = new StopLogic ();
+                StopModel stopModel = stopLogicInstance.GetById(intInputStop);
+                if (stopModel == null)
+                {
+                    Console.WriteLine("Verkeerde input. Er bestaat geen stop met dat ID.");
+                    AddToRoute();
+                }
+                else
+                {
+
+                    route.AddStop(intInputStop);
+                    LogicInstance.UpdateList(route);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Verkeerde input. Probeer het nog een keer.");
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"Verkeerde input. Probeer het nog een keer.");
+            AddToRoute();
         }
     }
 }
