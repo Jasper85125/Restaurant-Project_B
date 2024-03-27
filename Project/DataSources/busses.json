@@ -8,40 +8,5 @@
     "id": 2,
     "seats": 60,
     "licensePlate": "63-WP-GG"
-  },
-  {
-    "id": 3,
-    "seats": 60,
-    "licensePlate": "test"
-  },
-  {
-    "id": 4,
-    "seats": 60,
-    "licensePlate": "TT-UF-23"
-  },
-  {
-    "id": 5,
-    "seats": 60,
-    "licensePlate": "75-GN-WN"
-  },
-  {
-    "id": 6,
-    "seats": 50,
-    "licensePlate": "test"
-  },
-  {
-    "id": 7,
-    "seats": 40,
-    "licensePlate": "test"
-  },
-  {
-    "id": 8,
-    "seats": 40,
-    "licensePlate": "BE-52-B2"
-  },
-  {
-    "id": 9,
-    "seats": 60,
-    "licensePlate": "TW-23-52"
   }
 ]
