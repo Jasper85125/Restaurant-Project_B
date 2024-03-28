@@ -69,7 +69,7 @@ static class BusMenu
             string? new_licensePlate = Console.ReadLine();
             try
             {
-                BusModel new_bus = new BusModel(Convert.ToInt32(new_id), Convert.ToInt32(new_seats), Convert.ToString(new_licensePlate));
+                BusModel new_bus = new BusModel(Convert.ToInt32(new_id), Convert.ToInt32(new_seats), new_licensePlate);
                 BusLogic new_logic = new BusLogic();
                 new_logic.UpdateList(new_bus);
                 Console.WriteLine("Bus is succesvol toegevoegd!")
@@ -131,6 +131,7 @@ static class BusMenu
                     Console.WriteLine("Invalid option selected.");
                     ;System.Threading.Thread.Sleep(3000);
                     Console.Clear();
+                    UpdateBus();
                 }
                 
                 loading.UpdateList(RouteObject);
@@ -153,14 +154,5 @@ static class BusMenu
         }
 
     } 
-
-    public static BusModel SearchByID()
-    {
-        BusLogic busLogic = new();
-        Console.WriteLine("Enter an ID to search: ");
-        int ID = Convert.ToInt32(Console.ReadLine());
-        BusModel bus = busLogic.GetById(ID);
-        return bus;
-    }
 
 }
