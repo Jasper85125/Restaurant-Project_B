@@ -11,25 +11,38 @@ static class PriceMenu
         Console.WriteLine("[2] Een prijs categorie editen.");
         Console.WriteLine("[3] Een prijs categorie verwijderen.");
         Console.WriteLine("[4] Een overzicht van alle prijscategorieën.");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
         string? input = Console.ReadLine();
         if (input != null)
         {
             switch (input)
             {
                 case "1":
+                    Console.Clear();
                     AddPriceCategory();
                     break;
                 case "2":
+                    Console.Clear();
                     EditPriceCategory();
                     break;
                 case "3":
+                    Console.Clear();
                     DeletePriceCategory();
                     break;
                 case "4":
-                    ShowAllPricesInforamtion();
+                    Console.Clear();
+                    ShowAllPricesInformation();
+                    AfterShowingInformation();
+                    break;
+                case "5":
+                    Console.Clear();
+                    BackToStartMenu();
+                    Menu.Start();
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("Verkeerde input!");
+                    ;System.Threading.Thread.Sleep(3000);
                     Start();
                     break;
             }
@@ -38,6 +51,7 @@ static class PriceMenu
         else
         {
             Console.WriteLine("Verkeerde input!");
+            ;System.Threading.Thread.Sleep(3000);
             Start();
         }
     }
@@ -45,7 +59,7 @@ static class PriceMenu
     public static void DeletePriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt verwijderen: ");
         PriceModel priceModel = SearchByID();
 
@@ -56,12 +70,13 @@ static class PriceMenu
             string? answer = Console.ReadLine();
             if (answer!= null && answer.ToLower() == "n")
             {
-                Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
-                Menu.Start();
+                Console.WriteLine("Uw antwoord is nee.");
+                BackToStartMenu();
             }
             else if (answer!= null && answer.ToLower() != "y")
             {
                 Console.WriteLine("Verkeerde input!");
+                ;System.Threading.Thread.Sleep(3000);
                 DeletePriceCategory();
             }
 
@@ -71,26 +86,27 @@ static class PriceMenu
         else
         {
             Console.WriteLine("Geen prijscategorie gevonden");
+            ;System.Threading.Thread.Sleep(3000);
         }
-        Console.WriteLine("U keert terug naar het startscherm.\n");
-        Menu.Start();
+        BackToStartMenu();
 
     }
     public static void AddPriceCategory()
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Wilt u nog een prijs categorie toevoegen? Y/N: ");
         string? answer = Console.ReadLine();
 
         if (answer!= null && answer.ToLower() == "n")
         {
-            Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
-            Menu.Start();
+            Console.WriteLine("Uw antwoord is nee.");
+            BackToStartMenu();
         }
         else if (answer!= null && answer.ToLower() != "y")
         {
             Console.WriteLine("Verkeerde input!");
+            ;System.Threading.Thread.Sleep(3000);
             AddPriceCategory();
         }
 
@@ -102,14 +118,13 @@ static class PriceMenu
         PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), NewPassenger, NewPrice);
         pricesLogic.UpdateList(NewPriceCategory);
         Console.WriteLine($"De prijs categorie '{NewPassenger}' is toevoegd");
-        ShowPriceInformation(NewPriceCategory);
-        Console.WriteLine($"\nU keert terug naar het startscherm.\n");
-        Menu.Start(); 
+        ;System.Threading.Thread.Sleep(2000);
+        BackToStartMenu();
     }
     public static void EditPriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt bewerken: ");
         PriceModel priceModel = SearchByID();
         if (priceModel != null)
@@ -119,12 +134,13 @@ static class PriceMenu
             string? answer = Console.ReadLine();
             if (answer!= null && answer.ToLower() == "n")
             {
-                Console.WriteLine("Uw antwoord is nee. \nU keert terug naar het startscherm.\n");
-                Menu.Start();
+                Console.WriteLine("Uw antwoord is nee.");
+                BackToStartMenu();
             }
             else if (answer!= null && answer.ToLower() != "y")
             {
                 Console.WriteLine("Verkeerde input!");
+                ;System.Threading.Thread.Sleep(3000);
                 EditPriceCategory();
             }
             UpdatePriceCategory(priceModel);
@@ -133,8 +149,7 @@ static class PriceMenu
         {
             Console.WriteLine("Geen prijscategorie gevonden");
         }
-        Console.WriteLine("U keert terug naar het startscherm.\n");
-        Menu.Start();
+        BackToStartMenu();
     
     }
     public static void UpdatePriceCategory(PriceModel priceModel)
@@ -162,6 +177,7 @@ static class PriceMenu
         pricesLogic.UpdateList(priceModel);
         Console.WriteLine("De bewerking is voltooid, hier is het resultaat: ");
         ShowPriceInformation(priceModel);
+        BackToStartMenu();
     }
     public static void ShowPriceInformation(PriceModel priceModel)
     {
@@ -171,7 +187,7 @@ static class PriceMenu
         Console.WriteLine("---------------");
     }
 
-    public static void ShowAllPricesInforamtion()
+    public static void ShowAllPricesInformation()
     {
         List<PriceModel> ListAllPrices = pricesLogic.GetPrices;
         
@@ -191,4 +207,21 @@ static class PriceMenu
         return price;
     }
 
+    public static void BackToStartMenu()
+    {
+        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        ;System.Threading.Thread.Sleep(3000);
+        Menu.Start();
+    }
+
+    public static void AfterShowingInformation()
+    {
+        string answer = "";
+        while (answer.ToLower() !="y")
+        {       
+            Console.WriteLine("Om terug te gaan naar het Startmenu voer y in.");
+            answer = Console.ReadLine();
+        }
+        BackToStartMenu();
+    }
 }

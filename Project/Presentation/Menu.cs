@@ -6,6 +6,7 @@ static class Menu
     //You could edit this to show different menus depending on the user's role
     static public void Start()
     {
+        Console.Clear();
         Console.WriteLine("[1] Inloggen op uw account.");
         Console.WriteLine("[2] Account aanmaken.");
         Console.WriteLine("[3] informatie over de app.");
@@ -35,7 +36,7 @@ static class Menu
                 BusMenu.Start();
                 break;
             default:
-                Console.WriteLine("Invalid input");
+                Console.WriteLine("Verkeerde input");
                 Menu.Start();
                 break;
         }
