@@ -31,8 +31,8 @@ static class PriceMenu
                     break;
                 case "4":
                     Console.Clear();
-                    ShowAllPricesInforamtion();
-                    AfterShowingInforamtion();
+                    ShowAllPricesInformation();
+                    AfterShowingInformation();
                     break;
                 case "5":
                     Console.Clear();
@@ -59,7 +59,7 @@ static class PriceMenu
     public static void DeletePriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt verwijderen: ");
         PriceModel priceModel = SearchByID();
 
@@ -94,7 +94,7 @@ static class PriceMenu
     public static void AddPriceCategory()
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Wilt u nog een prijs categorie toevoegen? Y/N: ");
         string? answer = Console.ReadLine();
 
@@ -124,7 +124,7 @@ static class PriceMenu
     public static void EditPriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInforamtion();
+        ShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt bewerken: ");
         PriceModel priceModel = SearchByID();
         if (priceModel != null)
@@ -187,7 +187,7 @@ static class PriceMenu
         Console.WriteLine("---------------");
     }
 
-    public static void ShowAllPricesInforamtion()
+    public static void ShowAllPricesInformation()
     {
         List<PriceModel> ListAllPrices = pricesLogic.GetPrices;
         
@@ -214,7 +214,7 @@ static class PriceMenu
         Menu.Start();
     }
 
-    public static void AfterShowingInforamtion()
+    public static void AfterShowingInformation()
     {
         string answer = "";
         while (answer.ToLower() !="y")
