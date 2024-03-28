@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 
 //This class is not static so later on we can use inheritance and interfaces
-class AccountsLogic
+public class AccountsLogic
 {
     private List<AccountModel> _accounts;
     private List<int> IdsList = new List<int>();
