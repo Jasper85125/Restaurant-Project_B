@@ -1,10 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Beurs"
+    "name": "Beurs",
+    "time": null
   },
   {
     "id": 2,
-    "name": "Stadhuis"
+    "name": "Stadhuis",
+    "time": null
+  },
+  {
+    "id": 3,
+    "name": "Blaak",
+    "time": null
   }
 ]

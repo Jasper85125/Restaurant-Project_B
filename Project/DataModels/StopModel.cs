@@ -9,9 +9,13 @@ public class StopModel
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
+    [JsonPropertyName("time")]
+    public string Time { get; set; }
+
     public StopModel(int id, string name)
     {
         Id = id;
         Name = name;
+        Time = null;
     }
 }

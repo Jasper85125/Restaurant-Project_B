@@ -1,11 +1,12 @@
 using System.Data.Common;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 static public class RouteMenu
 {
     static public void Welcome()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor routes.");
+        Console.WriteLine("\nWelkom bij het overzicht voor routes.\n");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
@@ -32,12 +33,12 @@ static public class RouteMenu
         {
             case "1":
                 Console.Clear();
-                RouteMenu.AddRoute();
+                AddRoute();
                 Welcome();
                 break;
             case "2":
                 Console.Clear();
-                RouteMenu.UpdateRoute();
+                UpdateRoute();
                 Welcome();
                 break;
             case "3":
@@ -47,7 +48,8 @@ static public class RouteMenu
                 break;
             case "4":
                 Console.Clear();
-                RouteMenu.PrintedOverview();
+                PrintedOverview();
+                MoreInformation();
                 Welcome();
                 break;
             case "5":
@@ -132,6 +134,51 @@ static public class RouteMenu
             }
     }
 
+    public static void MoreInformation()
+    {
+        RouteLogic loading = new RouteLogic();
+        Console.WriteLine("Wilt u meer informatie over een route Y/N");
+        string? answer = Console.ReadLine();
+        if (answer.ToLower() == "y" || answer.ToLower() == "n")
+        {
+            if (answer.ToLower() == "y")
+            {
+                Console.WriteLine("Over welke route wilt u meer informatie?");
+                string? idMoreInfo = Console.ReadLine();
+                try
+                {
+                    RouteModel RouteObject = loading.GetById(Convert.ToInt32(idMoreInfo));
+                    if (RouteObject == null)
+                    {
+                        Console.WriteLine("Dat is geen geldig ID!");
+                        MoreInformation();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes.");
+                        foreach (StopModel Stop in RouteObject.Stops)
+                        {
+                            Console.WriteLine($"{Stop.Name}");
+                        }
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Geen gelidg input");
+                }
+            }
+            else
+            {
+                Console.WriteLine("U wordt terug gezet naar het vorige menu.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Verkeerde input. type y of n.");
+            MoreInformation();
+        }
+    }
+
     public static void AddToBus()
     {
         BusLogic busLogic = new();
@@ -144,6 +191,11 @@ static public class RouteMenu
             BusLogic LogicInstance = new BusLogic ();
             int intInputBus = Convert.ToInt32(inputBus);
             BusModel bus = LogicInstance.GetById(intInputBus);
+            if (BusMenu.HasRoute(bus))
+            {
+                Console.WriteLine("Deze bus heeft al een aangewezen route.");
+                Welcome();
+            }
             PrintedOverview();
             Console.WriteLine($"Welke route wilt u toevoegen aan de bus met ID: {bus.Id}?");
             string? inputRoute = Console.ReadLine();
@@ -160,7 +212,7 @@ static public class RouteMenu
                 else
                 {
 
-                    bus.AddRoute(intInputRoute);
+                    bus.AddRoute(routeModel);
                     LogicInstance.UpdateList(bus);
                 }
             }

@@ -10,17 +10,25 @@ public class RouteModel
     public int Duration { get; set; }
 
     [JsonPropertyName("stops")]
-    public List<int> Stops { get; set; }
+    public List<StopModel> Stops { get; set; }
+
+    [JsonPropertyName("begin")]
+    public string beginTime { get; set; }
+
+    [JsonPropertyName("end")]
+    public string endTime { get; set; }
 
     public RouteModel(int id, int duration)
     {
         Id = id;
         Duration = duration;
-        Stops = new List<int>{};
+        Stops = new List<StopModel>{};
+        beginTime = null;
+        endTime = null;
     }
 
-    public void AddStop(int id)
+    public void AddStop(StopModel stop)
     {
-        Stops.Add(id);
+        Stops.Add(stop);
     }
 }
