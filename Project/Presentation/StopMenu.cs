@@ -114,7 +114,7 @@ public class StopMenu
                 else
                 {
 
-                    route.AddStop(intInputStop);
+                    route.AddStop(stopModel);
                     LogicInstance.UpdateList(route);
                 }
             }
