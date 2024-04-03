@@ -210,7 +210,7 @@ static class BusMenu
             else
             {
                 Console.WriteLine("Deze bus heeft nog geen route aangewezen gekregen.");
-                AddTime();
+                Start();
             }
         }
         catch (Exception)
