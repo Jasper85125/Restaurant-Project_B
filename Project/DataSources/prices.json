@@ -9,9 +9,10 @@
     "passenger": "adult",
     "price": 20
   },
+ 
   {
-    "id": 3,
-    "passenger": "elder",
-    "price": 15
+    "id": 4,
+    "passenger": "baby",
+    "price": 0
   }
 ]

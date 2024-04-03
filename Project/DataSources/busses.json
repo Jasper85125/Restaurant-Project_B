@@ -33,7 +33,26 @@
     "id": 2,
     "seats": 60,
     "licensePlate": "63-WP-GG",
-    "route": []
+    "route": [
+      {
+        "id": 3,
+        "duration": 1,
+        "stops": [
+          {
+            "id": 1,
+            "name": "Beurs",
+            "time": "1400"
+          },
+          {
+            "id": 2,
+            "name": "Stadhuis",
+            "time": "1500"
+          }
+        ],
+        "begin": "1300",
+        "end": "1600"
+      }
+    ]
   },
   {
     "id": 3,

@@ -77,20 +77,27 @@ static public class RouteMenu
     public static void AddRoute()
     {
         List<RouteModel> list_of_routes = Overview();
-            int int_id = list_of_routes.Count();
-            int new_id = int_id + 1;
-            Console.WriteLine("Hoelang duurt de route in uur?");
-            string? new_duration = Console.ReadLine();
-            try
-            {
-                RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
-                RouteLogic new_logic = new RouteLogic();
-                new_logic.UpdateList(new_route);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Verkeerde input. Probeer het nog eens.");
-            }
+        int int_id = list_of_routes.Count();
+        int new_id = int_id + 1;
+        Console.WriteLine("Wat is de naam van de nieuwe route?");
+        string? newName = Console.ReadLine();
+        while (newName == null)
+        {
+            Console.WriteLine("Wat is de naam van de nieuwe route?");
+            newName = Console.ReadLine();
+        }
+        Console.WriteLine("Hoelang duurt de route in uur?");
+        string? new_duration = Console.ReadLine();
+        try
+        {
+            RouteModel newRoute = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration), newName);
+            RouteLogic newLogic = new RouteLogic();
+            newLogic.UpdateList(newRoute);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Verkeerde input. Probeer het nog eens.");
+        }
     }
 
     public static void UpdateRoute()
@@ -129,7 +136,7 @@ static public class RouteMenu
         List<RouteModel> overview = RouteMenu.Overview();
             foreach (RouteModel Route in overview)
             {
-                Console.WriteLine($"\nHet route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
+                Console.WriteLine($"\nHet route ID is {Route.Id}. De naam van de route is {Route.Name} en de duur van de rit is {Route.Duration} uur.");
                 Console.WriteLine($"De route heeft {Route.Stops.Count()} tussenstops");
             }
     }

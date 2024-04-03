@@ -9,6 +9,9 @@ public class RouteModel
     [JsonPropertyName("duration")]
     public int Duration { get; set; }
 
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
     [JsonPropertyName("stops")]
     public List<StopModel> Stops { get; set; }
 
@@ -18,10 +21,11 @@ public class RouteModel
     [JsonPropertyName("end")]
     public string endTime { get; set; }
 
-    public RouteModel(int id, int duration)
+    public RouteModel(int id, int duration, string name)
     {
         Id = id;
         Duration = duration;
+        Name = name;
         Stops = new List<StopModel>{};
         beginTime = null;
         endTime = null;
