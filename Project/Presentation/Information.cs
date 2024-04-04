@@ -23,7 +23,7 @@ static public class Information
         public static void BackToStartMenu()
     {
         Console.WriteLine("U keert terug naar het Startmenu.\n");
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Menu.Start();
     }
 
