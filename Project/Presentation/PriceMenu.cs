@@ -68,6 +68,10 @@ static class PriceMenu
             ShowPriceInformation(priceModel);
             Console.WriteLine("Wilt u deze prijscategorie verwijderen? Y/N: ");
             string? answer = Console.ReadLine();
+            // if (Helper.IsString(answer))
+            // {
+            //     System.Console.WriteLine("asdsasa");
+            // }
             if (answer!= null && answer.ToLower() == "n")
             {
                 Console.WriteLine("Uw antwoord is nee.");
@@ -106,7 +110,7 @@ static class PriceMenu
         else if (answer!= null && answer.ToLower() != "y")
         {
             Console.WriteLine("Verkeerde input!");
-            ;System.Threading.Thread.Sleep(3000);
+            Thread.Sleep(3000);
             AddPriceCategory();
         }
 
@@ -189,9 +193,9 @@ static class PriceMenu
 
     public static void ShowAllPricesInformation()
     {
-        List<PriceModel> ListAllPrices = pricesLogic.GetPrices;
+        List<PriceModel> prices = pricesLogic.GetAll();
         
-        foreach (PriceModel price in ListAllPrices)
+        foreach (PriceModel price in prices)
         {
             Console.WriteLine($"ID: {price.ID}");
             Console.WriteLine($"Passenger: {price.Passenger}");
