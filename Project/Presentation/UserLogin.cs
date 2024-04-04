@@ -17,7 +17,10 @@ static class UserLogin
             Console.WriteLine("Your email number is " + acc.EmailAddress);
 
             //Write some code to go back to the menu
-            //Menu.Start();
+            ;System.Threading.Thread.Sleep(3000);
+            Console.WriteLine("U keert terug naar het Startmenu.\n");
+            ;System.Threading.Thread.Sleep(3000);
+            Menu.Start();
         }
         else
         {

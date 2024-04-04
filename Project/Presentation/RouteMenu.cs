@@ -1,11 +1,12 @@
 using System.Data.Common;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 static public class RouteMenu
 {
     static public void Welcome()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor routes.");
+        Console.WriteLine("\nWelkom bij het overzicht voor routes.\n");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
@@ -32,12 +33,12 @@ static public class RouteMenu
         {
             case "1":
                 Console.Clear();
-                RouteMenu.AddRoute();
+                AddRoute();
                 Welcome();
                 break;
             case "2":
                 Console.Clear();
-                RouteMenu.UpdateRoute();
+                UpdateRoute();
                 Welcome();
                 break;
             case "3":
@@ -47,7 +48,8 @@ static public class RouteMenu
                 break;
             case "4":
                 Console.Clear();
-                RouteMenu.PrintedOverview();
+                PrintedOverview();
+                MoreInformation();
                 Welcome();
                 break;
             case "5":
@@ -75,20 +77,27 @@ static public class RouteMenu
     public static void AddRoute()
     {
         List<RouteModel> list_of_routes = Overview();
-            int int_id = list_of_routes.Count();
-            int new_id = int_id + 1;
-            Console.WriteLine("Hoelang duurt de route in uur?");
-            string? new_duration = Console.ReadLine();
-            try
-            {
-                RouteModel new_route = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration));
-                RouteLogic new_logic = new RouteLogic();
-                new_logic.UpdateList(new_route);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Verkeerde input. Probeer het nog eens.");
-            }
+        int int_id = list_of_routes.Count();
+        int new_id = int_id + 1;
+        Console.WriteLine("Wat is de naam van de nieuwe route?");
+        string? newName = Console.ReadLine();
+        while (newName == null)
+        {
+            Console.WriteLine("Wat is de naam van de nieuwe route?");
+            newName = Console.ReadLine();
+        }
+        Console.WriteLine("Hoelang duurt de route in uur?");
+        string? new_duration = Console.ReadLine();
+        try
+        {
+            RouteModel newRoute = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration), newName);
+            RouteLogic newLogic = new RouteLogic();
+            newLogic.UpdateList(newRoute);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Verkeerde input. Probeer het nog eens.");
+        }
     }
 
     public static void UpdateRoute()
@@ -127,8 +136,54 @@ static public class RouteMenu
         List<RouteModel> overview = RouteMenu.Overview();
             foreach (RouteModel Route in overview)
             {
-                Console.WriteLine($"Het route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
+                Console.WriteLine($"\nHet route ID is {Route.Id}. De naam van de route is {Route.Name} en de duur van de rit is {Route.Duration} uur.");
+                Console.WriteLine($"De route heeft {Route.Stops.Count()} tussenstops");
             }
+    }
+
+    public static void MoreInformation()
+    {
+        RouteLogic loading = new RouteLogic();
+        Console.WriteLine("Wilt u meer informatie over een route Y/N");
+        string? answer = Console.ReadLine();
+        if (answer.ToLower() == "y" || answer.ToLower() == "n")
+        {
+            if (answer.ToLower() == "y")
+            {
+                Console.WriteLine("Over welke route wilt u meer informatie?");
+                string? idMoreInfo = Console.ReadLine();
+                try
+                {
+                    RouteModel RouteObject = loading.GetById(Convert.ToInt32(idMoreInfo));
+                    if (RouteObject == null)
+                    {
+                        Console.WriteLine("Dat is geen geldig ID!");
+                        MoreInformation();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes.");
+                        foreach (StopModel Stop in RouteObject.Stops)
+                        {
+                            Console.WriteLine($"{Stop.Name}");
+                        }
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Geen gelidg input");
+                }
+            }
+            else
+            {
+                Console.WriteLine("U wordt terug gezet naar het vorige menu.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Verkeerde input. type y of n.");
+            MoreInformation();
+        }
     }
 
     public static void AddToBus()
@@ -143,6 +198,11 @@ static public class RouteMenu
             BusLogic LogicInstance = new BusLogic ();
             int intInputBus = Convert.ToInt32(inputBus);
             BusModel bus = LogicInstance.GetById(intInputBus);
+            if (BusMenu.HasRoute(bus))
+            {
+                Console.WriteLine("Deze bus heeft al een aangewezen route.");
+                Welcome();
+            }
             PrintedOverview();
             Console.WriteLine($"Welke route wilt u toevoegen aan de bus met ID: {bus.Id}?");
             string? inputRoute = Console.ReadLine();
@@ -159,7 +219,7 @@ static public class RouteMenu
                 else
                 {
 
-                    bus.AddRoute(intInputRoute);
+                    bus.AddRoute(routeModel);
                     LogicInstance.UpdateList(bus);
                 }
             }
