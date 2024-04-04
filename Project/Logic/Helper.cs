@@ -8,7 +8,7 @@ public static class Helper
         return parameter.GetType() == typeof(string);
     }
 
-    public static void funtion(string message, Func<bool> func)
+    public static void function(string message, Func<bool> func)
     {
         try
         {
@@ -16,7 +16,7 @@ public static class Helper
         }
         catch
         {
-            System.Console.WriteLine(message);
+            Console.WriteLine(message);
         }
     }
 }

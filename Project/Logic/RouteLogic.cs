@@ -36,9 +36,6 @@ public class RouteLogic
         return _routes.Find(i => i.Id == id);
     }
 
-    public List<RouteModel> GetAllRoutes()
-    {
-        List<RouteModel> listRoutes = _routes;
-        return listRoutes;
-    }
+    public List<RouteModel> GetAllRoutes() => _routes;
+
 }
