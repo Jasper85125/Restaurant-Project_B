@@ -1,24 +1,28 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace EmailValidatorTests;
 
 [TestClass]
 public class EmailValidatorTests
 {
     [TestMethod]
-    public void IsValidEmail_ValidEmail_ReturnsTrue()
+    public void IsValidEmail_True()
     {
-        AccountsLogic validator = new AccountsLogic ();
+        string validEmail = "test@email.com";
 
-        bool result = validator.IsValidEmail("test@example.com");
+        AccountsLogic validator = new AccountsLogic();
+
+        bool result = validator.IsValidEmail(validEmail);
 
         Assert.IsTrue(result);
     }
 
     [TestMethod]
-    public void IsValidEmail_InvalidEmail_ReturnsFalse()
+    public void IsValidEmail_False()
     {
-        AccountsLogic validator = new AccountsLogic ();
+        string invalidEmail = "invalid.email";
 
-        bool result = validator.IsValidEmail("invalid.email");
+        AccountsLogic validator = new AccountsLogic();
+
+        bool result = validator.IsValidEmail(invalidEmail);
 
         Assert.IsFalse(result);
     }

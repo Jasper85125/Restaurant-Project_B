@@ -7,4 +7,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+<ItemGroup>
+    <Content Include="DataSources/*">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+</ItemGroup> 
+
+
 </Project>
