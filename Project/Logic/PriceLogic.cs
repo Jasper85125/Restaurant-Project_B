@@ -3,8 +3,6 @@ class PriceLogic
     private List<PriceModel> _prices;
     private List<int> IDsList = new List<int>();
     static public PriceModel? CurrentPrice{ get; private set; }
-    public List<PriceModel> GetPrices {get => _prices;} // Readonly
-
 
     public PriceLogic()
     {
@@ -43,7 +41,7 @@ class PriceLogic
             // Hier verwijder ik het price model uit de lijst
             _prices.RemoveAt(index);
             // Hier worden de IDs bijv 1,2,3 in plaats van 1,2,4
-            IDsCorrection();
+            // IDsCorrection();
             PricesAccess.WriteAll(_prices);
         }
         else
@@ -51,28 +49,24 @@ class PriceLogic
             Console.WriteLine("Prijs categorie met het opgegeven ID bestaat niet.");
         }
     }
-    public int GenerateNewId()
+    public int GenerateNewId() 
     {
-        foreach(PriceModel priceModel in _prices)
+        if (_prices == null || _prices.Count == 0)
         {
-            IDsList.Add(priceModel.ID);
+            return 1;
         }
-        int newId = 1;
-        while (IDsList.Contains(newId))
-        {
-            newId++;
-        }
+       return _prices.Max(price => price.ID) + 1;
+    } 
 
-        return newId;
-    }
+    public List<PriceModel> GetAll() => _prices;
 
-    public void IDsCorrection()
-    {
-        for (int i = 0; i < _prices.Count; i++)
-        {
-            _prices[i].ID = i + 1;
-        }
-    }
+    // public void IDsCorrection()
+    // {
+    //     for (int i = 0; i < _prices.Count; i++)
+    //     {
+    //         _prices[i].ID = i + 1;
+    //     }
+    // }
 }
 
 
