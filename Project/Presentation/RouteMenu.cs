@@ -12,8 +12,7 @@ public static class RouteMenu
         Console.WriteLine("[2] Een route updaten.");
         Console.WriteLine("[3] Een route aan bus toevoegen");
         Console.WriteLine("[4] Een overzicht van alle routes.");
-        Console.WriteLine("[5] ga naar menu voor tussenstops.");
-        Console.WriteLine("[6] Ga terug naar het vorige menu.");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
         
         string? input = Console.ReadLine();
         if (input == null)
@@ -54,14 +53,10 @@ public static class RouteMenu
                 break;
             case "5":
                 Console.Clear();
-                StopMenu.Start();
-                break;
-            case "6":
-                Console.Clear();
                 Menu.Start();
                 break;
             default:
-                Console.WriteLine($"\nDat is geen geldige opties. Let goed op u keuze.");
+                Console.WriteLine($"\n{input} is geen geldige opties. Let goed op u keuze.");
                 RouteMenu.Welcome();
                 break;
         }
@@ -77,27 +72,77 @@ public static class RouteMenu
     public static void AddRoute()
     {
         List<RouteModel> list_of_routes = Overview();
-        int int_id = list_of_routes.Count();
-        int new_id = int_id + 1;
+        int intId = list_of_routes.Count();
+        int newId = intId + 1;
+
+        // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
-        while (newName == null)
+        while (newName == null || newName.All(char.IsLetter) == false)
         {
+            Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
             Console.WriteLine("Wat is de naam van de nieuwe route?");
             newName = Console.ReadLine();
         }
+        
+        // checks if Duration is Int input
         Console.WriteLine("Hoelang duurt de route in uur?");
-        string? new_duration = Console.ReadLine();
-        try
+        string? newDuration = Console.ReadLine();
+        while(newDuration == null || newDuration.All(char.IsDigit) == false)
         {
-            RouteModel newRoute = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration), newName);
-            RouteLogic newLogic = new RouteLogic();
-            newLogic.UpdateList(newRoute);
+            Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
+            Console.WriteLine("Hoelang duurt de route in uur?");
+            newDuration = Console.ReadLine();
         }
-        catch (FormatException)
+        
+        // Makes the route
+        RouteModel newRoute = new RouteModel(Convert.ToInt32(newId), Convert.ToInt32(newDuration), newName);
+        Console.WriteLine("Nu gaat u haltes toevoegen aan de route");
+        bool addStopQuestion = true;
+        while (addStopQuestion)
         {
-            Console.WriteLine("Verkeerde input. Probeer het nog eens.");
+            StopModel newStop = StopMenu.MakeStop();
+            bool checkDuplicateStop = false;
+            foreach (StopModel stop in newRoute.Stops)
+            {
+                if (stop.Name.ToLower() == newStop.Name.ToLower())
+                {
+                    Console.WriteLine("Deze halte bestaat al en kan daardoor niet worden toegevoegd.");
+                    checkDuplicateStop = true;
+                }
+            }
+            if (checkDuplicateStop == false)
+            {
+                newRoute = StopMenu.AddToRoute(newStop, newRoute);
+                Console.WriteLine("Wilt U nog een halte toevoegen? Ja of Nee");
+                string? answer = Console.ReadLine();
+
+                // Checks if answer is Ja of Nee
+                bool answerCheck = false;
+                while (answerCheck == false)
+                {
+                    if (answer.ToLower() == "ja")
+                    {
+                        answerCheck = true;
+                    }
+                    else if (answer.ToLower() == "nee")
+                    {
+                        addStopQuestion = false;
+                        answerCheck = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{answer} is geen geldige optie. Gebruik Ja of Nee\n");
+                        Console.WriteLine("Wilt U nog een halte toevoegen? Ja of Nee");
+                        answer = Console.ReadLine();
+                    }
+                }
+            }              
         }
+        RouteLogic newLogic = new RouteLogic();
+        newLogic.UpdateList(newRoute);
+        Console.WriteLine($"\nHet route ID is {newRoute.Id}. De naam van de route is {newRoute.Name} en de duur van de rit is {newRoute.Duration} uur.");
+        Console.WriteLine($"De route heeft {newRoute.Stops.Count()} tussenstops");
     }
 
     public static void UpdateRoute()
