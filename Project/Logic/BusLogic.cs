@@ -8,7 +8,7 @@ class BusLogic
 
     public BusLogic()
     {
-        _busses = BussesAccess.LoadAll();
+        _busses = DataAccess<BusModel>.LoadAll("busses");
     }
 
     public void UpdateList(BusModel bus)
@@ -26,7 +26,7 @@ class BusLogic
             //add new model
             _busses.Add(bus);
         }
-        BussesAccess.WriteAll(_busses);
+        DataAccess<BusModel>.WriteAll(_busses, "busses");
     }
 
     public BusModel GetById(int id)

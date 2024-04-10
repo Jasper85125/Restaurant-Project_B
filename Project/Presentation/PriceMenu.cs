@@ -42,7 +42,7 @@ static class PriceMenu
                 default:
                     Console.Clear();
                     Console.WriteLine("Verkeerde input!");
-                    ;System.Threading.Thread.Sleep(3000);
+                    Thread.Sleep(3000);
                     Start();
                     break;
             }
@@ -51,7 +51,7 @@ static class PriceMenu
         else
         {
             Console.WriteLine("Verkeerde input!");
-            ;System.Threading.Thread.Sleep(3000);
+            Thread.Sleep(3000);
             Start();
         }
     }
@@ -80,7 +80,7 @@ static class PriceMenu
             else if (answer!= null && answer.ToLower() != "y")
             {
                 Console.WriteLine("Verkeerde input!");
-                ;System.Threading.Thread.Sleep(3000);
+                Thread.Sleep(3000);
                 DeletePriceCategory();
             }
 
@@ -90,7 +90,7 @@ static class PriceMenu
         else
         {
             Console.WriteLine("Geen prijscategorie gevonden");
-            ;System.Threading.Thread.Sleep(3000);
+            Thread.Sleep(3000);
         }
         BackToStartMenu();
 
@@ -122,7 +122,7 @@ static class PriceMenu
         PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), NewPassenger, NewPrice);
         pricesLogic.UpdateList(NewPriceCategory);
         Console.WriteLine($"De prijs categorie '{NewPassenger}' is toevoegd");
-        ;System.Threading.Thread.Sleep(2000);
+        Thread.Sleep(2000);
         BackToStartMenu();
     }
     public static void EditPriceCategory()
@@ -144,7 +144,7 @@ static class PriceMenu
             else if (answer!= null && answer.ToLower() != "y")
             {
                 Console.WriteLine("Verkeerde input!");
-                ;System.Threading.Thread.Sleep(3000);
+                Thread.Sleep(3000);
                 EditPriceCategory();
             }
             UpdatePriceCategory(priceModel);
@@ -214,7 +214,7 @@ static class PriceMenu
     public static void BackToStartMenu()
     {
         Console.WriteLine("U keert terug naar het Startmenu.\n");
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Menu.Start();
     }
 

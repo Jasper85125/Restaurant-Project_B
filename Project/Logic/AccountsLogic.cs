@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 class AccountsLogic
 {
     private List<AccountModel> _accounts;
-    private List<int> IdsList = new List<int>();
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -18,7 +17,7 @@ class AccountsLogic
 
     public AccountsLogic()
     {
-        _accounts = AccountsAccess.LoadAll();
+        _accounts = DataAccess<AccountModel>.LoadAll("accounts");
     }
 
     public bool IsValidEmail(string email)
@@ -37,21 +36,14 @@ class AccountsLogic
         }
         return false;
     }
-    
-    public int GenerateNewId()
+    public int GenerateNewId() 
     {
-        foreach(AccountModel account in _accounts)
+        if (_accounts == null || _accounts.Count == 0)
         {
-            IdsList.Add(account.Id);
+            return 1;
         }
-        int newId = 1;
-        while (IdsList.Contains(newId))
-        {
-            newId++;
-        }
-
-        return newId;
-    }
+       return _accounts.Max(account => account.Id) + 1;
+    } 
 
     public void UpdateList(AccountModel acc)
     {
@@ -68,7 +60,7 @@ class AccountsLogic
             //add new model
             _accounts.Add(acc);
         }
-        AccountsAccess.WriteAll(_accounts);
+        DataAccess<AccountModel>.WriteAll(_accounts, "accounts");
 
     }
 
