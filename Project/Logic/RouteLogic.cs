@@ -5,7 +5,7 @@ using System.Text.Json;
 
 public class RouteLogic
 {
-    private static List<RouteModel> _routes;
+    private List<RouteModel> _routes;
     static public RouteModel? CurrentRoute { get; private set; }
 
     public RouteLogic()
