@@ -2,7 +2,7 @@ using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-static public class RouteMenu
+public static class RouteMenu
 {
     static public void Welcome()
     {
@@ -26,7 +26,7 @@ static public class RouteMenu
         }
     }
     
-    static public void Choice (string input)
+    public static void Choice (string input)
     {
         switch (input)
         {

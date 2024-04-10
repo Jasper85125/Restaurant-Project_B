@@ -1,8 +1,8 @@
 using System.Formats.Asn1;
 
-static class PriceMenu
+public static class PriceMenu
 {
-    static private PriceLogic pricesLogic = new();
+    private static PriceLogic pricesLogic = new();
     public static void Start()
     {
         Console.WriteLine("\nWelkom bij het overzicht voor prijzen.");
@@ -84,7 +84,7 @@ static class PriceMenu
                 DeletePriceCategory();
             }
 
-            pricesLogic.DeletePriceCategory(priceModel.ID);
+            pricesLogic.DeletePriceCategory(priceModel.Id);
             Console.WriteLine("De verwijdering is voltooid");
         }
         else
@@ -185,7 +185,7 @@ static class PriceMenu
     }
     public static void ShowPriceInformation(PriceModel priceModel)
     {
-        Console.WriteLine($"ID: {priceModel.ID}");
+        Console.WriteLine($"ID: {priceModel.Id}");
         Console.WriteLine($"Passenger: {priceModel.Passenger}");
         Console.WriteLine($"Price: {priceModel.Price}");
         Console.WriteLine("---------------");
@@ -197,7 +197,7 @@ static class PriceMenu
         
         foreach (PriceModel price in prices)
         {
-            Console.WriteLine($"ID: {price.ID}");
+            Console.WriteLine($"ID: {price.Id}");
             Console.WriteLine($"Passenger: {price.Passenger}");
             Console.WriteLine($"Price: {price.Price}");
             Console.WriteLine("---------------");

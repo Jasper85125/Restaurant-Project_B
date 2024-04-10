@@ -1,7 +1,7 @@
-class PriceLogic
+public class PriceLogic
 {
     private List<PriceModel> _prices;
-    static public PriceModel? CurrentPrice{ get; private set; }
+    public static PriceModel? CurrentPrice{ get; private set; }
 
     public PriceLogic()
     {
@@ -12,7 +12,7 @@ class PriceLogic
     public void UpdateList(PriceModel priceModel)
     {
         //Find if there is already an model with the same id
-        int index = _prices.FindIndex(p => p.ID == priceModel.ID);
+        int index = _prices.FindIndex(p => p.Id == priceModel.Id);
 
         if (index != -1)
         {
@@ -29,12 +29,12 @@ class PriceLogic
 
     public PriceModel GetById(int id)
     {
-        return _prices.Find(p => p.ID == id);
+        return _prices.Find(p => p.Id == id);
     }
 
     public void DeletePriceCategory(int id)
     {
-        int index = _prices.FindIndex(p => p.ID == id);
+        int index = _prices.FindIndex(p => p.Id == id);
 
         if (index != -1)
         {
@@ -54,7 +54,7 @@ class PriceLogic
         {
             return 1;
         }
-       return _prices.Max(price => price.ID) + 1;
+       return _prices.Max(price => price.Id) + 1;
     } 
 
     public List<PriceModel> GetAll() => _prices;
