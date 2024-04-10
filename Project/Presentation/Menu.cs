@@ -1,10 +1,10 @@
-static class Menu
+public static class Menu
 {
 
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start()
+    public static void Start()
     {
         Console.Clear();
         Console.WriteLine("[1] Inloggen op uw account.");

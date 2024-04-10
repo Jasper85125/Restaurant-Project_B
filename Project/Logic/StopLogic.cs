@@ -6,7 +6,7 @@ using System.Text.Json;
 public class StopLogic
 {
     private List<StopModel> _stops;
-    static public StopModel? CurrentRoute { get; private set; }
+    public static StopModel? CurrentRoute { get; private set; }
 
     public StopLogic()
     {

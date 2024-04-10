@@ -1,6 +1,6 @@
 static public class Information
 {
-    static public void Info()
+    public static void Info()
     {
         Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
         Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
