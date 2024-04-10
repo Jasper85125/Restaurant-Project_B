@@ -1,4 +1,4 @@
-static class BusMenu
+public static class BusMenu
 {
 
     public static void Start()
@@ -78,14 +78,14 @@ static class BusMenu
                 BusModel new_bus = new BusModel(Convert.ToInt32(new_id), Convert.ToInt32(new_seats), new_licensePlate);
                 BusLogic new_logic = new BusLogic();
                 new_logic.UpdateList(new_bus);
-                Console.WriteLine("Bus is succesvol toegevoegd!")
-                ;System.Threading.Thread.Sleep(3000);
+                Console.WriteLine("Bus is succesvol toegevoegd!");
+                Thread.Sleep(3000);
                 Console.Clear();
             }
             catch (FormatException)
             {
                 Console.WriteLine("Invalid input! Please try again.");
-                ;System.Threading.Thread.Sleep(3000);
+                Thread.Sleep(3000);
                 Console.Clear();
             }
     }
@@ -106,7 +106,7 @@ static class BusMenu
             if (RouteObject == null)
             {
                 Console.WriteLine("That's not a valid id!");
-                ;System.Threading.Thread.Sleep(3000);
+                Thread.Sleep(3000);
                 Console.Clear();
             }
             else
@@ -120,8 +120,8 @@ static class BusMenu
                     Console.WriteLine("What is the new license plate of the bus?");
                     string? new_license_plate = Console.ReadLine();
                     RouteObject.LicensePlate = new_license_plate; // Update the license plate
-                    Console.WriteLine("Bus license plate has been updated")
-                    ;System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("Bus license plate has been updated");
+                    Thread.Sleep(3000);
                     Console.Clear();
                 }
                 else if (option == "2")
@@ -130,13 +130,13 @@ static class BusMenu
                     string? new_seats = Console.ReadLine();
                     RouteObject.Seats = Convert.ToInt32(new_seats); // Update the number of seats
                     Console.WriteLine("Bus seats have been updated");
-                    ;System.Threading.Thread.Sleep(3000);
+                    Thread.Sleep(3000);
                     Console.Clear();
                 }
                 else
                 {
                     Console.WriteLine("Invalid option selected.");
-                    ;System.Threading.Thread.Sleep(3000);
+                    Thread.Sleep(3000);
                     Console.Clear();
                     UpdateBus();
                 }
@@ -147,7 +147,7 @@ static class BusMenu
         catch (FormatException)
         {
             Console.WriteLine("Not a valid input");
-            ;System.Threading.Thread.Sleep(3000);
+            Thread.Sleep(3000);
             Console.Clear();
         }
     }

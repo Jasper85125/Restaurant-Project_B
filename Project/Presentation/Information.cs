@@ -1,6 +1,6 @@
 static public class Information
 {
-    static public void Info()
+    public static void Info()
     {
         Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
         Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
@@ -23,7 +23,7 @@ static public class Information
         public static void BackToStartMenu()
     {
         Console.WriteLine("U keert terug naar het Startmenu.\n");
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Menu.Start();
     }
 

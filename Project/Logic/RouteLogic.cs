@@ -6,11 +6,11 @@ using System.Text.Json;
 public class RouteLogic
 {
     private static List<RouteModel> _routes;
-    static public RouteModel? CurrentRoute { get; private set; }
+    public static RouteModel? CurrentRoute { get; private set; }
 
     public RouteLogic()
     {
-        _routes = RouteAccess.LoadAll();
+        _routes = DataAccess<RouteModel>.LoadAll("routes");
     }
 
     public void UpdateList(RouteModel route)
@@ -28,7 +28,7 @@ public class RouteLogic
             //add new model
             _routes.Add(route);
         }
-        RouteAccess.WriteAll(_routes);
+        DataAccess<RouteModel>.WriteAll(_routes, "routes");
     }
 
     public RouteModel GetById(int id)

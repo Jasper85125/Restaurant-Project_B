@@ -1,14 +1,14 @@
-class BusLogic
+public class BusLogic
 {
     private List<BusModel> _busses;
 
-    static public BusModel? CurrentBus{ get; private set; }
+    public static BusModel? CurrentBus{ get; private set; }
     public List<BusModel> Busses {get => _busses;} // Readonly
 
 
     public BusLogic()
     {
-        _busses = BussesAccess.LoadAll();
+        _busses = DataAccess<BusModel>.LoadAll("busses");
     }
 
     public void UpdateList(BusModel bus)
@@ -26,7 +26,7 @@ class BusLogic
             //add new model
             _busses.Add(bus);
         }
-        BussesAccess.WriteAll(_busses);
+        DataAccess<BusModel>.WriteAll(_busses, "busses");
     }
 
     public BusModel GetById(int id)

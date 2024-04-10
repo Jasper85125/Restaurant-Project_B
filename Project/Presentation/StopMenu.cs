@@ -21,7 +21,7 @@ public class StopMenu
         }
     }
 
-    static public void Choice (string input)
+    public static void Choice (string input)
     {
         switch (input)
         {

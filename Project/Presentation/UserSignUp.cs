@@ -1,4 +1,4 @@
-static class UserSignUp
+public static class UserSignUp
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
@@ -52,12 +52,12 @@ static class UserSignUp
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         Console.WriteLine($"Welcome {acc.FullName}.");
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Console.WriteLine("Uw account is aangemaakt.");
 
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Console.WriteLine("U keert terug naar het Startmenu.\n");
-        ;System.Threading.Thread.Sleep(3000);
+        Thread.Sleep(3000);
         Menu.Start();
     }
 }

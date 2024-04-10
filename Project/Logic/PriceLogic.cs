@@ -1,18 +1,18 @@
-class PriceLogic
+public class PriceLogic
 {
     private List<PriceModel> _prices;
-    private List<int> IDsList = new List<int>();
-    static public PriceModel? CurrentPrice{ get; private set; }
+    public static PriceModel? CurrentPrice{ get; private set; }
 
     public PriceLogic()
     {
-        _prices = PricesAccess.LoadAll();
+
+       _prices = DataAccess<PriceModel>.LoadAll("prices");
     }
 
     public void UpdateList(PriceModel priceModel)
     {
         //Find if there is already an model with the same id
-        int index = _prices.FindIndex(p => p.ID == priceModel.ID);
+        int index = _prices.FindIndex(p => p.Id == priceModel.Id);
 
         if (index != -1)
         {
@@ -24,25 +24,24 @@ class PriceLogic
             //add new model
             _prices.Add(priceModel);
         }
-        PricesAccess.WriteAll(_prices);
+        DataAccess<PriceModel>.WriteAll(_prices, "prices");
     }
 
     public PriceModel GetById(int id)
     {
-        return _prices.Find(p => p.ID == id);
+        return _prices.Find(p => p.Id == id);
     }
 
     public void DeletePriceCategory(int id)
     {
-        int index = _prices.FindIndex(p => p.ID == id);
+        int index = _prices.FindIndex(p => p.Id == id);
 
         if (index != -1)
         {
             // Hier verwijder ik het price model uit de lijst
             _prices.RemoveAt(index);
-            // Hier worden de IDs bijv 1,2,3 in plaats van 1,2,4
-            // IDsCorrection();
-            PricesAccess.WriteAll(_prices);
+            
+            DataAccess<PriceModel>.WriteAll(_prices, "prices");
         }
         else
         {
@@ -55,18 +54,9 @@ class PriceLogic
         {
             return 1;
         }
-       return _prices.Max(price => price.ID) + 1;
+       return _prices.Max(price => price.Id) + 1;
     } 
 
     public List<PriceModel> GetAll() => _prices;
 
-    // public void IDsCorrection()
-    // {
-    //     for (int i = 0; i < _prices.Count; i++)
-    //     {
-    //         _prices[i].ID = i + 1;
-    //     }
-    // }
 }
-
-
