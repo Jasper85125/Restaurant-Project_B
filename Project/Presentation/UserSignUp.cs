@@ -1,4 +1,4 @@
-static class UserSignUp
+public static class UserSignUp
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 

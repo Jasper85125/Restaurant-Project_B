@@ -1,8 +1,8 @@
-class BusLogic
+public class BusLogic
 {
     private List<BusModel> _busses;
 
-    static public BusModel? CurrentBus{ get; private set; }
+    public static BusModel? CurrentBus{ get; private set; }
     public List<BusModel> Busses {get => _busses;} // Readonly
 
 

@@ -1,4 +1,4 @@
-static class BusMenu
+public static class BusMenu
 {
 
     public static void Start()
