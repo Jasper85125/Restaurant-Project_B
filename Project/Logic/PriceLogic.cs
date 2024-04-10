@@ -6,7 +6,6 @@ class PriceLogic
     public PriceLogic()
     {
 
-       //  _prices = PricesAccess.LoadAll();
        _prices = DataAccess<PriceModel>.LoadAll("prices");
     }
 
@@ -25,7 +24,6 @@ class PriceLogic
             //add new model
             _prices.Add(priceModel);
         }
-        // PricesAccess.WriteAll(_prices);
         DataAccess<PriceModel>.WriteAll(_prices, "prices");
     }
 
@@ -43,7 +41,6 @@ class PriceLogic
             // Hier verwijder ik het price model uit de lijst
             _prices.RemoveAt(index);
             
-            // PricesAccess.WriteAll(_prices);
             DataAccess<PriceModel>.WriteAll(_prices, "prices");
         }
         else
