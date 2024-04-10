@@ -55,7 +55,7 @@ public class StopMenu
     public static List<StopModel> Overview()
     {
         StopLogic LogicInstance = new StopLogic();
-        List<StopModel> overview = LogicInstance.GetAllStops();
+        List<StopModel> overview = LogicInstance.GetAll();
         return overview;
     }
 

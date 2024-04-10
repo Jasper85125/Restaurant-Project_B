@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-public class StopLogic
+public class StopLogic : AbstractLogic<StopModel>
 {
     private List<StopModel> _stops;
     public static StopModel? CurrentRoute { get; private set; }
@@ -13,7 +13,7 @@ public class StopLogic
         _stops = DataAccess<StopModel>.LoadAll("stops");
     }
 
-    public void UpdateList(StopModel stop)
+    public override void UpdateList(StopModel stop)
     {
         //Find if there is already an model with the same id
         int index = _stops.FindIndex(s => s.Id == stop.Id);
@@ -31,14 +31,19 @@ public class StopLogic
         DataAccess<StopModel>.WriteAll(_stops, "stops");
     }
 
-    public StopModel GetById(int id)
+    public override StopModel GetById(int id)
     {
         return _stops.Find(i => i.Id == id);
     }
 
-    public List<StopModel> GetAllStops()
+    public override int GenerateNewId() 
     {
-        List<StopModel> listStops = _stops;
-        return listStops;
+        if (_stops == null || _stops.Count == 0)
+        {
+            return 1;
+        }
+       return _stops.Max(price => price.Id) + 1;
     }
+
+    public override List<StopModel> GetAll() => _stops;
 }

@@ -1,9 +1,8 @@
-public class BusLogic
+public class BusLogic : AbstractLogic<BusModel>
 {
     private List<BusModel> _busses;
 
     public static BusModel? CurrentBus{ get; private set; }
-    public List<BusModel> Busses {get => _busses;} // Readonly
 
 
     public BusLogic()
@@ -11,7 +10,7 @@ public class BusLogic
         _busses = DataAccess<BusModel>.LoadAll("busses");
     }
 
-    public void UpdateList(BusModel bus)
+    public override void UpdateList(BusModel bus)
     {
         //Find if there is already an model with the same id
         int index = _busses.FindIndex(p => p.Id == bus.Id);
@@ -29,16 +28,20 @@ public class BusLogic
         DataAccess<BusModel>.WriteAll(_busses, "busses");
     }
 
-    public BusModel GetById(int id)
+    public override BusModel GetById(int id)
     {
         return _busses.Find(p => p.Id == id);
     }
 
-    public List<BusModel> GetAllBusses()
+    public override int GenerateNewId() 
     {
-        List<BusModel> list_Busses = _busses;
-        return list_Busses;
-    }
+        if (_busses == null || _busses.Count == 0)
+        {
+            return 1;
+        }
+       return _busses.Max(price => price.Id) + 1;
+    } 
+    public override List<BusModel> GetAll() => _busses;
 
 }
 

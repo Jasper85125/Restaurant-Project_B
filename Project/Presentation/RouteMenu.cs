@@ -70,15 +70,13 @@ public static class RouteMenu
     public static List<RouteModel> Overview()
     {
         RouteLogic LogicInstance = new RouteLogic();
-        List<RouteModel> overview = LogicInstance.GetAllRoutes();
+        List<RouteModel> overview = LogicInstance.GetAll();
         return overview;
     }
 
     public static void AddRoute()
     {
         List<RouteModel> list_of_routes = Overview();
-        int int_id = list_of_routes.Count();
-        int new_id = int_id + 1;
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
         while (newName == null)
@@ -90,8 +88,8 @@ public static class RouteMenu
         string? new_duration = Console.ReadLine();
         try
         {
-            RouteModel newRoute = new RouteModel(Convert.ToInt32(new_id), Convert.ToInt32(new_duration), newName);
             RouteLogic newLogic = new RouteLogic();
+            RouteModel newRoute = new RouteModel(newLogic.GenerateNewId(), Convert.ToInt32(new_duration), newName);
             newLogic.UpdateList(newRoute);
         }
         catch (FormatException)
@@ -104,7 +102,7 @@ public static class RouteMenu
     {
         RouteLogic loading = new RouteLogic();
             Console.WriteLine("Welk van deze IDs zou u willen updaten.");
-            foreach (RouteModel Route in loading.GetAllRoutes())
+            foreach (RouteModel Route in loading.GetAll())
             {
                 Console.WriteLine($"Het Route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
             }
@@ -189,7 +187,7 @@ public static class RouteMenu
     public static void AddToBus()
     {
         BusLogic busLogic = new();
-        List<BusModel> ListAllBusses = busLogic.GetAllBusses();
+        List<BusModel> ListAllBusses = busLogic.GetAll();
         BusMenu.ShowAllBusforamtion(ListAllBusses);
         Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
         string? inputBus = Console.ReadLine();

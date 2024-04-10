@@ -33,7 +33,7 @@ public static class BusMenu
                 case "4":
                     Console.Clear();
                     BusLogic busLogic = new();
-                    List<BusModel> ListAllBusses = busLogic.GetAllBusses();
+                    List<BusModel> ListAllBusses = busLogic.GetAll();
                     ShowAllBusforamtion(ListAllBusses);
                     Start();
                     break;
@@ -60,23 +60,21 @@ public static class BusMenu
     public static List<BusModel> Overview()
     {
         BusLogic LogicInstance = new BusLogic();
-        List<BusModel> overview = LogicInstance.GetAllBusses();
+        List<BusModel> overview = LogicInstance.GetAll();
         return overview;
     }
 
     public static void AddBus()
     {
         List<BusModel> list_of_busses = Overview();
-            int int_id = list_of_busses.Count();
-            int new_id = int_id + 1;
             Console.WriteLine("Hoeveel zitplaatsen heeft deze bus?");
             string? new_seats = Console.ReadLine();
             Console.WriteLine("Wat is de kenteken van de bus?");
             string? new_licensePlate = Console.ReadLine();
             try
             {
-                BusModel new_bus = new BusModel(Convert.ToInt32(new_id), Convert.ToInt32(new_seats), new_licensePlate);
                 BusLogic new_logic = new BusLogic();
+                BusModel new_bus = new BusModel(new_logic.GenerateNewId(), Convert.ToInt32(new_seats), new_licensePlate);
                 new_logic.UpdateList(new_bus);
                 Console.WriteLine("Bus is succesvol toegevoegd!");
                 Thread.Sleep(3000);
@@ -95,7 +93,7 @@ public static class BusMenu
         BusLogic loading = new BusLogic();
         Console.Clear();
         Console.WriteLine("Which of these IDs would you like to update.");
-        foreach (BusModel Bus in loading.GetAllBusses())
+        foreach (BusModel Bus in loading.GetAll())
         {
             Console.WriteLine($"ID: {Bus.Id},\nLicense plate: {Bus.LicensePlate},\nNumber of seats: {Bus.Seats}.");
         }
