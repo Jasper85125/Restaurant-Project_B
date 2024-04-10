@@ -10,7 +10,7 @@ public class StopLogic
 
     public StopLogic()
     {
-        _stops = StopAccess.LoadAll();
+        _stops = DataAccess<StopModel>.LoadAll("stops");
     }
 
     public void UpdateList(StopModel stop)
@@ -28,7 +28,7 @@ public class StopLogic
             //add new model
             _stops.Add(stop);
         }
-        StopAccess.WriteAll(_stops);
+        DataAccess<StopModel>.WriteAll(_stops, "stops");
     }
 
     public StopModel GetById(int id)

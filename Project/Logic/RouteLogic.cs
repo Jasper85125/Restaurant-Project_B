@@ -10,7 +10,7 @@ public class RouteLogic
 
     public RouteLogic()
     {
-        _routes = RouteAccess.LoadAll();
+        _routes = DataAccess<RouteModel>.LoadAll("routes");
     }
 
     public void UpdateList(RouteModel route)
@@ -28,7 +28,7 @@ public class RouteLogic
             //add new model
             _routes.Add(route);
         }
-        RouteAccess.WriteAll(_routes);
+        DataAccess<RouteModel>.WriteAll(_routes, "routes");
     }
 
     public RouteModel GetById(int id)

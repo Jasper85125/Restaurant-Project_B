@@ -1,12 +1,13 @@
 class PriceLogic
 {
     private List<PriceModel> _prices;
-    private List<int> IDsList = new List<int>();
     static public PriceModel? CurrentPrice{ get; private set; }
 
     public PriceLogic()
     {
-        _prices = PricesAccess.LoadAll();
+
+       //  _prices = PricesAccess.LoadAll();
+       _prices = DataAccess<PriceModel>.LoadAll("prices");
     }
 
     public void UpdateList(PriceModel priceModel)
@@ -24,7 +25,8 @@ class PriceLogic
             //add new model
             _prices.Add(priceModel);
         }
-        PricesAccess.WriteAll(_prices);
+        // PricesAccess.WriteAll(_prices);
+        DataAccess<PriceModel>.WriteAll(_prices, "prices");
     }
 
     public PriceModel GetById(int id)
@@ -40,9 +42,9 @@ class PriceLogic
         {
             // Hier verwijder ik het price model uit de lijst
             _prices.RemoveAt(index);
-            // Hier worden de IDs bijv 1,2,3 in plaats van 1,2,4
-            // IDsCorrection();
-            PricesAccess.WriteAll(_prices);
+            
+            // PricesAccess.WriteAll(_prices);
+            DataAccess<PriceModel>.WriteAll(_prices, "prices");
         }
         else
         {
@@ -60,13 +62,4 @@ class PriceLogic
 
     public List<PriceModel> GetAll() => _prices;
 
-    // public void IDsCorrection()
-    // {
-    //     for (int i = 0; i < _prices.Count; i++)
-    //     {
-    //         _prices[i].ID = i + 1;
-    //     }
-    // }
 }
-
-
