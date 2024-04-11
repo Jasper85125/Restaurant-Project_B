@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-public class RouteLogic
+public class RouteLogic : AbstractLogic<RouteModel>
 {
-    private static List<RouteModel> _routes;
+    private List<RouteModel> _routes;
     public static RouteModel? CurrentRoute { get; private set; }
 
     public RouteLogic()
@@ -13,7 +13,7 @@ public class RouteLogic
         _routes = DataAccess<RouteModel>.LoadAll("routes");
     }
 
-    public void UpdateList(RouteModel route)
+    public override void UpdateList(RouteModel route)
     {
         //Find if there is already an model with the same id
         int index = _routes.FindIndex(s => s.Id == route.Id);
@@ -31,11 +31,20 @@ public class RouteLogic
         DataAccess<RouteModel>.WriteAll(_routes, "routes");
     }
 
-    public RouteModel GetById(int id)
+    public override RouteModel GetById(int id)
     {
         return _routes.Find(i => i.Id == id);
     }
 
-    public List<RouteModel> GetAllRoutes() => _routes;
+    public override int GenerateNewId() 
+    {
+        if (_routes == null || _routes.Count == 0)
+        {
+            return 1;
+        }
+       return _routes.Max(route => route.Id) + 1;
+    }
+
+    public override List<RouteModel> GetAll() => _routes;
 
 }

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 
 //This class is not static so later on we can use inheritance and interfaces
-public class AccountsLogic
+public class AccountsLogic : AbstractLogic<AccountModel>
 {
     private List<AccountModel> _accounts;
 
@@ -36,7 +36,7 @@ public class AccountsLogic
         }
         return false;
     }
-    public int GenerateNewId() 
+    public override int GenerateNewId() 
     {
         if (_accounts == null || _accounts.Count == 0)
         {
@@ -45,7 +45,7 @@ public class AccountsLogic
        return _accounts.Max(account => account.Id) + 1;
     } 
 
-    public void UpdateList(AccountModel acc)
+    public override void UpdateList(AccountModel acc)
     {
         //Find if there is already an model with the same id
         int index = _accounts.FindIndex(s => s.Id == acc.Id);
@@ -64,7 +64,7 @@ public class AccountsLogic
 
     }
 
-    public AccountModel GetById(int id)
+    public override AccountModel GetById(int id)
     {
         return _accounts.Find(i => i.Id == id);
     }
@@ -78,6 +78,8 @@ public class AccountsLogic
         CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
+
+    public override List<AccountModel> GetAll() => _accounts;
 }
 
 
