@@ -101,10 +101,10 @@ public static class BusMenu
     {
         BusLogic loading = new BusLogic();
         Console.Clear();
-        Console.WriteLine("Which of these IDs would you like to update.");
+        Console.WriteLine("Welk bus nummer wilt u opdaten?");
         foreach (BusModel Bus in loading.GetAll())
         {
-            Console.WriteLine($"ID: {Bus.Id},\nLicense plate: {Bus.LicensePlate},\nNumber of seats: {Bus.Seats}.");
+            Console.WriteLine($"ID: {Bus.Id},\nKenteken: {Bus.LicensePlate},\nAantal zitplekken: {Bus.Seats}.");
         }
         string? id_to_be_updated = Console.ReadLine();
         try
@@ -112,19 +112,19 @@ public static class BusMenu
             BusModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
             if (RouteObject == null)
             {
-                Console.WriteLine("That's not a valid id!");
+                Console.WriteLine("\nOngeldige invoer!");
                 Thread.Sleep(3000);
                 Console.Clear();
             }
             else
             {   
                 Console.Clear();
-                Console.WriteLine("What do you want to update?\n1. License Plate\n2. Number of Seats");
+                Console.WriteLine("Wat wil je bijwerken?\n1. Kenteken\n2. Aantal zitplekken");
                 string? option = Console.ReadLine();
                 
                 if (option == "1")
                 {
-                    Console.WriteLine("What is the new license plate of the bus?");
+                    Console.WriteLine("Wat is de nieuwe kenteken?");
                     string? UpdatedValue = Console.ReadLine().ToUpper();
                     if (ConfirmValue(null, UpdatedValue, true)){
                         RouteObject.LicensePlate = UpdatedValue; // Update the license plate
@@ -132,7 +132,7 @@ public static class BusMenu
                 }
                 else if (option == "2")
                 {
-                    Console.WriteLine("What is the new number of seats for the bus?");
+                    Console.WriteLine("Wat is het nieuwe aantal zitplekken?");
                     string? UpdatedValue = Console.ReadLine();
                     if (ConfirmValue(null, UpdatedValue, true)){
                         RouteObject.Seats = Convert.ToInt32(UpdatedValue); // Update the number of seats
@@ -140,7 +140,7 @@ public static class BusMenu
                 }
                 else
                 {
-                    Console.WriteLine("Invalid option selected.");
+                    Console.WriteLine("\nOngeldige invoer!");
                     Thread.Sleep(3000);
                     Console.Clear();
                     UpdateBus();
