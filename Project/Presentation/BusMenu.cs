@@ -72,7 +72,7 @@ public static class BusMenu
         string? newSeats = Console.ReadLine();
         
         Console.WriteLine("Wat is de kenteken van de bus?");
-        string? newLicensePlate = Console.ReadLine();
+        string? newLicensePlate = Console.ReadLine().ToUpper();
         
         try
         {
@@ -125,20 +125,18 @@ public static class BusMenu
                 if (option == "1")
                 {
                     Console.WriteLine("What is the new license plate of the bus?");
-                    string? new_license_plate = Console.ReadLine();
-                    RouteObject.LicensePlate = new_license_plate; // Update the license plate
-                    Console.WriteLine("Bus license plate has been updated");
-                    Thread.Sleep(3000);
-                    Console.Clear();
+                    string? UpdatedValue = Console.ReadLine().ToUpper();
+                    if (ConfirmValue(null, UpdatedValue, true)){
+                        RouteObject.LicensePlate = UpdatedValue; // Update the license plate
+                    }
                 }
                 else if (option == "2")
                 {
                     Console.WriteLine("What is the new number of seats for the bus?");
-                    string? new_seats = Console.ReadLine();
-                    RouteObject.Seats = Convert.ToInt32(new_seats); // Update the number of seats
-                    Console.WriteLine("Bus seats have been updated");
-                    Thread.Sleep(3000);
-                    Console.Clear();
+                    string? UpdatedValue = Console.ReadLine();
+                    if (ConfirmValue(null, UpdatedValue, true)){
+                        RouteObject.Seats = Convert.ToInt32(UpdatedValue); // Update the number of seats
+                    }
                 }
                 else
                 {
@@ -239,9 +237,13 @@ public static class BusMenu
         }
     }
 
-    public static bool ConfirmValue(BusModel newBus)
+    public static bool ConfirmValue(BusModel newBus, string UpdatedValue = null, bool IsUpdate = false)
     {
-        Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}");
+        if(!IsUpdate){
+            Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}"); 
+        }else{
+            Console.WriteLine($"U staat op het punt oude date te veranderen: {UpdatedValue}");
+        }
         Console.Write("Druk op ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write("Enter");
@@ -266,7 +268,7 @@ public static class BusMenu
         else if (keyInfo.Key == ConsoleKey.Enter)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\nBus is toegevoegd!");
+            Console.WriteLine("\nData is toegevoegd!");
             Console.ResetColor();
             Thread.Sleep(3000);
             Console.Clear();
