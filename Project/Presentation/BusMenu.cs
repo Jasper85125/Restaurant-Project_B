@@ -101,7 +101,7 @@ public static class BusMenu
     {
         BusLogic loading = new BusLogic();
         Console.Clear();
-        Console.WriteLine("Welk bus nummer wilt u opdaten?");
+        Console.WriteLine("Welk busnummer wilt U updaten?");
         foreach (BusModel Bus in loading.GetAll())
         {
             Console.WriteLine($"ID: {Bus.Id},\nKenteken: {Bus.LicensePlate},\nAantal zitplekken: {Bus.Seats}.");
@@ -119,7 +119,7 @@ public static class BusMenu
             else
             {   
                 Console.Clear();
-                Console.WriteLine("Wat wil je bijwerken?\n1. Kenteken\n2. Aantal zitplekken");
+                Console.WriteLine("Wat wilt U bijwerken?\n1. Kenteken\n2. Aantal zitplekken");
                 string? option = Console.ReadLine();
                 
                 if (option == "1")
@@ -172,7 +172,7 @@ public static class BusMenu
     public static void AddTime()
     {
         ShowAllBusforamtion(Overview());
-        Console.WriteLine("Aan welke bus met route wilt u een tijd geven?");
+        Console.WriteLine("Aan welke bus met route wilt U een tijd geven?");
         string? busID = Console.ReadLine();
         try
         {
@@ -183,7 +183,7 @@ public static class BusMenu
             {
                 foreach (RouteModel Route in bus.Route)
                 {
-                    Console.WriteLine("Wat is de begin tijd voor de route?");
+                    Console.WriteLine("Wat is de begintijd voor de route?");
                     string? beginTimeRoute = Console.ReadLine();
                     while (beginTimeRoute == null)
                     {
@@ -242,7 +242,7 @@ public static class BusMenu
         if(!IsUpdate){
             Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}"); 
         }else{
-            Console.WriteLine($"U staat op het punt oude date te veranderen: {UpdatedValue}");
+            Console.WriteLine($"U staat op het punt oude data te veranderen: {UpdatedValue}");
         }
         Console.Write("Druk op ");
         Console.ForegroundColor = ConsoleColor.Green;
