@@ -27,9 +27,9 @@ public class GenerateNewIdTest
     public void Test_WithExistingAccounts()
     {
         // Arrange
-        //_accounts.ResetAccounts();
-        _accounts.UpdateList(new AccountModel { Id = 1, Name = "Alice" });
-        _accounts.UpdateList(new AccountModel { Id = 3, Name = "Bob" });
+        _accounts = new();
+        _accounts.UpdateList(new AccountModel ( 1, "Yep@g.com", "1234", "Alice" ));
+        _accounts.UpdateList(new AccountModel ( 3, "no@g.com", "4312", "Bob" ));
 
         // Act
         int newId = _accounts.GenerateNewId();

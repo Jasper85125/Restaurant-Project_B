@@ -15,8 +15,8 @@ public class UpdateListTest
     public void TestUpdateList_UpdateExistingAccount()
     {
         // Arrange
-        AccountModel existingAccount = new AccountModel { Id = 1, Name = "Alice" };
-        AccountModel updatedAccount = new AccountModel { Id = 1, Name = "Bob" };
+        AccountModel existingAccount = new AccountModel (1, "Yep@g.com", "1234", "Alice");
+        AccountModel updatedAccount = new AccountModel (1, "no@g.com", "4312", "Bob" );
 
         _accounts.UpdateList(existingAccount);
 
@@ -24,19 +24,19 @@ public class UpdateListTest
         _accounts.UpdateList(updatedAccount);
 
         // Assert
-        Assert.AreEqual("Bob", _accounts.GetAccountById(1).Name);
+        Assert.AreEqual("Bob", _accounts.GetById(1).FullName);
     }
 
     [TestMethod]
     public void TestUpdateList_AddNewAccount()
     {
         // Arrange
-        AccountModel newAccount = new AccountModel { Id = 2, Name = "Charlie" };
+        AccountModel newAccount = new AccountModel (2, "kan@g.com", "6245","Charlie" );
 
         // Act
         _accounts.UpdateList(newAccount);
 
         // Assert
-        Assert.AreEqual("Charlie", _accounts.GetAccountById(2).Name);
+        Assert.AreEqual("Charlie", _accounts.GetById(2).FullName);
     }
 }

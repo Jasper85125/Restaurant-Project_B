@@ -1,4 +1,4 @@
-namespace EmailExistsTest;
+//namespace EmailExistsTest;
 
 [TestClass]
 public class EmailExistsTest

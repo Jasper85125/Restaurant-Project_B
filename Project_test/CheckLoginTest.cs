@@ -1,4 +1,4 @@
-//namespace CheckLoginTest;
+namespace CheckLoginTest;
 
 [TestClass]
 public class CheckLoginTest
