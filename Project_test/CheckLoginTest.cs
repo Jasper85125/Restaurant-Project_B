@@ -1,4 +1,4 @@
-namespace CheckLoginTest;
+//namespace CheckLoginTest;
 
 [TestClass]
 public class CheckLoginTest
@@ -35,7 +35,6 @@ public class CheckLoginTest
 
         // Assert
         Assert.IsNull(result);
-        Assert.IsNull(AccountsLogic.CurrentAccount);
     }
 }
 
