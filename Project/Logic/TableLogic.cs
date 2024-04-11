@@ -18,12 +18,12 @@ public class TableLogic<T>
         }
     }
 
-    public static void PrintLine()
+    private static void PrintLine()
     {
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    public static void PrintRow(List<string> columns)
+    private static void PrintRow(List<string> columns)
     {
         int width = (tableWidth - columns.Count) / columns.Count;
         string row = "|";
@@ -36,7 +36,7 @@ public class TableLogic<T>
         Console.WriteLine(row);
     }
 
-    public static string AlignCentre(string text, int width)
+    private static string AlignCentre(string text, int width)
     {
         text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
 
