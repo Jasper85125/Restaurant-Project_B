@@ -66,26 +66,35 @@ public static class BusMenu
 
     public static void AddBus()
     {
-        List<BusModel> list_of_busses = Overview();
-            Console.WriteLine("Hoeveel zitplaatsen heeft deze bus?");
-            string? new_seats = Console.ReadLine();
-            Console.WriteLine("Wat is de kenteken van de bus?");
-            string? new_licensePlate = Console.ReadLine();
-            try
+        List<BusModel> listOfBuses = Overview();
+        
+        Console.WriteLine("Hoeveel zitplaatsen heeft deze bus?");
+        string? newSeats = Console.ReadLine();
+        
+        Console.WriteLine("Wat is de kenteken van de bus?");
+        string? newLicensePlate = Console.ReadLine();
+        
+        try
+        {
+            BusLogic newLogic = new BusLogic();
+            BusModel newBus = new BusModel(newLogic.GenerateNewId(), Convert.ToInt32(newSeats), newLicensePlate);
+            
+            if (ConfirmValue(newBus))
             {
-                BusLogic new_logic = new BusLogic();
-                BusModel new_bus = new BusModel(new_logic.GenerateNewId(), Convert.ToInt32(new_seats), new_licensePlate);
-                new_logic.UpdateList(new_bus);
-                Console.WriteLine("Bus is succesvol toegevoegd!");
-                Thread.Sleep(3000);
-                Console.Clear();
+                newLogic.UpdateList(newBus);
             }
-            catch (FormatException)
+            else
             {
-                Console.WriteLine("Invalid input! Please try again.");
-                Thread.Sleep(3000);
-                Console.Clear();
+                Start();
             }
+            
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input! Please try again.");
+            Thread.Sleep(3000);
+            Console.Clear();
+        }
     }
 
     public static void UpdateBus()
@@ -229,4 +238,49 @@ public static class BusMenu
             return false;
         }
     }
+
+    public static bool ConfirmValue(BusModel newBus)
+    {
+        Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}");
+        Console.Write("Druk op ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Enter");
+        Console.ResetColor();
+        Console.Write(" om door te gaan of druk op ");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Backspace");
+        Console.ResetColor();
+        Console.WriteLine(" om te annuleren.");
+        
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+        
+        if (keyInfo.Key == ConsoleKey.Backspace)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Toevoegen geannuleerd.");
+            Console.ResetColor();
+            Thread.Sleep(3000);
+            Console.Clear();
+            return false;
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nBus is toegevoegd!");
+            Console.ResetColor();
+            Thread.Sleep(3000);
+            Console.Clear();
+            return true;
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nOngeldige invoer!");
+            Console.ResetColor();
+            Thread.Sleep(3000);
+            Console.Clear();
+            return false;
+        }
+    }
+
 }
