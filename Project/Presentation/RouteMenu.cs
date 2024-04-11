@@ -142,9 +142,9 @@ public static class RouteMenu
             }              
         }
         newLogic.UpdateList(newRoute);
-        Console.WriteLine($"\nDit is uw nieuwe toegevoegde route.");
+        Console.WriteLine($"\nDit is uw nieuwe toegevoegde route");
         List<RouteModel> routeModel = new() {newRoute};
-        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "BeginTime", "EndTime"};
+        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "Begintijd", "Eindtijd"};
         if (routeModel == null || routeModel.Count == 0)
         {
             Console.WriteLine("Lege data.");
@@ -189,7 +189,7 @@ public static class RouteMenu
     public static void PrintedOverview()
     {
         {
-        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "BeginTime", "EndTime"};
+        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "BeginTijd", "EindTijd"};
         List<RouteModel> routeModels = routesLogic.GetAll();
         if (routeModels == null || routeModels.Count == 0)
         {
