@@ -1,4 +1,4 @@
-public class PriceLogic
+public class PriceLogic : AbstractLogic<PriceModel>
 {
     private List<PriceModel> _prices;
     public static PriceModel? CurrentPrice{ get; private set; }
@@ -9,7 +9,7 @@ public class PriceLogic
        _prices = DataAccess<PriceModel>.LoadAll("prices");
     }
 
-    public void UpdateList(PriceModel priceModel)
+    public override void UpdateList(PriceModel priceModel)
     {
         //Find if there is already an model with the same id
         int index = _prices.FindIndex(p => p.Id == priceModel.Id);
@@ -27,7 +27,7 @@ public class PriceLogic
         DataAccess<PriceModel>.WriteAll(_prices, "prices");
     }
 
-    public PriceModel GetById(int id)
+    public override PriceModel GetById(int id)
     {
         return _prices.Find(p => p.Id == id);
     }
@@ -48,7 +48,7 @@ public class PriceLogic
             Console.WriteLine("Prijs categorie met het opgegeven ID bestaat niet.");
         }
     }
-    public int GenerateNewId() 
+    public override int GenerateNewId() 
     {
         if (_prices == null || _prices.Count == 0)
         {
@@ -57,6 +57,6 @@ public class PriceLogic
        return _prices.Max(price => price.Id) + 1;
     } 
 
-    public List<PriceModel> GetAll() => _prices;
+    public override List<PriceModel> GetAll() => _prices;
 
 }
