@@ -7,7 +7,7 @@ public static class RouteMenu
     static public void Welcome()
     {
         Console.WriteLine("\nWelkom bij het overzicht voor routes.\n");
-        Console.WriteLine("Wat wilt u doen?");
+        Console.WriteLine("Wat wilt U doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
         Console.WriteLine("[3] Een route aan bus toevoegen");
@@ -78,6 +78,7 @@ public static class RouteMenu
         string? newName = Console.ReadLine();
         while (newName == null || newName.All(char.IsLetter) == false)
         {
+            Console.WriteLine($"{newName} is geen geldige optie.");
             Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
             Console.WriteLine("Wat is de naam van de nieuwe route?");
             newName = Console.ReadLine();
@@ -88,6 +89,7 @@ public static class RouteMenu
         string? newDuration = Console.ReadLine();
         while(newDuration == null || newDuration.All(char.IsDigit) == false)
         {
+            Console.WriteLine($"{newDuration} is geen geldige optie.");
             Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
             Console.WriteLine("Hoelang duurt de route in uur?");
             newDuration = Console.ReadLine();
@@ -96,7 +98,7 @@ public static class RouteMenu
         // Makes the route
         RouteLogic newLogic = new RouteLogic();
         RouteModel newRoute = new RouteModel(newLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName);
-        Console.WriteLine("Nu gaat u haltes toevoegen aan de route");
+        Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
         bool addStopQuestion = true;
         while (addStopQuestion)
         {

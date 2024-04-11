@@ -9,7 +9,7 @@ public static class Menu
         Console.Clear();
         Console.WriteLine("[1] Inloggen op uw account.");
         Console.WriteLine("[2] Account aanmaken.");
-        Console.WriteLine("[3] informatie over de app.");
+        Console.WriteLine("[3] Informatie over de app.");
         Console.WriteLine("[4] Menu voor routes toevoegen");
         Console.WriteLine("[5] Menu voor prijscategorieën");
         Console.WriteLine("[6] Menu voor bussen");
