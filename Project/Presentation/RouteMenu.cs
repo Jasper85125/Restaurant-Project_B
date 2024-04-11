@@ -71,8 +71,6 @@ public static class RouteMenu
 
     public static void AddRoute()
     {
-        List<RouteModel> list_of_routes = Overview();
-
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
