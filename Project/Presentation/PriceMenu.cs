@@ -215,7 +215,7 @@ public static class PriceMenu
 
     public static void ShowAllPricesInformation()
     {
-        List<string> Header = new List<string> {"Id", "Passenger", "Price"};
+        List<string> Header = new() {"Id", "Passenger", "Price"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         if (priceModels == null || priceModels.Count == 0)
         {
@@ -229,8 +229,8 @@ public static class PriceMenu
 
     public static void ShowPriceInformation(PriceModel priceModel)
     {
-        List<PriceModel> priceModels = new List<PriceModel> {priceModel};
-        List<string> Header = new List<string> {"Id", "Passenger", "Price"};
+        List<PriceModel> priceModels = new() {priceModel};
+        List<string> Header = new() {"Id", "Passenger", "Price"};
         if (priceModels == null || priceModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
