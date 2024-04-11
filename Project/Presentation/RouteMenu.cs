@@ -65,15 +65,13 @@ public static class RouteMenu
     public static List<RouteModel> Overview()
     {
         RouteLogic LogicInstance = new RouteLogic();
-        List<RouteModel> overview = LogicInstance.GetAllRoutes();
+        List<RouteModel> overview = LogicInstance.GetAll();
         return overview;
     }
 
     public static void AddRoute()
     {
         List<RouteModel> list_of_routes = Overview();
-        int intId = list_of_routes.Count();
-        int newId = intId + 1;
 
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
@@ -96,7 +94,8 @@ public static class RouteMenu
         }
         
         // Makes the route
-        RouteModel newRoute = new RouteModel(Convert.ToInt32(newId), Convert.ToInt32(newDuration), newName);
+        RouteLogic newLogic = new RouteLogic();
+        RouteModel newRoute = new RouteModel(newLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName);
         Console.WriteLine("Nu gaat u haltes toevoegen aan de route");
         bool addStopQuestion = true;
         while (addStopQuestion)
@@ -139,7 +138,6 @@ public static class RouteMenu
                 }
             }              
         }
-        RouteLogic newLogic = new RouteLogic();
         newLogic.UpdateList(newRoute);
         Console.WriteLine($"\nHet route ID is {newRoute.Id}. De naam van de route is {newRoute.Name} en de duur van de rit is {newRoute.Duration} uur.");
         Console.WriteLine($"De route heeft {newRoute.Stops.Count()} tussenstops");
@@ -149,7 +147,7 @@ public static class RouteMenu
     {
         RouteLogic loading = new RouteLogic();
             Console.WriteLine("Welk van deze IDs zou u willen updaten.");
-            foreach (RouteModel Route in loading.GetAllRoutes())
+            foreach (RouteModel Route in loading.GetAll())
             {
                 Console.WriteLine($"Het Route ID is {Route.Id} en de duur van de rit is {Route.Duration} uur.");
             }
@@ -234,7 +232,7 @@ public static class RouteMenu
     public static void AddToBus()
     {
         BusLogic busLogic = new();
-        List<BusModel> ListAllBusses = busLogic.GetAllBusses();
+        List<BusModel> ListAllBusses = busLogic.GetAll();
         BusMenu.ShowAllBusforamtion(ListAllBusses);
         Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
         string? inputBus = Console.ReadLine();
