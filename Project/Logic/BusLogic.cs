@@ -39,7 +39,7 @@ public class BusLogic : AbstractLogic<BusModel>
         {
             return 1;
         }
-       return _busses.Max(price => price.Id) + 1;
+       return _busses.Max(bus => bus.Id) + 1;
     } 
     public override List<BusModel> GetAll() => _busses;
 
