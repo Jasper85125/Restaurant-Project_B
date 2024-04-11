@@ -87,7 +87,7 @@ public static class RouteMenu
         string? newDuration = Console.ReadLine();
         while(newDuration == null || newDuration.All(char.IsDigit) == false)
         {
-            Console.WriteLine($"{newDuration} is geen geldige optie.");
+            Console.WriteLine($"{newDuration} is geen geldige optie. Gebruik Ja of Nee\n");
             Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
             Console.WriteLine("Hoelang duurt de route in uur?");
             newDuration = Console.ReadLine();
