@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 public static class PriceMenu
 {
     private static PriceLogic pricesLogic = new();
+    private static TableLogic<PriceModel> tablePrices = new();
 
     public static void Start()
     {
@@ -184,32 +185,7 @@ public static class PriceMenu
         ShowPriceInformation(priceModel);
         BackToStartMenu();
     }
-    public static void ShowPriceInformation(PriceModel priceModel)
-    {
-        List<PriceModel> myList = new() {priceModel};
-        string[] Header = {"Id", "Passenger", "Price"};
-        if (myList == null)
-        {
-            Console.WriteLine("Lege data.");
-        }
-        else if (myList.Count == 0)
-        {
-            Console.WriteLine("Lege data.");
-        }
-        else
-        {
-            TableLogic<PriceModel> tablePrices = new TableLogic<PriceModel>();
-            tablePrices.PrintTable(Header, myList, GenerateRow);
-        }
-    }
 
-    public static string[] GenerateRow(PriceModel obj)
-    {
-        var id = obj.Id;
-        var passenger = obj.Passenger;
-        var price = obj.Price;
-        return new string[] { $"{id}", $"{passenger}", $"{price}" };
-    }
 
     public static PriceModel SearchByID()
     {
@@ -236,22 +212,40 @@ public static class PriceMenu
         BackToStartMenu();
     }
 
+
     public static void ShowAllPricesInformation()
     {
-        string[] Header = {"Id", "Passenger", "Price"};
-        var myList = pricesLogic.GetAll();
-        if (myList == null)
-        {
-            Console.WriteLine("Lege data.");
-        }
-        else if (myList.Count == 0)
+        List<string> Header = new List<string> {"Id", "Passenger", "Price"};
+        List<PriceModel> priceModels = pricesLogic.GetAll();
+        if (priceModels == null || priceModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            TableLogic<PriceModel> tablePrices = new TableLogic<PriceModel>();
-            tablePrices.PrintTable(Header, myList, GenerateRow);
+            tablePrices.PrintTable(Header, priceModels, GenerateRow);
         }
+    }
+
+    public static void ShowPriceInformation(PriceModel priceModel)
+    {
+        List<PriceModel> priceModels = new List<PriceModel> {priceModel};
+        List<string> Header = new List<string> {"Id", "Passenger", "Price"};
+        if (priceModels == null || priceModels.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            tablePrices.PrintTable(Header, priceModels, GenerateRow);
+        }
+    }
+
+    public static List<string> GenerateRow(PriceModel priceModel)
+    {
+        var id = priceModel.Id;
+        var passenger = priceModel.Passenger;
+        var price = priceModel.Price;
+        return new List<string> { $"{id}", $"{passenger}", $"{price}" };
     }
 }

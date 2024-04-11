@@ -1,31 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-class TableLogic<T>
-{
-    static int tableWidth = 73;
 
-   public void PrintTable(string[] Header, IEnumerable<T> Data, Func<T, string[]> GenerateRow)
+public class TableLogic<T>
+{
+    public static int tableWidth = 73;
+
+    public void PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
     {
         PrintLine();
         PrintRow(Header);
         PrintLine();
-        foreach(T Object in Data)
+        foreach (T obj in Data)
         {
-            PrintRow(GenerateRow(Object));
+            PrintRow(GenerateRow(obj));
             PrintLine();
         }
     }
 
-
-    static void PrintLine()
+    public static void PrintLine()
     {
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    static void PrintRow(params string[] columns)
+    public static void PrintRow(List<string> columns)
     {
-        int width = (tableWidth - columns.Length) / columns.Length;
+        int width = (tableWidth - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
@@ -36,7 +36,7 @@ class TableLogic<T>
         Console.WriteLine(row);
     }
 
-    static string AlignCentre(string text, int width)
+    public static string AlignCentre(string text, int width)
     {
         text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
 
