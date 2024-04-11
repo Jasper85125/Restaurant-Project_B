@@ -187,8 +187,7 @@ public static class RouteMenu
     }
 
     public static void PrintedOverview()
-    {
-        {
+    { 
         List<string> Header = new() {"Id", "Duration", "Name", "Stops", "BeginTijd", "EindTijd"};
         List<RouteModel> routeModels = routesLogic.GetAll();
         if (routeModels == null || routeModels.Count == 0)
@@ -199,7 +198,7 @@ public static class RouteMenu
         {
             tableRoutes.PrintTable(Header, routeModels, GenerateRow);
         }
-    }
+    
     }
 
     public static void MoreInformation()
@@ -249,9 +248,7 @@ public static class RouteMenu
 
     public static void AddToBus()
     {
-        BusLogic busLogic = new();
-        List<BusModel> ListAllBusses = busLogic.GetAll();
-        BusMenu.ShowAllBusforamtion(ListAllBusses);
+        BusMenu.ShowAllBusInformation();
         Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
         string? inputBus = Console.ReadLine();
         try
