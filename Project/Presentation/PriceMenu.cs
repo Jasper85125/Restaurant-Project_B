@@ -1,8 +1,10 @@
 using System.Formats.Asn1;
+using Microsoft.VisualBasic;
 
 public static class PriceMenu
 {
     private static PriceLogic pricesLogic = new();
+
     public static void Start()
     {
         Console.WriteLine("\nWelkom bij het overzicht voor prijzen.");
@@ -30,7 +32,6 @@ public static class PriceMenu
                     DeletePriceCategory();
                     break;
                 case "4":
-                    Console.Clear();
                     ShowAllPricesInformation();
                     AfterShowingInformation();
                     break;
@@ -185,23 +186,29 @@ public static class PriceMenu
     }
     public static void ShowPriceInformation(PriceModel priceModel)
     {
-        Console.WriteLine($"ID: {priceModel.Id}");
-        Console.WriteLine($"Passenger: {priceModel.Passenger}");
-        Console.WriteLine($"Price: {priceModel.Price}");
-        Console.WriteLine("---------------");
+        List<PriceModel> myList = new() {priceModel};
+        string[] Header = {"Id", "Passenger", "Price"};
+        if (myList == null)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else if (myList.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            TableLogic<PriceModel> tablePrices = new TableLogic<PriceModel>();
+            tablePrices.PrintTable(Header, myList, GenerateRow);
+        }
     }
 
-    public static void ShowAllPricesInformation()
+    public static string[] GenerateRow(PriceModel obj)
     {
-        List<PriceModel> prices = pricesLogic.GetAll();
-        
-        foreach (PriceModel price in prices)
-        {
-            Console.WriteLine($"ID: {price.Id}");
-            Console.WriteLine($"Passenger: {price.Passenger}");
-            Console.WriteLine($"Price: {price.Price}");
-            Console.WriteLine("---------------");
-        }
+        var id = obj.Id;
+        var passenger = obj.Passenger;
+        var price = obj.Price;
+        return new string[] { $"{id}", $"{passenger}", $"{price}" };
     }
 
     public static PriceModel SearchByID()
@@ -227,5 +234,24 @@ public static class PriceMenu
             answer = Console.ReadLine();
         }
         BackToStartMenu();
+    }
+
+    public static void ShowAllPricesInformation()
+    {
+        string[] Header = {"Id", "Passenger", "Price"};
+        var myList = pricesLogic.GetAll();
+        if (myList == null)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else if (myList.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            TableLogic<PriceModel> tablePrices = new TableLogic<PriceModel>();
+            tablePrices.PrintTable(Header, myList, GenerateRow);
+        }
     }
 }
