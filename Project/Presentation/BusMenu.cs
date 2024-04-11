@@ -91,7 +91,7 @@ public static class BusMenu
         }
         catch (FormatException)
         {
-            Console.WriteLine("Invalid input! Please try again.");
+            Console.WriteLine("\nOngeldige invoer!");
             Thread.Sleep(3000);
             Console.Clear();
         }
@@ -153,7 +153,7 @@ public static class BusMenu
         }
         catch (FormatException)
         {
-            Console.WriteLine("Not a valid input");
+            Console.WriteLine("\nOngeldige invoer!");
             Thread.Sleep(3000);
             Console.Clear();
         }
