@@ -92,7 +92,7 @@ public static class RouteMenu
         while(newDuration == null || newDuration.All(char.IsDigit) == false)
         {
             Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
-            Console.WriteLine("Hoelang duurt de route in uur?");
+            Console.WriteLine("Hoelang duurt de route in uren?");
             newDuration = Console.ReadLine();
         }
         
@@ -222,11 +222,12 @@ public static class RouteMenu
                     }
                     else
                     {
-                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes.");
+                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes:");
                         foreach (StopModel Stop in RouteObject.Stops)
                         {
-                            Console.WriteLine($"{Stop.Name}");
+                            Console.WriteLine($"[{Stop.Name}]");
                         }
+                        Thread.Sleep(3000);
                     }
                 }
                 catch (FormatException)
@@ -248,7 +249,9 @@ public static class RouteMenu
 
     public static void AddToBus()
     {
-        BusMenu.ShowAllBusInformation();
+        BusLogic busLogic = new();
+        List<BusModel> ListAllBusses = busLogic.GetAll();
+        BusMenu.ShowAllBusInformation(ListAllBusses);
         Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
         string? inputBus = Console.ReadLine();
         try

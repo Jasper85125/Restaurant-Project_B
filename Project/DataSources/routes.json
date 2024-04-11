@@ -49,5 +49,56 @@
     ],
     "begin": null,
     "end": null
+  },
+  {
+    "id": 4,
+    "duration": 3,
+    "name": "Plezierrit",
+    "stops": [
+      {
+        "name": "blaak",
+        "time": null
+      },
+      {
+        "name": "eendrachtplein",
+        "time": null
+      },
+      {
+        "name": "Dijkzigt",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
+  },
+  {
+    "id": 5,
+    "duration": 3,
+    "name": "Route",
+    "stops": [
+      {
+        "name": "blaak",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
+  },
+  {
+    "id": 6,
+    "duration": 4,
+    "name": "routevijf",
+    "stops": [
+      {
+        "name": "blaak",
+        "time": null
+      },
+      {
+        "name": "eendrachtplein",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
   }
 ]
