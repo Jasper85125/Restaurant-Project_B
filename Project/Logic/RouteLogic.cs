@@ -42,7 +42,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
         {
             return 1;
         }
-       return _routes.Max(price => price.Id) + 1;
+       return _routes.Max(route => route.Id) + 1;
     }
 
     public override List<RouteModel> GetAll() => _routes;
