@@ -4,7 +4,7 @@ using System.Data;
 
 public class TableLogic<T>
 {
-    public static int tableWidth = 73;
+    public static int tableWidth = 145;
 
     public void PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
     {
