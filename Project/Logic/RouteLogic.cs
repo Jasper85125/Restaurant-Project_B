@@ -10,7 +10,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public RouteLogic()
     {
-        _routes = DataAccess<RouteModel>.LoadAll("routes");
+        _routes = DataAccess<RouteModel>.LoadAll();
     }
 
     public override void UpdateList(RouteModel route)
@@ -28,7 +28,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
             //add new model
             _routes.Add(route);
         }
-        DataAccess<RouteModel>.WriteAll(_routes, "routes");
+        DataAccess<RouteModel>.WriteAll(_routes);
     }
 
     public override RouteModel GetById(int id)

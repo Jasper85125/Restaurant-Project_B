@@ -17,7 +17,7 @@ public class AccountsLogic : AbstractLogic<AccountModel>
 
     public AccountsLogic()
     {
-        _accounts = DataAccess<AccountModel>.LoadAll("accounts");
+        _accounts = DataAccess<AccountModel>.LoadAll();
     }
 
     public bool IsValidEmail(string email)
@@ -60,7 +60,7 @@ public class AccountsLogic : AbstractLogic<AccountModel>
             //add new model
             _accounts.Add(acc);
         }
-        DataAccess<AccountModel>.WriteAll(_accounts, "accounts");
+        DataAccess<AccountModel>.WriteAll(_accounts);
 
     }
 
