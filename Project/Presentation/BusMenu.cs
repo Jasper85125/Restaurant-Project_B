@@ -1,5 +1,7 @@
 public static class BusMenu
 {
+    private static TableLogic<BusModel> tableBus = new();
+
 
     public static void Start()
     {
@@ -34,7 +36,7 @@ public static class BusMenu
                     Console.Clear();
                     BusLogic busLogic = new();
                     List<BusModel> ListAllBusses = busLogic.GetAll();
-                    ShowAllBusforamtion(ListAllBusses);
+                    ShowAllBusInformation(ListAllBusses);
                     Start();
                     break;
                 case "5":
@@ -102,10 +104,7 @@ public static class BusMenu
         BusLogic loading = new BusLogic();
         Console.Clear();
         Console.WriteLine("Welk busnummer wilt U updaten?");
-        foreach (BusModel Bus in loading.GetAll())
-        {
-            Console.WriteLine($"ID: {Bus.Id},\nKenteken: {Bus.LicensePlate},\nAantal zitplekken: {Bus.Seats}.");
-        }
+        ShowAllBusInformation(Overview());
         string? id_to_be_updated = Console.ReadLine();
         try
         {
@@ -156,22 +155,25 @@ public static class BusMenu
             Console.Clear();
         }
     }
-    public static void ShowAllBusforamtion (List<BusModel> ListAllBusses)
+    public static void ShowAllBusInformation (List<BusModel> ListAllBusses)
     {
-        foreach (BusModel bus in ListAllBusses)
-        {
-            Console.WriteLine($"Bus ID: {bus.Id}");
-            Console.WriteLine($"Kenteken: {bus.LicensePlate}");
-            Console.WriteLine($"Beschikbare plekken: {bus.Seats}");
-            Console.WriteLine($"Heeft een route: {HasRoute(bus)}\n");
-        }
+        List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)"};
 
-    } 
+        if (ListAllBusses == null || ListAllBusses.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
+        }
+    
+    }
 
     /// Voor deze functies moet later nog een string format checker worden geschreven.
     public static void AddTime()
     {
-        ShowAllBusforamtion(Overview());
+        ShowAllBusInformation(Overview());
         Console.WriteLine("Aan welke bus met route wilt U een tijd geven?");
         string? busID = Console.ReadLine();
         try
@@ -284,5 +286,13 @@ public static class BusMenu
             return false;
         }
     }
-
-}
+    public static List<string> GenerateRow(BusModel busModel)
+    {
+        var id = busModel.Id;
+        var seats = busModel.Seats;
+        var licensePlate = busModel.LicensePlate;
+        var routeNames = string.Join(", ", busModel.Route.Select(r => r.Name));
+        
+        return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}" };
+    }
+}   

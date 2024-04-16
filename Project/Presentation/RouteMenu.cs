@@ -6,11 +6,12 @@ public static class RouteMenu
 {
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
+    private static TableLogic<RouteModel> tableRoutes = new();
 
     static public void Welcome()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor routes.\n");
-        Console.WriteLine("Wat wilt U doen?");
+        Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
+        Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
         Console.WriteLine("[3] Een route aan bus toevoegen");
@@ -91,7 +92,7 @@ public static class RouteMenu
         {
             Console.WriteLine($"{newDuration} is geen geldige optie. Gebruik Ja of Nee\n");
             Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
-            Console.WriteLine("Hoelang duurt de route in uur?");
+            Console.WriteLine("Hoelang duurt de route in uren?");
             newDuration = Console.ReadLine();
         }
         
@@ -139,9 +140,18 @@ public static class RouteMenu
                 }
             }              
         }
-        routeLogic.UpdateList(newRoute);
-        Console.WriteLine($"\nHet route ID is {newRoute.Id}. De naam van de route is {newRoute.Name} en de duur van de rit is {newRoute.Duration} uur.");
-        Console.WriteLine($"De route heeft {newRoute.Stops.Count()} tussenstops");
+        newLogic.UpdateList(newRoute);
+        Console.WriteLine($"\nDit is uw nieuwe toegevoegde route");
+        List<RouteModel> routeModel = new() {newRoute};
+        List<string> Header = new() {"Routenummer", "Naam","Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        if (routeModel == null || routeModel.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            tableRoutes.PrintTable(Header, routeModel, GenerateRow);
+        }
     }
 
     public static void UpdateRoute()
@@ -175,22 +185,28 @@ public static class RouteMenu
     }
 
     public static void PrintedOverview()
-    {
-        List<RouteModel> overview = RouteMenu.Overview();
-            foreach (RouteModel Route in overview)
-            {
-                Console.WriteLine($"\nHet route ID is {Route.Id}. De naam van de route is {Route.Name} en de duur van de rit is {Route.Duration} uur.");
-                Console.WriteLine($"De route heeft {Route.Stops.Count()} tussenstops");
-            }
+    { 
+        List<string> Header = new() {"Routenummer", "Naam","Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<RouteModel> routeModels = routesLogic.GetAll();
+        if (routeModels == null || routeModels.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+        }
+    
     }
 
     public static void MoreInformation()
     {
-        Console.WriteLine("Wilt u meer informatie over een route Y/N");
+        RouteLogic loading = new RouteLogic();
+        Console.WriteLine("Wilt u meer informatie over een route J/N");
         string? answer = Console.ReadLine();
-        if (answer.ToLower() == "y" || answer.ToLower() == "n")
+        if (answer.ToLower() == "j" || answer.ToLower() == "n")
         {
-            if (answer.ToLower() == "y")
+            if (answer.ToLower() == "j")
             {
                 Console.WriteLine("Over welke route wilt u meer informatie?");
                 string? idMoreInfo = Console.ReadLine();
@@ -204,11 +220,12 @@ public static class RouteMenu
                     }
                     else
                     {
-                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes.");
+                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes:");
                         foreach (StopModel Stop in RouteObject.Stops)
                         {
-                            Console.WriteLine($"{Stop.Name}");
+                            Console.WriteLine($"[{Stop.Name}]");
                         }
+                        Thread.Sleep(3000);
                     }
                 }
                 catch (FormatException)
@@ -231,7 +248,7 @@ public static class RouteMenu
     public static void AddToBus()
     {
         List<BusModel> ListAllBusses = busLogic.GetAll();
-        BusMenu.ShowAllBusforamtion(ListAllBusses);
+        BusMenu.ShowAllBusInformation(ListAllBusses);
         Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
         string? inputBus = Console.ReadLine();
         try
@@ -272,5 +289,21 @@ public static class RouteMenu
             Console.WriteLine($"Verkeerde input. Probeer het nog een keer.");
             AddToBus();
         }
+    }
+
+    public static List<string> GenerateRow(RouteModel routeModel)
+    {
+        List<StopModel> allStops = new() {};
+        var id = routeModel.Id;
+        var duration = routeModel.Duration;
+        var name = routeModel.Name;
+        var stops = routeModel.Stops;
+        var beginTime = routeModel.beginTime;
+        var endTime = routeModel.endTime;
+        foreach(StopModel stop in stops){
+            allStops.Add(stop);
+        }
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
     }
 }
