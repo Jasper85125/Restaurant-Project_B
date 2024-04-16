@@ -5,7 +5,7 @@ public class StopMenu
         bool checkStopName = true;
         while (checkStopName)
         {
-            Console.WriteLine("Wat is de naam van de tussenstop?");
+            Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
             if (newName != null && newName.All(char.IsLetter))
             {
@@ -16,11 +16,5 @@ public class StopMenu
             Console.WriteLine("Probeer het nog een keer.");
         }
         return null;
-    }
-
-    public static RouteModel AddToRoute(StopModel stop, RouteModel inputRoute)
-    {
-        inputRoute.Stops.Add(stop);
-        return inputRoute;
     }
 }

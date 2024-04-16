@@ -47,4 +47,10 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public override List<RouteModel> GetAll() => _routes;
 
+    public static RouteModel AddToRoute(StopModel stop, RouteModel inputRoute)
+    {
+        inputRoute.Stops.Add(stop);
+        return inputRoute;
+    }
+
 }
