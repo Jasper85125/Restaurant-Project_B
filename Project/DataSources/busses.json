@@ -78,23 +78,5 @@
         "end": null
       }
     ]
-  },
-  {
-    "id": 4,
-    "seats": 4,
-    "licensePlate": "123",
-    "route": []
-  },
-  {
-    "id": 5,
-    "seats": 20,
-    "licensePlate": "1245",
-    "route": []
-  },
-  {
-    "id": 6,
-    "seats": 4,
-    "licensePlate": "123456",
-    "route": []
   }
 ]

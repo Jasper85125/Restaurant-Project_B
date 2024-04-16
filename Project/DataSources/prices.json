@@ -13,10 +13,5 @@
     "id": 3,
     "passenger": "elder",
     "price": 15
-  },
-  {
-    "id": 4,
-    "passenger": "Thijs",
-    "price": 0
   }
 ]
