@@ -6,39 +6,52 @@ public static class Menu
     //You could edit this to show different menus depending on the user's role
     public static void Start()
     {
-        Console.Clear();
-        Console.WriteLine("[1] Inloggen op uw account.");
-        Console.WriteLine("[2] Account aanmaken.");
-        Console.WriteLine("[3] informatie over de app.");
-        Console.WriteLine("[4] Menu voor routes toevoegen");
-        Console.WriteLine("[5] Menu voor prijscategorieën");
-        Console.WriteLine("[6] Menu voor bussen");
+        ConsoleKeyInfo keyPressed = ReadKey();
 
-        string? input = Console.ReadLine();
-        switch (input)
+        if (keyPressed.Key == ConsoleKey.Enter)
         {
-            case "1":
-                UserLogin.Start();
-                break;
-            case "2":
-                UserSignUp.Start();
-                break;
-            case "3":
-                Information.Info();
-                break;
-            case "4":
-                RouteMenu.Welcome();
-                break;
-            case "5":
-                PriceMenu.Start();
-                break;
-            case "6":
-                BusMenu.Start();
-                break;
-            default:
-                Console.WriteLine("Verkeerde input");
-                Menu.Start();
-                break;
+            Console.WriteLine("You pressed enter");
+        }else
+        {
+            Console.WriteLine("you pressed somting else");
         }
+
+        ReadKey(true);
+
+
+        // Console.Clear();
+        // Console.WriteLine("[1] Inloggen op uw account.");
+        // Console.WriteLine("[2] Account aanmaken.");
+        // Console.WriteLine("[3] informatie over de app.");
+        // Console.WriteLine("[4] Menu voor routes toevoegen");
+        // Console.WriteLine("[5] Menu voor prijscategorieën");
+        // Console.WriteLine("[6] Menu voor bussen");
+
+        // string? input = Console.ReadLine();
+        // switch (input)
+        // {
+        //     case "1":
+        //         UserLogin.Start();
+        //         break;
+        //     case "2":
+        //         UserSignUp.Start();
+        //         break;
+        //     case "3":
+        //         Information.Info();
+        //         break;
+        //     case "4":
+        //         RouteMenu.Welcome();
+        //         break;
+        //     case "5":
+        //         PriceMenu.Start();
+        //         break;
+        //     case "6":
+        //         BusMenu.Start();
+        //         break;
+        //     default:
+        //         Console.WriteLine("Verkeerde input");
+        //         Menu.Start();
+        //         break;
+        //}
     }
 }
