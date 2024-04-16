@@ -101,7 +101,7 @@ public static class PriceMenu
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
         ShowAllPricesInformation();
-        Console.WriteLine("Wilt u nog een prijs categorie toevoegen? Y/N: ");
+        Console.WriteLine("Wilt u nog een prijs categorie toevoegen? J/N: ");
         string? answer = Console.ReadLine();
 
         if (answer!= null && answer.ToLower() == "n")
@@ -109,7 +109,7 @@ public static class PriceMenu
             Console.WriteLine("Uw antwoord is nee.");
             BackToStartMenu();
         }
-        else if (answer!= null && answer.ToLower() != "y")
+        else if (answer!= null && answer.ToLower() != "j")
         {
             Console.WriteLine("Verkeerde input!");
             Thread.Sleep(3000);
@@ -204,9 +204,9 @@ public static class PriceMenu
     public static void AfterShowingInformation()
     {
         string answer = "";
-        while (answer.ToLower() !="y")
+        while (answer.ToLower() !="j")
         {       
-            Console.WriteLine("Om terug te gaan naar het Startmenu voer y in.");
+            Console.WriteLine("Om terug te gaan naar het Startmenu voer J in.");
             answer = Console.ReadLine();
         }
         BackToStartMenu();
@@ -215,7 +215,7 @@ public static class PriceMenu
 
     public static void ShowAllPricesInformation()
     {
-        List<string> Header = new() {"Id", "Passenger", "Price"};
+        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         if (priceModels == null || priceModels.Count == 0)
         {
@@ -230,7 +230,7 @@ public static class PriceMenu
     public static void ShowPriceInformation(PriceModel priceModel)
     {
         List<PriceModel> priceModels = new() {priceModel};
-        List<string> Header = new() {"Id", "Passenger", "Price"};
+        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
         if (priceModels == null || priceModels.Count == 0)
         {
             Console.WriteLine("Lege data.");

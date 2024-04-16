@@ -9,7 +9,7 @@ public static class RouteMenu
 
     static public void Welcome()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor routes.\n");
+        Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
         Console.WriteLine("Wat wilt u doen?");
         Console.WriteLine("[1] Een route toevoegen.");
         Console.WriteLine("[2] Een route updaten.");
@@ -144,7 +144,7 @@ public static class RouteMenu
         newLogic.UpdateList(newRoute);
         Console.WriteLine($"\nDit is uw nieuwe toegevoegde route");
         List<RouteModel> routeModel = new() {newRoute};
-        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Routenummer", "Naam","Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         if (routeModel == null || routeModel.Count == 0)
         {
             Console.WriteLine("Lege data.");
@@ -188,7 +188,7 @@ public static class RouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> Header = new() {"Id", "Duration", "Name", "Stops", "BeginTijd", "EindTijd"};
+        List<string> Header = new() {"Routenummer", "Naam","Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routesLogic.GetAll();
         if (routeModels == null || routeModels.Count == 0)
         {
@@ -204,11 +204,11 @@ public static class RouteMenu
     public static void MoreInformation()
     {
         RouteLogic loading = new RouteLogic();
-        Console.WriteLine("Wilt u meer informatie over een route Y/N");
+        Console.WriteLine("Wilt u meer informatie over een route J/N");
         string? answer = Console.ReadLine();
-        if (answer.ToLower() == "y" || answer.ToLower() == "n")
+        if (answer.ToLower() == "j" || answer.ToLower() == "n")
         {
-            if (answer.ToLower() == "y")
+            if (answer.ToLower() == "j")
             {
                 Console.WriteLine("Over welke route wilt u meer informatie?");
                 string? idMoreInfo = Console.ReadLine();
@@ -309,6 +309,6 @@ public static class RouteMenu
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> { $"{id}", $"{duration}", $"{name}", stopsString, $"{beginTime}", $"{endTime}" };
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
     }
 }
