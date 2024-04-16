@@ -7,7 +7,7 @@ public class BusLogic : AbstractLogic<BusModel>
 
     public BusLogic()
     {
-        _busses = DataAccess<BusModel>.LoadAll("busses");
+        _busses = DataAccess<BusModel>.LoadAll();
     }
 
     public override void UpdateList(BusModel bus)
@@ -25,7 +25,7 @@ public class BusLogic : AbstractLogic<BusModel>
             //add new model
             _busses.Add(bus);
         }
-        DataAccess<BusModel>.WriteAll(_busses, "busses");
+        DataAccess<BusModel>.WriteAll(_busses);
     }
 
     public override BusModel GetById(int id)

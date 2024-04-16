@@ -6,7 +6,7 @@ public class PriceLogic : AbstractLogic<PriceModel>
     public PriceLogic()
     {
 
-       _prices = DataAccess<PriceModel>.LoadAll("prices");
+       _prices = DataAccess<PriceModel>.LoadAll();
     }
 
     public override void UpdateList(PriceModel priceModel)
@@ -24,7 +24,7 @@ public class PriceLogic : AbstractLogic<PriceModel>
             //add new model
             _prices.Add(priceModel);
         }
-        DataAccess<PriceModel>.WriteAll(_prices, "prices");
+        DataAccess<PriceModel>.WriteAll(_prices);
     }
 
     public override PriceModel GetById(int id)
@@ -41,7 +41,7 @@ public class PriceLogic : AbstractLogic<PriceModel>
             // Hier verwijder ik het price model uit de lijst
             _prices.RemoveAt(index);
             
-            DataAccess<PriceModel>.WriteAll(_prices, "prices");
+            DataAccess<PriceModel>.WriteAll(_prices);
         }
         else
         {
