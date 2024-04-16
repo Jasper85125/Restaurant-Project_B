@@ -12,6 +12,7 @@ public static class Helper
     {
         return parameter.GetType() == typeof(int);
     }
+    
 
     public static void function(string message, Func<bool> func)
     {
