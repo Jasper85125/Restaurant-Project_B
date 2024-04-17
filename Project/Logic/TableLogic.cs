@@ -53,13 +53,7 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear(); // Console leegmaken voordat je de rij bewerkt
                     Console.WriteLine("Bewerk de geselecteerde rij..."); 
-                    PrintLine();
-                    PrintRow(Header);
-                    PrintLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    PrintRow(geselecteerdeRow);
-                    Console.ResetColor();
-                    PrintLine();
+                    PrintSelectedRow(geselecteerdeRow, Header);
 
                     Console.WriteLine("Klik op een knop om verder te gaan...");
                     Console.ReadKey(true);
@@ -69,7 +63,15 @@ public class TableLogic<T>
         Console.WriteLine("U keert terug naar het menu...");
     }
         
-
+    public void PrintSelectedRow(List<string> selectedRow, List<string> header){
+        PrintLine();
+        PrintRow(header);
+        PrintLine();
+        Console.ForegroundColor = ConsoleColor.Green;
+        PrintRow(selectedRow);
+        Console.ResetColor();
+        PrintLine();
+    }
            
     private static void PrintLine()
     {
