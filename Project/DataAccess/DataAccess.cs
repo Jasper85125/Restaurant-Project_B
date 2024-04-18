@@ -37,10 +37,6 @@ static class DataAccess<T>
 
     private static string RemoveSuffix(string classModel, string suffix="Model")
     {
-        if (classModel == "BusModel")
-        {
-            return classModel.Replace(suffix, "ses").ToLower();
-        }
-        return classModel.Replace(suffix, "s").ToLower();
+        return classModel.Replace(suffix, "");
     }
 }
