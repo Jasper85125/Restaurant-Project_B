@@ -29,7 +29,6 @@ public static class Menu
                     break;
                 case ConsoleKey.Enter:
                     // Perform action based on selected option (e.g., execute corresponding function)
-                    Console.WriteLine("Option " + selectedOption + " selected.");
                     switch (selectedOption)
                     {
                         case 1:
@@ -62,7 +61,7 @@ public static class Menu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Select an option:");
+        Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
