@@ -241,34 +241,17 @@ public static class BusMenu
 
     public static bool ConfirmValue(BusModel newBus, string UpdatedValue = null, bool IsUpdate = false)
     {
-        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue))
+        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Ongeldige invoer.");
+            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Console.ResetColor();
             Thread.Sleep(2000);
             Console.Clear();
             return false;
         }
 
-        if (!IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
-            Thread.Sleep(2000);
-            Console.Clear();
-            return false;
-        }
-
-        if (!IsUpdate)
-        {
-            Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}");
-        }
-        else
-        {
-            Console.WriteLine($"U staat op het punt oude data te veranderen: {UpdatedValue}");
-        }
+        Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
         Console.Write("Druk op ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write("Enter");
@@ -294,7 +277,6 @@ public static class BusMenu
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Data is toegevoegd!");
                 Console.ResetColor();
@@ -311,8 +293,9 @@ public static class BusMenu
                 Console.Clear();
                 return false;
             }
-        } while (true);
+        }
     }
+
 
 
     public static List<string> GenerateRow(BusModel busModel)
