@@ -1,4 +1,5 @@
 using System.Data.Common;
+using System.Formats.Asn1;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -17,7 +18,8 @@ public static class RouteMenu
         Console.WriteLine("[2] Een route updaten.");
         Console.WriteLine("[3] Een route aan bus toevoegen");
         Console.WriteLine("[4] Een overzicht van alle routes.");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
+        Console.WriteLine("[5] Een halte toevoegen.");
+        Console.WriteLine("[6] Ga terug naar het vorige menu.");
         
         string? input = Console.ReadLine();
         if (input == null)
@@ -56,11 +58,11 @@ public static class RouteMenu
                 MoreInformation();
                 Welcome();
                 break;
-            case "5":
+            case "6":
                 Console.Clear();
                 Menu.Start();
                 break;
-            case "6":
+            case "5":
                 Console.Clear();
                 MakeStop();
                 break;
@@ -331,10 +333,37 @@ public static class RouteMenu
         {
             Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
-            if (newName != null && newName.All(char.IsLetter) && newName != stopLogic.GetAll())
+            if (newName != null && newName.All(char.IsLetter))
             {
-                StopModel newStop = new StopModel(Convert.ToString(newName));
+                foreach (StopModel stop in stopLogic.GetAll())
+                {
+                    if (stop.Name == newName)
+                    {
+                        Console.WriteLine("Halte bestaat al");
+                        Welcome();
+                    }
+                }
+                StopModel newStop = new StopModel(stopLogic.GenerateNewId() ,Convert.ToString(newName));
                 stopLogic.UpdateList(newStop);
+                checkStopName = false;
+                Console.WriteLine("Wilt U nog een halte toevoegen. Ja of Nee");
+                string? answer = Console.ReadLine();
+                bool switchMainer = true;
+                while (switchMainer)
+                {
+                    switch (answer.ToLower())
+                    {
+                        case "ja":
+                            MakeStop();
+                            break;
+                        case "nee":
+                            Welcome();
+                            break;
+                        default:
+                            Console.WriteLine($"{answer} is geen geldige input. Probeer het opnieuw.");
+                            break;
+                    }
+                }
             }
             else
             {

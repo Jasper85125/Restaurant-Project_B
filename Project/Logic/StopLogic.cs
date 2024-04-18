@@ -10,7 +10,7 @@ public class StopLogic : AbstractLogic<StopModel>
 
     public StopLogic()
     {
-        _stops = DataAccess<StopModel>.LoadAll("stops");
+        _stops = DataAccess<StopModel>.LoadAll();
     }
 
     public override void UpdateList(StopModel stop)
@@ -28,7 +28,7 @@ public class StopLogic : AbstractLogic<StopModel>
             //add new model
             _stops.Add(stop);
         }
-        DataAccess<StopModel>.WriteAll(_stops, "stops");
+        DataAccess<StopModel>.WriteAll(_stops);
     }
 
     public override StopModel GetById(int id)

@@ -12,8 +12,9 @@ public class StopModel
     [JsonPropertyName("time")]
     public string Time { get; set; }
 
-    public StopModel(string name)
+    public StopModel(int id, string name)
     {
+        Id = id;
         Name = name;
         Time = null;
     }
