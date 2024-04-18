@@ -241,9 +241,32 @@ public static class BusMenu
 
     public static bool ConfirmValue(BusModel newBus, string UpdatedValue = null, bool IsUpdate = false)
     {
-        if(!IsUpdate){
-            Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}"); 
-        }else{
+        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Ongeldige invoer.");
+            Console.ResetColor();
+            Thread.Sleep(2000);
+            Console.Clear();
+            return false;
+        }
+
+        if (!IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Fout: Nieuwe busgegevens ontbreken!");
+            Console.ResetColor();
+            Thread.Sleep(2000);
+            Console.Clear();
+            return false;
+        }
+
+        if (!IsUpdate)
+        {
+            Console.WriteLine($"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}");
+        }
+        else
+        {
             Console.WriteLine($"U staat op het punt oude data te veranderen: {UpdatedValue}");
         }
         Console.Write("Druk op ");
@@ -255,37 +278,43 @@ public static class BusMenu
         Console.Write("Backspace");
         Console.ResetColor();
         Console.WriteLine(" om te annuleren.");
-        
-        ConsoleKeyInfo keyInfo = Console.ReadKey();
-        
-        if (keyInfo.Key == ConsoleKey.Backspace)
+
+        ConsoleKeyInfo keyInfo;
+        do
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Toevoegen geannuleerd.");
-            Console.ResetColor();
-            Thread.Sleep(3000);
-            Console.Clear();
-            return false;
-        }
-        else if (keyInfo.Key == ConsoleKey.Enter)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\nData is toegevoegd!");
-            Console.ResetColor();
-            Thread.Sleep(3000);
-            Console.Clear();
-            return true;
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nOngeldige invoer!");
-            Console.ResetColor();
-            Thread.Sleep(3000);
-            Console.Clear();
-            return false;
-        }
+            keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Backspace)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Toevoegen geannuleerd.");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return false;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Data is toegevoegd!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ongeldige invoer!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return false;
+            }
+        } while (true);
     }
+
+
     public static List<string> GenerateRow(BusModel busModel)
     {
         var id = busModel.Id;
