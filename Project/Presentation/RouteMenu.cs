@@ -108,37 +108,9 @@ public static class RouteMenu
         Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
     }
 
-    // public static void AddRoute()
-    // {
-    //     // check if Name is string
-    //     Console.WriteLine("Wat is de naam van de nieuwe route?");
-    //     string? newName = Console.ReadLine();
-    //     while (newName == null || newName.All(char.IsLetter) == false)
-    //     {
-    //         Console.WriteLine($"{newName} is geen geldige optie.");
-    //         Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
-    //         Console.WriteLine("Wat is de naam van de nieuwe route?");
-    //         newName = Console.ReadLine();
-    //     }
-        
-    //     // checks if Duration is Int input
-    //     Console.WriteLine("Hoelang duurt de route in uur?");
-    //     string? newDuration = Console.ReadLine();
-    //     while(newDuration == null || newDuration.All(char.IsDigit) == false)
-    //     {
-    //         Console.WriteLine($"{newDuration} is geen geldige optie. Gebruik Ja of Nee\n");
-    //         Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
-    //         Console.WriteLine("Hoelang duurt de route in uren?");
-    //         newDuration = Console.ReadLine();
-    //     }
-        
-    //     // Makes the route
-    //     RouteModel newRoute = new RouteModel(routeLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName);
-    //     Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
     //     bool addStopQuestion = true;
     //     while (addStopQuestion)
     //     {
-    //         StopModel newStop = StopMenu.MakeStop();
     //         bool checkDuplicateStop = false;
     //         foreach (StopModel stop in newRoute.Stops)
     //         {
