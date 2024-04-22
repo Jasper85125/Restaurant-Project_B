@@ -293,7 +293,7 @@ public static class BusMenu
                 Console.Clear();
                 return false;
             }
-        }
+        }while(true);
     }
 
 
