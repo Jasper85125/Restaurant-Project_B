@@ -170,6 +170,53 @@ public static class RouteMenu
 
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
 
+            bool checkStopName = true;
+            List<StopModel> stops = stopLogic.GetAll();
+            int selectedIndex = 0;
+
+            while (checkStopName)
+            {
+                Console.Clear();
+
+                Console.WriteLine($"Naam: {route.Name}, tijdsduur: {route.Duration}.\n");
+
+                Console.WriteLine("Selecteer een halte:");
+
+                for (int i = 0; i < stops.Count; i++)
+                {
+                    if (i == selectedIndex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(">> ");
+                    }
+                    else
+                    {
+                        Console.Write("   ");
+                    }
+                    Console.WriteLine(stops[i].Name);
+                    Console.ResetColor();
+                }
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        selectedIndex = (selectedIndex - 1 + stops.Count) % stops.Count;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        selectedIndex = (selectedIndex + 1) % stops.Count;
+                        break;
+                    case ConsoleKey.Enter:
+                        StopModel selectedStop = stops[selectedIndex];
+                        Console.WriteLine($"Geselecteerde halte: {selectedStop.Name}");
+                        checkStopName = false;
+                        break;
+                    default:
+                        Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
+                        break;
+                }
+            }
+    
         }
 
     }
