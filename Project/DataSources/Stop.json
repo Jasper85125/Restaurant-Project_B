@@ -1,3 +1,122 @@
 [
-  
+  {
+      "id": 1,
+      "name": "Centraal Station"
+  },
+  {
+      "id": 2,
+      "name": "Blaak"
+  },
+  {
+      "id": 3,
+      "name": "Zuidplein"
+  },
+  {
+      "id": 4,
+      "name": "Beurs"
+  },
+  {
+      "id": 5,
+      "name": "Alexander"
+  },
+  {
+      "id": 6,
+      "name": "Kralingse Zoom"
+  },
+  {
+      "id": 7,
+      "name": "Schouwburgplein"
+  },
+  {
+      "id": 8,
+      "name": "Wilhelminaplein"
+  },
+  {
+      "id": 9,
+      "name": "Capelsebrug"
+  },
+  {
+      "id": 10,
+      "name": "Zuidplein Metro"
+  },
+  {
+      "id": 11,
+      "name": "Marconiplein"
+  },
+  {
+      "id": 12,
+      "name": "Noorderburg"
+  },
+  {
+      "id": 13,
+      "name": "Meent"
+  },
+  {
+      "id": 14,
+      "name": "De Kuip"
+  },
+  {
+      "id": 15,
+      "name": "Laan op Zuid"
+  },
+  {
+      "id": 16,
+      "name": "Leuvehaven"
+  },
+  {
+      "id": 17,
+      "name": "Museumpark"
+  },
+  {
+      "id": 18,
+      "name": "Willemsplein"
+  },
+  {
+      "id": 19,
+      "name": "Schiedamseweg"
+  },
+  {
+      "id": 20,
+      "name": "Parkweg"
+  },
+  {
+      "id": 21,
+      "name": "Mathenesserplein"
+  },
+  {
+      "id": 22,
+      "name": "Delfshaven"
+  },
+  {
+      "id": 23,
+      "name": "Centrum-West"
+  },
+  {
+      "id": 24,
+      "name": "Westblaak"
+  },
+  {
+      "id": 25,
+      "name": "Groeninx van Zoelenlaan"
+  },
+  {
+      "id": 26,
+      "name": "Blijdorp"
+  },
+  {
+      "id": 27,
+      "name": "Centraal"
+  },
+  {
+      "id": 28,
+      "name": "Eendrachtsplein"
+  },
+  {
+      "id": 29,
+      "name": "Schiekade"
+  },
+  {
+      "id": 30,
+      "name": "Coolhaven"
+  }
 ]
