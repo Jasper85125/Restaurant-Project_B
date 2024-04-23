@@ -164,12 +164,6 @@ public static class RouteMenu
         }
         else
         {
-            List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
-            List<StopModel> stopModels = stopLogic.GetAll();
-            tableStops.PrintTable(Header, stopModels, GenerateRow);
-
-            //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
-
             bool checkStopName = true;
             List<StopModel> stops = stopLogic.GetAll();
             int selectedIndex = 0;
@@ -418,6 +412,7 @@ public static class RouteMenu
         {
             Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
+            
             if (newName != null && newName.All(char.IsLetter))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
