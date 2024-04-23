@@ -29,19 +29,17 @@ public static class PriceMenu
                     selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
+                    Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
                         case 1:
-                            Console.Clear();
                             AddPriceCategory();
                             break;
                         case 2:
-                            Console.Clear();
                             EditPriceCategory();
                             break;
                         case 3:
-                            Console.Clear();
                             DeletePriceCategory();
                             break;
                         case 4:
@@ -49,12 +47,9 @@ public static class PriceMenu
                             AfterShowingInformation();
                             break;
                         case 5:
-                            Console.Clear();
-                            BackToStartMenu();
                             Menu.Start();
                             break;
                         default:
-                            Console.Clear();
                             Console.WriteLine("Verkeerde input!");
                             Thread.Sleep(3000);
                             Start();
