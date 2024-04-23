@@ -223,9 +223,34 @@ public static class PriceMenu
         }
         else
         {
-            tablePrices.PrintTable(Header, priceModels, GenerateRow);
+            while(true){
+                List<string> SelectedRow = tablePrices.PrintTable(Header, priceModels, GenerateRow);
+                while(true){
+                    (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(SelectedRow, Header);
+                    if (result != null)
+                    {
+                        string selectedItem = result.Value.SelectedItem;
+                        int selectedIndex = result.Value.SelectedIndex;
+                        if (selectedIndex == 0){
+                            Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                        }
+                        else if(selectedIndex == 1){
+
+                        }
+
+                        // Now you can use the selectedItem and selectedIndex variables as needed
+                    }
+                    else
+                    {
+                        Console.WriteLine("U keert terug naar het prijsmenu overzicht");
+                        break;
+                    }
+                }
+            }
+
         }
     }
+
 
     public static void ShowPriceInformation(PriceModel priceModel)
     {

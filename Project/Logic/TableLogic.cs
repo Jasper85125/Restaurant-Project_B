@@ -8,7 +8,7 @@ public class TableLogic<T>
     public static int tableWidth = 145;
     public static int selectedOption = 1;
 
-    public void PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
+    public List<string> PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -52,27 +52,51 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear(); // Console leegmaken voordat je de rij bewerkt
-                    Console.WriteLine("Bewerk de geselecteerde rij..."); 
-                    PrintSelectedRow(geselecteerdeRow, Header);
-
-                    Console.WriteLine("Klik op een knop om verder te gaan...");
-                    Console.ReadKey(true);
-                    break;
+                    return geselecteerdeRow;
             }
         } while (keyInfo.Key != ConsoleKey.Backspace);
-        Console.WriteLine("U keert terug naar het menu...");
+        Console.WriteLine("U keert terug naar het menu");
+        return null;
     }
         
-    public void PrintSelectedRow(List<string> selectedRow, List<string> header){
-        PrintLine();
-        PrintRow(header);
-        PrintLine();
-        Console.ForegroundColor = ConsoleColor.Green;
-        PrintRow(selectedRow);
-        Console.ResetColor();
-        PrintLine();
+    public (string,int)? PrintSelectedRow(List<string> selectedRow, List<string> header)
+    {
+        int selectedIndex = 0;
+        ConsoleKeyInfo key;
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("Geselecteerde rij:");
+            PrintRow(header);
+            PrintLine();
+            PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
+            PrintLine();
+
+            key = Console.ReadKey(true);
+
+            switch (key.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    selectedIndex = Math.Max(0, selectedIndex - 1);
+                    break;
+                case ConsoleKey.RightArrow:
+                    selectedIndex = Math.Min(selectedRow.Count - 1, selectedIndex + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
+                    Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
+                    Console.ReadLine();
+                    return (selectedRow[selectedIndex],selectedIndex);
+                case ConsoleKey.Backspace:
+                    return null;
+            }
+
+        } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
+
+        return null;
     }
-           
+            
     private static void PrintLine()
     {
         Console.WriteLine(new string('-', tableWidth));
@@ -90,6 +114,31 @@ public class TableLogic<T>
 
         Console.WriteLine(row);
     }
+
+    private static void PrintRowForSelected(List<string> columns, int selectedIndex)
+    {
+        int width = (tableWidth - columns.Count) / columns.Count;
+        string row = "|";
+
+        for (int i = 0; i < columns.Count; i++)
+        {
+            string column = columns[i];
+            if (i == selectedIndex) // Check if current column index matches selectedIndex
+            {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    row += ">> " + AlignCentre(column, width - 3) + "|"; // Example: Prefix with ">>"
+                    Console.ResetColor();
+   
+            }
+            else
+            {
+                row += AlignCentre(column, width) + "|";
+            }
+        }
+
+        Console.WriteLine(row);
+    }
+
 
     private static string AlignCentre(string text, int width)
     {
