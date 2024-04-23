@@ -36,36 +36,31 @@ public static class RouteMenu
                     selectedOption = Math.Min(6, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
+                    Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
                         case 1:
-                            Console.Clear();
                             AddRoute();
                             Welcome();
                             break;
                         case 2:
-                            Console.Clear();
                             UpdateRoute();
                             Welcome();
                             break;
                         case 3:
-                            Console.Clear();
                             AddToBus();
                             Welcome();
                             break;
                         case 4:
-                            Console.Clear();
                             PrintedOverview();
                             MoreInformation();
                             Welcome();
                             break;
                         case 5:
-                            Console.Clear();
                             MakeStop();
                             break;
                         case 6:
-                            Console.Clear();
                             Menu.Start();
                             break;
                     }
@@ -164,10 +159,6 @@ public static class RouteMenu
         }
         else
         {
-            List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
-            List<StopModel> stopModels = stopLogic.GetAll();
-            tableStops.PrintTable(Header, stopModels, GenerateRow);
-
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
             List<StopModel> stops = stopLogic.GetAll().OrderBy(stop => stop.Name).ToList();
