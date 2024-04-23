@@ -164,9 +164,17 @@ public static class RouteMenu
         }
         else
         {
+            List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
+            List<StopModel> stopModels = stopLogic.GetAll();
+            tableStops.PrintTable(Header, stopModels, GenerateRow);
+
+            //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
-            List<StopModel> stops = stopLogic.GetAll();
+            List<StopModel> stops = stopLogic.GetAll().OrderBy(stop => stop.Name).ToList();
             int selectedIndex = 0;
+            int currentPage = 1;
+            int pageSize = 10;
+            int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
 
             while (checkStopName)
             {
@@ -174,9 +182,12 @@ public static class RouteMenu
 
                 Console.WriteLine($"Naam: {route.Name}, tijdsduur: {route.Duration}.\n");
 
-                Console.WriteLine("Selecteer een halte:");
+                Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
 
-                for (int i = 0; i < stops.Count; i++)
+                int startIndex = (currentPage - 1) * pageSize;
+                int endIndex = Math.Min(startIndex + pageSize, stops.Count);
+
+                for (int i = startIndex; i < endIndex; i++)
                 {
                     if (i == selectedIndex)
                     {
@@ -190,15 +201,48 @@ public static class RouteMenu
                     Console.WriteLine(stops[i].Name);
                     Console.ResetColor();
                 }
+                Console.Write("Druk op ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Enter");
+                Console.ResetColor();
+                Console.Write("  om te selecteren.");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        selectedIndex = (selectedIndex - 1 + stops.Count) % stops.Count;
+                        if (selectedIndex > 0)
+                        {
+                            selectedIndex--;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        selectedIndex = (selectedIndex + 1) % stops.Count;
+                        if (selectedIndex < endIndex - 1)
+                        {
+                            selectedIndex++;
+                        }
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        if (currentPage > 1)
+                        {
+                            currentPage--;
+                            selectedIndex -= pageSize;
+                            if (selectedIndex < 0)
+                            {
+                                selectedIndex = 0;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (currentPage < totalPages)
+                        {
+                            currentPage++;
+                            selectedIndex += pageSize;
+                            if (selectedIndex >= stops.Count)
+                            {
+                                selectedIndex = stops.Count - 1;
+                            }
+                        }
                         break;
                     case ConsoleKey.Enter:
                         StopModel selectedStop = stops[selectedIndex];
@@ -210,7 +254,10 @@ public static class RouteMenu
                         break;
                 }
             }
-    
+
+
+
+
         }
 
     }
