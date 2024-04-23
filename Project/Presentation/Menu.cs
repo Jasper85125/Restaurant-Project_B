@@ -6,6 +6,7 @@ public static class Menu
     //You could edit this to show different menus depending on the user's role
     public static void Start()
     {
+        Console.Clear();
         int selectedOption = 1; // Default selected option
 
         // Display options
