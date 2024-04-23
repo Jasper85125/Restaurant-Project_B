@@ -5,10 +5,12 @@
     "name": "Euromast",
     "stops": [
       {
+        "id": 0,
         "name": "Beurs",
         "time": null
       },
       {
+        "id": 0,
         "name": "Beurs",
         "time": null
       }
@@ -22,14 +24,17 @@
     "name": "Euromast",
     "stops": [
       {
+        "id": 0,
         "name": "Beurs",
         "time": null
       },
       {
+        "id": 0,
         "name": "Blaak",
         "time": null
       },
       {
+        "id": 0,
         "name": "Brutus",
         "time": null
       }
