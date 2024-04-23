@@ -29,6 +29,7 @@ public static class Menu
                     selectedOption = Math.Min(6, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
+                    Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
@@ -77,7 +78,7 @@ public static class Menu
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] informatie over de app.");
+        Console.WriteLine("[3] Informatie over de app.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
