@@ -78,17 +78,17 @@ public static class PriceMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een prijs categorie toevoegen.");
+        Console.WriteLine("[1] Een prijscategorie toevoegen.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een prijs categorie editen.");
+        Console.WriteLine("[2] Een prijscategorie editen.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Een prijs categorie verwijderen.");
+        Console.WriteLine("[3] Een prijscategorie verwijderen.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
@@ -147,7 +147,7 @@ public static class PriceMenu
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
         ShowAllPricesInformation();
-        Console.WriteLine("Wilt u nog een prijs categorie toevoegen? J/N: ");
+        Console.WriteLine("Wilt u nog een prijscategorie toevoegen? J/N: ");
         string? answer = Console.ReadLine();
 
         if (answer!= null && answer.ToLower() == "n")
@@ -169,7 +169,7 @@ public static class PriceMenu
 
         PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), NewPassenger, NewPrice);
         pricesLogic.UpdateList(NewPriceCategory);
-        Console.WriteLine($"De prijs categorie '{NewPassenger}' is toevoegd");
+        Console.WriteLine($"De prijscategorie '{NewPassenger}' is toevoegd");
         Thread.Sleep(2000);
         BackToStartMenu();
     }
