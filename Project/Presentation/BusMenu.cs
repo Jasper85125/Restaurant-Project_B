@@ -29,7 +29,7 @@ public static class BusMenu
                     selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
-                     Console.Clear();
+                    Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
@@ -49,6 +49,7 @@ public static class BusMenu
                             BusLogic busLogic = new();
                             List<BusModel> ListAllBusses = busLogic.GetAll();
                             ShowAllBusInformation(ListAllBusses);
+                            AfterShowingInformation();
                             Start();
                             break;
                         case 5:
@@ -205,6 +206,8 @@ public static class BusMenu
         {
             tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
         }
+
+
     
     }
 
@@ -344,5 +347,23 @@ public static class BusMenu
         var routeNames = string.Join(", ", busModel.Route.Select(r => r.Name));
         
         return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}" };
+    }
+
+    public static void AfterShowingInformation()
+    {
+        string answer = "";
+        while (answer.ToLower() !="j")
+        {       
+            Console.WriteLine("Om terug te gaan naar het Startmenu voer J in.");
+            answer = Console.ReadLine();
+        }
+        BackToStartMenu();
+    }
+
+    public static void BackToStartMenu()
+    {
+        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        Thread.Sleep(3000);
+        Menu.Start();
     }
 }   
