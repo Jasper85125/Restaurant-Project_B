@@ -29,33 +29,29 @@ public static class BusMenu
                     selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
+                     Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
                         case 1:
-                            Console.Clear();
                             AddBus();
                             Start();
                             break;
                         case 2:
-                            Console.Clear();
                             UpdateBus();
                             Start();
                             break;
                         case 3:
-                            Console.Clear();
                             AddTime();
                             Start();
                             break;
                         case 4:
-                            Console.Clear();
                             BusLogic busLogic = new();
                             List<BusModel> ListAllBusses = busLogic.GetAll();
                             ShowAllBusInformation(ListAllBusses);
                             Start();
                             break;
                         case 5:
-                            Console.Clear();
                             Menu.Start();
                             break;
                     }
