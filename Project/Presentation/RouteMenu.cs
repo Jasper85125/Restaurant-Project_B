@@ -162,18 +162,42 @@ public static class RouteMenu
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
             List<StopModel> stops = stopLogic.GetAll().OrderBy(stop => stop.Name).ToList();
+            List<StopModel> selectedStops = new List<StopModel>();            
             int selectedIndex = 0;
             int currentPage = 1;
             int pageSize = 10;
             int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
+
+            string duplicateStopMessage = "";
 
             while (checkStopName)
             {
                 Console.Clear();
 
                 Console.WriteLine($"Naam: {route.Name}, tijdsduur: {route.Duration}.\n");
+                if (selectedStops.Count() != 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    for (int i = 0; i < selectedStops.Count; i++)
+                    {
+                        Console.Write(selectedStops[i].Name);
+                        
+                        if (i < selectedStops.Count - 1 && selectedStops.Count > 1)
+                        {
+                            Console.Write(", ");
+                        }
+                    }
 
-                Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
+                    Console.ResetColor();
+                }
+                if (!string.IsNullOrEmpty(duplicateStopMessage))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(duplicateStopMessage);
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine($"\n\nSelecteer een halte (Pagina {currentPage}/{totalPages}):");
 
                 int startIndex = (currentPage - 1) * pageSize;
                 int endIndex = Math.Min(startIndex + pageSize, stops.Count);
@@ -189,14 +213,32 @@ public static class RouteMenu
                     {
                         Console.Write("   ");
                     }
-                    Console.WriteLine(stops[i].Name);
-                    Console.ResetColor();
+                    if (selectedStops.Contains(stops[i]))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine(stops[i].Name);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine(stops[i].Name);
+                        Console.ResetColor();
+                    }
                 }
-                Console.Write("Druk op ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Enter");
+
+                Console.WriteLine("\nDruk op:");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Spatie ");
                 Console.ResetColor();
-                Console.Write("  om te selecteren.");
+                Console.WriteLine("om te selecteren.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Backspace ");
+                Console.ResetColor();
+                Console.WriteLine("om te deselecteren.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Enter ");
+                Console.ResetColor();
+                Console.WriteLine("om de lijst op te slaan.");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
@@ -235,9 +277,66 @@ public static class RouteMenu
                             }
                         }
                         break;
-                    case ConsoleKey.Enter:
+                    case ConsoleKey.Spacebar:
                         StopModel selectedStop = stops[selectedIndex];
-                        Console.WriteLine($"Geselecteerde halte: {selectedStop.Name}");
+                        if (!selectedStops.Contains(selectedStop))
+                        {
+                            selectedStops.Add(selectedStop);
+                            duplicateStopMessage = "";
+                        }
+                        else
+                        {
+                            duplicateStopMessage = $"\n{selectedStop.Name} is al toegevoegd, selecteer een andere halte.";
+                        }
+                        break;
+                    case ConsoleKey.Backspace:
+                        if (selectedStops.Count > 0 && selectedIndex >= 0)
+                        {
+                            StopModel removeStop = stops[selectedIndex];
+                            selectedStops.Remove(removeStop);
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        Console.Clear();
+                        
+                        if (selectedStops.Count() != 0)
+                        {
+                            Console.WriteLine("Wilt u deze haltes toevoegen?: ");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            for (int i = 0; i < selectedStops.Count; i++)
+                            {
+                                Console.Write(selectedStops[i].Name);
+                                
+                                if (i < selectedStops.Count - 1 && selectedStops.Count > 1)
+                                {
+                                    Console.Write(", ");
+                                }
+                            }
+                            Console.ResetColor();
+                            Console.WriteLine($"\naan route: {route.Name}?");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("\nBackspace ");
+                            Console.ResetColor();
+                            Console.Write("om te annuleren.");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(" Enter ");
+                            Console.ResetColor();
+                            Console.Write("om de lijst op te slaan.");
+                            ConsoleKeyInfo ConfirmStops = Console.ReadKey(true);
+                            switch (ConfirmStops.Key)
+                            {
+                                case ConsoleKey.Enter:
+                                    Console.Clear();
+                                    Console.WriteLine("\ntoegevoegd");
+                                    checkStopName = false;
+                                    break;
+                                case ConsoleKey.Backspace:
+                                    break;
+                            }
+                        }
+
+                        break;
+                    case ConsoleKey.Escape:
                         checkStopName = false;
                         break;
                     default:
@@ -245,25 +344,7 @@ public static class RouteMenu
                         break;
                 }
             }
-
-            //test code voor StopList toevoegen aan de route
-            StopModel stopModel = new StopModel(1,"Beurs");
-            StopModel stopModel2 = new StopModel(2,"Blaak");
-            List<StopModel>testList = new List<StopModel> () {stopModel, stopModel2};
-            foreach (StopModel halte in testList)
-            {
-                RouteLogic.AddToRoute(halte, route);
-            }
-            if (ConfirmValue(route))
-            {
-                routeLogic.UpdateList(route);
-            }
-            else
-            {
-
-            }
         }
-
     }
 
     //     bool addStopQuestion = true;
