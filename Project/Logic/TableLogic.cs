@@ -15,10 +15,10 @@ public class TableLogic<T>
 
         do
         {
-            Console.Clear(); // Clear the console to redraw the table
+            Console.Clear();
 
             PrintLine();
-            PrintRow(Header);
+            PrintRow(Header, false);
             PrintLine();
 
             int rowNumber = 1;
@@ -28,13 +28,13 @@ public class TableLogic<T>
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow);
+                    PrintRow(geselecteerdeRow, true);
                     Console.ResetColor();
                     PrintLine();
                 }
                 else
                 {
-                    PrintRow(GenerateRow(obj));
+                    PrintRow(GenerateRow(obj), false);
                     PrintLine();
                 }
                 rowNumber++;
@@ -51,8 +51,9 @@ public class TableLogic<T>
                     selectedOption = Math.Min(Data.Count(), selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
-                    Console.Clear(); // Console leegmaken voordat je de rij bewerkt
-                    return (geselecteerdeRow, selectedOption);
+                    Console.Clear();
+                    Console.WriteLine($"{geselecteerdeRow}/{selectedOption-1}");
+                    return (geselecteerdeRow, selectedOption-1);
                 case ConsoleKey.Backspace:
                     return null;
             }
@@ -71,7 +72,7 @@ public class TableLogic<T>
             Console.Clear();
             Console.WriteLine("Geselecteerde rij:");
             PrintLine();
-            PrintRow(header);
+            PrintRow(header, false);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation();
@@ -88,6 +89,7 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
+                    Console.WriteLine($"{selectedRow[selectedIndex]}/{selectedIndex}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;
@@ -103,14 +105,19 @@ public class TableLogic<T>
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    private static void PrintRow(List<string> columns)
+    private static void PrintRow(List<string> columns, bool selected)
     {
         int width = (tableWidth - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
         {
-            row += AlignCentre(column, width) + "|";
+            if (selected){
+                row += ">> " + AlignCentre(column, width - 6) + " <<|";
+            }
+            else{
+                row += AlignCentre(column, width) + "|";
+            }
         }
 
         Console.WriteLine(row);
