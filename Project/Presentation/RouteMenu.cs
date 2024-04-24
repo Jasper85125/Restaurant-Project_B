@@ -245,9 +245,7 @@ public static class RouteMenu
                         break;
                 }
             }
-
-
-
+            List<StopModel>testList = new List<StopModel> ();
 
         }
 
@@ -513,5 +511,41 @@ public static class RouteMenu
         var name = stopModel.Name;
         var time = stopModel.Time;
         return new List<string> {$"{id}", $"{name}", $"{time}"};
+    }
+
+    public static bool IsString(string parameter)
+    {
+        if (Helper.IsString(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
+    }
+
+    public static bool IsInt(string parameter)
+    {
+        if (Helper.IsInteger(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
+    }
+
+    public static bool IsDouble(string parameter)
+    {
+        if (Helper.IsDouble(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
     }
 }

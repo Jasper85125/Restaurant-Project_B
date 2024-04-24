@@ -15,7 +15,7 @@ public static class Helper
 
     public static bool IsDouble(object parameter)
     {
-        return parameter.GetType() == typeof(int);
+        return parameter.GetType() == typeof(double);
     }
 
 
