@@ -330,6 +330,18 @@ public static class RouteMenu
                             {
                                 case ConsoleKey.Enter:
                                     Console.Clear();
+                                    foreach (StopModel halte in selectedStops)
+                                    {
+                                        RouteLogic.AddToRoute(halte, route);
+                                    }
+                                    // if (ConfirmValue(route))
+                                    // {
+                                    routeLogic.UpdateList(route);
+                                    // }
+                                    // else
+                                    // {
+
+                                    // }
                                     Console.WriteLine("\ntoegevoegd");
                                     checkStopName = false;
                                     break;
