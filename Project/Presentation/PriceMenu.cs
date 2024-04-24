@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
 
@@ -8,54 +9,95 @@ public static class PriceMenu
 
     public static void Start()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor prijzen.");
-        Console.WriteLine("Wat wilt u doen?");
-        Console.WriteLine("[1] Een prijs categorie toevoegen.");
-        Console.WriteLine("[2] Een prijs categorie editen.");
-        Console.WriteLine("[3] Een prijs categorie verwijderen.");
-        Console.WriteLine("[4] Een overzicht van alle prijscategorieën.");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
-        string? input = Console.ReadLine();
-        if (input != null)
+        int selectedOption = 1; // Default selected option
+
+        DisplayOptions(selectedOption);
+
+        while (true)
         {
-            switch (input)
+            // Wait for key press
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            // Check arrow key presses
+            switch (keyInfo.Key)
             {
-                case "1":
-                    Console.Clear();
-                    AddPriceCategory();
+                case ConsoleKey.UpArrow:
+                    // Move to the previous option
+                    selectedOption = Math.Max(1, selectedOption - 1);
                     break;
-                case "2":
-                    Console.Clear();
-                    EditPriceCategory();
+                case ConsoleKey.DownArrow:
+                    // Move to the next option
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
-                case "3":
+                case ConsoleKey.Enter:
                     Console.Clear();
-                    DeletePriceCategory();
-                    break;
-                case "4":
-                    ShowAllPricesInformation();
-                    AfterShowingInformation();
-                    break;
-                case "5":
-                    Console.Clear();
-                    BackToStartMenu();
-                    Menu.Start();
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Verkeerde input!");
-                    Thread.Sleep(3000);
-                    Start();
+                    // Perform action based on selected option (e.g., execute corresponding function)
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            AddPriceCategory();
+                            break;
+                        case 2:
+                            EditPriceCategory();
+                            break;
+                        case 3:
+                            DeletePriceCategory();
+                            break;
+                        case 4:
+                            ShowAllPricesInformation();
+                            AfterShowingInformation();
+                            break;
+                        case 5:
+                            Menu.Start();
+                            break;
+                        default:
+                            Console.WriteLine("Verkeerde input!");
+                            Thread.Sleep(3000);
+                            Start();
+                            break;
+                    }
                     break;
             }
+            
+
+            // Clear console and display options
+            Console.Clear();
+            DisplayOptions(selectedOption);
         }
 
-        else
-        {
-            Console.WriteLine("Verkeerde input!");
-            Thread.Sleep(3000);
-            Start();
-        }
+    }
+
+    static void DisplayOptions(int selectedOption)
+    {
+        Console.WriteLine("Selecteer een optie:");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("[1] Een prijscategorie toevoegen.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("[2] Een prijscategorie editen.");
+
+        // Display option 3
+        Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 3 ? ">> " : "   ");
+        Console.WriteLine("[3] Een prijscategorie verwijderen.");
+
+        // Display option 4
+        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 4 ? ">> " : "   ");
+        Console.WriteLine("[4] Een overzicht van alle prijscategorieën.");
+
+        // Display option 5
+        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 5 ? ">> " : "   ");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
+
+        // Reset text color
+        Console.ResetColor();
     }
 
     public static void DeletePriceCategory()
@@ -101,7 +143,7 @@ public static class PriceMenu
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
         ShowAllPricesInformation();
-        Console.WriteLine("Wilt u nog een prijs categorie toevoegen? J/N: ");
+        Console.WriteLine("Wilt u nog een prijscategorie toevoegen? J/N: ");
         string? answer = Console.ReadLine();
 
         if (answer!= null && answer.ToLower() == "n")
@@ -123,7 +165,7 @@ public static class PriceMenu
 
         PriceModel NewPriceCategory = new (pricesLogic.GenerateNewId(), NewPassenger, NewPrice);
         pricesLogic.UpdateList(NewPriceCategory);
-        Console.WriteLine($"De prijs categorie '{NewPassenger}' is toevoegd");
+        Console.WriteLine($"De prijscategorie '{NewPassenger}' is toevoegd");
         Thread.Sleep(2000);
         BackToStartMenu();
     }
@@ -223,9 +265,56 @@ public static class PriceMenu
         }
         else
         {
-            tablePrices.PrintTable(Header, priceModels, GenerateRow);
+            while(true){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tablePrices.PrintTable(Header, priceModels, GenerateRow);
+                if(TableInfo != null){
+                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    while(true){
+                        (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
+                        if (result != null)                        {
+                            string selectedItem = result.Value.SelectedItem;
+                            int selectedIndex = result.Value.SelectedIndex;
+                            if (selectedIndex == 0){
+                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Thread.Sleep(3000);
+                            }
+                            else if(selectedIndex == 1){
+                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                priceModels[selectedRowIndex].Passenger = Input;
+                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                break;
+                            }
+                            else if(selectedIndex == 2){
+                                while (true){
+                                Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                if (containsOnlyNumbers){
+                                    priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
+                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                    break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            break;
+                        }
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+
         }
     }
+
 
     public static void ShowPriceInformation(PriceModel priceModel)
     {

@@ -5,58 +5,97 @@ public static class BusMenu
 
     public static void Start()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor de bussen.");
-        Console.WriteLine("Wat wilt u doen?");
-        Console.WriteLine("[1] Een bus toevoegen.");
-        Console.WriteLine("[2] Een bus updaten.");
-        Console.WriteLine("[3] Tijden toevoegen aan haltes en routes.");
-        Console.WriteLine("[4] Een overzicht van alle bussen.");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
-        string? input = Console.ReadLine();
-        if (input != null)
+
+        Console.Clear();
+        int selectedOption = 1; // Default selected option
+
+        // Display options
+        DisplayOptions(selectedOption);
+
+        while (true)
         {
-            switch (input)
+            // Wait for key press
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            // Check arrow key presses
+            switch (keyInfo.Key)
             {
-                case "1":
-                    Console.Clear();
-                    AddBus();
-                    Start();
+                case ConsoleKey.UpArrow:
+                    // Move to the previous option
+                    selectedOption = Math.Max(1, selectedOption - 1);
                     break;
-                case "2":
-                    Console.Clear();
-                    UpdateBus();
-                    Start();
+                case ConsoleKey.DownArrow:
+                    // Move to the next option
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
-                case "3":
+                case ConsoleKey.Enter:
                     Console.Clear();
-                    AddTime();
-                    Start();
-                    break;
-                case "4":
-                    Console.Clear();
-                    BusLogic busLogic = new();
-                    List<BusModel> ListAllBusses = busLogic.GetAll();
-                    ShowAllBusInformation(ListAllBusses);
-                    Start();
-                    break;
-                case "5":
-                    Console.Clear();
-                    Menu.Start();
-                    break;
-                default:
-                    Console.WriteLine("Verkeerde input!");
-                    Start();
+                    // Perform action based on selected option (e.g., execute corresponding function)
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            AddBus();
+                            Start();
+                            break;
+                        case 2:
+                            UpdateBus();
+                            Start();
+                            break;
+                        case 3:
+                            AddTime();
+                            Start();
+                            break;
+                        case 4:
+                            BusLogic busLogic = new();
+                            List<BusModel> ListAllBusses = busLogic.GetAll();
+                            ShowAllBusInformation(ListAllBusses);
+                            AfterShowingInformation();
+                            Start();
+                            break;
+                        case 5:
+                            Menu.Start();
+                            break;
+                    }
                     break;
             }
-        }
 
-        else
-        {
-            Console.WriteLine("Verkeerde input!");
-            Start();
+            // Clear console and display options
+            Console.Clear();
+            DisplayOptions(selectedOption);
         }
-    
+    }
 
+    static void DisplayOptions(int selectedOption)
+    {
+        Console.WriteLine("\nWelkom bij het overzicht voor de bussen.");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("[1] Een bus toevoegen.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("[2] Een bus updaten.");
+
+        // Display option 3
+        Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 3 ? ">> " : "   ");
+        Console.WriteLine("[3] Tijden toevoegen aan haltes en routes.");
+
+        // Display option 4
+        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 4 ? ">> " : "   ");
+        Console.WriteLine("[4] Een overzicht van alle bussen.");
+
+        // Display option 5
+        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 5 ? ">> " : "   ");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
+
+        // Reset text color
+        Console.ResetColor();
     }
 
     public static List<BusModel> Overview()
@@ -167,6 +206,8 @@ public static class BusMenu
         {
             tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
         }
+
+
     
     }
 
@@ -306,5 +347,23 @@ public static class BusMenu
         var routeNames = string.Join(", ", busModel.Route.Select(r => r.Name));
         
         return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}" };
+    }
+
+    public static void AfterShowingInformation()
+    {
+        string answer = "";
+        while (answer.ToLower() !="j")
+        {       
+            Console.WriteLine("Om terug te gaan naar het Startmenu voer J in.");
+            answer = Console.ReadLine();
+        }
+        BackToStartMenu();
+    }
+
+    public static void BackToStartMenu()
+    {
+        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        Thread.Sleep(3000);
+        Menu.Start();
     }
 }   
