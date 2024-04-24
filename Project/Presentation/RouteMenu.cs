@@ -166,7 +166,6 @@ public static class RouteMenu
         {
             List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
             List<StopModel> stopModels = stopLogic.GetAll();
-            tableStops.PrintTable(Header, stopModels, GenerateRow);
 
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
