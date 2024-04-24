@@ -578,21 +578,21 @@ public static class RouteMenu
         List<StopModel> stops = newRoute.Stops;
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
 
-        Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info: Naam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
-        Console.Write("Druk op ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Enter");
-        Console.ResetColor();
-        Console.Write(" om door te gaan of druk op ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("Backspace");
-        Console.ResetColor();
-        Console.WriteLine(" om te annuleren.");
-
-        ConsoleKeyInfo keyInfo;
         do
         {
+            ConsoleKeyInfo keyInfo;
+            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info: Naam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
+            Console.Write("Druk op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om door te gaan of druk op ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Backspace");
+            Console.ResetColor();
+            Console.WriteLine(" om te annuleren.");
             keyInfo = Console.ReadKey(true);
+
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -618,7 +618,6 @@ public static class RouteMenu
                 Console.ResetColor();
                 Thread.Sleep(2000);
                 Console.Clear();
-                return false;
             }
         }while(true);
     }
