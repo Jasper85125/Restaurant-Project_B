@@ -71,7 +71,7 @@ public class TableLogic<T>
             Console.Clear();
             Console.WriteLine("Geselecteerde rij:");
             PrintLine();
-            PrintRow(header);
+            PrintRow(header, false);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation();
@@ -107,13 +107,14 @@ public class TableLogic<T>
     {
         int width = (tableWidth - columns.Count) / columns.Count;
         string row = "|";
+
         foreach (string column in columns)
         {
             if (selected){
-                row += $"   >> {AlignCentre(column, width - 6)} <<|";
+                row += ">> " + AlignCentre(column, width - 6) + " <<|";
             }
             else{
-                row += {AlignCentre(column, width)} + "|";
+                row += AlignCentre(column, width) + "|";
             }
         }
 
