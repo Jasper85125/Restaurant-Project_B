@@ -616,4 +616,21 @@ public static class RouteMenu
         var time = stopModel.Time;
         return new List<string> {$"{id}", $"{name}", $"{time}"};
     }
+
+    public static RouteModel SelectRoute(){
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<RouteModel> routeModels = routeLogic.GetAll();
+        string Title = "Selecteer een route";
+        if (routeModels == null || routeModels.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+            return null;
+        }
+        else
+        {
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+            return routeModels[selectedRowIndex];
+        }
+    }
 }
