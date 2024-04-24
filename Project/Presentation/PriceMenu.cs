@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
 
@@ -264,9 +265,56 @@ public static class PriceMenu
         }
         else
         {
-            tablePrices.PrintTable(Header, priceModels, GenerateRow);
+            while(true){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tablePrices.PrintTable(Header, priceModels, GenerateRow);
+                if(TableInfo != null){
+                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    while(true){
+                        (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
+                        if (result != null)                        {
+                            string selectedItem = result.Value.SelectedItem;
+                            int selectedIndex = result.Value.SelectedIndex;
+                            if (selectedIndex == 0){
+                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Thread.Sleep(3000);
+                            }
+                            else if(selectedIndex == 1){
+                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                priceModels[selectedIndex].Passenger = Input;
+                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                break;
+                            }
+                            else if(selectedIndex == 2){
+                                while (true){
+                                Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                if (containsOnlyNumbers){
+                                    priceModels[selectedIndex].Price = Convert.ToInt32(Input);
+                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                    break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            break;
+                        }
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+
         }
     }
+
 
     public static void ShowPriceInformation(PriceModel priceModel)
     {
