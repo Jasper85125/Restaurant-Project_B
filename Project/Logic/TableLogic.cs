@@ -8,6 +8,7 @@ public class TableLogic<T>
     public static int tableWidth = 145;
     public static int selectedOption = 1;
 
+    
     public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
     {
         ConsoleKeyInfo keyInfo;
@@ -52,7 +53,59 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    Console.WriteLine($"{geselecteerdeRow}/{selectedOption-1}");
+                    return (geselecteerdeRow, selectedOption-1);
+                case ConsoleKey.Backspace:
+                    return null;
+            }
+        } while (keyInfo.Key != ConsoleKey.Backspace);
+        Console.WriteLine("U keert terug naar het menu");
+        return null;
+    }
+
+    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow, string Title)
+    {
+        ConsoleKeyInfo keyInfo;
+        List<string> geselecteerdeRow = new List<string>();
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(Title);
+            PrintLine();
+            PrintRow(Header, false);
+            PrintLine();
+
+            int rowNumber = 1;
+            foreach (T obj in Data)
+            {
+               if (rowNumber == selectedOption)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    geselecteerdeRow = GenerateRow(obj);
+                    PrintRow(geselecteerdeRow, true);
+                    Console.ResetColor();
+                    PrintLine();
+                }
+                else
+                {
+                    PrintRow(GenerateRow(obj), false);
+                    PrintLine();
+                }
+                rowNumber++;
+            }
+            SelectionExplanation();
+
+            keyInfo = Console.ReadKey(true);
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = Math.Max(1, selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
                     return (geselecteerdeRow, selectedOption-1);
                 case ConsoleKey.Backspace:
                     return null;
@@ -89,7 +142,6 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
-                    Console.WriteLine($"{selectedRow[selectedIndex]}/{selectedIndex}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;

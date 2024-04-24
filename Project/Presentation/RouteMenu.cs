@@ -159,6 +159,9 @@ public static class RouteMenu
         }
         else
         {
+            List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
+            List<StopModel> stopModels = stopLogic.GetAll();
+
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
             List<StopModel> stops = stopLogic.GetAll().OrderBy(stop => stop.Name).ToList();
@@ -607,6 +610,23 @@ public static class RouteMenu
         var name = stopModel.Name;
         var time = stopModel.Time;
         return new List<string> {$"{id}", $"{name}", $"{time}"};
+    }
+
+    public static RouteModel SelectRoute(){
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<RouteModel> routeModels = routeLogic.GetAll();
+        string Title = "Selecteer een route";
+        if (routeModels == null || routeModels.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+            return null;
+        }
+        else
+        {
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+            return routeModels[selectedRowIndex];
+        }
     }
 
     public static bool IsString(string parameter)
