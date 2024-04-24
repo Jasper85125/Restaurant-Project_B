@@ -9,17 +9,16 @@ public class StopToRouteTest
         //Arrange 
         StopModel stopModel = new StopModel(1, "Beurs");
         RouteModel routeModel = new RouteModel(1, 1, "Euromast");
+        List<StopModel> testList = new(){stopModel};
 
         //Act
         RouteModel newRoute = RouteLogic.AddToRoute(stopModel, routeModel);
-        List <string> stopNames = new List<string>();
-        foreach (StopModel stop in newRoute.Stops)
-        {
-            stopNames.Add(stop.Name);
-        }
 
         //Assert
-        Assert.AreEqual(newRoute.Stops, );
+        for (int i = 0; i < testList.Count; i++)
+        {
+            Assert.AreEqual(newRoute.Stops[i], testList[i]);
+        }
     }
     
     // [TestMethod]

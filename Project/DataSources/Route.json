@@ -41,5 +41,43 @@
     ],
     "begin": null,
     "end": null
+  },
+  {
+    "id": 3,
+    "duration": 2,
+    "name": "Bruh",
+    "stops": [
+      {
+        "id": 1,
+        "name": "Beurs",
+        "time": null
+      },
+      {
+        "id": 2,
+        "name": "Blaak",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
+  },
+  {
+    "id": 4,
+    "duration": 2,
+    "name": "ahhaha",
+    "stops": [
+      {
+        "id": 1,
+        "name": "Beurs",
+        "time": null
+      },
+      {
+        "id": 2,
+        "name": "Blaak",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
   }
 ]
