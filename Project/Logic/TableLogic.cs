@@ -18,7 +18,7 @@ public class TableLogic<T>
             Console.Clear(); // Clear the console to redraw the table
 
             PrintLine();
-            PrintRow(Header);
+            PrintRow(Header, false);
             PrintLine();
 
             int rowNumber = 1;
@@ -28,13 +28,13 @@ public class TableLogic<T>
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow);
+                    PrintRow(geselecteerdeRow, true);
                     Console.ResetColor();
                     PrintLine();
                 }
                 else
                 {
-                    PrintRow(GenerateRow(obj));
+                    PrintRow(GenerateRow(obj), false);
                     PrintLine();
                 }
                 rowNumber++;
@@ -103,14 +103,18 @@ public class TableLogic<T>
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    private static void PrintRow(List<string> columns)
+    private static void PrintRow(List<string> columns, bool selected)
     {
         int width = (tableWidth - columns.Count) / columns.Count;
         string row = "|";
-
         foreach (string column in columns)
         {
-            row += AlignCentre(column, width) + "|";
+            if (selected){
+                row += $"   >> {AlignCentre(column, width - 6)} <<|";
+            }
+            else{
+                row += {AlignCentre(column, width)} + "|";
+            }
         }
 
         Console.WriteLine(row);
