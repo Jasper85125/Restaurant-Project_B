@@ -8,7 +8,7 @@ public class TableLogic<T>
     public static int tableWidth = 145;
     public static int selectedOption = 1;
 
-    public List<string> PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
+    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -52,7 +52,9 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear(); // Console leegmaken voordat je de rij bewerkt
-                    return geselecteerdeRow;
+                    return (geselecteerdeRow, selectedOption);
+                case ConsoleKey.Backspace:
+                    return null;
             }
         } while (keyInfo.Key != ConsoleKey.Backspace);
         Console.WriteLine("U keert terug naar het menu");
@@ -68,11 +70,11 @@ public class TableLogic<T>
         {
             Console.Clear();
             Console.WriteLine("Geselecteerde rij:");
+            PrintLine();
             PrintRow(header);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
-            PrintLine();
-
+            SelectionExplanation();
             key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -86,13 +88,12 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
-                    Console.ReadLine();
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;
             }
 
-        } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
+        } while (key.Key != ConsoleKey.Backspace);
 
         return null;
     }
@@ -118,25 +119,29 @@ public class TableLogic<T>
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
     {
         int width = (tableWidth - columns.Count) / columns.Count;
-        string row = "|";
+        Console.Write("|");
+        string output = "|";
 
         for (int i = 0; i < columns.Count; i++)
         {
             string column = columns[i];
             if (i == selectedIndex) // Check if current column index matches selectedIndex
             {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    row += ">> " + AlignCentre(column, width - 3) + "|"; // Example: Prefix with ">>"
-                    Console.ResetColor();
-   
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(">> " + AlignCentre(column, width - 6) + " <<"); // Example: Prefix and suffix with ">>" and "<<"
+                Console.ResetColor();
+                Console.Write("|");
+                output += $"{" >> " + AlignCentre(column, width - 6) + " <<"}|";
+
             }
             else
             {
-                row += AlignCentre(column, width) + "|";
+                Console.Write(AlignCentre(column, width) + "|");
+                output += $"{AlignCentre(column, width)}|";
             }
         }
-
-        Console.WriteLine(row);
+        Console.WriteLine();
+        Console.WriteLine(new string('-', output.Length-1));
     }
 
 
@@ -161,6 +166,12 @@ public class TableLogic<T>
         Console.Write("Enter");
         Console.ResetColor();
         Console.Write(" om de rij te bewerken.");
+        Console.Write("\nOm een stap terug te gaan druk op");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" Backspace");
+        Console.ResetColor();
+        Console.WriteLine();
+
 
     }
 }
