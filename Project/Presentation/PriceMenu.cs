@@ -6,6 +6,8 @@ public static class PriceMenu
 {
     private static PriceLogic pricesLogic = new();
     private static TableLogic<PriceModel> tablePrices = new();
+    private static BasicTableLogic<PriceModel> basictableLogic = new();
+
 
     public static void Start()
     {
@@ -45,7 +47,7 @@ public static class PriceMenu
                             break;
                         case 4:
                             ShowAllPricesInformation();
-                            AfterShowingInformation();
+                            //AfterShowingInformation();
                             break;
                         case 5:
                             Menu.Start();
@@ -103,14 +105,14 @@ public static class PriceMenu
     public static void DeletePriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInformation();
+        OldShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt verwijderen: ");
         PriceModel priceModel = SearchByID();
 
         if (priceModel != null)
         {
             Console.Clear();
-            ShowPriceInformation(priceModel);
+            OldShowPriceInformation(priceModel);
             Console.WriteLine("Wilt u deze prijscategorie verwijderen? J/N: ");
             string? answer = Console.ReadLine();
             // if (Helper.IsString(answer))
@@ -152,7 +154,7 @@ public static class PriceMenu
     public static void AddPriceCategory()
     {
         Console.WriteLine("Hieronder kunt u de huidige prijscategorieën zien");
-        ShowAllPricesInformation();
+        OldShowAllPricesInformation();
         while (true)
         {
             Console.WriteLine("Wilt u nog een prijscategorie toevoegen? J/N: ");
@@ -184,7 +186,7 @@ public static class PriceMenu
         if (ConfirmValue(newPriceCategory, newPrice, false))
         {
             pricesLogic.UpdateList(newPriceCategory);
-            Console.WriteLine($"De prijscategorie '{newPassenger}' is toevoegd");
+            // Console.WriteLine($"De prijscategorie '{newPassenger}' is toevoegd");
         }
         else
         {
@@ -219,12 +221,12 @@ public static class PriceMenu
     public static void EditPriceCategory()
     {
         Console.WriteLine("Een overzicht van alle prijscategorieën");
-        ShowAllPricesInformation();
+        OldShowAllPricesInformation();
         Console.WriteLine("Voer het nummer van de ID in dat u wilt bewerken: ");
         PriceModel priceModel = SearchByID();
         if (priceModel != null)
         {
-            ShowPriceInformation(priceModel);
+            OldShowPriceInformation(priceModel);
             Console.WriteLine("Wilt u deze prijscategorie bewerken? J/N: ");
             string? answer = Console.ReadLine();
             if (answer!= null && answer.ToLower() == "n")
@@ -271,10 +273,11 @@ public static class PriceMenu
         // priceModel.Passenger = NewPassenger;
 
         Console.WriteLine("Bepaal de nieuwe prijs: ");
-        string NewPrice = Console.ReadLine();
-        if (ConfirmValue(null, NewPrice, true))
+        string newPrice = Console.ReadLine();
+        priceModel.Price = Convert.ToDouble(newPrice);
+        if (ConfirmValue(priceModel, newPrice, true))
         {
-            priceModel.Price = Convert.ToDouble(NewPrice);
+            pricesLogic.UpdateList(priceModel);
         }
         else
         {
@@ -304,10 +307,9 @@ public static class PriceMenu
 
         pricesLogic.UpdateList(priceModel);
         Console.WriteLine("De bewerking is voltooid, hier is het resultaat: ");
-        ShowPriceInformation(priceModel);
+        OldShowPriceInformation(priceModel);
         BackToStartMenu();
     }
-
 
     public static PriceModel SearchByID()
     {
@@ -396,7 +398,7 @@ public static class PriceMenu
     }
 
 
-    public static void ShowPriceInformation(PriceModel priceModel)
+    public static void OldShowPriceInformation(PriceModel priceModel)
     {
         List<PriceModel> priceModels = new() {priceModel};
         List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
@@ -406,7 +408,7 @@ public static class PriceMenu
         }
         else
         {
-            tablePrices.PrintTable(Header, priceModels, GenerateRow);
+            basictableLogic.PrintTable(Header, priceModels, GenerateRow);
         }
     }
 
@@ -419,6 +421,7 @@ public static class PriceMenu
     }
 
     public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)
+
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
         {
@@ -433,16 +436,17 @@ public static class PriceMenu
         if (delete)
         {
             Console.WriteLine($"U staat op het punt de prijscategorie te verwijderen met de volgende info");
-            ShowPriceInformation(priceModel);
+            OldShowPriceInformation(priceModel);
         }
         else if (!IsUpdate)
         {
             Console.WriteLine($"U staat op het punt een nieuwe prijscategorie toe te voegen met de volgende info");
-            ShowPriceInformation(priceModel);
+            OldShowPriceInformation(priceModel);
         }
         else if (IsUpdate)
         {
-            Console.WriteLine($"U staat op het punt oude data te veranderen: {UpdatedValue}");
+            Console.WriteLine($"U staat op het punt oude data te veranderen met de volgende info");
+            OldShowPriceInformation(priceModel);
         }
 
         do
@@ -487,4 +491,19 @@ public static class PriceMenu
             }
         }while(true);
     }
+
+    public static void OldShowAllPricesInformation()
+    {
+        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
+        List<PriceModel> priceModels = pricesLogic.GetAll();
+        if (priceModels == null || priceModels.Count == 0)
+        {
+            Console.WriteLine("Lege data.");
+        }
+        else
+        {
+            basictableLogic.PrintTable(Header, priceModels, GenerateRow);
+        }
+    }
+
 }

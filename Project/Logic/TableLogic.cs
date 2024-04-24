@@ -52,7 +52,6 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    Console.WriteLine($"{geselecteerdeRow}/{selectedOption-1}");
                     return (geselecteerdeRow, selectedOption-1);
                 case ConsoleKey.Backspace:
                     return null;
@@ -89,7 +88,6 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
-                    Console.WriteLine($"{selectedRow[selectedIndex]}/{selectedIndex}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;
