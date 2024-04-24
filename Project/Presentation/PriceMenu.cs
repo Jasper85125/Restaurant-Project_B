@@ -362,7 +362,7 @@ public static class PriceMenu
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
-                                priceModels[selectedIndex].Passenger = Input;
+                                priceModels[selectedRowIndex].Passenger = Input;
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                 break;
                             }
@@ -372,7 +372,7 @@ public static class PriceMenu
                                 string Input = Console.ReadLine();
                                 bool containsOnlyNumbers = Input.All(char.IsDigit);
                                 if (containsOnlyNumbers){
-                                    priceModels[selectedIndex].Price = Convert.ToInt32(Input);
+                                    priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
                                     pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                     break;
                                     }
