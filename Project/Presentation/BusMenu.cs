@@ -1,6 +1,13 @@
+using System.Runtime.CompilerServices;
+
 public static class BusMenu
 {
     private static TableLogic<BusModel> tableBus = new();
+    private static BusLogic busLogic = new();
+    private static RouteLogic routeLogic = new();
+    private static TableLogic<BusModel> tableRoutes = new();
+    
+    
 
 
     public static void Start()
@@ -49,7 +56,8 @@ public static class BusMenu
                             BusLogic busLogic = new();
                             List<BusModel> ListAllBusses = busLogic.GetAll();
                             ShowAllBusInformation(ListAllBusses);
-                            AfterShowingInformation();
+                            Console.WriteLine("U keert terug naar het busmenu");
+                            Thread.Sleep(1000);
                             Start();
                             break;
                         case 5:
@@ -197,19 +205,137 @@ public static class BusMenu
     public static void ShowAllBusInformation (List<BusModel> ListAllBusses)
     {
         List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)"};
-
+        List<RouteModel> RoutesList = new() {};
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
+            while(true){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
+                if(TableInfo != null){
+                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    while(true){
+                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
+                        if (result != null)                        {
+                            string selectedItem = result.Value.SelectedItem;
+                            int selectedIndex = result.Value.SelectedIndex;
+                            if (selectedIndex == 0){
+                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Thread.Sleep(3000);
+                            }
+                            else if(selectedIndex == 1){
+                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                ListAllBusses[selectedRowIndex].LicensePlate = Input;
+                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                break;
+                            }
+                            else if(selectedIndex == 2){
+                                while (true){
+                                Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                if (containsOnlyNumbers){
+                                    ListAllBusses[selectedRowIndex].Seats = Convert.ToInt32(Input);
+                                    busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                    break;
+                                    }
+                                }
+                                break;
+                            }
+                            else if (selectedIndex == 3)
+                            {
+                                Console.Clear();
+                                RoutesList = ListAllBusses[selectedRowIndex].Route;
+                                ConsoleKeyInfo keyInfo;
+                                do
+                                {
+                                    Console.Clear();
+                                    Console.Write("Dit zijn de toegevoegde Route(s):" );
+                                    int LastRouteIndex = 0;
+                                    foreach (RouteModel Route in RoutesList)
+                                    {
+                                        Console.Write($"[{Route.Name}] ");
+                                        LastRouteIndex++;
+                                    }
+                                    
+                                    Console.WriteLine();
+                                    Console.Write("Als u nog een route wil toevoegen klik op");
+                                    Console.ForegroundColor = ConsoleColor.Blue;
+                                    Console.Write(" Spatie.");
+                                    Console.ResetColor();
+                                    Console.Write("\nAls u de laatste route wil verwijderen klik op");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write(" Backspace.");
+                                    Console.ResetColor();
+                                    Console.Write("\nAls u tevreden bent met de routelijst, voeg de lijst toe met");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.Write(" Escape.");
+                                    Console.ResetColor();
+
+                                    keyInfo = Console.ReadKey(true);
+                                    
+                                    switch (keyInfo.Key)
+                                    {
+                                        case ConsoleKey.Spacebar:
+                                            Console.WriteLine("\nU heeft op Spatie geklikt. Voeg een nieuwe route toe.");
+                                            RouteModel Input = RouteMenu.SelectRoute();
+                                            RoutesList.Add(Input);
+                                            Console.WriteLine($"{Input.Name} is toegevoegd");
+                                            Thread.Sleep(2000);
+                                            break;
+                                        case ConsoleKey.Backspace:
+                                            if (LastRouteIndex >= 1)
+                                            {
+                                                Console.WriteLine("\nU heeft op Backspace geklikt. De laatste route is verwijderd");
+                                                RoutesList.Remove(RoutesList[LastRouteIndex-1]);
+                                                Thread.Sleep(2000);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("\nGeen routes om te verwijderen.");
+                                                Thread.Sleep(1000);
+                                            }
+                                            break;
+                                        case ConsoleKey.Escape:
+                                            Console.WriteLine("\nU heeft op Escape geklikt. De routelijst is toegevoegd");
+                                            Thread.Sleep(2000);
+                                            ListAllBusses[selectedRowIndex].Route = RoutesList;
+                                            busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                            break;
+                                        default:
+                                            Console.WriteLine("\nOngeldige invoer.");
+                                            Thread.Sleep(1000);
+                                            break;
+                                    }
+                                } while (keyInfo.Key != ConsoleKey.Escape);
+
+                                ListAllBusses[selectedRowIndex].Route = RoutesList;
+                            }
+                            else{
+                                Console.WriteLine("");
+                                break;
+                            }
+                                   
+                        }
+                        else
+                        {
+                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            break;
+                        }
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+
         }
-
-
-    
     }
+
 
     /// Voor deze functies moet later nog een string format checker worden geschreven.
     public static void AddTime()
