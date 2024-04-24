@@ -56,7 +56,7 @@ public static class BusMenu
                             BusLogic busLogic = new();
                             List<BusModel> ListAllBusses = busLogic.GetAll();
                             ShowAllBusInformation(ListAllBusses);
-                            Console.WriteLine("U keert terug naar het hoofdmenu");
+                            Console.WriteLine("U keert terug naar het busmenu");
                             Thread.Sleep(1000);
                             Start();
                             break;
