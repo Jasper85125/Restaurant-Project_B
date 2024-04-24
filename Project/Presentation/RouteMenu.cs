@@ -245,8 +245,23 @@ public static class RouteMenu
                         break;
                 }
             }
-            List<StopModel>testList = new List<StopModel> ();
 
+            //test code voor StopList toevoegen aan de route
+            StopModel stopModel = new StopModel(1,"Beurs");
+            StopModel stopModel2 = new StopModel(2,"Blaak");
+            List<StopModel>testList = new List<StopModel> () {stopModel, stopModel2};
+            foreach (StopModel halte in testList)
+            {
+                RouteLogic.AddToRoute(halte, route);
+            }
+            if (ConfirmValue(route))
+            {
+                routeLogic.UpdateList(route);
+            }
+            else
+            {
+
+            }
         }
 
     }
@@ -547,5 +562,64 @@ public static class RouteMenu
         {
             return false;
         } 
+    }
+
+    public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
+    {
+        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
+            Console.ResetColor();
+            Thread.Sleep(2000);
+            Console.Clear();
+            return false;
+        }
+        List<StopModel> stops = newRoute.Stops;
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+
+        Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info: Naam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
+        Console.Write("Druk op ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Enter");
+        Console.ResetColor();
+        Console.Write(" om door te gaan of druk op ");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Backspace");
+        Console.ResetColor();
+        Console.WriteLine(" om te annuleren.");
+
+        ConsoleKeyInfo keyInfo;
+        do
+        {
+            keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Backspace)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Toevoegen geannuleerd.");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return false;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Data is toegevoegd!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ongeldige invoer!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return false;
+            }
+        }while(true);
     }
 }
