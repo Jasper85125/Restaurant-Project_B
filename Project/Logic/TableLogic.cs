@@ -15,7 +15,7 @@ public class TableLogic<T>
 
         do
         {
-            Console.Clear(); // Clear the console to redraw the table
+            Console.Clear();
 
             PrintLine();
             PrintRow(Header, false);
@@ -51,8 +51,9 @@ public class TableLogic<T>
                     selectedOption = Math.Min(Data.Count(), selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
-                    Console.Clear(); // Console leegmaken voordat je de rij bewerkt
-                    return (geselecteerdeRow, selectedOption);
+                    Console.Clear();
+                    Console.WriteLine($"{geselecteerdeRow}/{selectedOption-1}");
+                    return (geselecteerdeRow, selectedOption-1);
                 case ConsoleKey.Backspace:
                     return null;
             }
@@ -88,6 +89,7 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
+                    Console.WriteLine($"{selectedRow[selectedIndex]}/{selectedIndex}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;
