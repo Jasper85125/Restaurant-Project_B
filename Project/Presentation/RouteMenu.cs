@@ -36,36 +36,31 @@ public static class RouteMenu
                     selectedOption = Math.Min(6, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
+                    Console.Clear();
                     // Perform action based on selected option (e.g., execute corresponding function)
                     switch (selectedOption)
                     {
                         case 1:
-                            Console.Clear();
                             AddRoute();
                             Welcome();
                             break;
                         case 2:
-                            Console.Clear();
                             UpdateRoute();
                             Welcome();
                             break;
                         case 3:
-                            Console.Clear();
                             AddToBus();
                             Welcome();
                             break;
                         case 4:
-                            Console.Clear();
                             PrintedOverview();
                             MoreInformation();
                             Welcome();
                             break;
                         case 5:
-                            Console.Clear();
                             MakeStop();
                             break;
                         case 6:
-                            Console.Clear();
                             Menu.Start();
                             break;
                     }
@@ -335,6 +330,18 @@ public static class RouteMenu
                             {
                                 case ConsoleKey.Enter:
                                     Console.Clear();
+                                    foreach (StopModel halte in selectedStops)
+                                    {
+                                        RouteLogic.AddToRoute(halte, route);
+                                    }
+                                    // if (ConfirmValue(route))
+                                    // {
+                                    routeLogic.UpdateList(route);
+                                    // }
+                                    // else
+                                    // {
+
+                                    // }
                                     Console.WriteLine("\ntoegevoegd");
                                     checkStopName = false;
                                     break;
@@ -552,6 +559,7 @@ public static class RouteMenu
         {
             Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
+            
             if (newName != null && newName.All(char.IsLetter))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
@@ -631,5 +639,99 @@ public static class RouteMenu
             int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
             return routeModels[selectedRowIndex];
         }
+    }
+
+    public static bool IsString(string parameter)
+    {
+        if (Helper.IsString(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
+    }
+
+    public static bool IsInt(string parameter)
+    {
+        if (Helper.IsInteger(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
+    }
+
+    public static bool IsDouble(string parameter)
+    {
+        if (Helper.IsDouble(parameter))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        } 
+    }
+
+    public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
+    {
+        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
+            Console.ResetColor();
+            Thread.Sleep(2000);
+            Console.Clear();
+            return false;
+        }
+        List<StopModel> stops = newRoute.Stops;
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+
+        do
+        {
+            ConsoleKeyInfo keyInfo;
+            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info: Naam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
+            Console.Write("Druk op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om door te gaan of druk op ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Backspace");
+            Console.ResetColor();
+            Console.WriteLine(" om te annuleren.");
+            keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.Backspace)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Toevoegen geannuleerd.");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return false;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Data is toegevoegd!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ongeldige invoer!");
+                Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.Clear();
+            }
+        }while(true);
     }
 }
