@@ -312,8 +312,6 @@ public static class BusMenu
                                             break;
                                     }
                                 } while (keyInfo.Key != ConsoleKey.Escape);
-
-                                ListAllBusses[selectedRowIndex].Route = RoutesList;
                             }
                             else{
                                 Console.WriteLine("");
