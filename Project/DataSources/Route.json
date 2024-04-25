@@ -45,7 +45,7 @@
   {
     "id": 3,
     "duration": 2,
-    "name": "Bruh",
+    "name": "Stadhuis",
     "stops": [
       {
         "id": 1,
@@ -64,7 +64,7 @@
   {
     "id": 4,
     "duration": 2,
-    "name": "ahhaha",
+    "name": "Route3",
     "stops": [
       {
         "id": 1,
