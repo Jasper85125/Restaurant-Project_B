@@ -216,8 +216,9 @@ public static class BusMenu
                 (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    List<string> SelectedRow = TableInfo.Value.SelectedRow;
                     while(true){
-                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, Header);
                         //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
                         if (result != null)                        {
                             string selectedItem = result.Value.SelectedItem;
@@ -285,6 +286,8 @@ public static class BusMenu
                                             RouteModel Input = RouteMenu.SelectRoute();
                                             RoutesList.Add(Input);
                                             Console.WriteLine($"{Input.Name} is toegevoegd");
+                                            ListAllBusses[selectedRowIndex].Route = RoutesList;
+                                            busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
                                             Thread.Sleep(2000);
                                             break;
                                         case ConsoleKey.Backspace:
@@ -305,6 +308,8 @@ public static class BusMenu
                                             Thread.Sleep(2000);
                                             ListAllBusses[selectedRowIndex].Route = RoutesList;
                                             busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                            SelectedRow = GenerateRow(ListAllBusses[selectedRowIndex]);
+
                                             break;
                                         default:
                                             Console.WriteLine("\nOngeldige invoer.");
@@ -312,8 +317,6 @@ public static class BusMenu
                                             break;
                                     }
                                 } while (keyInfo.Key != ConsoleKey.Escape);
-
-                                ListAllBusses[selectedRowIndex].Route = RoutesList;
                             }
                             else{
                                 Console.WriteLine("");
