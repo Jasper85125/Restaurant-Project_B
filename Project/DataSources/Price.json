@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "passenger": "child",
-    "price": 10
+    "passenger": "Kind",
+    "price": 13
   },
   {
     "id": 2,
-    "passenger": "adult",
+    "passenger": "Volwassene",
     "price": 20
   },
   {
     "id": 3,
-    "passenger": "ouderen",
+    "passenger": "Ouderen",
     "price": 12
   }
 ]

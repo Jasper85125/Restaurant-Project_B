@@ -334,15 +334,10 @@ public static class RouteMenu
                                     {
                                         RouteLogic.AddToRoute(halte, route);
                                     }
-                                    // if (ConfirmValue(route))
-                                    // {
-                                    routeLogic.UpdateList(route);
-                                    // }
-                                    // else
-                                    // {
-
-                                    // }
-                                    Console.WriteLine("\ntoegevoegd");
+                                    if (ConfirmValue(route))
+                                    {
+                                        routeLogic.UpdateList(route);
+                                    }
                                     checkStopName = false;
                                     break;
                                 case ConsoleKey.Backspace:
@@ -361,60 +356,6 @@ public static class RouteMenu
             }
         }
     }
-
-    //     bool addStopQuestion = true;
-    //     while (addStopQuestion)
-    //     {
-    //         bool checkDuplicateStop = false;
-    //         foreach (StopModel stop in newRoute.Stops)
-    //         {
-    //             if (stop.Name.ToLower() == newStop.Name.ToLower())
-    //             {
-    //                 Console.WriteLine("Deze halte bestaat al en kan daardoor niet worden toegevoegd.");
-    //                 checkDuplicateStop = true;
-    //             }
-    //         }
-    //         if (checkDuplicateStop == false)
-    //         {
-    //             newRoute = RouteLogic.AddToRoute(newStop, newRoute);
-    //             Console.WriteLine("Wilt U nog een halte toevoegen? Ja of Nee");
-    //             string? answer = Console.ReadLine();
-
-    //             // Checks if answer is Ja of Nee
-    //             bool answerCheck = false;
-    //             while (answerCheck == false)
-    //             {
-    //                 if (answer.ToLower() == "ja")
-    //                 {
-    //                     answerCheck = true;
-    //                 }
-    //                 else if (answer.ToLower() == "nee")
-    //                 {
-    //                     addStopQuestion = false;
-    //                     answerCheck = true;
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine($"{answer} is geen geldige optie. Gebruik Ja of Nee\n");
-    //                     Console.WriteLine("Wilt U nog een halte toevoegen? Ja of Nee");
-    //                     answer = Console.ReadLine();
-    //                 }
-    //             }
-    //         }              
-    //     }
-    //     routeLogic.UpdateList(newRoute);
-    //     Console.WriteLine($"\nDit is uw nieuwe toegevoegde route");
-    //     List<RouteModel> routeModel = new() {newRoute};
-    //     List<string> Header = new() {"Routenummer", "Naam","Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
-    //     if (routeModel == null || routeModel.Count == 0)
-    //     {
-    //         Console.WriteLine("Lege data.");
-    //     }
-    //     else
-    //     {
-    //         tableRoutes.PrintTable(Header, routeModel, GenerateRow);
-    //     }
-    // }
 
     public static void UpdateRoute()
     {
@@ -694,7 +635,7 @@ public static class RouteMenu
         do
         {
             ConsoleKeyInfo keyInfo;
-            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info: Naam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
+            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info:\nNaam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
             Console.Write("Druk op ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Enter");
