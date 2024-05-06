@@ -53,4 +53,9 @@ public class RouteLogic : AbstractLogic<RouteModel>
         return inputRoute;
     }
 
+    public static RouteModel RemoveFromRoute(StopModel stop, RouteModel inputRoute)
+    {
+        inputRoute.Stops.Remove(stop);
+        return inputRoute;
+    }
 }

@@ -40,7 +40,8 @@ public static class PriceMenu
                             AddPriceCategory();
                             break;
                         case 2:
-                            EditPriceCategory();
+                            //EditPriceCategory();
+                            ShowAllPricesInformation();
                             break;
                         case 3:
                             DeletePriceCategory();
@@ -336,7 +337,6 @@ public static class PriceMenu
         BackToStartMenu();
     }
 
-
     public static void ShowAllPricesInformation()
     {
         List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
@@ -393,7 +393,6 @@ public static class PriceMenu
                     break;
                 }
             }
-
         }
     }
 
