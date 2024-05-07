@@ -5,28 +5,23 @@
     "licensePlate": "WW-56-28",
     "route": [
       {
-        "id": 1,
-        "duration": 3,
-        "name": null,
+        "id": 4,
+        "duration": 2,
+        "name": "ahhaha",
         "stops": [
           {
-            "id": 0,
+            "id": 1,
             "name": "Beurs",
-            "time": "11:10"
+            "time": null
           },
           {
-            "id": 0,
-            "name": "Stadhuis",
-            "time": "11:20"
-          },
-          {
-            "id": 0,
+            "id": 2,
             "name": "Blaak",
-            "time": "11:30"
+            "time": null
           }
         ],
-        "begin": "11:00",
-        "end": "11:40"
+        "begin": null,
+        "end": null
       }
     ]
   },
