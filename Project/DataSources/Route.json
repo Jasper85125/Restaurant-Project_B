@@ -2,16 +2,11 @@
   {
     "id": 1,
     "duration": 2,
-    "name": "Euromast",
+    "name": "Test",
     "stops": [
       {
-        "id": 0,
-        "name": "Beurs",
-        "time": null
-      },
-      {
-        "id": 0,
-        "name": "Beurs",
+        "id": 23,
+        "name": "Centrum-West",
         "time": null
       }
     ],
@@ -20,60 +15,22 @@
   },
   {
     "id": 2,
-    "duration": 5,
-    "name": "Euromast",
+    "duration": 3,
+    "name": "CoolRoute",
     "stops": [
-      {
-        "id": 0,
-        "name": "Beurs",
-        "time": null
-      },
-      {
-        "id": 0,
-        "name": "Blaak",
-        "time": null
-      },
-      {
-        "id": 0,
-        "name": "Brutus",
-        "time": null
-      }
-    ],
-    "begin": null,
-    "end": null
-  },
-  {
-    "id": 3,
-    "duration": 2,
-    "name": "Bruh",
-    "stops": [
-      {
-        "id": 1,
-        "name": "Beurs",
-        "time": null
-      },
       {
         "id": 2,
         "name": "Blaak",
         "time": null
-      }
-    ],
-    "begin": null,
-    "end": null
-  },
-  {
-    "id": 4,
-    "duration": 2,
-    "name": "ahhaha",
-    "stops": [
+      },
       {
-        "id": 1,
-        "name": "Beurs",
+        "id": 26,
+        "name": "Blijdorp",
         "time": null
       },
       {
-        "id": 2,
-        "name": "Blaak",
+        "id": 9,
+        "name": "Capelsebrug",
         "time": null
       }
     ],
