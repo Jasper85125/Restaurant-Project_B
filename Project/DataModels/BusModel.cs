@@ -14,12 +14,16 @@ public class BusModel
     [JsonPropertyName("route")]
     public List<RouteModel> Route { get; set; }
 
+    [JsonPropertyName("date")]
+    public DateTime Date { get; set; }
+
     public BusModel(int id, int seats, string licensePlate)
     {
         Id = id;
         Seats = seats;
         LicensePlate = licensePlate;
         Route = new List<RouteModel>{};
+        Date = default;
     }
 
     public void AddRoute(RouteModel route)

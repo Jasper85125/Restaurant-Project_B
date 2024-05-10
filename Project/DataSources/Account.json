@@ -16,5 +16,11 @@
     "emailAddress": "amer@gmail.com",
     "password": "amer",
     "fullName": "amer alhasoun"
+  },
+  {
+    "id": 4,
+    "emailAddress": "Gamer@gmail.com",
+    "password": "Gamer",
+    "fullName": "Joe Mama"
   }
 ]

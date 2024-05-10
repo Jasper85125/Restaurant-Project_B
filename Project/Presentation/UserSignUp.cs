@@ -10,12 +10,12 @@ public static class UserSignUp
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
 
-        Console.WriteLine("Uw voornaam:");
+        Console.WriteLine("Uw voornaam: ");
         string firstName = Console.ReadLine();
-        Console.WriteLine("Uw achternaam:");
+        Console.WriteLine("Uw achternaam: ");
         string lastName = Console.ReadLine();
         while (true){
-            Console.WriteLine("Uw email address:");
+            Console.WriteLine("Uw email: ");
             email = Console.ReadLine();
 
             if (!accountsLogic.IsValidEmail(email))
@@ -28,7 +28,7 @@ public static class UserSignUp
                 break;
             }
             else{
-                Console.WriteLine("Er is al een account met dit email address. \nProbeer een ander.");
+                Console.WriteLine("Er is al een account met dit email. \nProbeer een ander.");
             }
         }
         while (true)
@@ -51,7 +51,7 @@ public static class UserSignUp
         AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName);
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
-        Console.WriteLine($"Welcome {acc.FullName}.");
+        Console.WriteLine($"Welkom {acc.FullName}.");
         Thread.Sleep(3000);
         Console.WriteLine("Uw account is aangemaakt.");
 
