@@ -1,33 +1,72 @@
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
 
 public static class Helper
 {
-    public static bool IsString(object parameter)
+    public static bool IsValidString(object input)
     {
-        return parameter.GetType() == typeof(string);
+        if (input is string str)
+        {
+            return !string.IsNullOrEmpty(str);
+        }
+        return false;
     }
 
-    public static bool IsInteger(object parameter)
+    public static bool IsValidInteger(object input)
     {
-        return parameter.GetType() == typeof(int);
-    }
+       if(!IsValidString(input)) return false;
 
-    public static bool IsDouble(object parameter)
-    {
-        return parameter.GetType() == typeof(double);
-    }
-
-
-    public static void function(string message, Func<bool> func)
-    {
         try
         {
-            func();
+            string? str = input as string;
+            int integerValue = Convert.ToInt32(str);
+            return true;
         }
         catch
         {
-            Console.WriteLine(message);
+            return false;
         }
     }
+
+    public static bool IsValidDouble(object input)
+    {
+        if(!IsValidString(input)) return false;
+        try
+        {
+            string? str = input as string;
+            double doubleValue  = Convert.ToDouble(str);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static bool IsDateValid(object input)
+    {
+        if (!IsValidString(input)) return false;
+        
+        try
+        {
+            string? str = input as string;
+            DateTime dateValue = Convert.ToDateTime(str); // "2024-05-06" // YYYY_MM_DD
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+    // public static void Function(string message, Func<bool> func)
+    // {
+    //     try
+    //     {
+    //         func();
+    //     }
+    //     catch
+    //     {
+    //         Console.WriteLine(message);
+    //     }
+    // }
+
 }

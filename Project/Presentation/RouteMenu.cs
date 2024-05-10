@@ -441,7 +441,7 @@ public static class RouteMenu
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
-                                if (Helper.IsString(Input))
+                                if (Helper.IsValidString(Input))
                                 {
                                     routeModels[selectedRowIndex].Name = Input;
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
