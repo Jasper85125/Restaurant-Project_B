@@ -673,8 +673,14 @@ public static class RouteMenu
         else
         {
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
-            int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-            return routeModels[selectedRowIndex];
+            if(TableInfo != null){
+                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                return routeModels[selectedRowIndex];
+            }
+            else{
+                return null;
+            }
+            
         }
     }   
 

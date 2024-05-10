@@ -274,7 +274,7 @@ public static class BusMenu
                                     Console.ResetColor();
                                     Console.Write("\nAls u tevreden bent met de routelijst, voeg de lijst toe met");
                                     Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.Write(" Escape.");
+                                    Console.Write(" Enter.");
                                     Console.ResetColor();
 
                                     keyInfo = Console.ReadKey(true);
@@ -284,12 +284,19 @@ public static class BusMenu
                                         case ConsoleKey.Spacebar:
                                             Console.WriteLine("\nU heeft op Spatie geklikt. Voeg een nieuwe route toe.");
                                             RouteModel Input = RouteMenu.SelectRoute();
-                                            RoutesList.Add(Input);
-                                            Console.WriteLine($"{Input.Name} is toegevoegd");
-                                            ListAllBusses[selectedRowIndex].Route = RoutesList;
-                                            busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
-                                            Thread.Sleep(2000);
-                                            break;
+                                            if (Input != null){
+                                                RoutesList.Add(Input);
+                                                Console.WriteLine($"{Input.Name} is toegevoegd");
+                                                ListAllBusses[selectedRowIndex].Route = RoutesList;
+                                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                                Thread.Sleep(2000);
+                                                break;
+                                                }
+                                            else{
+                                                Console.WriteLine("U keert terug");
+                                                Thread.Sleep(2000);
+                                                break;
+                                            }
                                         case ConsoleKey.Backspace:
                                             if (LastRouteIndex >= 1)
                                             {
@@ -303,8 +310,8 @@ public static class BusMenu
                                                 Thread.Sleep(1000);
                                             }
                                             break;
-                                        case ConsoleKey.Escape:
-                                            Console.WriteLine("\nU heeft op Escape geklikt. De routelijst is toegevoegd");
+                                        case ConsoleKey.Enter:
+                                            Console.WriteLine("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
                                             Thread.Sleep(2000);
                                             ListAllBusses[selectedRowIndex].Route = RoutesList;
                                             busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
@@ -316,7 +323,7 @@ public static class BusMenu
                                             Thread.Sleep(1000);
                                             break;
                                     }
-                                } while (keyInfo.Key != ConsoleKey.Escape);
+                                } while (keyInfo.Key != ConsoleKey.Enter);
                             }
                             else{
                                 Console.WriteLine("");

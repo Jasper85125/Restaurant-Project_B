@@ -19,18 +19,8 @@
     "name": "CoolRoute",
     "stops": [
       {
-        "id": 2,
-        "name": "Blaak",
-        "time": null
-      },
-      {
-        "id": 26,
-        "name": "Blijdorp",
-        "time": null
-      },
-      {
-        "id": 9,
-        "name": "Capelsebrug",
+        "id": 14,
+        "name": "De Kuip",
         "time": null
       }
     ],
