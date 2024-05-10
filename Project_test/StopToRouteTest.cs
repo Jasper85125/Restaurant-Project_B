@@ -13,7 +13,7 @@ public class StopToRouteTest
 
         StopModel stopModel2 = new StopModel(2, "Blaak");
         RouteModel routeModel2 = new RouteModel(2, 2, "Noord");
-        List<StopModel> testList2 = new(){stopModel};
+        List<StopModel> testList2 = new(){stopModel2};
 
         //Act
         RouteModel newRoute = RouteLogic.AddToRoute(stopModel, routeModel);
