@@ -36,18 +36,13 @@
     "licensePlate": "123-kkj-23",
     "route": [
       {
-        "id": 1,
-        "duration": 2,
-        "name": "Euromast",
+        "id": 2,
+        "duration": 3,
+        "name": "CoolRoute",
         "stops": [
           {
-            "id": 0,
-            "name": "Beurs",
-            "time": null
-          },
-          {
-            "id": 0,
-            "name": "Beurs",
+            "id": 14,
+            "name": "De Kuip",
             "time": null
           }
         ],

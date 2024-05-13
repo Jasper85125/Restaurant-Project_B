@@ -45,7 +45,8 @@ public static class RouteMenu
                             Welcome();
                             break;
                         case 2:
-                            UpdateRoute();
+                            //UpdateRoute();
+                            PrintedOverview();
                             Welcome();
                             break;
                         case 3:
@@ -54,7 +55,7 @@ public static class RouteMenu
                             break;
                         case 4:
                             PrintedOverview();
-                            MoreInformation();
+                            //MoreInformation();
                             Welcome();
                             break;
                         case 5:
@@ -144,18 +145,24 @@ public static class RouteMenu
         // Makes the route
         RouteModel newRoute = new RouteModel(routeLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName);
         Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
-        AddToRoute(newRoute);
+        AddStopToRoute(newRoute);
 
     }
 
-    public static void AddToRoute(RouteModel route)
+    public static void AddStopToRoute(RouteModel route, List<StopModel> selectedStops = null)
     {
+        List<StopModel> selectedStopsCopy = new List<StopModel> ();
+        if (selectedStops != null)
+        {
+            selectedStopsCopy = selectedStops.ToList();
+        }
+        if (selectedStops == null) selectedStops = new List<StopModel> (); 
         if (stopLogic.GetAll() == null || stopLogic.GetAll().Count == 0)
         {
             Console.WriteLine("Er zijn geen haltes gevonden in de database.");
             Console.WriteLine("Voeg eerst een halte toe");
             MakeStop();
-            AddToRoute(route);
+            AddStopToRoute(route);
         }
         else
         {
@@ -165,7 +172,7 @@ public static class RouteMenu
             //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
             bool checkStopName = true;
             List<StopModel> stops = stopLogic.GetAll().OrderBy(stop => stop.Name).ToList();
-            List<StopModel> selectedStops = new List<StopModel>();            
+                  
             int selectedIndex = 0;
             int currentPage = 1;
             int pageSize = 10;
@@ -332,12 +339,31 @@ public static class RouteMenu
                                     Console.Clear();
                                     foreach (StopModel halte in selectedStops)
                                     {
-                                        RouteLogic.AddToRoute(halte, route);
+                                        if (selectedStopsCopy.Contains(halte))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            RouteLogic.AddToRoute(halte, route);
+                                        }
+                                    }
+                                    foreach (StopModel halte in selectedStopsCopy)
+                                    {
+                                        if (!selectedStops.Contains(halte))
+                                        {
+                                            RouteLogic.RemoveFromRoute(halte, route);
+                                        }
                                     }
                                     if (ConfirmValue(route))
                                     {
                                         routeLogic.UpdateList(route);
                                     }
+                                    else
+                                    {
+
+                                    }
+                                    //Console.WriteLine("\ntoegevoegd");
                                     checkStopName = false;
                                     break;
                                 case ConsoleKey.Backspace:
@@ -391,13 +417,83 @@ public static class RouteMenu
     { 
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
+        List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+            while(true){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+                if(TableInfo != null){
+                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    while(true){
+                        (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
+                        if (result != null)                        {
+                            string selectedItem = result.Value.SelectedItem;
+                            int selectedIndex = result.Value.SelectedIndex;
+                            if (selectedIndex == 0){
+                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Thread.Sleep(3000);
+                            }
+                            else if(selectedIndex == 1){
+                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                if (Helper.IsValidString(Input))
+                                {
+                                    routeModels[selectedRowIndex].Name = Input;
+                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                    break;
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else if(selectedIndex == 2){
+                                while (true){
+                                Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                if (containsOnlyNumbers){
+                                    routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
+                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                    break;
+                                    }
+                                }
+                                break;
+                            }
+                            else if(selectedIndex == 3){
+                                Console.Clear();
+                                List<RouteModel>ListAllRoutes = routeLogic.GetAll();
+                                StopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
+                                AddStopToRoute(routeModels[selectedRowIndex], StopsList);
+                                // while (true){
+                                
+                                // // string Input = Console.ReadLine();
+                                // // bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                // // if (containsOnlyNumbers){
+                                // //     routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
+                                // //     routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                //     //break;
+                                //     //}
+                                // }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            break;
+                        }
+                    }
+                }
+                else{
+                    break;
+                }
+            }
         }
     
     }
@@ -577,46 +673,16 @@ public static class RouteMenu
         else
         {
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
-            int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-            return routeModels[selectedRowIndex];
+            if(TableInfo != null){
+                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                return routeModels[selectedRowIndex];
+            }
+            else{
+                return null;
+            }
+            
         }
-    }
-
-    public static bool IsString(string parameter)
-    {
-        if (Helper.IsString(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
-
-    public static bool IsInt(string parameter)
-    {
-        if (Helper.IsInteger(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
-
-    public static bool IsDouble(string parameter)
-    {
-        if (Helper.IsDouble(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
+    }   
 
     public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
     {
