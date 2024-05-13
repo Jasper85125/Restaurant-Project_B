@@ -74,5 +74,29 @@
     ],
     "begin": null,
     "end": null
+  },
+  {
+    "id": 5,
+    "duration": 3,
+    "name": "Noord",
+    "stops": [
+      {
+        "id": 26,
+        "name": "Blijdorp",
+        "time": null
+      },
+      {
+        "id": 7,
+        "name": "Schouwburgplein",
+        "time": null
+      },
+      {
+        "id": 15,
+        "name": "Laan op Zuid",
+        "time": null
+      }
+    ],
+    "begin": null,
+    "end": null
   }
 ]
