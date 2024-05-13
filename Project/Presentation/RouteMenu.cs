@@ -14,6 +14,7 @@ public static class RouteMenu
 
     static public void Welcome()
     {
+        Console.Clear();
         int selectedOption = 1; // Default selected option
         
         // Display options
@@ -622,7 +623,6 @@ public static class RouteMenu
                             break;
                         case "nee":
                             return;
-                            break;
                         default:
                             Console.WriteLine($"{answer} is geen geldige input. Probeer het opnieuw.");
                             break;

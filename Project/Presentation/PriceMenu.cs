@@ -29,7 +29,7 @@ public static class PriceMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
+                    selectedOption = Math.Min(3, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -39,19 +39,13 @@ public static class PriceMenu
                         case 1:
                             AddPriceCategory();
                             break;
+
                         case 2:
-                            //EditPriceCategory();
-                            ShowAllPricesInformation();
-                            break;
-                        case 3:
                             DeletePriceCategory();
                             break;
-                        case 4:
+                        case 3:
                             ShowAllPricesInformation();
                             //AfterShowingInformation();
-                            break;
-                        case 5:
-                            Menu.Start();
                             break;
                         default:
                             Console.WriteLine("Verkeerde input!");
@@ -60,6 +54,10 @@ public static class PriceMenu
                             break;
                     }
                     break;
+                case ConsoleKey.Escape:
+                    Console.WriteLine("U keert terug naar het hoofdmenu.");
+                    Thread.Sleep(3000);
+                    return;
             }
             
 
@@ -72,7 +70,8 @@ public static class PriceMenu
 
     public static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Selecteer een optie:");
+        Console.WriteLine("Het prijscategorie menu");
+        Console.WriteLine("");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
@@ -82,25 +81,27 @@ public static class PriceMenu
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een prijscategorie updaten.");
+        Console.WriteLine("[2] Een prijscategorie verwijderen.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Een prijscategorie verwijderen.");
-
-        // Display option 4
-        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Een overzicht van alle prijscategorieën.");
-
-        // Display option 5
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
-
-        // Reset text color
+        Console.WriteLine("[3] Een overzicht van alle prijscategorieën.");
         Console.ResetColor();
+
+        Console.WriteLine();
+        Console.Write("Om één van de opties te selecteren, \nklik op ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Enter");
+        Console.ResetColor();
+        Console.Write(".");
+        Console.WriteLine();
+
+        Console.Write("Om terug te keren naar het hoofdmenu, \nklik op ");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Escape");
+        Console.ResetColor();
+        Console.Write(".");
     }
 
     public static void DeletePriceCategory()
@@ -351,8 +352,16 @@ public static class PriceMenu
                 (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tablePrices.PrintTable(Header, priceModels, GenerateRow);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    List<string> selectedRow = TableInfo.Value.SelectedRow;
+                    pricesLogic.GenerateNewId();
+                    if(selectedRowIndex == 3){
+                        selectedRow[0] = $"{pricesLogic.GenerateNewId()}";
+                        selectedRow[1] = "-";
+                        selectedRow[2] = "-";
+                        continue;
+                    }
                     while(true){
-                        (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, Header);
                         //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
                         if (result != null)                        {
                             string selectedItem = result.Value.SelectedItem;
@@ -364,6 +373,9 @@ public static class PriceMenu
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
+                                if(selectedRowIndex == 3){
+                                    
+                                }
                                 priceModels[selectedRowIndex].Passenger = Input;
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                 break;
@@ -373,6 +385,7 @@ public static class PriceMenu
                                 Console.WriteLine("Voer een nummer in het item te veranderen:");
                                 string Input = Console.ReadLine();
                                 bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                if(selectedRowIndex == 3){}
                                 if (containsOnlyNumbers){
                                     priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
                                     pricesLogic.UpdateList(priceModels[selectedRowIndex]);
