@@ -13,5 +13,15 @@
     "id": 3,
     "passenger": "old",
     "price": 20
+  },
+  {
+    "id": 4,
+    "passenger": "",
+    "price": 0
+  },
+  {
+    "id": 5,
+    "passenger": "",
+    "price": 0
   }
 ]

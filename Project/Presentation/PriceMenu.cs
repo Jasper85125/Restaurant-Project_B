@@ -354,21 +354,23 @@ public static class PriceMenu
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> selectedRow = TableInfo.Value.SelectedRow;
                     pricesLogic.GenerateNewId();
-                    if(selectedRowIndex == 3){
+                    if(selectedRowIndex == priceModels.Count() + 1){
                         selectedRow[0] = $"{pricesLogic.GenerateNewId()}";
                         selectedRow[1] = "-";
                         selectedRow[2] = "-";
+                        PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0);
+                        pricesLogic.UpdateList(newPriceModel);
                         continue;
                     }
                     while(true){
                         (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, Header);
                         //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
-                        if (result != null)                        {
+                        if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
-                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
-                                Thread.Sleep(3000);
+                            Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                            Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
@@ -395,6 +397,7 @@ public static class PriceMenu
                                 break;
                             }
                         }
+                        
                         else
                         {
                             Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
