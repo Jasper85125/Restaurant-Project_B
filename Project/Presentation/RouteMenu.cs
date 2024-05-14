@@ -123,7 +123,7 @@ public static class RouteMenu
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
-        while (!Helper.IsValidString(newName) || newName.All(char.IsLetter) == false)
+        while (!Helper.IsOnlyLetter(newName))
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"'{newName}' is geen geldige optie.");
@@ -414,10 +414,10 @@ public static class RouteMenu
                                 Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
-                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
                                 string Input = Console.ReadLine();
 
-                                while(!Helper.IsValidString(Input) || Input.All(char.IsLetter) == false)
+                                while(!Helper.IsOnlyLetter(Input))
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine($"'{Input}' is geen geldige optie.");
@@ -496,7 +496,7 @@ public static class RouteMenu
             Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
             
-            if (Helper.IsValidString(newName) && newName.All(char.IsLetter))
+            if (Helper.IsOnlyLetter(newName))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
                 {
