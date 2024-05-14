@@ -498,51 +498,6 @@ public static class RouteMenu
     
     }
 
-    public static void MoreInformation()
-    {
-        Console.WriteLine("Wilt u meer informatie over een route J/N");
-        string? answer = Console.ReadLine();
-        if (answer.ToLower() == "j" || answer.ToLower() == "n")
-        {
-            if (answer.ToLower() == "j")
-            {
-                Console.WriteLine("Over welke route wilt u meer informatie?");
-                string? idMoreInfo = Console.ReadLine();
-                try
-                {
-                    RouteModel RouteObject = routeLogic.GetById(Convert.ToInt32(idMoreInfo));
-                    if (RouteObject == null)
-                    {
-                        Console.WriteLine("Dat is geen geldig ID!");
-                        MoreInformation();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes:");
-                        foreach (StopModel Stop in RouteObject.Stops)
-                        {
-                            Console.WriteLine($"[{Stop.Name}]");
-                        }
-                        Thread.Sleep(3000);
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Geen gelidg input");
-                }
-            }
-            else
-            {
-                Console.WriteLine("U wordt terug gezet naar het vorige menu.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Verkeerde input. type y of n.");
-            MoreInformation();
-        }
-    }
-
     public static void AddToBus()
     {
         List<BusModel> ListAllBusses = busLogic.GetAll();
@@ -567,7 +522,7 @@ public static class RouteMenu
                 RouteModel routeModel = routeLogic.GetById(intInputRoute);
                 if (routeModel == null)
                 {
-                    Console.WriteLine("Verkeerde input. Er bestaat geen  met dat ID.");
+                    Console.WriteLine("Verkeerde input. Er bestaat geen bus met dat ID.");
                     AddToBus();
                 }
                 else
