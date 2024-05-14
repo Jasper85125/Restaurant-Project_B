@@ -37,20 +37,11 @@ public static class Menu
                             UserLogin.Start();
                             break;
                         case 2:
-                            UserSignUp.Start();
+                            UserSignUp.CostumerSignUp();
                             break;
                         case 3:
                              Information.Info();
-                             break;
-                        // case 4:
-                        //     RouteMenu.Welcome();
-                        //     break;
-                        // case 5:
-                        //     PriceMenu.Start();
-                        //     break;
-                        // case 6:
-                        //     BusMenu.Start();
-                        //     break; 
+                             break; 
                     }
                     break;
             }
@@ -79,21 +70,6 @@ public static class Menu
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
         Console.WriteLine("[3] Informatie over de app.");
-
-        // Display option 4
-        // Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        // Console.Write(selectedOption == 4 ? ">> " : "   ");
-        // Console.WriteLine("[4] Menu voor routes toevoegen");
-
-        // // Display option 5
-        // Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        // Console.Write(selectedOption == 5 ? ">> " : "   ");
-        // Console.WriteLine("[5] Menu voor prijscategorieën");
-
-        // // Display option 6
-        // Console.ForegroundColor = selectedOption == 6 ? ConsoleColor.Green : ConsoleColor.White;
-        // Console.Write(selectedOption == 6 ? ">> " : "   ");
-        // Console.WriteLine("[6] Menu voor bussen");
 
         // Reset text color
         Console.ResetColor();

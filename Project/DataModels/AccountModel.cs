@@ -18,13 +18,13 @@ public class AccountModel
     [JsonPropertyName("isAdmin")]
     public bool IsAdmin { get; set; }
 
-    public AccountModel(int id, string emailAddress, string password, string fullName)
+    public AccountModel(int id, string emailAddress, string password, string fullName, bool isAdmin)
     {
         Id = id;
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;
-        IsAdmin = false;
+        IsAdmin = isAdmin;
     }
 
 }

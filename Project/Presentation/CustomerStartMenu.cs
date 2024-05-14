@@ -61,27 +61,27 @@ public class CustomerStartMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Reserveer een rit");
+        Console.WriteLine("[1] Reserveer een rit.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Placeholder");
+        Console.WriteLine("[2] Placeholder.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Placeholder");
+        Console.WriteLine("[3] Placeholder.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Placeholder");
+        Console.WriteLine("[4] Placeholder.");
 
         // Display option 5
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Keer terug naar de beginpagina");
+        Console.WriteLine("[5] Keer terug naar de beginpagina.");
 
         // Reset text color
         Console.ResetColor();

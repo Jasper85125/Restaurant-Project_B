@@ -43,6 +43,9 @@ public static class AdminStartMenu
                             BusMenu.Start();
                             break;
                         case 4:
+                            UserSignUp.AdminSignUp();
+                            break;
+                        case 5:
                             Menu.Start();
                             break;
                     }
@@ -62,22 +65,27 @@ public static class AdminStartMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Menu voor routes toevoegen");
+        Console.WriteLine("[1] Menu voor routes toevoegen.");
 
         // // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Menu voor prijscategorieën");
+        Console.WriteLine("[2] Menu voor prijscategorieën.");
 
         // // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Menu voor bussen");
+        Console.WriteLine("[3] Menu voor bussen.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Ga terug naar het vorige menu.");
+        Console.WriteLine("[4] Maak een nieuw admin account aan.");
+
+        // Display option 5
+        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 5 ? ">> " : "   ");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
 
         // Reset text color
         Console.ResetColor();
