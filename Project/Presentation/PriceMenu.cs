@@ -353,11 +353,7 @@ public static class PriceMenu
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> selectedRow = TableInfo.Value.SelectedRow;
-                    pricesLogic.GenerateNewId();
-                    if(selectedRowIndex == priceModels.Count() + 1){
-                        selectedRow[0] = $"{pricesLogic.GenerateNewId()}";
-                        selectedRow[1] = "-";
-                        selectedRow[2] = "-";
+                    if(selectedRowIndex == priceModels.Count()){
                         PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0);
                         pricesLogic.UpdateList(newPriceModel);
                         continue;
@@ -368,6 +364,8 @@ public static class PriceMenu
                         if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
+                            Console.WriteLine(selectedIndex);
+                            Console.WriteLine(selectedRowIndex);
                             if (selectedIndex == 0){
                             Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
                             Thread.Sleep(3000);
@@ -375,9 +373,6 @@ public static class PriceMenu
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
-                                if(selectedRowIndex == 3){
-                                    
-                                }
                                 priceModels[selectedRowIndex].Passenger = Input;
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                 break;

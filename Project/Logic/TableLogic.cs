@@ -14,7 +14,7 @@ public class TableLogic<T>
 
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
-        List<string> NewRow = new() {"Voeg een nieuwe rij toe", "-", "-"};
+        List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
 
         do
         {
@@ -70,7 +70,7 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption);
+                    return (geselecteerdeRow, selectedOption - 1);
                 case ConsoleKey.Backspace:
                     return null;
             }
@@ -139,7 +139,7 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption);
+                    return (geselecteerdeRow, selectedOption - 1);
                 case ConsoleKey.Backspace:
                     return null;
             }
