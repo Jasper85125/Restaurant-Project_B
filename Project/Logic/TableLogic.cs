@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.VisualBasic;
-
 public class TableLogic<T>
 {
     public static int tableWidth = 145;
@@ -176,7 +171,6 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;

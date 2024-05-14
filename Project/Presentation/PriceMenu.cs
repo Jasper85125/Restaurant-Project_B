@@ -364,34 +364,56 @@ public static class PriceMenu
                         if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
-                            Console.WriteLine(selectedIndex);
-                            Console.WriteLine(selectedRowIndex);
+
                             if (selectedIndex == 0){
-                            Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
-                            Thread.Sleep(3000);
+                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
-                                Console.WriteLine($"Voer een nieuwe doelgroep in om");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"'{selectedItem}'");
-                                Console.ResetColor();
-                                Console.Write(" te vervangen:");
-                                Console.WriteLine();
-                                string Input = Console.ReadLine();
-                                priceModels[selectedRowIndex].Passenger = Input;
-                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                while(true){
+                                    Console.WriteLine($"Voer een nieuwe doelgroep in om");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write($"'{selectedItem}'");
+                                    Console.ResetColor();
+                                    Console.Write(" te vervangen:");
+                                    Console.WriteLine();
+                                    string Input = Console.ReadLine();
+                                    if(Input.Length == 0){
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine($"'{Input}' is geen geldige input");
+                                        Console.ResetColor();
+                                        Thread.Sleep(2000);
+                                        Console.Clear();
+                                    }
+                                    else{
+                                        priceModels[selectedRowIndex].Passenger = Input;
+                                        pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                        break;
+                                    }
+                                }
                                 break;
+                            
                             }
                             else if(selectedIndex == 2){
                                 while (true){
-                                Console.WriteLine("Voer een nummer in het item te veranderen:");
-                                string Input = Console.ReadLine();
-                                bool containsOnlyNumbers = Input.All(char.IsDigit);
-                                if(selectedRowIndex == 3){}
-                                if (containsOnlyNumbers){
-                                    priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
-                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                    break;
+                                    Console.WriteLine($"Voer een nieuwe prijs in om");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write($"'{selectedItem}'");
+                                    Console.ResetColor();
+                                    Console.Write(" te vervangen:");
+                                    string Input = Console.ReadLine();
+                                    bool containsOnlyNumbers = Input.All(char.IsDigit);
+                                    if (containsOnlyNumbers){
+                                        priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
+                                        pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                        break;
+                                    }
+                                    else{
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine($"'{Input}' is geen geldige input");
+                                        Console.ResetColor();
+                                        Thread.Sleep(2000);
+                                        Console.Clear();
                                     }
                                 }
                                 break;
