@@ -371,7 +371,12 @@ public static class PriceMenu
                             Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
-                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                Console.WriteLine($"Voer een nieuwe doelgroep in om");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"'{selectedItem}'");
+                                Console.ResetColor();
+                                Console.Write(" te vervangen:");
+                                Console.WriteLine();
                                 string Input = Console.ReadLine();
                                 priceModels[selectedRowIndex].Passenger = Input;
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
