@@ -84,7 +84,7 @@ public class TableLogic<T>
         {
             Console.Clear();
             Console.WriteLine(Title);
-           PrintLine();
+            PrintLine();
             PrintRow(Header, false);
             PrintLine();
 
