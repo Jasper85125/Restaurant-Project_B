@@ -1,122 +1,172 @@
 [
   {
-      "id": 1,
-      "name": "Centraal Station"
+    "id": 1,
+    "name": "Centraal Station",
+    "time": null
   },
   {
-      "id": 2,
-      "name": "Blaak"
+    "id": 2,
+    "name": "Blaak",
+    "time": null
   },
   {
-      "id": 3,
-      "name": "Zuidplein"
+    "id": 3,
+    "name": "Zuidplein",
+    "time": null
   },
   {
-      "id": 4,
-      "name": "Beurs"
+    "id": 4,
+    "name": "Beurs",
+    "time": null
   },
   {
-      "id": 5,
-      "name": "Alexander"
+    "id": 5,
+    "name": "Alexander",
+    "time": null
   },
   {
-      "id": 6,
-      "name": "Kralingse Zoom"
+    "id": 6,
+    "name": "Kralingse Zoom",
+    "time": null
   },
   {
-      "id": 7,
-      "name": "Schouwburgplein"
+    "id": 7,
+    "name": "Schouwburgplein",
+    "time": null
   },
   {
-      "id": 8,
-      "name": "Wilhelminaplein"
+    "id": 8,
+    "name": "Wilhelminaplein",
+    "time": null
   },
   {
-      "id": 9,
-      "name": "Capelsebrug"
+    "id": 9,
+    "name": "Capelsebrug",
+    "time": null
   },
   {
-      "id": 10,
-      "name": "Zuidplein Metro"
+    "id": 10,
+    "name": "Zuidplein Metro",
+    "time": null
   },
   {
-      "id": 11,
-      "name": "Marconiplein"
+    "id": 11,
+    "name": "Marconiplein",
+    "time": null
   },
   {
-      "id": 12,
-      "name": "Noorderburg"
+    "id": 12,
+    "name": "Noorderburg",
+    "time": null
   },
   {
-      "id": 13,
-      "name": "Meent"
+    "id": 13,
+    "name": "Meent",
+    "time": null
   },
   {
-      "id": 14,
-      "name": "De Kuip"
+    "id": 14,
+    "name": "De Kuip",
+    "time": null
   },
   {
-      "id": 15,
-      "name": "Laan op Zuid"
+    "id": 15,
+    "name": "Laan op Zuid",
+    "time": null
   },
   {
-      "id": 16,
-      "name": "Leuvehaven"
+    "id": 16,
+    "name": "Leuvehaven",
+    "time": null
   },
   {
-      "id": 17,
-      "name": "Museumpark"
+    "id": 17,
+    "name": "Museumpark",
+    "time": null
   },
   {
-      "id": 18,
-      "name": "Willemsplein"
+    "id": 18,
+    "name": "Willemsplein",
+    "time": null
   },
   {
-      "id": 19,
-      "name": "Schiedamseweg"
+    "id": 19,
+    "name": "Schiedamseweg",
+    "time": null
   },
   {
-      "id": 20,
-      "name": "Parkweg"
+    "id": 20,
+    "name": "Parkweg",
+    "time": null
   },
   {
-      "id": 21,
-      "name": "Mathenesserplein"
+    "id": 21,
+    "name": "Mathenesserplein",
+    "time": null
   },
   {
-      "id": 22,
-      "name": "Delfshaven"
+    "id": 22,
+    "name": "Delfshaven",
+    "time": null
   },
   {
-      "id": 23,
-      "name": "Centrum-West"
+    "id": 23,
+    "name": "Centrum-West",
+    "time": null
   },
   {
-      "id": 24,
-      "name": "Westblaak"
+    "id": 24,
+    "name": "Westblaak",
+    "time": null
   },
   {
-      "id": 25,
-      "name": "Groeninx van Zoelenlaan"
+    "id": 25,
+    "name": "Groeninx van Zoelenlaan",
+    "time": null
   },
   {
-      "id": 26,
-      "name": "Blijdorp"
+    "id": 26,
+    "name": "Blijdorp",
+    "time": null
   },
   {
-      "id": 27,
-      "name": "Centraal"
+    "id": 27,
+    "name": "Centraal",
+    "time": null
   },
   {
-      "id": 28,
-      "name": "Eendrachtsplein"
+    "id": 28,
+    "name": "Eendrachtsplein",
+    "time": null
   },
   {
-      "id": 29,
-      "name": "Schiekade"
+    "id": 29,
+    "name": "Schiekade",
+    "time": null
   },
   {
-      "id": 30,
-      "name": "Coolhaven"
+    "id": 30,
+    "name": "Coolhaven",
+    "time": null
+  },
+  {
+    "id": 31,
+    "name": "2",
+    "time": null
+  },
+  {
+    "id": 32,
+    "name": "1",
+    "time": null
+  },
+  {
+    "id": 33,
+    "name": "asdasd",
+    "time": null
+  },
+  {
+    "id": 34,
+    "name": "asdasadasdssadsa",
+    "time": null
   }
 ]
