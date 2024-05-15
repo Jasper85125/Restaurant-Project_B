@@ -41,7 +41,7 @@ public static class Helper
         }
     }
 
-    public static bool IsDateValid(object input)
+    public static bool IsValidDate(object input)
     {
         if (!IsValidString(input)) return false;
         
