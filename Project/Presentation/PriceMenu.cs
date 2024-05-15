@@ -142,7 +142,7 @@ public static class PriceMenu
                                 Console.ResetColor();
                                 Console.Write(" te vervangen:\n");
                                 string Input = Console.ReadLine();
-                                while (!Helper.IsValidInteger(Input))
+                                while (!Helper.IsValidDouble(Input))
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine($"'{Input}' is geen geldige optie.");
@@ -151,7 +151,7 @@ public static class PriceMenu
                                     Console.WriteLine("Wat is de nieuwe prijs?");
                                     Input = Console.ReadLine();
                                 }
-                                priceModels[selectedRowIndex].Price = Convert.ToInt32(Input);
+                                priceModels[selectedRowIndex].Price = Convert.ToDouble(Input);
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                 break;      
                             }
