@@ -565,7 +565,8 @@ public static class RouteMenu
         return new List<string> {$"{id}", $"{name}", $"{time}"};
     }
 
-    public static RouteModel SelectRoute(){
+    public static RouteModel SelectRoute()
+    {
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         string Title = "Selecteer een route";
