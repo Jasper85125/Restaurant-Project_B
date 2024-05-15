@@ -63,7 +63,7 @@ public static class RouteMenu
                             MakeStop();
                             break;
                         case 6:
-                            Menu.Start();
+                            AdminStartMenu.Start();
                             break;
                     }
                     break;

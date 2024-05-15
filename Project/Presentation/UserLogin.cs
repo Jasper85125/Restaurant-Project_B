@@ -1,3 +1,5 @@
+using System.Formats.Asn1;
+
 public static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
@@ -5,26 +7,46 @@ public static class UserLogin
 
     public static void Start()
     {
-        Console.WriteLine("Welcome to the login page");
-        Console.WriteLine("Please enter your email address");
+        Console.WriteLine("Welkom op de inlogpagina");
+        Console.WriteLine("Vul uw email in: ");
         string email = Console.ReadLine();
-        Console.WriteLine("Please enter your password");
+        Console.WriteLine("Vul uw wachtwoord in: ");
         string password = Console.ReadLine();
         AccountModel acc = accountsLogic.CheckLogin(email, password);
-        if (acc != null)
+
+        if (acc != null && acc.IsAdmin == false)
         {
-            Console.WriteLine("Welcome back " + acc.FullName);
-            Console.WriteLine("Your email number is " + acc.EmailAddress);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Welkom " + acc.FullName);
 
             //Write some code to go back to the menu
             Thread.Sleep(3000);
-            Console.WriteLine("U keert terug naar het Startmenu.\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("U gaat nu naar de startpagina voor klanten.\n");
+            Console.ResetColor();
             Thread.Sleep(3000);
-            Menu.Start();
+            CustomerStartMenu.Start();
+        }
+        else if (acc != null && acc.IsAdmin == true)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Welkom " + acc.FullName);
+            Console.ResetColor();
+
+            //Write some code to go back to the menu
+            Thread.Sleep(3000);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("U gaat nu naar de startpagina voor admins.\n");
+            Console.ResetColor();
+            Thread.Sleep(3000);
+            AdminStartMenu.Start();
         }
         else
         {
-            Console.WriteLine("No account found with that email and password");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Geen account gevonden met die email en wachtwoord combinatie.");
+            Console.ResetColor();
+            Thread.Sleep(3000);
         }
     }
 }

@@ -1,15 +1,9 @@
-using System;
-public static class Menu
+public class CustomerStartMenu
 {
-    //This shows the menu. You can call back to this method to show the menu again
-    //after another presentation method is completed.
-    //You could edit this to show different menus depending on the user's role
     public static void Start()
     {
-        Console.Clear();
         int selectedOption = 1; // Default selected option
 
-        // Display options
         DisplayOptions(selectedOption);
 
         while (true)
@@ -34,57 +28,60 @@ public static class Menu
                     switch (selectedOption)
                     {
                         case 1:
-                            UserLogin.Start();
                             break;
-                        case 2:
-                            UserSignUp.SignUp(false);
+                        case 2:                            
                             break;
                         case 3:
-                            Information.Info();
-                            break; 
+                            break;
                         case 4:
-                            CustomerStartMenu.Start();
                             break;
                         case 5:
-                            AdminStartMenu.Start();
+                            Menu.Start();
                             break;
-
+                        default:
+                            Console.WriteLine("Verkeerde input!");
+                            Thread.Sleep(3000);
+                            Start();
+                            break;
                     }
                     break;
             }
-
             // Clear console and display options
             Console.Clear();
             DisplayOptions(selectedOption);
         }
+
     }
 
-    static void DisplayOptions(int selectedOption)
+    public static void DisplayOptions(int selectedOption)
     {
+        Console.WriteLine("Welkom op de startpagina");
         Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Inloggen op uw account.");
+        Console.WriteLine("[1] Reserveer een rit.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Account aanmaken.");
+        Console.WriteLine("[2] Placeholder.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Informatie over de app.");
+        Console.WriteLine("[3] Placeholder.");
 
+        // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Tijdelijke klantmenu toegang.");
+        Console.WriteLine("[4] Placeholder.");
 
+        // Display option 5
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Tijdelijk adminmenu toegang.");
+        Console.WriteLine("[5] Keer terug naar de beginpagina.");
 
         // Reset text color
         Console.ResetColor();

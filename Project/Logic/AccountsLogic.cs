@@ -18,6 +18,27 @@ public class AccountsLogic : AbstractLogic<AccountModel>
     public AccountsLogic()
     {
         _accounts = DataAccess<AccountModel>.LoadAll();
+        try 
+        {
+            bool foundAdmin = false;
+            foreach (AccountModel account in _accounts)
+            {
+                if (account.IsAdmin == true)
+                {
+                    foundAdmin = true;
+                    break;
+                }
+            }
+            if (foundAdmin == false)
+            {
+                AccountModel newAcc = new AccountModel(GenerateNewId(), "Admin", "Admin", "Admin", true);
+                UpdateList(newAcc);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     public bool IsValidEmail(string email)
@@ -71,6 +92,7 @@ public class AccountsLogic : AbstractLogic<AccountModel>
 
     public AccountModel CheckLogin(string email, string password)
     {
+        //List<AccountModel> accounts = DataAccess<AccountModel>.LoadAll();
         if (email == null || password == null)
         {
             return null;

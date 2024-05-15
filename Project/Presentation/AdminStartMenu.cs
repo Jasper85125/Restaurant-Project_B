@@ -1,5 +1,5 @@
 using System;
-public static class Menu
+public static class AdminStartMenu
 {
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
@@ -34,21 +34,20 @@ public static class Menu
                     switch (selectedOption)
                     {
                         case 1:
-                            UserLogin.Start();
+                            RouteMenu.Welcome();
                             break;
                         case 2:
-                            UserSignUp.SignUp(false);
+                            PriceMenu.Start();
                             break;
                         case 3:
-                            Information.Info();
-                            break; 
+                            BusMenu.Start();
+                            break;
                         case 4:
-                            CustomerStartMenu.Start();
+                            UserSignUp.SignUp(true);
                             break;
                         case 5:
-                            AdminStartMenu.Start();
+                            Menu.Start();
                             break;
-
                     }
                     break;
             }
@@ -64,27 +63,29 @@ public static class Menu
         Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
-        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Inloggen op uw account.");
+        Console.WriteLine("[1] Menu voor routes.");
 
-        // Display option 2
+        // // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Account aanmaken.");
+        Console.WriteLine("[2] Menu voor prijscategorieën.");
 
-        // Display option 3
+        // // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Informatie over de app.");
+        Console.WriteLine("[3] Menu voor bussen.");
 
+        // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Tijdelijke klantmenu toegang.");
+        Console.WriteLine("[4] Maak een nieuw admin account aan.");
 
+        // Display option 5
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Tijdelijk adminmenu toegang.");
+        Console.WriteLine("[5] Ga terug naar het vorige menu.");
 
         // Reset text color
         Console.ResetColor();
