@@ -19,5 +19,19 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true
+  },
+  {
+    "id": 4,
+    "emailAddress": "Joe@gmail.com",
+    "password": "",
+    "fullName": " ",
+    "isAdmin": false
+  },
+  {
+    "id": 5,
+    "emailAddress": "Boris@gmail.com",
+    "password": "Boris123!",
+    "fullName": "Boris Water",
+    "isAdmin": false
   }
 ]

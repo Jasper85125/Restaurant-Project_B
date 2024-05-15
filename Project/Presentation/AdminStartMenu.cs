@@ -26,7 +26,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(6, selectedOption + 1);
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -43,7 +43,7 @@ public static class AdminStartMenu
                             BusMenu.Start();
                             break;
                         case 4:
-                            UserSignUp.AdminSignUp();
+                            UserSignUp.SignUp(true);
                             break;
                         case 5:
                             Menu.Start();
