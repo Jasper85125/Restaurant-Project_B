@@ -57,6 +57,22 @@ public static class Helper
         }
     }
     
+    public static bool IsOnlyLetter(object input)
+    {
+        if (!IsValidString(input)) return false;
+
+        try
+        {
+            string? str = input as string;
+            if (str == null) return false;
+            return str.All(char.IsLetter);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
     // public static void Function(string message, Func<bool> func)
     // {
     //     try

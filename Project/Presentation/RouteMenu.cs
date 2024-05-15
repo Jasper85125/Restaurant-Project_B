@@ -14,6 +14,7 @@ public static class RouteMenu
 
     static public void Welcome()
     {
+        Console.Clear();
         int selectedOption = 1; // Default selected option
         
         // Display options
@@ -123,7 +124,7 @@ public static class RouteMenu
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
-        while (newName == null || newName.All(char.IsLetter) == false)
+        while (!Helper.IsOnlyLetter(newName))
         {
             Console.WriteLine($"{newName} is geen geldige optie.");
             Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
@@ -439,9 +440,10 @@ public static class RouteMenu
                                 Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
-                                Console.WriteLine("Voer iets in om het item te veranderen:");
+                                Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
                                 string Input = Console.ReadLine();
-                                if (Helper.IsValidString(Input))
+
+                                while(!Helper.IsOnlyLetter(Input))
                                 {
                                     routeModels[selectedRowIndex].Name = Input;
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
@@ -552,7 +554,7 @@ public static class RouteMenu
             Console.WriteLine("Wat is de naam van de halte?");
             string? newName = Console.ReadLine();
             
-            if (newName != null && newName.All(char.IsLetter))
+            if (Helper.IsOnlyLetter(newName))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
                 {
@@ -577,7 +579,6 @@ public static class RouteMenu
                             break;
                         case "nee":
                             return;
-                            break;
                         default:
                             Console.WriteLine($"{answer} is geen geldige input. Probeer het opnieuw.");
                             break;
