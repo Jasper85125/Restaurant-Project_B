@@ -391,7 +391,7 @@ public static class RouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
@@ -404,6 +404,13 @@ public static class RouteMenu
                 (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+
+                    if(selectedRowIndex == routeModels.Count())
+                    {
+                        RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"");
+                        routeLogic.UpdateList(newRouteModel);
+                        continue;
+                    }
                     while(true){
                         (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
                         //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
@@ -469,7 +476,7 @@ public static class RouteMenu
                         }
                         else
                         {
-                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            Console.WriteLine("U keert terug naar het routemenu overzicht.");
                             break;
                         }
                     }
