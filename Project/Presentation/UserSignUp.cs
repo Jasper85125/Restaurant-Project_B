@@ -5,13 +5,13 @@ public static class UserSignUp
 
     public static void SignUp(bool IsAdminSign)
     {
-        string password;
-        string email;
+        string? password;
+        string? email;
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
 
         Console.WriteLine("Uw voornaam: ");
-        string firstName = Console.ReadLine();
+        string? firstName = Console.ReadLine();
         while (!Helper.IsOnlyLetter(firstName))
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -22,7 +22,7 @@ public static class UserSignUp
             firstName = Console.ReadLine();
         }
         Console.WriteLine("Uw achternaam: ");
-        string lastName = Console.ReadLine();
+        string? lastName = Console.ReadLine();
         while (!Helper.IsOnlyLetter(lastName))
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -70,7 +70,7 @@ public static class UserSignUp
             }
 
             Console.WriteLine("Controleer uw wachtwoord:");
-            string password2 = Console.ReadLine();
+            string? password2 = Console.ReadLine();
             while (!Helper.IsValidString(password2))
             {
                 Console.ForegroundColor = ConsoleColor.Red;

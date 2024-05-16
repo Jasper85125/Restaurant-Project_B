@@ -21,31 +21,23 @@ public static class UserLogin
 
             //Write some code to go back to the menu
             Thread.Sleep(3000);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("U gaat nu naar de startpagina voor klanten.\n");
-            Console.ResetColor();
+            ColorPrint.PrintGreen("U gaat nu naar de startpagina voor klanten.\n");
             Thread.Sleep(3000);
             CustomerStartMenu.Start();
         }
         else if (acc != null && acc.IsAdmin == true)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Welkom " + acc.FullName);
-            Console.ResetColor();
+            ColorPrint.PrintGreen("Welkom " + acc.FullName);
 
             //Write some code to go back to the menu
             Thread.Sleep(3000);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("U gaat nu naar de startpagina voor admins.\n");
-            Console.ResetColor();
+            ColorPrint.PrintGreen("U gaat nu naar de startpagina voor admins.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
         }
         else
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Geen account gevonden met die email en wachtwoord combinatie.");
-            Console.ResetColor();
+            ColorPrint.PrintRed("Geen account gevonden met die email en wachtwoord combinatie.");
             Thread.Sleep(3000);
         }
     }
