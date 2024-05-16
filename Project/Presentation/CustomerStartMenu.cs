@@ -50,7 +50,6 @@ public class CustomerStartMenu
             Console.Clear();
             DisplayOptions(selectedOption);
         }
-
     }
 
     public static void DisplayOptions(int selectedOption)

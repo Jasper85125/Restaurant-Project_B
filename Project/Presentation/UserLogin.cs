@@ -23,6 +23,7 @@ public static class UserLogin
             Thread.Sleep(3000);
             ColorPrint.PrintGreen("U gaat nu naar de startpagina voor klanten.\n");
             Thread.Sleep(3000);
+            
             CustomerStartMenu.Start();
         }
         else if (acc != null && acc.IsAdmin == true)
