@@ -483,6 +483,22 @@ public static class RouteMenu
         while (checkStopName)
         {
             Console.WriteLine("Wat is de naam van de halte?");
+            Console.Write("\nOm terug te keren klik op");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(" Backspace");
+            Console.ResetColor();
+            Console.WriteLine(".\n");
+    
+             // Wait for key press
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            // Check arrow key presses
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.Backspace:
+                    // Move to the previous option
+                    return;
+            }
             string? newName = Console.ReadLine();
             
             if (Helper.IsOnlyLetter(newName))
@@ -524,7 +540,7 @@ public static class RouteMenu
                 Console.WriteLine($"'{newName}' is geen geldige optie.");
                 Console.ResetColor();
                 Console.WriteLine("De naam van een halte kan alleen letters zijn.");
-                Console.WriteLine("Probeer het nog een keer.");
+                Console.WriteLine("Probeer het nog een keer.\n");
             }
         }
     }
