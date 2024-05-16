@@ -26,7 +26,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
+                    selectedOption = Math.Min(4, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -45,10 +45,13 @@ public static class AdminStartMenu
                         case 4:
                             UserSignUp.SignUp(true);
                             break;
-                        case 5:
-                            Menu.Start();
-                            break;
                     }
+                    break;
+                case ConsoleKey.Backspace:
+                    Console.Clear();
+                    Console.WriteLine("U keert terug naar het inlog menu.");
+                    Thread.Sleep(2000);
+                    Menu.Start();
                     break;
             }
 
@@ -60,7 +63,7 @@ public static class AdminStartMenu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Selecteer een optie:");
+        Console.WriteLine("Admin hoofdmenu\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
@@ -82,12 +85,19 @@ public static class AdminStartMenu
         Console.Write(selectedOption == 4 ? ">> " : "   ");
         Console.WriteLine("[4] Maak een nieuw admin account aan.");
 
-        // Display option 5
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
-
         // Reset text color
         Console.ResetColor();
+
+        Console.WriteLine("\nSelecteer een optie met de pijltjes.");
+        Console.Write("Als je de juiste hebt klik op ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Enter");
+        Console.ResetColor();
+        Console.Write(".");
+        Console.Write("\nOm naar het inlog menu te gaan klik op");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" Backspace");
+        Console.ResetColor();
+        Console.WriteLine(".\n");
     }
 }
