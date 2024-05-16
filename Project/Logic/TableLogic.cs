@@ -16,12 +16,11 @@ public class TableLogic<T>
         {
             Console.Clear();
             Console.WriteLine($"{Title}\n");
-            PrintLine();
             PrintRow(Header, false);
-            PrintLine();
 
             for (int rowNumber = 1; rowNumber <= Data.Count() + 1; rowNumber++)
             {
+                tableWidth = 145;
                 if (rowNumber <= Data.Count())
                 {
                     if (rowNumber == selectedOption)
@@ -30,28 +29,25 @@ public class TableLogic<T>
                         geselecteerdeRow = GenerateRow(Data[rowNumber - 1]);
                         PrintRow(geselecteerdeRow, true);
                         Console.ResetColor();
-                        PrintLine();
                     }
                     else
                     {
                         PrintRow(GenerateRow(Data[rowNumber - 1]), false);
-                        PrintLine();
                     }
                 }
                 else
                 {
+                    tableWidth = newTableWidth(Header);
                     if (rowNumber == selectedOption)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         geselecteerdeRow = NewRow;
                         PrintRow(geselecteerdeRow, true);
                         Console.ResetColor();
-                        PrintLine();
                     }
                     else
                     {
                         PrintRow(NewRow, false);
-                        PrintLine();
                     }
                 }
             }
@@ -140,25 +136,48 @@ public class TableLogic<T>
 
     private static void PrintRow(List<string> columns, bool selected)
     {
-        int width = (tableWidth - columns.Count) / columns.Count;
+        int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
         {
-            if (selected){
-                row += ">> " + AlignCentre(column, width - 6) + " <<|";
+            if (selected)
+            {
+                if(columns.Count == 1){
+                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";  
+                }
+                else{
+                    row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
+                }
             }
-            else{
-                row += AlignCentre(column, width) + "|";
+            else
+            {   
+                if(columns.Count == 1){
+                    row += $"{AlignCentre(column, tableWidth-2)}|";  
+                }
+                else{
+                    row += $"{AlignCentre(column, columnWidth)}|";
+                }
             }
         }
 
         Console.WriteLine(row);
+        Console.WriteLine(new string('-', row.Length));
+    }
+    private static int newTableWidth(List<string> columns){
+        int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
+        string row = "|";
+
+        foreach (string column in columns)
+        {         
+            row += $"{AlignCentre(column, columnWidth)}|"; 
+        }
+        return row.Length;
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
     {
-        int width = (tableWidth - columns.Count) / columns.Count;
+        int width = (tableWidth - (columns.Count() + 1)) / columns.Count();
         Console.Write("|");
         string output = "|";
 
