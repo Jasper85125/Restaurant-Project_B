@@ -12,7 +12,7 @@ public static class RouteMenu
     private static TableLogic<RouteModel> tableRoutes = new();
     private static TableLogic<StopModel> tableStops = new();
 
-    static public void Welcome()
+    static public void Start()
     {
         Console.Clear();
         int selectedOption = 1; // Default selected option
@@ -43,21 +43,21 @@ public static class RouteMenu
                     {
                         case 1:
                             AddRoute();
-                            Welcome();
+                            Start();
                             break;
                         case 2:
                             //UpdateRoute();
                             PrintedOverview();
-                            Welcome();
+                            Start();
                             break;
                         case 3:
                             AddToBus();
-                            Welcome();
+                            Start();
                             break;
                         case 4:
                             PrintedOverview();
                             //MoreInformation();
-                            Welcome();
+                            Start();
                             break;
                         case 5:
                             MakeStop();
@@ -572,7 +572,8 @@ public static class RouteMenu
         return new List<string> {$"{id}", $"{name}", $"{time}"};
     }
 
-    public static RouteModel SelectRoute(){
+    public static RouteModel SelectRoute()
+    {
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         string Title = "Selecteer een route";
