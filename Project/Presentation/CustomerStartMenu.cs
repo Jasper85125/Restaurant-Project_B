@@ -28,6 +28,7 @@ public class CustomerStartMenu
                     switch (selectedOption)
                     {
                         case 1:
+                            RouteMenuklant.Start();
                             break;
                         case 2:                            
                             break;
@@ -61,7 +62,7 @@ public class CustomerStartMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Reserveer een rit.");
+        Console.WriteLine("[1] Bekijk het overzicht.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;

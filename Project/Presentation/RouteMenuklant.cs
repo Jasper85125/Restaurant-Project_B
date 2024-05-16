@@ -12,7 +12,7 @@ public static class RouteMenuklant
     private static TableLogicklant<RouteModel> tableRoutes = new();
     private static TableLogicklant<StopModel> tableStops = new();
 
-    static public void Welcome()
+    static public void Start()
     {
         int selectedOption = 1; // Default selected option
         
@@ -43,7 +43,7 @@ public static class RouteMenuklant
                         case 1:
                             PrintedOverview();
                             //MoreInformation();
-                            Welcome();
+                            Start();
                             break;
                         case 2:
                             Menu.Start();
