@@ -469,7 +469,7 @@ public static class RouteMenu
                         }
                         else
                         {
-                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            Console.WriteLine("U keert terug naar het routemenu overzicht.");
                             break;
                         }
                     }
