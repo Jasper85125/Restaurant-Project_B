@@ -543,6 +543,7 @@ public static class RouteMenu
                 Console.WriteLine("Probeer het nog een keer.\n");
             }
         }
+        Console.Clear();
     }
 
     public static List<string> GenerateRow(RouteModel routeModel)
