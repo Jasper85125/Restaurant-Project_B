@@ -377,7 +377,12 @@ public static class RouteMenu
         List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Lege data.");
+            Console.ResetColor();
+            Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
+            Thread.Sleep(3000);
+            AdminStartMenu.Start();
         }
         else
         {
@@ -474,7 +479,7 @@ public static class RouteMenu
     public static void AddToBus()
     {
         List<BusModel> ListAllBusses = busLogic.GetAll();
-        BusMenu.ShowAllBusInformation(ListAllBusses);
+        BusMenu.ShowAllBusInformation();
     }
 
     public static void MakeStop()
