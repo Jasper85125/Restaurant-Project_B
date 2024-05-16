@@ -14,73 +14,12 @@ public static class RouteMenuklant
 
     static public void Start()
     {
-        int selectedOption = 1; // Default selected option
+        Console.Clear();
+        PrintedOverview();
         
-        // Display options
-        DisplayOptions(selectedOption); 
-
-        while (true)
-        {
-            // Wait for key press
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-
-            // Check arrow key presses
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    // Move to the previous option
-                    selectedOption = Math.Max(1, selectedOption - 1);
-                    break;
-                case ConsoleKey.DownArrow:
-                    // Move to the next option
-                    selectedOption = Math.Min(2, selectedOption + 1);
-                    break;
-                case ConsoleKey.Enter:
-                    Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
-                    switch (selectedOption)
-                    {
-                        case 1:
-                            PrintedOverview();
-                            //MoreInformation();
-                            Start();
-                            break;
-                        case 2:
-                            CustomerStartMenu.Start();
-                            break;
-                    }
-                    break;
-            }
-            Console.Clear();
-            DisplayOptions(selectedOption);
-        }
     }
 
-    static void DisplayOptions(int selectedOption)
-    {
-        Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
-        Console.WriteLine("Wat wilt u doen?");
 
-        // Display option 1
-        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
-        Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een overzicht van alle routes.");
-
-        // Display option 2
-        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Ga terug naar het vorige menu.");
-
-        // Reset text color
-        Console.ResetColor();
-    }
-    
-
-    public static List<RouteModel> Overview()
-    {
-        List<RouteModel> overview = routeLogic.GetAll();
-        return overview;
-    }
 
     public static void PrintedOverview()
     { 
@@ -99,30 +38,9 @@ public static class RouteMenuklant
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     while(true)
                     {
-                        // (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
-                        // Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
-                        // if (result == null)
-                        // {
-                        //     Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
-                        //     break;
-                        // }
-                        // TableInfo.Value.SelectedRow.ForEach(i => Console.WriteLine(i));
+
                         RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(TableInfo.Value.SelectedRow[0]));
-                        // Console.WriteLine($"Route: {selectedRouteModel.Name}");
-                        // foreach (var halte in selectedRouteModel.Stops)
-                        // {
-                        //     Console.WriteLine($"{halte.Name}");
-                        // }
-                        // Console.WriteLine("Druk op een toets om door te gaan...");
-                        // Console.ReadKey(true);
-                        
 
-                        
-                    
-                        // List<string> Header = new() {"Haltenummer", "Naam", "Tijd"};
-                        // List<StopModel> stopModels = stopLogic.GetAll();
-
-                        //Hier komt het toevoegen van haltes door middel van kiezen in de tabel.
                         bool checkStopName = true;
                         List<StopModel> stops = selectedRouteModel.Stops.ToList();
                             
@@ -154,17 +72,9 @@ public static class RouteMenuklant
                                 {
                                     Console.Write("   ");
                                 }
-                                if (stops.Contains(stops[i]))
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Cyan;
-                                    Console.WriteLine(stops[i].Name);
-                                    Console.ResetColor();
-                                }
-                                else
-                                {
-                                    Console.WriteLine(stops[i].Name);
-                                    Console.ResetColor();
-                                }
+                                Console.WriteLine(stops[i].Name);
+                                Console.ResetColor();
+                                
                             }
 
                             // Console.WriteLine("\nDruk op:");
@@ -218,68 +128,41 @@ public static class RouteMenuklant
                                         }
                                     }
                                     break;
-                                // case ConsoleKey.Spacebar:
-                                //     StopModel selectedStop = stops[selectedIndex];
-                                //     if (!stops.Contains(selectedStop))
-                                //     {
-                                //         stops.Add(selectedStop);
-                                //         duplicateStopMessage = "";
-                                //     }
-                                //     else
-                                //     {
-                                //         duplicateStopMessage = $"\n{selectedStop.Name} is al toegevoegd, selecteer een andere halte.";
-                                //     }
-                                //     break;
-                                // case ConsoleKey.Backspace:
-                                //     if (stops.Count > 0 && selectedIndex >= 0)
-                                //     {
-                                //         StopModel removeStop = stops[selectedIndex];
-                                //         stops.Remove(removeStop);
-                                //     }
-                                //     break;
-                                case ConsoleKey.Enter:
-                                    Console.Clear();
-                                    
-                                    if (stops.Count == 1)
-                                    {
-                                        Console.WriteLine("Wilt u hier instappen: ");
-                                        Console.ForegroundColor = ConsoleColor.Cyan;
-                                        // for (int i = 0; i < stops.Count; i++)
-                                        // {
-                                            //Console.Write(stops[i].Name);
-                                            
-                                        //     if (i < stops.Count - 1 && stops.Count > 1)
-                                        //     {
-                                        //         Console.Write(", ");
-                                        //     }
-                                        // }
-                                        Console.Write(stops[0].Name);
-                                        
-                                        Console.ResetColor();
-                                        Console.WriteLine($"\naan route: {selectedRouteModel.Name}?");
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.Write("\nBackspace ");
-                                        Console.ResetColor();
-                                        Console.Write("om te annuleren.");
-                                        Console.ForegroundColor = ConsoleColor.Green;
-                                        Console.Write(" Enter ");
-                                        Console.ResetColor();
-                                        Console.Write("om een halte te selecteren.");
-                                        ConsoleKeyInfo ConfirmStops = Console.ReadKey(true);
-                                        switch (ConfirmStops.Key)
-                                        {
-                                            case ConsoleKey.Enter:
-                                                Console.Clear();
-                                                checkStopName = false;
-                                                break;
-                                            case ConsoleKey.Backspace:
-                                                break;
-                                        }
-                                    }
 
+                                case ConsoleKey.Enter:
+                                    // Retrieve the selected stop based on selectedIndex
+                                    StopModel selectedStop = stops[selectedIndex];
+
+                                    Console.Clear();
+                                    Console.WriteLine("Wilt u hier instappen: ");
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.Write(selectedStop.Name);
+                                    Console.ResetColor();
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write("\nBackspace ");
+                                    Console.ResetColor();
+                                    Console.Write("om te annuleren.");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.Write(" Enter ");
+                                    Console.ResetColor();
+                                    Console.Write("om een halte te selecteren.");
+
+                                    ConsoleKeyInfo confirmInput = Console.ReadKey(true);
+                                    switch (confirmInput.Key)
+                                    {
+                                        case ConsoleKey.Enter:
+                                            //hier verder
+                                            break;
+                                        case ConsoleKey.Backspace:
+                                            break;
+                                        default:
+                                            Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
+                                            break;
+                                    }
                                     break;
+
                                 case ConsoleKey.Escape:
-                                    checkStopName = false;
+                                    Start();
                                     break;
                                 default:
                                     Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
