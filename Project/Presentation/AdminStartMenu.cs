@@ -34,7 +34,7 @@ public static class AdminStartMenu
                     switch (selectedOption)
                     {
                         case 1:
-                            RouteMenu.Welcome();
+                            RouteMenu.Start();
                             break;
                         case 2:
                             PriceMenu.Start();
