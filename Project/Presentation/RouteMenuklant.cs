@@ -9,8 +9,8 @@ public static class RouteMenuklant
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
-    private static TableLogic<RouteModel> tableRoutes = new();
-    private static TableLogic<StopModel> tableStops = new();
+    private static TableLogicklant<RouteModel> tableRoutes = new();
+    private static TableLogicklant<StopModel> tableStops = new();
 
     static public void Welcome()
     {
@@ -42,7 +42,7 @@ public static class RouteMenuklant
                     {
                         case 1:
                             PrintedOverview();
-                            MoreInformation();
+                            //MoreInformation();
                             Welcome();
                             break;
                         case 2:
@@ -61,12 +61,12 @@ public static class RouteMenuklant
         Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
         Console.WriteLine("Wat wilt u doen?");
 
-        // Display option 4
-        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
         Console.WriteLine("[1] Een overzicht van alle routes.");
 
-        // Display option 6
+        // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
         Console.WriteLine("[2] Ga terug naar het vorige menu.");
@@ -81,160 +81,40 @@ public static class RouteMenuklant
         List<RouteModel> overview = routeLogic.GetAll();
         return overview;
     }
+
     public static void PrintedOverview()
     { 
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
+        List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+            while(true){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+                if(TableInfo != null){
+                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                    while(true){
+                        (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
+                        if (result == null)
+                        {
+                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                            break;
+                        }
+                    }
+                }
+                else{
+                    break;
+                }
+            }
         }
     
     }
-
-    public static void MoreInformation()
-    {
-        Console.WriteLine("Wilt u meer informatie over een route J/N");
-        string? answer = Console.ReadLine();
-        if (answer.ToLower() == "j" || answer.ToLower() == "n")
-        {
-            if (answer.ToLower() == "j")
-            {
-                Console.WriteLine("Over welke route wilt u meer informatie?");
-                string? idMoreInfo = Console.ReadLine();
-                try
-                {
-                    RouteModel RouteObject = routeLogic.GetById(Convert.ToInt32(idMoreInfo));
-                    if (RouteObject == null)
-                    {
-                        Console.WriteLine("Dat is geen geldig ID!");
-                        MoreInformation();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Route ID {RouteObject.Id} bevat de volgende haltes:");
-                        foreach (StopModel Stop in RouteObject.Stops)
-                        {
-                            Console.WriteLine($"[{Stop.Name}]");
-                        }
-                        Thread.Sleep(3000);
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Geen gelidg input");
-                }
-            }
-            else
-            {
-                Console.WriteLine("U wordt terug gezet naar het vorige menu.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Verkeerde input. type y of n.");
-            MoreInformation();
-        }
-    }
-
-    public static void AddToBus()
-    {
-        List<BusModel> ListAllBusses = busLogic.GetAll();
-        BusMenu.ShowAllBusInformation(ListAllBusses);
-        Console.WriteLine("\nAan welke van deze bussen wilt u een route toevoegen?");
-        string? inputBus = Console.ReadLine();
-        try
-        {
-            int intInputBus = Convert.ToInt32(inputBus);
-            BusModel bus = busLogic.GetById(intInputBus);
-            if (BusMenu.HasRoute(bus))
-            {
-                Console.WriteLine("Deze bus heeft al een aangewezen route.");
-                Welcome();
-            }
-            PrintedOverview();
-            Console.WriteLine($"Welke route wilt u toevoegen aan de bus met ID: {bus.Id}?");
-            string? inputRoute = Console.ReadLine();
-            try
-            {
-                int intInputRoute = Convert.ToInt32(inputRoute);
-                RouteModel routeModel = routeLogic.GetById(intInputRoute);
-                if (routeModel == null)
-                {
-                    Console.WriteLine("Verkeerde input. Er bestaat geen  met dat ID.");
-                    AddToBus();
-                }
-                else
-                {
-
-                    bus.AddRoute(routeModel);
-                    busLogic.UpdateList(bus);
-                }
-            }
-            catch
-            {
-                Console.WriteLine("Verkeerde input. Probeer het nog een keer.");
-            }
-        }
-        catch (Exception)
-        {
-            Console.WriteLine($"Verkeerde input. Probeer het nog een keer.");
-            AddToBus();
-        }
-    }
-
-    public static void MakeStop()
-    {
-        bool checkStopName = true;
-        while (checkStopName)
-        {
-            Console.WriteLine("Wat is de naam van de halte?");
-            string? newName = Console.ReadLine();
-            
-            if (newName != null && newName.All(char.IsLetter))
-            {
-                foreach (StopModel stop in stopLogic.GetAll())
-                {
-                    if (stop.Name == newName)
-                    {
-                        Console.WriteLine("Halte bestaat al");
-                        MakeStop();
-                    }
-                }
-                StopModel newStop = new StopModel(stopLogic.GenerateNewId() ,Convert.ToString(newName));
-                stopLogic.UpdateList(newStop);
-                checkStopName = false;
-                bool switchMainer = true;
-                while (switchMainer)
-                {
-                    Console.WriteLine("Wilt U nog een halte toevoegen. Ja of Nee");
-                    string? answer = Console.ReadLine();
-                    switch (answer.ToLower())
-                    {
-                        case "ja":
-                            MakeStop();
-                            break;
-                        case "nee":
-                            return;
-                            break;
-                        default:
-                            Console.WriteLine($"{answer} is geen geldige input. Probeer het opnieuw.");
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("De naam van een halte kan alleen letters zijn.");
-                Console.WriteLine("Probeer het nog een keer.");
-            }
-        }
-    }
-
+    
     public static List<string> GenerateRow(RouteModel routeModel)
     {
         List<StopModel> allStops = new() {};
@@ -271,46 +151,16 @@ public static class RouteMenuklant
         else
         {
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
-            int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-            return routeModels[selectedRowIndex];
+            if(TableInfo != null){
+                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
+                return routeModels[selectedRowIndex];
+            }
+            else{
+                return null;
+            }
+            
         }
-    }
-
-    public static bool IsString(string parameter)
-    {
-        if (Helper.IsString(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
-
-    public static bool IsInt(string parameter)
-    {
-        if (Helper.IsInteger(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
-
-    public static bool IsDouble(string parameter)
-    {
-        if (Helper.IsDouble(parameter))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
-    }
+    }   
 
     public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
     {
