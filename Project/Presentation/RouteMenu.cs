@@ -34,7 +34,7 @@ public static class RouteMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(6, selectedOption + 1);
+                    selectedOption = Math.Min(2, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -42,30 +42,20 @@ public static class RouteMenu
                     switch (selectedOption)
                     {
                         case 1:
-                            AddRoute();
-                            Welcome();
-                            break;
-                        case 2:
-                            //UpdateRoute();
-                            PrintedOverview();
-                            Welcome();
-                            break;
-                        case 3:
-                            AddToBus();
-                            Welcome();
-                            break;
-                        case 4:
                             PrintedOverview();
                             //MoreInformation();
                             Welcome();
                             break;
-                        case 5:
+                        case 2:
                             MakeStop();
                             break;
-                        case 6:
-                            AdminStartMenu.Start();
-                            break;
                     }
+                    break;
+                case ConsoleKey.Backspace:
+                    Console.Clear();
+                    Console.WriteLine("U keert terug naar het admin hoofdmenu.");
+                    Thread.Sleep(2000);
+                    AdminStartMenu.Start();
                     break;
             }
             Console.Clear();
@@ -76,40 +66,31 @@ public static class RouteMenu
     static void DisplayOptions(int selectedOption)
     {
         Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
-        Console.WriteLine("Wat wilt u doen?");
-
-        // Display option 1
-        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
-        Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een route toevoegen.");
-
-        // Display option 2
-        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een route updaten.");
-
-        // Display option 3
-        Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Een route aan bus toevoegen");
 
         // Display option 4
-        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Een overzicht van alle routes.");
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("[1] Een overzicht van alle routes.");
 
         // Display option 5
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Een halte toevoegen.");
-
-        // Display option 6
-        Console.ForegroundColor = selectedOption == 6 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 6 ? ">> " : "   ");
-        Console.WriteLine("[6] Ga terug naar het vorige menu.");
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("[2] Een halte toevoegen.");
 
         // Reset text color
         Console.ResetColor();
+
+        Console.WriteLine("\nSelecteer een optie met de pijltjes.");
+        Console.Write("Als je de juiste hebt klik op ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Enter");
+        Console.ResetColor();
+        Console.Write(".");
+        Console.Write("\nOm naar het admin hoofdmenu te gaan klik op");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" Backspace");
+        Console.ResetColor();
+        Console.WriteLine(".\n");
     }
     
 

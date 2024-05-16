@@ -61,7 +61,7 @@ public static class Menu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Selecteer een optie:");
+        Console.WriteLine("Inlog menu\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
@@ -84,7 +84,7 @@ public static class Menu
 
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Tijdelijk adminmenu toegang.");
+        Console.WriteLine("[5] Tijdelijk admin hoofdmenu toegang.");
 
         // Reset text color
         Console.ResetColor();
