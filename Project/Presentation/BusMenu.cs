@@ -13,214 +13,42 @@ public static class BusMenu
     public static void Start()
     {
 
-        Console.Clear();
-        int selectedOption = 1; // Default selected option
-
-        // Display options
-        DisplayOptions(selectedOption);
-
-        while (true)
-        {
-            // Wait for key press
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-
-            // Check arrow key presses
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    // Move to the previous option
-                    selectedOption = Math.Max(1, selectedOption - 1);
-                    break;
-                case ConsoleKey.DownArrow:
-                    // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
-                    break;
-                case ConsoleKey.Enter:
-                    Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
-                    switch (selectedOption)
-                    {
-                        case 1:
-                            AddBus();
-                            Start();
-                            break;
-                        case 2:
-                            UpdateBus();
-                            Start();
-                            break;
-                        case 3:
-                            AddTime();
-                            Start();
-                            break;
-                        case 4:
-                            BusLogic busLogic = new();
-                            List<BusModel> ListAllBusses = busLogic.GetAll();
-                            ShowAllBusInformation(ListAllBusses);
-                            Console.WriteLine("U keert terug naar het busmenu");
-                            Thread.Sleep(1000);
-                            Start();
-                            break;
-                        case 5:
-                            Menu.Start();
-                            break;
-                    }
-                    break;
-            }
-
-            // Clear console and display options
-            Console.Clear();
-            DisplayOptions(selectedOption);
-        }
+        ShowAllBusInformation();
     }
 
-    static void DisplayOptions(int selectedOption)
+    public static void ShowAllBusInformation ()
     {
-        Console.WriteLine("\nWelkom bij het overzicht voor de bussen.");
-
-        // Display option 1
-        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
-        Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een bus toevoegen.");
-
-        // Display option 2
-        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een bus updaten.");
-
-        // Display option 3
-        Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Tijden toevoegen aan haltes en routes.");
-
-        // Display option 4
-        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Een overzicht van alle bussen.");
-
-        // Display option 5
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Ga terug naar het vorige menu.");
-
-        // Reset text color
-        Console.ResetColor();
-    }
-
-    public static List<BusModel> Overview()
-    {
-        BusLogic LogicInstance = new BusLogic();
-        List<BusModel> overview = LogicInstance.GetAll();
-        return overview;
-    }
-
-    public static void AddBus()
-    {
-        List<BusModel> listOfBuses = Overview();
-        
-        Console.WriteLine("Hoeveel zitplaatsen heeft deze bus?");
-        string? newSeats = Console.ReadLine();
-        
-        Console.WriteLine("Wat is de kenteken van de bus?");
-        string? newLicensePlate = Console.ReadLine().ToUpper();
-        
-        try
-        {
-            BusLogic newLogic = new BusLogic();
-            BusModel newBus = new BusModel(newLogic.GenerateNewId(), Convert.ToInt32(newSeats), newLicensePlate);
-            
-            if (ConfirmValue(newBus))
-            {
-                newLogic.UpdateList(newBus);
-            }
-            else
-            {
-                Start();
-            }
-            
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("\nOngeldige invoer!");
-            Thread.Sleep(3000);
-            Console.Clear();
-        }
-    }
-
-    public static void UpdateBus()
-    {
-        BusLogic loading = new BusLogic();
-        Console.Clear();
-        Console.WriteLine("Welk busnummer wilt U updaten?");
-        ShowAllBusInformation(Overview());
-        string? id_to_be_updated = Console.ReadLine();
-        try
-        {
-            BusModel RouteObject = loading.GetById(Convert.ToInt32(id_to_be_updated));
-            if (RouteObject == null)
-            {
-                Console.WriteLine("\nOngeldige invoer!");
-                Thread.Sleep(3000);
-                Console.Clear();
-            }
-            else
-            {   
-                Console.Clear();
-                Console.WriteLine("Wat wilt U bijwerken?\n1. Kenteken\n2. Aantal zitplekken");
-                string? option = Console.ReadLine();
-                
-                if (option == "1")
-                {
-                    Console.WriteLine("Wat is de nieuwe kenteken?");
-                    string? UpdatedValue = Console.ReadLine().ToUpper();
-                    if (ConfirmValue(null, UpdatedValue, true)){
-                        RouteObject.LicensePlate = UpdatedValue; // Update the license plate
-                    }
-                }
-                else if (option == "2")
-                {
-                    Console.WriteLine("Wat is het nieuwe aantal zitplekken?");
-                    string? UpdatedValue = Console.ReadLine();
-                    if (ConfirmValue(null, UpdatedValue, true)){
-                        RouteObject.Seats = Convert.ToInt32(UpdatedValue); // Update the number of seats
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("\nOngeldige invoer!");
-                    Thread.Sleep(3000);
-                    Console.Clear();
-                    UpdateBus();
-                }
-                
-                loading.UpdateList(RouteObject);
-            }
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("\nOngeldige invoer!");
-            Thread.Sleep(3000);
-            Console.Clear();
-        }
-    }
-    public static void ShowAllBusInformation (List<BusModel> ListAllBusses)
-    {
+        string Title = "Bus menu";
+        BusLogic busLogic = new();
+        List<BusModel> ListAllBusses = busLogic.GetAll();
         List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)"};
         List<RouteModel> RoutesList = new() {};
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Lege data.");
+            Console.ResetColor();
+            Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
+            Thread.Sleep(3000);
+            AdminStartMenu.Start();
         }
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow);
-                if(TableInfo != null){
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title);
+                if(TableInfo != null)
+                {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> SelectedRow = TableInfo.Value.SelectedRow;
+                    if(selectedRowIndex ==  ListAllBusses.Count())
+                    {
+                        BusModel newBusModel = new(busLogic.GenerateNewId(),0,"");
+                        busLogic.UpdateList(newBusModel);
+                        continue;
+                    }
                     while(true){
                         (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, Header);
-                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
-                        if (result != null)                        {
+                        if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
@@ -348,61 +176,61 @@ public static class BusMenu
 
 
     /// Voor deze functies moet later nog een string format checker worden geschreven.
-    public static void AddTime()
-    {
-        ShowAllBusInformation(Overview());
-        Console.WriteLine("Aan welke bus met route wilt U een tijd geven?");
-        string? busID = Console.ReadLine();
-        try
-        {
-            BusLogic LogicInstance = new BusLogic ();
-            int intInputBus = Convert.ToInt32(busID);
-            BusModel bus = LogicInstance.GetById(intInputBus);
-            if (HasRoute(bus))
-            {
-                foreach (RouteModel Route in bus.Route)
-                {
-                    Console.WriteLine("Wat is de begintijd voor de route?");
-                    string? beginTimeRoute = Console.ReadLine();
-                    while (beginTimeRoute == null)
-                    {
-                        Console.WriteLine("Vul een correcte waarde in");
-                    }
-                    Route.beginTime = beginTimeRoute;
+    // public static void AddTime()
+    // {
+    //     ShowAllBusInformation(Overview());
+    //     Console.WriteLine("Aan welke bus met route wilt U een tijd geven?");
+    //     string? busID = Console.ReadLine();
+    //     try
+    //     {
+    //         BusLogic LogicInstance = new BusLogic ();
+    //         int intInputBus = Convert.ToInt32(busID);
+    //         BusModel bus = LogicInstance.GetById(intInputBus);
+    //         if (HasRoute(bus))
+    //         {
+    //             foreach (RouteModel Route in bus.Route)
+    //             {
+    //                 Console.WriteLine("Wat is de begintijd voor de route?");
+    //                 string? beginTimeRoute = Console.ReadLine();
+    //                 while (beginTimeRoute == null)
+    //                 {
+    //                     Console.WriteLine("Vul een correcte waarde in");
+    //                 }
+    //                 Route.beginTime = beginTimeRoute;
 
-                    foreach (StopModel Stop in Route.Stops)
-                    {
-                        Console.WriteLine($"Wat is de tijd voor halte {Stop.Name}");
-                        string? newTime = Console.ReadLine();
-                        while (newTime == null)
-                        {
-                            Console.WriteLine("Vul een correcte waarde in");
-                        }
-                        Stop.Time = newTime;
-                    }
+    //                 foreach (StopModel Stop in Route.Stops)
+    //                 {
+    //                     Console.WriteLine($"Wat is de tijd voor halte {Stop.Name}");
+    //                     string? newTime = Console.ReadLine();
+    //                     while (newTime == null)
+    //                     {
+    //                         Console.WriteLine("Vul een correcte waarde in");
+    //                     }
+    //                     Stop.Time = newTime;
+    //                 }
 
-                    Console.WriteLine("Wat is de eindtijd voor de route?");
-                    string? endTimeRoute = Console.ReadLine();
-                    while (endTimeRoute == null)
-                    {
-                        Console.WriteLine("Vul een correcte waarde in");
-                    }
-                    Route.endTime = endTimeRoute;
-                }
-                LogicInstance.UpdateList(bus);
-            }
-            else
-            {
-                Console.WriteLine("Deze bus heeft nog geen route aangewezen gekregen.");
-                Start();
-            }
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Verkeerde input ");
-        }
+    //                 Console.WriteLine("Wat is de eindtijd voor de route?");
+    //                 string? endTimeRoute = Console.ReadLine();
+    //                 while (endTimeRoute == null)
+    //                 {
+    //                     Console.WriteLine("Vul een correcte waarde in");
+    //                 }
+    //                 Route.endTime = endTimeRoute;
+    //             }
+    //             LogicInstance.UpdateList(bus);
+    //         }
+    //         else
+    //         {
+    //             Console.WriteLine("Deze bus heeft nog geen route aangewezen gekregen.");
+    //             Start();
+    //         }
+    //     }
+    //     catch (Exception)
+    //     {
+    //         Console.WriteLine("Verkeerde input ");
+    //     }
 
-    }
+    // }
 
     public static bool HasRoute(BusModel bus)
     {

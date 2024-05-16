@@ -74,9 +74,9 @@ public static class PriceMenu
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Lege data.");
             Console.ResetColor();
-            Console.WriteLine("U keert terug naar het Startmenu.\n");
+            Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
-            Menu.Start();
+            AdminStartMenu.Start();
         }
         while(true)
         {
