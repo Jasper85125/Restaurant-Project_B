@@ -18,6 +18,8 @@ public class AccountModel
     [JsonPropertyName("isAdmin")]
     public bool IsAdmin { get; set; }
 
+    public List<ReservationModel> Reservations = new();
+
     public AccountModel(int id, string emailAddress, string password, string fullName, bool isAdmin)
     {
         Id = id;
@@ -26,7 +28,6 @@ public class AccountModel
         FullName = fullName;
         IsAdmin = isAdmin;
     }
-
 }
 
 

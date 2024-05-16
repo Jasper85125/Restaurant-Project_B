@@ -26,7 +26,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(4, selectedOption + 1);
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -44,6 +44,9 @@ public static class AdminStartMenu
                             break;
                         case 4:
                             UserSignUp.SignUp(true);
+                            break;
+                        case 5:
+                            CustomerStartMenu.Start();
                             break;
                     }
                     break;
@@ -70,12 +73,12 @@ public static class AdminStartMenu
         Console.Write(selectedOption == 1 ? ">> " : "   ");
         Console.WriteLine("[1] Menu voor routes.");
 
-        // // Display option 2
+        // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
         Console.WriteLine("[2] Menu voor prijscategorieën.");
 
-        // // Display option 3
+        // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
         Console.WriteLine("[3] Menu voor bussen.");
@@ -84,6 +87,10 @@ public static class AdminStartMenu
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
         Console.WriteLine("[4] Maak een nieuw admin account aan.");
+
+        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 5 ? ">> " : "   ");
+        Console.WriteLine("[5] KlantMenu.");
 
         // Reset text color
         Console.ResetColor();
