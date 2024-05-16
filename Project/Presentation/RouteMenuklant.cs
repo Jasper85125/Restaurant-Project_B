@@ -46,7 +46,7 @@ public static class RouteMenuklant
                             Start();
                             break;
                         case 2:
-                            Menu.Start();
+                            CustomerStartMenu.Start();
                             break;
                     }
                     break;
@@ -98,13 +98,23 @@ public static class RouteMenuklant
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     while(true){
-                        (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
-                        //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
-                        if (result == null)
+                        // (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
+                        // Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
+                        // if (result == null)
+                        // {
+                        //     Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
+                        //     break;
+                        // }
+                        // TableInfo.Value.SelectedRow.ForEach(i => Console.WriteLine(i));
+                        RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(TableInfo.Value.SelectedRow[0]));
+                        Console.WriteLine($"Route: {selectedRouteModel.Name}");
+                        foreach (var halte in selectedRouteModel.Stops)
                         {
-                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
-                            break;
+                            Console.WriteLine($"{halte.Name}");
                         }
+                        Console.WriteLine("Druk op een toets om door te gaan...");
+                        Console.ReadKey(true);
+                        
                     }
                 }
                 else{
