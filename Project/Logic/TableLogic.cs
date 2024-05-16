@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.VisualBasic;
-
 public class TableLogic<T>
 {
     public static int tableWidth = 145;
-    public static int selectedOption = 1;
+    public static int selectedOption = 0;
 
     
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
-    {
+    public (List<string>,int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow)
+    {   
+
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
+        List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
 
         do
         {
@@ -22,23 +19,38 @@ public class TableLogic<T>
             PrintRow(Header, false);
             PrintLine();
 
-            int rowNumber = 1;
-            foreach (T obj in Data)
+
+            for (int rowNumber = 1; rowNumber <= Data.Count() + 1; rowNumber++)
             {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
-                    Console.ResetColor();
-                    PrintLine();
+                if (rowNumber <= Data.Count()){
+                    if (rowNumber == selectedOption)
+                        {  
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            geselecteerdeRow = GenerateRow(Data[rowNumber-1]);
+                            PrintRow(geselecteerdeRow, true);
+                            Console.ResetColor();
+                            PrintLine();
+                            
+                        }
+                        else
+                        {
+                            PrintRow(GenerateRow(Data[rowNumber-1]), false);
+                            PrintLine();
+                        }
                 }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
+                else{
+                    if (rowNumber == selectedOption){
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        geselecteerdeRow = NewRow;
+                        PrintRow(geselecteerdeRow, true);
+                        Console.ResetColor();
+                        PrintLine();
+                    }
+                    else{
+                        PrintRow(NewRow, false);
+                        PrintLine();
+                    }
                 }
-                rowNumber++;
             }
             SelectionExplanation();
 
@@ -49,11 +61,11 @@ public class TableLogic<T>
                     selectedOption = Math.Max(1, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
+                    selectedOption = Math.Min(Data.Count() + 1, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
+                    return (geselecteerdeRow, selectedOption - 1);
                 case ConsoleKey.Backspace:
                     return null;
             }
@@ -62,10 +74,11 @@ public class TableLogic<T>
         return null;
     }
 
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow, string Title)
+    public (List<string>,int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
+        List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
 
         do
         {
@@ -75,23 +88,38 @@ public class TableLogic<T>
             PrintRow(Header, false);
             PrintLine();
 
-            int rowNumber = 1;
-            foreach (T obj in Data)
+
+            for (int rowNumber = 1; rowNumber <= Data.Count() + 1; rowNumber++)
             {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
-                    Console.ResetColor();
-                    PrintLine();
+                if (rowNumber <= Data.Count()){
+                    if (rowNumber == selectedOption)
+                        {  
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            geselecteerdeRow = GenerateRow(Data[rowNumber-1]);
+                            PrintRow(geselecteerdeRow, true);
+                            Console.ResetColor();
+                            PrintLine();
+                            
+                        }
+                        else
+                        {
+                            PrintRow(GenerateRow(Data[rowNumber-1]), false);
+                            PrintLine();
+                        }
                 }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
+                else{
+                    if (rowNumber == selectedOption){
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        geselecteerdeRow = NewRow;
+                        PrintRow(geselecteerdeRow, true);
+                        Console.ResetColor();
+                        PrintLine();
+                    }
+                    else{
+                        PrintRow(NewRow, false);
+                        PrintLine();
+                    }
                 }
-                rowNumber++;
             }
             SelectionExplanation();
 
@@ -102,11 +130,11 @@ public class TableLogic<T>
                     selectedOption = Math.Max(1, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
+                    selectedOption = Math.Min(Data.Count() + 1, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
+                    return (geselecteerdeRow, selectedOption - 1);
                 case ConsoleKey.Backspace:
                     return null;
             }
@@ -114,6 +142,8 @@ public class TableLogic<T>
         Console.WriteLine("U keert terug naar het menu");
         return null;
     }
+
+
         
     public (string,int)? PrintSelectedRow(List<string> selectedRow, List<string> header)
     {
@@ -141,7 +171,6 @@ public class TableLogic<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
                     return (selectedRow[selectedIndex],selectedIndex);
                 case ConsoleKey.Backspace:
                     return null;

@@ -41,7 +41,7 @@ public static class Helper
         }
     }
 
-    public static bool IsDateValid(object input)
+    public static bool IsValidDate(object input)
     {
         if (!IsValidString(input)) return false;
         
@@ -50,6 +50,22 @@ public static class Helper
             string? str = input as string;
             DateTime dateValue = Convert.ToDateTime(str); // "2024-05-06" // YYYY_MM_DD
             return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+    public static bool IsOnlyLetter(object input)
+    {
+        if (!IsValidString(input)) return false;
+
+        try
+        {
+            string? str = input as string;
+            if (str == null) return false;
+            return str.All(char.IsLetter);
         }
         catch
         {

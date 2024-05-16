@@ -79,6 +79,20 @@
         ],
         "begin": null,
         "end": null
+      },
+      {
+        "id": 1,
+        "duration": 2,
+        "name": "123",
+        "stops": [
+          {
+            "id": 23,
+            "name": "Centrum-West",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null
       }
     ]
   }
