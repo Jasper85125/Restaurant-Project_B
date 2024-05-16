@@ -1,23 +1,28 @@
 [
   {
     "id": 1,
-    "seats": 50,
+    "seats": 20,
     "licensePlate": "WW-56-28",
     "route": [
       {
-        "id": 4,
-        "duration": 2,
-        "name": "ahhaha",
+        "id": 1,
+        "duration": 3,
+        "name": null,
         "stops": [
           {
             "id": 1,
             "name": "Beurs",
-            "time": null
+            "time": "11:10"
           },
           {
-            "id": 2,
+            "id": 0,
+            "name": "Stadhuis",
+            "time": "11:20"
+          },
+          {
+            "id": 0,
             "name": "Blaak",
-            "time": null
+            "time": "11:30"
           }
         ],
         "begin": null,
