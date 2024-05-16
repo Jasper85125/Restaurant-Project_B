@@ -78,7 +78,7 @@ public class TableLogic<T>
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
-        List<string> NewRow = new() {"Voeg een nieuwe rij toe", "-", "-"};
+        List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
 
         do
         {
