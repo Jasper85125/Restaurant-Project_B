@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
 
-public class RouteModel
+public class RouteModel : IActivatable
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -21,7 +21,10 @@ public class RouteModel
     [JsonPropertyName("end")]
     public string endTime { get; set; }
 
-    public RouteModel(int id, int duration, string name)
+    [JsonPropertyName("isActive")]
+    public bool IsActive { get; set; } = false;
+
+    public RouteModel(int id, int duration, string name, bool isActive)
     {
         Id = id;
         Duration = duration;
@@ -29,6 +32,7 @@ public class RouteModel
         Stops = new List<StopModel>{};
         beginTime = null;
         endTime = null;
+        IsActive = isActive;
     }
 
     public void AddStop(StopModel stop)

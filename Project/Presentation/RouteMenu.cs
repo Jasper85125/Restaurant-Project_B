@@ -129,7 +129,7 @@ public static class RouteMenu
         }
 
         // Makes the route
-        RouteModel newRoute = new RouteModel(routeLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName);
+        RouteModel newRoute = new RouteModel(routeLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName, false);
         Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
         AddStopToRoute(newRoute);
 
@@ -372,7 +372,8 @@ public static class RouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Stops", "Begintijd", "Eindtijd", "Actieviteit"};
+        string Title = "Routes overzicht";
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
@@ -387,20 +388,20 @@ public static class RouteMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title, Listupdater);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
 
                     if(selectedRowIndex == routeModels.Count())
                     {
-                        RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"");
+                        RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
                         routeLogic.UpdateList(newRouteModel);
                         continue;
                     }
                     while(true){
                         (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, Header);
                         //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
-                        if (result != null)                        {
+                        if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
@@ -474,6 +475,10 @@ public static class RouteMenu
         }
     
     }
+
+        public static void Listupdater(RouteModel model){
+            routeLogic.UpdateList(model);
+        }
 
 
     public static void AddToBus()
@@ -559,20 +564,29 @@ public static class RouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
+        var Actief = routeModel.IsActive;
         foreach(StopModel stop in stops){
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
+        string Activiteit = "";
+        if (Actief)
+        {
+            Activiteit = "Actief";
+        }
+        else{
+            Activiteit = "Non-actief";
+        }
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{Activiteit}" };
     }
 
-    public static List<string> GenerateRow(StopModel stopModel)
-    {
-        var id = stopModel.Id;
-        var name = stopModel.Name;
-        var time = stopModel.Time;
-        return new List<string> {$"{id}", $"{name}", $"{time}"};
-    }
+    // public static List<string> GenerateRow(StopModel stopModel)
+    // {
+    //     var id = stopModel.Id;
+    //     var name = stopModel.Name;
+    //     var time = stopModel.Time;
+    //     return new List<string> {$"{id}", $"{name}", $"{time}"};
+    // }
 
     public static RouteModel SelectRoute()
     {
@@ -586,7 +600,7 @@ public static class RouteMenu
         }
         else
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title, Listupdater);
             if(TableInfo != null){
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                 return routeModels[selectedRowIndex];
