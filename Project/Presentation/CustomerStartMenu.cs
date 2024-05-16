@@ -28,7 +28,6 @@ public class CustomerStartMenu
                     switch (selectedOption)
                     {
                         case 1:
-                        
                             break;
                         case 2:                            
                             break;
