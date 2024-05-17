@@ -163,7 +163,7 @@ public static class RouteMenuklant
 
                                 case ConsoleKey.Escape:
                                     Start();
-                                    break;
+                                    return;
                                 default:
                                     Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
                                     break;

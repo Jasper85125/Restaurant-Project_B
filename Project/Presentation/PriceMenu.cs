@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
@@ -67,7 +68,7 @@ public static class PriceMenu
     public static void ShowAllPricesInformation()
     {
         string Title = "Het prijscategorie menu";
-        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
+        List<string> Header = new() {"Id", "Doelgroep", "Prijs", "Activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         if (priceModels == null || priceModels.Count == 0)
         {
@@ -80,14 +81,14 @@ public static class PriceMenu
         }
         while(true)
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(Header, priceModels, GenerateRow, Title);
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(Header, priceModels, GenerateRow, Title, Listupdater);
             if(TableInfo != null)
             {
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                 List<string> selectedRow = TableInfo.Value.SelectedRow;
                 if(selectedRowIndex == priceModels.Count())
                 {
-                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0);
+                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
                     pricesLogic.UpdateList(newPriceModel);
                     continue;
                 }
@@ -173,12 +174,26 @@ public static class PriceMenu
         
     }
 
+     public static void Listupdater(PriceModel model){
+        pricesLogic.UpdateList(model);
+    }
+
+
     public static List<string> GenerateRow(PriceModel priceModel)
     {
         var id = priceModel.Id;
         var passenger = priceModel.Passenger;
         var price = priceModel.Price;
-        return new List<string> { $"{id}", $"{passenger}", $"{price}" };
+        var Actief = priceModel.IsActive;
+        string Activiteit = "";
+        if (Actief)
+        {
+            Activiteit = "Actief";
+        }
+        else{
+            Activiteit = "Non-actief";
+        }
+        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{Activiteit}" };
     }
 
     public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)

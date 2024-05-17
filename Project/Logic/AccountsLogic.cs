@@ -92,7 +92,7 @@ public class AccountsLogic : AbstractLogic<AccountModel>
 
     public AccountModel CheckLogin(string email, string password)
     {
-        //List<AccountModel> accounts = DataAccess<AccountModel>.LoadAll();
+        List<AccountModel> accounts = DataAccess<AccountModel>.LoadAll();
         if (email == null || password == null)
         {
             return null;
