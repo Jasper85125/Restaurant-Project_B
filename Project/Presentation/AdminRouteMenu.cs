@@ -10,6 +10,7 @@ public static class RouteMenu
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
     private static TableLogic<RouteModel> tableRoutes = new();
+    private static TableLogicklant<RouteModel> tableRoutesKlant = new();
     private static TableLogic<StopModel> tableStops = new();
 
     static public void Start()
@@ -588,6 +589,21 @@ public static class RouteMenu
     //     var time = stopModel.Time;
     //     return new List<string> {$"{id}", $"{name}", $"{time}"};
     // }
+    public static List<string> GenerateRowForSelectRoute(RouteModel routeModel)
+    {
+        List<StopModel> allStops = new() {};
+        var id = routeModel.Id;
+        var duration = routeModel.Duration;
+        var name = routeModel.Name;
+        var stops = routeModel.Stops;
+        var beginTime = routeModel.beginTime;
+        var endTime = routeModel.endTime;
+        foreach(StopModel stop in stops){
+            allStops.Add(stop);
+        }
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}"};
+    }
 
     public static RouteModel SelectRoute()
     {
@@ -601,7 +617,7 @@ public static class RouteMenu
         }
         else
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title, Listupdater);
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutesKlant.PrintTable(Header, routeModels, GenerateRow, Title);
             if(TableInfo != null){
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                 return routeModels[selectedRowIndex];
