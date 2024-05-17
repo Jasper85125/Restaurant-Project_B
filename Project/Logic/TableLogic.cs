@@ -81,10 +81,10 @@ public class TableLogic<T>
                         
                     }
                     break;
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     return null;
             }
-        } while (keyInfo.Key != ConsoleKey.Backspace);
+        } while (keyInfo.Key != ConsoleKey.Escape);
         
         Console.WriteLine("U keert terug naar het menu");
         return null;
@@ -120,11 +120,11 @@ public class TableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     return (selectedRow[selectedIndex],selectedIndex);
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     return null;
             }
 
-        } while (key.Key != ConsoleKey.Backspace);
+        } while (key.Key != ConsoleKey.Escape);
 
         return null;
     }
