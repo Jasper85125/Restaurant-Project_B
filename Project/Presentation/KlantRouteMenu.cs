@@ -26,6 +26,7 @@ public static class RouteMenuklant
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
+        string Title = "Beschikbare routes:\n";
         if (routeModels == null || routeModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
@@ -33,7 +34,7 @@ public static class RouteMenuklant
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     while(true)

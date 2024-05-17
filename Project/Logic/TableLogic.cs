@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 public class TableLogic<T>
 {
     public static int tableWidth = 145;
+    public static int newTablewidth = tableWidth;
     public static int selectedOption = 0;
 
     
@@ -37,7 +38,6 @@ public class TableLogic<T>
                 }
                 else
                 {
-                    tableWidth = newTableWidth(Header);
                     if (rowNumber == selectedOption)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -126,11 +126,6 @@ public class TableLogic<T>
 
         return null;
     }
-            
-    private static void PrintLine()
-    {
-        Console.WriteLine(new string('-', tableWidth));
-    }
 
     private static void PrintRow(List<string> columns, bool selected, bool PrintLineBool)
     {
@@ -153,12 +148,14 @@ public class TableLogic<T>
             else
             {   
                 if(columns.Count == 1){
-                    row += $"{AlignCentre(column, tableWidth-2)}|";
+                    row += $"{AlignCentre(column, newTablewidth -2)}|";
                     Console.WriteLine(new string('-', row.Length));
                     PrintLineBool = true;  
                 }
                 else{
+                    int newTablewidth = row.Length;
                     row += $"{AlignCentre(column, columnWidth)}|";
+                    newTablewidth = row.Length;
                 }
             }
         }
@@ -166,16 +163,6 @@ public class TableLogic<T>
         Console.WriteLine(row);
         if(PrintLineBool)
         Console.WriteLine(new string('-', row.Length));
-    }
-    private static int newTableWidth(List<string> columns){
-        int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
-        string row = "|";
-
-        foreach (string column in columns)
-        {         
-            row += $"{AlignCentre(column, columnWidth)}|"; 
-        }
-        return row.Length;
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
@@ -198,7 +185,7 @@ public class TableLogic<T>
             }
             else
             {
-                Console.Write(AlignCentre(column, width) + "|");
+                Console.Write($"{AlignCentre(column, width)}|");
                 output += $"{AlignCentre(column, width)}|";
             }
         }

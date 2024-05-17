@@ -7,60 +7,9 @@ public class TableLogicklant<T>
 {
     public static int tableWidth = 145;
     public static int selectedOption = 1;
+    public static int newTablewidth = tableWidth;
 
     
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
-    {
-        ConsoleKeyInfo keyInfo;
-        List<string> geselecteerdeRow = new List<string>();
-
-        do
-        {
-            Console.Clear();
-
-            PrintLine();
-            PrintRow(Header, false);
-            PrintLine();
-
-            int rowNumber = 1;
-            foreach (T obj in Data)
-            {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
-                    Console.ResetColor();
-                    PrintLine();
-                }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
-                }
-                rowNumber++;
-            }
-            SelectionExplanation();
-
-            keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    selectedOption = Math.Max(1, selectedOption - 1);
-                    break;
-                case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
-                    break;
-                case ConsoleKey.Enter:
-                    Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
-                case ConsoleKey.Backspace:
-                    return null;
-            }
-        } while (keyInfo.Key != ConsoleKey.Backspace);
-        Console.WriteLine("U keert terug naar het menu");
-        return null;
-    }
 
     public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
@@ -71,9 +20,7 @@ public class TableLogicklant<T>
         {
             Console.Clear();
             Console.WriteLine(Title);
-            PrintLine();
-            PrintRow(Header, false);
-            PrintLine();
+            PrintRow(Header, false, true);
 
             int rowNumber = 1;
             foreach (T obj in Data)
@@ -82,14 +29,12 @@ public class TableLogicklant<T>
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
+                    PrintRow(geselecteerdeRow, true, false);
                     Console.ResetColor();
-                    PrintLine();
                 }
                 else
                 {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
+                    PrintRow(GenerateRow(obj), false, false);
                 }
                 rowNumber++;
             }
@@ -107,10 +52,10 @@ public class TableLogicklant<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     return (geselecteerdeRow, selectedOption-1);
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     return null;
             }
-        } while (keyInfo.Key != ConsoleKey.Backspace);
+        } while (keyInfo.Key != ConsoleKey.Escape);
         Console.WriteLine("U keert terug naar het menu");
         return null;
     }
@@ -124,9 +69,7 @@ public class TableLogicklant<T>
         {
             Console.Clear();
             Console.WriteLine("Geselecteerde Route:");
-            PrintLine();
-            PrintRow(header, false);
-            PrintLine();
+            PrintRow(header, false, true);
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation();
             key = Console.ReadKey(true);
@@ -151,28 +94,39 @@ public class TableLogicklant<T>
 
         return null;
     }
-            
-    private static void PrintLine()
-    {
-        Console.WriteLine(new string('-', tableWidth));
-    }
 
-    private static void PrintRow(List<string> columns, bool selected)
+    private static void PrintRow(List<string> columns, bool selected, bool PrintLineBool)
     {
-        int width = (tableWidth - columns.Count) / columns.Count;
+          int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
         {
-            if (selected){
-                row += ">> " + AlignCentre(column, width - 6) + " <<|";
+            if (selected)
+            {
+                if(columns.Count == 1){
+                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";
+                    Console.WriteLine(new string('-', row.Length));
+                    PrintLineBool = true;
+                }
+                else{
+                    row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
+                }
             }
-            else{
-                row += AlignCentre(column, width) + "|";
+            else
+            {   
+                if(columns.Count == 1){
+                    row += $"{AlignCentre(column, newTablewidth -2)}|";
+                    Console.WriteLine(new string('-', row.Length));
+                    PrintLineBool = true;  
+                }
+                else{
+                    int newTablewidth = row.Length;
+                    row += $"{AlignCentre(column, columnWidth)}|";
+                    newTablewidth = row.Length;
+                }
             }
         }
-
-        Console.WriteLine(row);
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
@@ -227,7 +181,7 @@ public class TableLogicklant<T>
         Console.Write(" om de rij te selecteren.");
         Console.Write("\nOm een stap terug te gaan druk op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Backspace");
+        Console.Write(" Escape");
         Console.ResetColor();
         Console.WriteLine();
 
