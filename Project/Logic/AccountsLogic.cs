@@ -92,12 +92,12 @@ public class AccountsLogic : AbstractLogic<AccountModel>
 
     public AccountModel CheckLogin(string email, string password)
     {
-        //List<AccountModel> accounts = DataAccess<AccountModel>.LoadAll();
+        List<AccountModel> accounts = DataAccess<AccountModel>.LoadAll();
         if (email == null || password == null)
         {
             return null;
         }
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+        CurrentAccount = accounts.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
 
@@ -106,6 +106,12 @@ public class AccountsLogic : AbstractLogic<AccountModel>
     public void MakeReservation()
     {
         
+    }
+
+    public AccountModel AddReservations(AccountModel inputAccount, ReservationModel reservation)
+    {
+        inputAccount.Reservations.Add(reservation);
+        return inputAccount;
     }
 }
 

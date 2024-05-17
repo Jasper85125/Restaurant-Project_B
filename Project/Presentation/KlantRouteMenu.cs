@@ -6,6 +6,7 @@ using System;
 
 public static class RouteMenuklant
 {
+    static private AccountsLogic accountsLogic = new AccountsLogic();
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
@@ -16,7 +17,6 @@ public static class RouteMenuklant
     {
         Console.Clear();
         PrintedOverview();
-        
     }
 
 
@@ -49,7 +49,7 @@ public static class RouteMenuklant
                         int pageSize = 10;
                         int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
 
-                        string duplicateStopMessage = "";
+                        string? duplicateStopMessage = "";
 
                         while (checkStopName)
                         {
@@ -152,6 +152,19 @@ public static class RouteMenuklant
                                     {
                                         case ConsoleKey.Enter:
                                             //hier verder
+                                            AccountModel toBeUpdated = UserLogin.loggedInAccount;
+                                            AccountModel updated = accountsLogic.AddReservations(toBeUpdated ,new ReservationModel(3,selectedStop.Time, selectedStop));
+                                            ColorPrint.PrintGreen($"\nWilt U een reservering maken voor {selectedRouteModel.Name} op {selectedStop.Name} om {selectedStop.Time}?");
+                                            ConsoleKeyInfo confirmInput2 = Console.ReadKey(true);
+                                            switch (confirmInput.Key)
+                                            {
+                                                case ConsoleKey.Enter:
+                                                    accountsLogic.UpdateList(updated);
+                                                    Console.WriteLine(updated.Reservations[0]);
+                                                    Console.ReadLine();
+                                                    Start();
+                                                    break;
+                                            }
                                             break;
                                         case ConsoleKey.Backspace:
                                             break;
@@ -170,9 +183,6 @@ public static class RouteMenuklant
                             }
                         }
                     }
-                        
-                    
-
                 }
                 else{
                     break;
