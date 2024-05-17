@@ -16,7 +16,7 @@ public class TableLogic<T>
         {
             Console.Clear();
             Console.WriteLine($"{Title}\n");
-            PrintRow(Header, false);
+            PrintRow(Header, false, true);
 
             for (int rowNumber = 1; rowNumber <= Data.Count() + 1; rowNumber++)
             {
@@ -27,12 +27,12 @@ public class TableLogic<T>
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         geselecteerdeRow = GenerateRow(Data[rowNumber - 1]);
-                        PrintRow(geselecteerdeRow, true);
+                        PrintRow(geselecteerdeRow, true, false);
                         Console.ResetColor();
                     }
                     else
                     {
-                        PrintRow(GenerateRow(Data[rowNumber - 1]), false);
+                        PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
                     }
                 }
                 else
@@ -42,12 +42,12 @@ public class TableLogic<T>
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         geselecteerdeRow = NewRow;
-                        PrintRow(geselecteerdeRow, true);
+                        PrintRow(geselecteerdeRow, true, false);
                         Console.ResetColor();
                     }
                     else
                     {
-                        PrintRow(NewRow, false);
+                        PrintRow(NewRow, false, false);
                     }
                 }
             }
@@ -103,7 +103,7 @@ public class TableLogic<T>
             Console.Clear();
             Console.WriteLine("Geselecteerde rij:");
             PrintLine();
-            PrintRow(header, false);
+            PrintRow(header, false, true);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation(false);
@@ -134,7 +134,7 @@ public class TableLogic<T>
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    private static void PrintRow(List<string> columns, bool selected)
+    private static void PrintRow(List<string> columns, bool selected, bool PrintLineBool)
     {
         int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
@@ -162,6 +162,7 @@ public class TableLogic<T>
         }
 
         Console.WriteLine(row);
+        if(PrintLineBool)
         Console.WriteLine(new string('-', row.Length));
     }
     private static int newTableWidth(List<string> columns){
