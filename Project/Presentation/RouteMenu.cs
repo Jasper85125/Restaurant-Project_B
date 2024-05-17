@@ -134,6 +134,9 @@ public static class RouteMenu
         AddStopToRoute(newRoute);
 
     }
+    public static void Listupdater(RouteModel model){
+        routeLogic.UpdateList(model);
+    }
 
     public static void AddStopToRoute(RouteModel route, List<StopModel> selectedStops = null)
     {
@@ -476,9 +479,6 @@ public static class RouteMenu
     
     }
 
-        public static void Listupdater(RouteModel model){
-            routeLogic.UpdateList(model);
-        }
 
 
     public static void AddToBus()
