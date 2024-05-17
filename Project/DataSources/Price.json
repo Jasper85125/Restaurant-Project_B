@@ -2,21 +2,25 @@
   {
     "id": 1,
     "passenger": "Baby",
-    "price": 20
+    "price": 20,
+    "isActive": false
   },
   {
     "id": 2,
     "passenger": "Volwassene",
-    "price": 20
+    "price": 20,
+    "isActive": false
   },
   {
     "id": 3,
     "passenger": "old",
-    "price": 10
+    "price": 10,
+    "isActive": false
   },
   {
     "id": 4,
     "passenger": "",
-    "price": 0
+    "price": 0,
+    "isActive": false
   }
 ]

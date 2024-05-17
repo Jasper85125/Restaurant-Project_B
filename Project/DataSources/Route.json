@@ -11,7 +11,8 @@
       }
     ],
     "begin": null,
-    "end": null
+    "end": null,
+    "isActive": true
   },
   {
     "id": 2,
@@ -25,7 +26,8 @@
       }
     ],
     "begin": null,
-    "end": null
+    "end": null,
+    "isActive": false
   },
   {
     "id": 5,
@@ -49,6 +51,7 @@
       }
     ],
     "begin": null,
-    "end": null
+    "end": null,
+    "isActive": false
   }
 ]
