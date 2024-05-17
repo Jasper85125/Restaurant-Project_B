@@ -17,7 +17,7 @@ public class BusModel : IActivatable
     [JsonPropertyName("IsActive")]
     public bool IsActive { get; set; } = false;
 
-    public BusModel(int id, int seats, string licensePlate, bool isActive)
+    public BusModel(int id, int seats, string licensePlate, bool isActive = true)
     {
         Id = id;
         Seats = seats;

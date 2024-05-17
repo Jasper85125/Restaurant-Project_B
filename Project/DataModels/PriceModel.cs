@@ -15,7 +15,7 @@ public class PriceModel : IActivatable
     [JsonPropertyName("isActive")]
     public bool IsActive { get; set; } = false;
 
-    public PriceModel(int id, string passenger, double price, bool isActive)
+    public PriceModel(int id, string passenger, double price, bool isActive = true)
     {
         this.Id = id;
         this.Passenger = passenger;
