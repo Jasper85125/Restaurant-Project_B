@@ -53,5 +53,14 @@
     "begin": null,
     "end": null,
     "isActive": false
+  },
+  {
+    "id": 6,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
   }
 ]

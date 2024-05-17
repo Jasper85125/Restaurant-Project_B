@@ -102,9 +102,7 @@ public class TableLogic<T>
         {
             Console.Clear();
             Console.WriteLine("Geselecteerde rij:");
-            PrintLine();
             PrintRow(header, false, true);
-            PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation(false);
             key = Console.ReadKey(true);
@@ -144,7 +142,9 @@ public class TableLogic<T>
             if (selected)
             {
                 if(columns.Count == 1){
-                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";  
+                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";
+                    Console.WriteLine(new string('-', row.Length));
+                    PrintLineBool = true;
                 }
                 else{
                     row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
@@ -153,7 +153,9 @@ public class TableLogic<T>
             else
             {   
                 if(columns.Count == 1){
-                    row += $"{AlignCentre(column, tableWidth-2)}|";  
+                    row += $"{AlignCentre(column, tableWidth-2)}|";
+                    Console.WriteLine(new string('-', row.Length));
+                    PrintLineBool = true;  
                 }
                 else{
                     row += $"{AlignCentre(column, columnWidth)}|";
