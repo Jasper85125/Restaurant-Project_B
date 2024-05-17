@@ -375,7 +375,7 @@ public static class RouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Stops", "Begintijd", "Eindtijd", "Actieviteit"};
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd", "Actieviteit"};
         string Title = "Routes overzicht";
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
