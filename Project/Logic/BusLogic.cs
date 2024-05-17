@@ -28,6 +28,7 @@ public class BusLogic : AbstractLogic<BusModel>
         DataAccess<BusModel>.WriteAll(_busses);
     }
 
+
     public override BusModel GetById(int id)
     {
         return _busses.Find(p => p.Id == id);

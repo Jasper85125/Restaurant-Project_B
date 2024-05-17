@@ -21,7 +21,7 @@ public static class BusMenu
         string Title = "Bus menu";
         BusLogic busLogic = new();
         List<BusModel> ListAllBusses = busLogic.GetAll();
-        List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)"};
+        List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
@@ -35,14 +35,14 @@ public static class BusMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater);
                 if(TableInfo != null)
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> SelectedRow = TableInfo.Value.SelectedRow;
                     if(selectedRowIndex ==  ListAllBusses.Count())
                     {
-                        BusModel newBusModel = new(busLogic.GenerateNewId(),0,"");
+                        BusModel newBusModel = new(busLogic.GenerateNewId(),0,"", false);
                         busLogic.UpdateList(newBusModel);
                         continue;
                     }
@@ -309,8 +309,21 @@ public static class BusMenu
         var seats = busModel.Seats;
         var licensePlate = busModel.LicensePlate;
         var routeNames = string.Join(", ", busModel.Route.Select(r => r.Name));
+        var Actief = busModel.IsActive;
+        string Activiteit = "";
+        if (Actief)
+        {
+            Activiteit = "Actief";
+        }
+        else{
+            Activiteit = "Non-actief";
+        }
         
-        return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}" };
+        return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}",$"{Activiteit}" };
+    }
+
+    public static void Listupdater(BusModel model){
+        busLogic.UpdateList(model);
     }
 
     public static void AfterShowingInformation()
