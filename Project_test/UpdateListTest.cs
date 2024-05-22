@@ -16,7 +16,7 @@ public class UpdateListTest
     {
         // Arrange
         AccountModel existingAccount = new AccountModel (1, "Yep@g.com", "1234", "Alice", false);
-        AccountModel updatedAccount = new AccountModel (1, "no@g.com", "4312", "Bob", false );
+        AccountModel updatedAccount = new AccountModel (1, "no@g.com", "4312", "Bob", false);
 
         _accounts.UpdateList(existingAccount);
 
@@ -31,7 +31,7 @@ public class UpdateListTest
     public void TestUpdateList_AddNewAccount()
     {
         // Arrange
-        AccountModel newAccount = new AccountModel (2, "kan@g.com", "6245","Charlie", false );
+        AccountModel newAccount = new AccountModel (2, "kan@g.com", "6245","Charlie", false);
 
         // Act
         _accounts.UpdateList(newAccount);

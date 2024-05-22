@@ -52,20 +52,23 @@
   },
   {
     "id": 5,
-    "emailAddress": "soufiane_ouldamar@outlook.com",
-    "password": "marokko55",
-    "fullName": "Soufiane Ouldamar",
-    "isAdmin": false,
-    "reservations": [
-      {
-        "id": 3,
-        "time": null,
-        "halte": {
-          "id": 14,
-          "name": "De Kuip",
-          "time": null
-        }
-      }
-    ]
+    "emailAddress": "Boris@gmail.com",
+    "password": "Boris123!",
+    "fullName": "Boris Water",
+    "isAdmin": false
+  },
+  {
+    "id": 6,
+    "emailAddress": "amer@gmail.com",
+    "password": "amer",
+    "fullName": "amer alhasoun",
+    "isAdmin": false
+  },
+  {
+    "id": 7,
+    "emailAddress": "maxob2005@gmail.com",
+    "password": "wachtwoord",
+    "fullName": "Max Bretherton",
+    "isAdmin": false
   }
 ]
