@@ -19,8 +19,6 @@ public static class CustomerRouteMenu
         PrintedOverview();
     }
 
-
-
     public static void PrintedOverview()
     { 
         List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
