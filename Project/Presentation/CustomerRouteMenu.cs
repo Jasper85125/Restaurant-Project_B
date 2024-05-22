@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System;
 
-public static class RouteMenuklant
+public static class CustomerRouteMenu
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
     private static RouteLogic routeLogic = new();
@@ -160,8 +160,7 @@ public static class RouteMenuklant
                                             {
                                                 case ConsoleKey.Enter:
                                                     accountsLogic.UpdateList(updated);
-                                                    Console.WriteLine(updated.Reservations[0]);
-                                                    Console.ReadLine();
+                                                    ColorPrint.PrintGreen("Uw reservering is gemaakt.");
                                                     Start();
                                                     break;
                                             }
@@ -243,9 +242,7 @@ public static class RouteMenuklant
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -270,27 +267,21 @@ public static class RouteMenuklant
 
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Toevoegen geannuleerd.");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
+                ColorPrint.PrintGreen("Data is toegevoegd!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 Console.Clear();
             }

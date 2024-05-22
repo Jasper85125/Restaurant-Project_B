@@ -25,43 +25,45 @@
   },
   {
     "id": 4,
-    "emailAddress": "Joe@gmail.com",
-    "password": "",
-    "fullName": " ",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 5,
-    "emailAddress": "Boris@gmail.com",
-    "password": "Boris123!",
-    "fullName": "Boris Water",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 6,
-    "emailAddress": "JoeMama@gmail.com",
-    "password": "Joe",
-    "fullName": "Joe Mama",
+    "emailAddress": "Stiffo@gmail.com",
+    "password": "Stiffo",
+    "fullName": "Stiffo Niffo",
     "isAdmin": false,
     "reservations": [
       {
         "id": 3,
-        "time": "11:00",
+        "time": null,
         "halte": {
-          "id": 26,
-          "name": "Blijdorp",
-          "time": "11:00"
+          "id": 7,
+          "name": "Schouwburgplein",
+          "time": null
         }
       },
       {
         "id": 3,
-        "time": "12:00",
+        "time": null,
         "halte": {
-          "id": 7,
-          "name": "Schouwburgplein",
-          "time": "12:00"
+          "id": 26,
+          "name": "Blijdorp",
+          "time": null
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "emailAddress": "soufiane_ouldamar@outlook.com",
+    "password": "marokko55",
+    "fullName": "Soufiane Ouldamar",
+    "isAdmin": false,
+    "reservations": [
+      {
+        "id": 3,
+        "time": null,
+        "halte": {
+          "id": 14,
+          "name": "De Kuip",
+          "time": null
         }
       }
     ]
