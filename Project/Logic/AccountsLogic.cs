@@ -102,6 +102,11 @@ public class AccountsLogic : AbstractLogic<AccountModel>
     }
 
     public override List<AccountModel> GetAll() => _accounts;
+
+    public void MakeReservation()
+    {
+        
+    }
 }
 
 
