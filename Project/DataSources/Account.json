@@ -4,28 +4,51 @@
     "emailAddress": "HeyHey@gmail.com",
     "password": "admin",
     "fullName": "admin admin",
-    "isAdmin": false
+    "isAdmin": false,
+    "reservations": []
   },
   {
     "id": 2,
     "emailAddress": "t@b.c",
     "password": "xyz",
     "fullName": "Thomas Edison",
-    "isAdmin": false
+    "isAdmin": false,
+    "reservations": []
   },
   {
     "id": 3,
     "emailAddress": "Admin",
     "password": "Admin",
     "fullName": "Admin",
-    "isAdmin": true
+    "isAdmin": true,
+    "reservations": []
   },
   {
     "id": 4,
-    "emailAddress": "Joe@gmail.com",
-    "password": "",
-    "fullName": " ",
-    "isAdmin": false
+    "emailAddress": "Stiffo@gmail.com",
+    "password": "Stiffo",
+    "fullName": "Stiffo Niffo",
+    "isAdmin": false,
+    "reservations": [
+      {
+        "id": 3,
+        "time": null,
+        "halte": {
+          "id": 7,
+          "name": "Schouwburgplein",
+          "time": null
+        }
+      },
+      {
+        "id": 3,
+        "time": null,
+        "halte": {
+          "id": 26,
+          "name": "Blijdorp",
+          "time": null
+        }
+      }
+    ]
   },
   {
     "id": 5,

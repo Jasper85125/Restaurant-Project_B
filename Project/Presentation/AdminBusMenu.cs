@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-public static class BusMenu
+public static class AdminBusMenu
 {
     private static TableLogic<BusModel> tableBus = new();
     private static BusLogic busLogic = new();
@@ -25,9 +25,7 @@ public static class BusMenu
         List<RouteModel> RoutesList = new() {};
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Lege data.");
-            Console.ResetColor();
+            ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
@@ -111,7 +109,7 @@ public static class BusMenu
                                     {
                                         case ConsoleKey.Spacebar:
                                             Console.WriteLine("\nU heeft op Spatie geklikt. Voeg een nieuwe route toe.");
-                                            RouteModel Input = RouteMenu.SelectRoute();
+                                            RouteModel Input = AdminRouteMenu.SelectRoute();
                                             if (Input != null){
                                                 RoutesList.Add(Input);
                                                 Console.WriteLine($"{Input.Name} is toegevoegd");
@@ -248,9 +246,7 @@ public static class BusMenu
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -273,27 +269,21 @@ public static class BusMenu
             keyInfo = Console.ReadKey(true);
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Toevoegen geannuleerd.");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
+                ColorPrint.PrintGreen("Data is toegevoegd!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;

@@ -4,8 +4,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System;
 
-public static class RouteMenuklant
+public static class CustomerRouteMenu
 {
+    static private AccountsLogic accountsLogic = new AccountsLogic();
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
@@ -16,7 +17,6 @@ public static class RouteMenuklant
     {
         Console.Clear();
         PrintedOverview();
-        
     }
 
 
@@ -49,7 +49,7 @@ public static class RouteMenuklant
                         int pageSize = 10;
                         int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
 
-                        string duplicateStopMessage = "";
+                        string? duplicateStopMessage = "";
 
                         while (checkStopName)
                         {
@@ -152,6 +152,18 @@ public static class RouteMenuklant
                                     {
                                         case ConsoleKey.Enter:
                                             //hier verder
+                                            AccountModel toBeUpdated = UserLogin.loggedInAccount;
+                                            AccountModel updated = accountsLogic.AddReservations(toBeUpdated ,new ReservationModel(3,selectedStop.Time, selectedStop));
+                                            ColorPrint.PrintGreen($"\nWilt U een reservering maken voor {selectedRouteModel.Name} op {selectedStop.Name} om {selectedStop.Time}?");
+                                            ConsoleKeyInfo confirmInput2 = Console.ReadKey(true);
+                                            switch (confirmInput.Key)
+                                            {
+                                                case ConsoleKey.Enter:
+                                                    accountsLogic.UpdateList(updated);
+                                                    ColorPrint.PrintGreen("Uw reservering is gemaakt.");
+                                                    Start();
+                                                    break;
+                                            }
                                             break;
                                         case ConsoleKey.Backspace:
                                             break;
@@ -170,9 +182,6 @@ public static class RouteMenuklant
                             }
                         }
                     }
-                        
-                    
-
                 }
                 else{
                     break;
@@ -233,9 +242,7 @@ public static class RouteMenuklant
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -260,27 +267,21 @@ public static class RouteMenuklant
 
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Toevoegen geannuleerd.");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
+                ColorPrint.PrintGreen("Data is toegevoegd!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 Console.Clear();
             }

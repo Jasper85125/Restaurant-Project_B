@@ -14,9 +14,7 @@ public static class UserSignUp
         string? firstName = Console.ReadLine();
         while (!Helper.IsOnlyLetter(firstName))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"'{firstName}' is geen geldige optie.");
-            Console.ResetColor();
+            ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
             Console.WriteLine("Uw voornaam kan alleen bestaan uit letters.");
             Console.WriteLine("Uw voornaam: ");
             firstName = Console.ReadLine();
@@ -25,9 +23,7 @@ public static class UserSignUp
         string? lastName = Console.ReadLine();
         while (!Helper.IsOnlyLetter(lastName))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"'{lastName}' is geen geldige optie.");
-            Console.ResetColor();
+            ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
             Console.WriteLine("Uw achternaam kan alleen bestaan uit letters.");
             Console.WriteLine("Uw achternaam: ");
             lastName = Console.ReadLine();
@@ -39,9 +35,7 @@ public static class UserSignUp
 
             if (!accountsLogic.IsValidEmail(email))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldig emailadres. Probeer opnieuw.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldig emailadres. Probeer opnieuw.");
                 continue;
             }
             if (!accountsLogic.EmailExists(email))
@@ -50,9 +44,7 @@ public static class UserSignUp
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Er is al een account met dit email. \nProbeer een ander.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Er is al een account met dit email. \nProbeer een ander.");
             }
         }
         while (true)
@@ -61,9 +53,7 @@ public static class UserSignUp
             password = Console.ReadLine();
             while (!Helper.IsValidString(password))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"'{password}' is geen geldige optie.");
-                Console.ResetColor();
+                ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Uw wachtwoord: ");
                 password = Console.ReadLine();
@@ -73,9 +63,7 @@ public static class UserSignUp
             string? password2 = Console.ReadLine();
             while (!Helper.IsValidString(password2))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"'{password2}' is geen geldige optie.");
-                Console.ResetColor();
+                ColorPrint.PrintRed($"'{password2}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Controleer uw wachtwoord:");
                 password2 = Console.ReadLine();
@@ -87,9 +75,7 @@ public static class UserSignUp
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Uw wachtwoord komt niet overeen.\nProbeer het opnieuw.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Uw wachtwoord komt niet overeen.\nProbeer het opnieuw.");
             }
         }
         string fullName = $"{firstName} {lastName}";
@@ -112,9 +98,7 @@ public static class UserSignUp
         
         Console.WriteLine($"Welkom {acc.FullName}.");
         Thread.Sleep(3000);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Uw account is aangemaakt.");
-        Console.ResetColor();
+        ColorPrint.PrintGreen("Uw account is aangemaakt.");
 
         Thread.Sleep(3000);
         Console.WriteLine("U keert terug naar het Startmenu.\n");
@@ -130,9 +114,7 @@ public static class UserSignUp
 
         Console.WriteLine($"Welkom {acc.FullName}.");
         Thread.Sleep(3000);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Uw Admin account is aangemaakt.");
-        Console.ResetColor();
+        ColorPrint.PrintGreen("Uw Admin account is aangemaakt.");
 
         Thread.Sleep(3000);
         Console.WriteLine("U keert terug naar het Startmenu.\n");

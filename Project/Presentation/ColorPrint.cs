@@ -13,4 +13,11 @@ public static class ColorPrint
         Console.WriteLine(text);
         Console.ResetColor();
     }
+
+    public static void PrintCyan(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(text);
+        Console.ResetColor();
+    }
 }
