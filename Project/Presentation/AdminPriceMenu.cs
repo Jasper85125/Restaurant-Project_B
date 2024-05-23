@@ -65,10 +65,10 @@ public static class AdminPriceMenu
     
     public static void ShowAllPricesInformation()
     {
-        string Title = "Het prijscategorie menu";
-        List<string> Header = new() {"Id", "Doelgroep", "Prijs", "Activiteit"};
+        string title = "Het prijscategorie menu";
+        List<string> header = new() {"Id", "Doelgroep", "Prijs", "Activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
-        string Kind = "prijscategorie";
+        string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
         {
             ColorPrint.PrintRed("Lege data.");
@@ -78,7 +78,7 @@ public static class AdminPriceMenu
         }
         while(true)
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(Header, priceModels, GenerateRow, Title, Listupdater, Kind);
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(header, priceModels, GenerateRow, title, Listupdater, kind);
             if(TableInfo != null)
             {
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
@@ -91,7 +91,7 @@ public static class AdminPriceMenu
                 }
                 while(true)
                 {
-                    (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, Header);
+                    (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, header);
                     //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
                     if (result != null)
                     {
@@ -100,7 +100,7 @@ public static class AdminPriceMenu
 
                         if (selectedIndex == 0)
                         {
-                            ColorPrint.PrintRed($"U kan de {Header[selectedIndex]} niet aanpassen.");
+                            ColorPrint.PrintRed($"U kan de {header[selectedIndex]} niet aanpassen.");
                             Thread.Sleep(3000);
                         }
                         else if(selectedIndex == 1)
@@ -284,7 +284,7 @@ public static class AdminPriceMenu
     }
     public static void OldShowAllPricesInformation()
     {
-        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
+        List<string> header = new() {"Id", "Doelgroep", "Prijs"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         if (priceModels == null || priceModels.Count == 0)
         {
@@ -292,21 +292,21 @@ public static class AdminPriceMenu
         }
         else
         {
-            basictableLogic.PrintTable(Header, priceModels, GenerateRow);
+            basictableLogic.PrintTable(header, priceModels, GenerateRow);
         }
     }
 
     public static void OldShowPriceInformation(PriceModel priceModel)
     {
         List<PriceModel> priceModels = new() {priceModel};
-        List<string> Header = new() {"Id", "Doelgroep", "Prijs"};
+        List<string> header = new() {"Id", "Doelgroep", "Prijs"};
         if (priceModels == null || priceModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            basictableLogic.PrintTable(Header, priceModels, GenerateRow);
+            basictableLogic.PrintTable(header, priceModels, GenerateRow);
         }
     }
 }
