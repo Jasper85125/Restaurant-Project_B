@@ -6,7 +6,7 @@ public class TableLogic<T>
 
     public static int tableWidth = 145;
      public static int TableCustomeWidth;
-     public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater)
+    public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -71,7 +71,6 @@ public class TableLogic<T>
                 case ConsoleKey.Delete:
                     if (selectedOption > 0 && selectedOption <= Data.Count())
                     {
-                        // Using dynamic to access IsActive property
                         dynamic item = Data[selectedOption - 1];
                         if (item.IsActive)
                         {

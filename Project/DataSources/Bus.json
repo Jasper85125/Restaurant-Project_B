@@ -32,7 +32,7 @@
   {
     "id": 3,
     "seats": 60,
-    "licensePlate": "WW-123-MK",
+    "licensePlate": "fsd",
     "route": [
       {
         "id": 2,
@@ -75,6 +75,13 @@
         "isActive": false
       }
     ],
+    "IsActive": false
+  },
+  {
+    "id": 4,
+    "seats": 0,
+    "licensePlate": "dbau",
+    "route": [],
     "IsActive": false
   }
 ]

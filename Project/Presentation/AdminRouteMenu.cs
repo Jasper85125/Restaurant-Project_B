@@ -55,7 +55,7 @@ public static class RouteMenu
                 case ConsoleKey.Backspace:
                     Console.Clear();
                     Console.WriteLine("U keert terug naar het admin hoofdmenu.");
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                     AdminStartMenu.Start();
                     break;
             }
@@ -617,10 +617,9 @@ public static class RouteMenu
         }
         else
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutesKlant.PrintTable(Header, routeModels, GenerateRow, Title);
-            if(TableInfo != null){
-                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-                return routeModels[selectedRowIndex];
+            var SelectedRowIndex = tableRoutesKlant.PrintTable(Header, routeModels, GenerateRow, Title);
+            if(SelectedRowIndex != null){
+                return routeModels[SelectedRowIndex.Value];
             }
             else{
                 return null;

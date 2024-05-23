@@ -1,9 +1,3 @@
-using System.Data.Common;
-using System.Formats.Asn1;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System;
-
 public static class RouteMenuklant
 {
     private static RouteLogic routeLogic = new();
@@ -21,167 +15,151 @@ public static class RouteMenuklant
 
 
 
-    public static void PrintedOverview()
-    { 
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+   public static void PrintedOverview()
+{ 
+    List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd" };
+    string Title = "Beschikbare routes:\n";
+
+    while (true)
+    {
         List<RouteModel> routeModels = routeLogic.GetAll();
-        List<StopModel> StopsList = new() {};
-        string Title = "Beschikbare routes:\n";
         if (routeModels == null || routeModels.Count == 0)
         {
             Console.WriteLine("Lege data.");
         }
         else
         {
-            while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
-                if(TableInfo != null){
-                    int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-                    while(true)
+            var SelectedRowIndex = tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            if (SelectedRowIndex  != null)
+            {
+
+                while (true)
+                {
+                    RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(SelectedRowIndex));
+
+                    bool checkStopName = true;
+                    List<StopModel> stops = selectedRouteModel.Stops.ToList();
+
+                    int selectedIndex = 0;
+                    int currentPage = 1;
+                    int pageSize = 10;
+                    int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
+
+                    while (checkStopName)
                     {
+                        Console.Clear();
 
-                        RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(TableInfo.Value.SelectedRow[0]));
+                        Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}\n");
+                        Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
 
-                        bool checkStopName = true;
-                        List<StopModel> stops = selectedRouteModel.Stops.ToList();
-                            
-                        int selectedIndex = 0;
-                        int currentPage = 1;
-                        int pageSize = 10;
-                        int totalPages = (int)Math.Ceiling((double)stops.Count / pageSize);
+                        int startIndex = (currentPage - 1) * pageSize;
+                        int endIndex = Math.Min(startIndex + pageSize, stops.Count);
 
-                        string duplicateStopMessage = "";
-
-                        while (checkStopName)
+                        for (int i = startIndex; i < endIndex; i++)
                         {
-                            Console.Clear();
-
-                            Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}\n");
-                            Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
-
-                            int startIndex = (currentPage - 1) * pageSize;
-                            int endIndex = Math.Min(startIndex + pageSize, stops.Count);
-
-                            for (int i = startIndex; i < endIndex; i++)
+                            if (i == selectedIndex)
                             {
-                                if (i == selectedIndex)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.Write(">> ");
-                                }
-                                else
-                                {
-                                    Console.Write("   ");
-                                }
-                                Console.WriteLine(stops[i].Name);
-                                Console.ResetColor();
-                                
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(">> ");
                             }
-
-                            // Console.WriteLine("\nDruk op:");
-                            // Console.ForegroundColor = ConsoleColor.Cyan;
-                            // Console.Write("Spatie ");
-                            // Console.ResetColor();
-                            // Console.WriteLine("om te selecteren.");
-                            // Console.ForegroundColor = ConsoleColor.Red;
-                            // Console.Write("Backspace ");
-                            // Console.ResetColor();
-                            // Console.WriteLine("om te deselecteren.");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write("Enter ");
+                            else
+                            {
+                                Console.Write("   ");
+                            }
+                            Console.WriteLine(stops[i].Name);
                             Console.ResetColor();
-                            Console.WriteLine("om een halte te selecteren.");
+                        }
 
-                            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                            switch (keyInfo.Key)
-                            {
-                                case ConsoleKey.UpArrow:
-                                    if (selectedIndex > 0)
-                                    {
-                                        selectedIndex--;
-                                    }
-                                    break;
-                                case ConsoleKey.DownArrow:
-                                    if (selectedIndex < endIndex - 1)
-                                    {
-                                        selectedIndex++;
-                                    }
-                                    break;
-                                case ConsoleKey.LeftArrow:
-                                    if (currentPage > 1)
-                                    {
-                                        currentPage--;
-                                        selectedIndex -= pageSize;
-                                        if (selectedIndex < 0)
-                                        {
-                                            selectedIndex = 0;
-                                        }
-                                    }
-                                    break;
-                                case ConsoleKey.RightArrow:
-                                    if (currentPage < totalPages)
-                                    {
-                                        currentPage++;
-                                        selectedIndex += pageSize;
-                                        if (selectedIndex >= stops.Count)
-                                        {
-                                            selectedIndex = stops.Count - 1;
-                                        }
-                                    }
-                                    break;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Enter ");
+                        Console.ResetColor();
+                        Console.WriteLine("om een halte te selecteren.");
 
-                                case ConsoleKey.Enter:
-                                    // Retrieve the selected stop based on selectedIndex
-                                    StopModel selectedStop = stops[selectedIndex];
-
-                                    Console.Clear();
-                                    Console.WriteLine("Wilt u hier instappen: ");
-                                    Console.ForegroundColor = ConsoleColor.Cyan;
-                                    Console.Write(selectedStop.Name);
-                                    Console.ResetColor();
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.Write("\nBackspace ");
-                                    Console.ResetColor();
-                                    Console.Write("om te annuleren.");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.Write(" Enter ");
-                                    Console.ResetColor();
-                                    Console.Write("om een halte te selecteren.");
-
-                                    ConsoleKeyInfo confirmInput = Console.ReadKey(true);
-                                    switch (confirmInput.Key)
+                        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                        switch (keyInfo.Key)
+                        {
+                            case ConsoleKey.UpArrow:
+                                if (selectedIndex > 0)
+                                {
+                                    selectedIndex--;
+                                }
+                                break;
+                            case ConsoleKey.DownArrow:
+                                if (selectedIndex < endIndex - 1)
+                                {
+                                    selectedIndex++;
+                                }
+                                break;
+                            case ConsoleKey.LeftArrow:
+                                if (currentPage > 1)
+                                {
+                                    currentPage--;
+                                    selectedIndex -= pageSize;
+                                    if (selectedIndex < 0)
                                     {
-                                        case ConsoleKey.Enter:
-                                            //hier verder
-                                            break;
-                                        case ConsoleKey.Backspace:
-                                            break;
-                                        default:
-                                            Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
-                                            break;
+                                        selectedIndex = 0;
                                     }
-                                    break;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (currentPage < totalPages)
+                                {
+                                    currentPage++;
+                                    selectedIndex += pageSize;
+                                    if (selectedIndex >= stops.Count)
+                                    {
+                                        selectedIndex = stops.Count - 1;
+                                    }
+                                }
+                                break;
 
-                                case ConsoleKey.Escape:
-                                    Start();
-                                    return;
-                                default:
-                                    Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
-                                    break;
-                            }
+                            case ConsoleKey.Enter:
+                                StopModel selectedStop = stops[selectedIndex];
+
+                                Console.Clear();
+                                Console.WriteLine("Wilt u hier instappen: ");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.Write(selectedStop.Name);
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("\nBackspace ");
+                                Console.ResetColor();
+                                Console.Write("om te annuleren.");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(" Enter ");
+                                Console.ResetColor();
+                                Console.Write("om een halte te selecteren.");
+
+                                ConsoleKeyInfo confirmInput = Console.ReadKey(true);
+                                switch (confirmInput.Key)
+                                {
+                                    case ConsoleKey.Enter:
+                                        //hier verder
+                                        break;
+                                    case ConsoleKey.Backspace:
+                                        break;
+                                    default:
+                                        Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
+                                        break;
+                                }
+                                break;
+
+                            case ConsoleKey.Escape:
+                                return;
+                            default:
+                                Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
+                                break;
                         }
                     }
-                        
-                    
-
-                }
-                else{
-                    break;
                 }
             }
+            else
+            {
+                break;
+            }
         }
-    
     }
+}
     
     public static List<string> GenerateRow(RouteModel routeModel)
     {
@@ -196,39 +174,9 @@ public static class RouteMenuklant
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
+        return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
     }
 
-    public static List<string> GenerateRow(StopModel stopModel)
-    {
-        var id = stopModel.Id;
-        var name = stopModel.Name;
-        var time = stopModel.Time;
-        return new List<string> {$"{id}", $"{name}", $"{time}"};
-    }
-
-    public static RouteModel SelectRoute(){
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
-        List<RouteModel> routeModels = routeLogic.GetAll();
-        string Title = "Selecteer een route";
-        if (routeModels == null || routeModels.Count == 0)
-        {
-            Console.WriteLine("Lege data.");
-            return null;
-        }
-        else
-        {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
-            if(TableInfo != null){
-                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-                return routeModels[selectedRowIndex];
-            }
-            else{
-                return null;
-            }
-            
-        }
-    }   
 
     public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
     {

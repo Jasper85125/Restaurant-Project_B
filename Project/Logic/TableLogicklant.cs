@@ -7,36 +7,36 @@ public class TableLogicklant<T>
 {
     public static int tableWidth = 145;
     public static int selectedOption = 1;
-    public static int newTablewidth = tableWidth;
 
     
-
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow, string Title)
+   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
-
         do
         {
             Console.Clear();
-            Console.WriteLine(Title);
+            Console.WriteLine($"{Title}\n");
             PrintRow(Header, false, true);
-
-            int rowNumber = 1;
-            foreach (T obj in Data)
+            int maxOptions = 0;
+            for (int rowNumber = 1; rowNumber <= Data.Count(); rowNumber++)
             {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true, false);
-                    Console.ResetColor();
+                dynamic item = Data[rowNumber-1];
+                if(item.IsActive){
+                    maxOptions++;
+                    tableWidth = 145;
+                    if (rowNumber == selectedOption)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        geselecteerdeRow = GenerateRow(Data[rowNumber - 1]);
+                        PrintRow(geselecteerdeRow, true, false);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
+                    }            
                 }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false, false);
-                }
-                rowNumber++;
             }
             SelectionExplanation();
 
@@ -47,15 +47,16 @@ public class TableLogicklant<T>
                     selectedOption = Math.Max(1, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
+                    selectedOption = Math.Min(maxOptions, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
+                    return (selectedOption - 1);
                 case ConsoleKey.Escape:
-                    return null;
+                return null;
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
+        
         Console.WriteLine("U keert terug naar het menu");
         return null;
     }
@@ -69,7 +70,9 @@ public class TableLogicklant<T>
         {
             Console.Clear();
             Console.WriteLine("Geselecteerde Route:");
+            PrintLine();
             PrintRow(header, false, true);
+            PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation();
             key = Console.ReadKey(true);
@@ -94,25 +97,38 @@ public class TableLogicklant<T>
 
         return null;
     }
-
-    private static void PrintRow(List<string> columns, bool selected, bool PrintLineBool)
+            
+    private static void PrintLine()
     {
-          int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
+        Console.WriteLine(new string('-', tableWidth));
+    }
+
+   private static string PrintRow(List<string> columns, bool selected, bool PrintLineBool)
+    {
+        int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
         {
             if (selected)
             {
-                row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
+
+                row += $">> {AlignCentre(column, columnWidth - 6)} <<|";   
             }
-            else
-            {     
-                int newTablewidth = row.Length;
+            else{
                 row += $"{AlignCentre(column, columnWidth)}|";
-                newTablewidth = row.Length; 
             }
         }
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-', row.Length));
+        }
+        Console.WriteLine(row);
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-',  row.Length));
+        }
+        return row;
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
@@ -167,7 +183,7 @@ public class TableLogicklant<T>
         Console.Write(" om de rij te selecteren.");
         Console.Write("\nOm een stap terug te gaan druk op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape");
+        Console.Write(" Backspace");
         Console.ResetColor();
         Console.WriteLine();
 
