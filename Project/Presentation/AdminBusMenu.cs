@@ -35,7 +35,7 @@ public static class AdminBusMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater, Kind);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater, kind);
                 if(TableInfo != null)
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
