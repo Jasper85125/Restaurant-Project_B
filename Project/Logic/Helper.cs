@@ -65,7 +65,14 @@ public static class Helper
         {
             string? str = input as string;
             if (str == null) return false;
-            return str.All(char.IsLetter);
+
+            char charFirst = str[0]; // first character should be a valid character
+            if (!char.IsLetter(charFirst)) return false;
+
+            char charLast = str[^1]; // last character should be a valid character
+            if (!char.IsLetter(charLast)) return false;
+
+            return str.All(c => char.IsLetter(c) || c == ' ' || c == '-');
         }
         catch
         {
