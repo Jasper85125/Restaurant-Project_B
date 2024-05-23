@@ -12,7 +12,7 @@
     ],
     "begin": null,
     "end": null,
-    "isActive": true
+    "isActive": false
   },
   {
     "id": 2,
@@ -27,7 +27,7 @@
     ],
     "begin": null,
     "end": null,
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 5,
@@ -50,6 +50,42 @@
         "time": null
       }
     ],
+    "begin": null,
+    "end": null,
+    "isActive": true
+  },
+  {
+    "id": 6,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
+  },
+  {
+    "id": 8,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
+  },
+  {
+    "id": 9,
+    "duration": 0,
+    "name": "",
+    "stops": [],
     "begin": null,
     "end": null,
     "isActive": false
