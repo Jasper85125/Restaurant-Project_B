@@ -26,7 +26,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(4, selectedOption + 1);
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -34,16 +34,19 @@ public static class AdminStartMenu
                     switch (selectedOption)
                     {
                         case 1:
-                            RouteMenu.Start();
+                            AdminRouteMenu.Start();
                             break;
                         case 2:
-                            PriceMenu.Start();
+                            AdminPriceMenu.Start();
                             break;
                         case 3:
-                            BusMenu.Start();
+                            AdminBusMenu.Start();
                             break;
                         case 4:
                             UserSignUp.SignUp(true);
+                            break;
+                        case 5:
+                            CustomerStartMenu.Start();
                             break;
                     }
                     break;
@@ -68,22 +71,26 @@ public static class AdminStartMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Menu voor routes.");
+        Console.WriteLine("Menu voor routes.");
 
-        // // Display option 2
+        // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Menu voor prijscategorieën.");
+        Console.WriteLine("Menu voor prijscategorieën.");
 
-        // // Display option 3
+        // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Menu voor bussen.");
+        Console.WriteLine("Menu voor bussen.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Maak een nieuw admin account aan.");
+        Console.WriteLine("Maak een nieuw admin account aan.");
+
+        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 5 ? ">> " : "   ");
+        Console.WriteLine("KlantMenu.");
 
         // Reset text color
         Console.ResetColor();

@@ -28,7 +28,7 @@ public class CustomerStartMenu
                     switch (selectedOption)
                     {
                         case 1:
-                            RouteMenuklant.Start();
+                            CustomerRouteMenu.Start();
                             break;
                         case 2:                            
                             break;
@@ -51,7 +51,6 @@ public class CustomerStartMenu
             Console.Clear();
             DisplayOptions(selectedOption);
         }
-
     }
 
     public static void DisplayOptions(int selectedOption)
@@ -62,27 +61,27 @@ public class CustomerStartMenu
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Bekijk het overzicht.");
+        Console.WriteLine("Bekijk het overzicht voor reserveringen.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Placeholder.");
+        Console.WriteLine("Placeholder.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Placeholder.");
+        Console.WriteLine("Placeholder.");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Placeholder.");
+        Console.WriteLine("Placeholder.");
 
         // Display option 5
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Keer terug naar de beginpagina.");
+        Console.WriteLine("Keer terug naar de beginpagina.");
 
         // Reset text color
         Console.ResetColor();

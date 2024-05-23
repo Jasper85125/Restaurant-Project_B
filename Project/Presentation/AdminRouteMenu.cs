@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System;
 
-public static class RouteMenu
+public static class AdminRouteMenu
 {
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
@@ -106,11 +106,9 @@ public static class RouteMenu
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
-        while (!Helper.IsOnlyLetter(newName))
+        while (!Helper.IsOnlyLetterSpaceDash(newName))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"'{newName}' is geen geldige optie.");
-            Console.ResetColor();
+            ColorPrint.PrintRed($"'{newName}' is geen geldige optie.");
             Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
             Console.WriteLine("Wat is de naam van de nieuwe route?");
             newName = Console.ReadLine();
@@ -121,9 +119,7 @@ public static class RouteMenu
         string? newDuration = Console.ReadLine();
         while(!Helper.IsValidInteger(newDuration)) 
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"'{newDuration}' is geen geldige optie.");
-            Console.ResetColor();
+            ColorPrint.PrintRed($"'{newDuration}' is geen geldige optie.");
             Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
             Console.WriteLine("Hoelang duurt de route in uren?");
             newDuration = Console.ReadLine();
@@ -192,9 +188,7 @@ public static class RouteMenu
                 }
                 if (!string.IsNullOrEmpty(duplicateStopMessage))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(duplicateStopMessage);
-                    Console.ResetColor();
+                    ColorPrint.PrintRed(duplicateStopMessage);
                 }
 
                 Console.WriteLine($"\n\nSelecteer een halte (Pagina {currentPage}/{totalPages}):");
@@ -383,9 +377,7 @@ public static class RouteMenu
         string Kind = "route";
         if (routeModels == null || routeModels.Count == 0)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Lege data.");
-            Console.ResetColor();
+            ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
@@ -417,11 +409,9 @@ public static class RouteMenu
                                 Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
                                 string Input = Console.ReadLine();
 
-                                while(!Helper.IsOnlyLetter(Input))
+                                while(!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"'{Input}' is geen geldige optie.");
-                                    Console.ResetColor();
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                     Console.WriteLine("De naam kan alleen bestaan uit letters.");
                                     Console.WriteLine("Wat is de naam van de nieuwe route?");
                                     Input = Console.ReadLine();
@@ -436,9 +426,7 @@ public static class RouteMenu
                                 string Input = Console.ReadLine();
                                 while (!Helper.IsValidInteger(Input))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"'{Input}' is geen geldige optie.");
-                                    Console.ResetColor();
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                     Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
                                     Console.WriteLine("Hoelang duurt de route in uren?");
                                     Input = Console.ReadLine();
@@ -486,7 +474,7 @@ public static class RouteMenu
     public static void AddToBus()
     {
         List<BusModel> ListAllBusses = busLogic.GetAll();
-        BusMenu.ShowAllBusInformation();
+        AdminBusMenu.ShowAllBusInformation();
     }
 
     public static void MakeStop()
@@ -513,7 +501,7 @@ public static class RouteMenu
             }
             string? newName = Console.ReadLine();
             
-            if (Helper.IsOnlyLetter(newName))
+            if (Helper.IsOnlyLetterSpaceDash(newName))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
                 {
@@ -539,18 +527,14 @@ public static class RouteMenu
                         case "nee":
                             return;
                         default:
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{answer} is geen geldige input. Probeer het opnieuw.");
-                            Console.ResetColor();
+                            ColorPrint.PrintRed($"{answer} is geen geldige input. Probeer het opnieuw.");
                             break;
                     }
                 }
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"'{newName}' is geen geldige optie.");
-                Console.ResetColor();
+                ColorPrint.PrintRed($"'{newName}' is geen geldige optie.");
                 Console.WriteLine("De naam van een halte kan alleen letters zijn.");
                 Console.WriteLine("Probeer het nog een keer.\n");
             }
@@ -633,9 +617,7 @@ public static class RouteMenu
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -660,27 +642,21 @@ public static class RouteMenu
 
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Toevoegen geannuleerd.");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
+                ColorPrint.PrintGreen("Data is toegevoegd!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 Console.Clear();
             }

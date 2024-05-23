@@ -28,8 +28,8 @@ public class GenerateNewIdTest
     {
         // Arrange
         _accounts = new();
-        _accounts.UpdateList(new AccountModel ( 1, "Yep@g.com", "1234", "Alice" ));
-        _accounts.UpdateList(new AccountModel ( 3, "no@g.com", "4312", "Bob" ));
+        _accounts.UpdateList(new AccountModel ( 1, "Yep@g.com", "1234", "Alice", false ));
+        _accounts.UpdateList(new AccountModel ( 3, "no@g.com", "4312", "Bob", false ));
 
         // Act
         int newId = _accounts.GenerateNewId();
