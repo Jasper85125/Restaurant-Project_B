@@ -12,7 +12,7 @@ public static class UserSignUp
 
         Console.WriteLine("Uw voornaam: ");
         string? firstName = Console.ReadLine();
-        while (!Helper.IsOnlyLetter(firstName))
+        while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
             ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
             Console.WriteLine("Uw voornaam kan alleen bestaan uit letters.");
@@ -21,7 +21,7 @@ public static class UserSignUp
         }
         Console.WriteLine("Uw achternaam: ");
         string? lastName = Console.ReadLine();
-        while (!Helper.IsOnlyLetter(lastName))
+        while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
             ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
             Console.WriteLine("Uw achternaam kan alleen bestaan uit letters.");

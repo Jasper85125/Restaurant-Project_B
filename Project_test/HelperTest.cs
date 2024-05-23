@@ -46,14 +46,16 @@ public class HelperTest
     [DataRow("15.0", false)]
     [DataRow("-9.0", false)]
     [DataRow("Hello", true)]
-    [DataRow("Hello World", false)]
+    [DataRow("Hello World", true)]
     [DataRow("Hello World!?@", false)]
     [DataRow("Hello1999", false)]
+    [DataRow("Hello ", false)]
+    [DataRow(" Hello", false)]
     [DataRow("", false)]
     public void TestIsOnlyLetter(string str, bool expected)
     {
         // Arrange/ Act
-        bool actual = Helper.IsOnlyLetter(str);
+        bool actual = Helper.IsOnlyLetterSpaceDash(str);
         // Assert
         Assert.AreEqual(expected, actual);
     }
