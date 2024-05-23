@@ -603,12 +603,12 @@ public static class RouteMenu
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}"};
+        return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}"};
     }
 
     public static RouteModel SelectRoute()
     {
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         string Title = "Selecteer een route";
         if (routeModels == null || routeModels.Count == 0)
@@ -618,7 +618,7 @@ public static class RouteMenu
         }
         else
         {
-            var SelectedRowIndex = tableRoutesKlant.PrintTable(Header, routeModels, GenerateRow, Title);
+            var SelectedRowIndex = tableRoutesKlant.PrintTable(Header, routeModels, GenerateRowForSelectRoute, Title);
             if(SelectedRowIndex != null){
                 return routeModels[SelectedRowIndex.Value];
             }
