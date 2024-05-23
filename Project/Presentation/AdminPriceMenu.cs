@@ -118,9 +118,28 @@ public static class AdminPriceMenu
                                     Console.WriteLine("Wat is de naam van de nieuwe doelgroep?");
                                     Input = Console.ReadLine();
                                 }
-                                priceModels[selectedRowIndex].Passenger = Input;
-                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                break;
+                                //variable to check Passenger
+                                bool PassengerExists = false;
+
+                                // Check if the input Passenger already exists
+                                foreach(var priceIndex in priceModels) {
+                                    if(Input == priceIndex.Passenger) {
+                                        PassengerExists = true;
+                                        break;
+                                    }
+                                }
+
+                                if(PassengerExists) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Naam bestaat al, geef een andere op.");
+                                    Console.ResetColor();
+                                    Thread.Sleep(3000);
+                                } else {
+                                    //if Passenger does not exists, it gets added to the list
+                                    priceModels[selectedRowIndex].Passenger = Input;
+                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                                    break;
+                                }
                             }
                             break;
                         
