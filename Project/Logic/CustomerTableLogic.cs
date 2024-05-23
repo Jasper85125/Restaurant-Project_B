@@ -9,36 +9,34 @@ public class TableLogicklant<T>
     public static int selectedOption = 1;
 
     
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow)
+   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
-
         do
         {
             Console.Clear();
-
-            PrintLine();
-            PrintRow(Header, false);
-            PrintLine();
-
-            int rowNumber = 1;
-            foreach (T obj in Data)
+            Console.WriteLine($"{Title}\n");
+            PrintRow(Header, false, true);
+            int maxOptions = 1;
+            for (int rowNumber = 1; rowNumber <= Data.Count(); rowNumber++)
             {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
-                    Console.ResetColor();
-                    PrintLine();
+                dynamic item = Data[rowNumber-1];
+                if(item.IsActive){
+                    maxOptions++;
+                    tableWidth = 145;
+                    if (rowNumber == selectedOption)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        geselecteerdeRow = GenerateRow(Data[rowNumber - 1]);
+                        PrintRow(geselecteerdeRow, true, false);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
+                    }            
                 }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
-                }
-                rowNumber++;
             }
             SelectionExplanation();
 
@@ -46,71 +44,19 @@ public class TableLogicklant<T>
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedOption = Math.Max(1, selectedOption - 1);
+                    selectedOption = Math.Max(2, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
+                    selectedOption = Math.Min(maxOptions, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
-                case ConsoleKey.Backspace:
-                    return null;
+                    return (selectedOption - 1);
+                case ConsoleKey.Escape:
+                return null;
             }
-        } while (keyInfo.Key != ConsoleKey.Backspace);
-        Console.WriteLine("U keert terug naar het menu");
-        return null;
-    }
-
-    public (List<string>,int)? PrintTable(List<string> Header, IEnumerable<T> Data, Func<T, List<string>> GenerateRow, string Title)
-    {
-        ConsoleKeyInfo keyInfo;
-        List<string> geselecteerdeRow = new List<string>();
-
-        do
-        {
-            Console.Clear();
-            Console.WriteLine(Title);
-            PrintLine();
-            PrintRow(Header, false);
-            PrintLine();
-
-            int rowNumber = 1;
-            foreach (T obj in Data)
-            {
-               if (rowNumber == selectedOption)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    geselecteerdeRow = GenerateRow(obj);
-                    PrintRow(geselecteerdeRow, true);
-                    Console.ResetColor();
-                    PrintLine();
-                }
-                else
-                {
-                    PrintRow(GenerateRow(obj), false);
-                    PrintLine();
-                }
-                rowNumber++;
-            }
-            SelectionExplanation();
-
-            keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    selectedOption = Math.Max(1, selectedOption - 1);
-                    break;
-                case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(Data.Count(), selectedOption + 1);
-                    break;
-                case ConsoleKey.Enter:
-                    Console.Clear();
-                    return (geselecteerdeRow, selectedOption-1);
-                case ConsoleKey.Backspace:
-                    return null;
-            }
-        } while (keyInfo.Key != ConsoleKey.Backspace);
+        } while (keyInfo.Key != ConsoleKey.Escape);
+        
         Console.WriteLine("U keert terug naar het menu");
         return null;
     }
@@ -125,7 +71,7 @@ public class TableLogicklant<T>
             Console.Clear();
             Console.WriteLine("Geselecteerde Route:");
             PrintLine();
-            PrintRow(header, false);
+            PrintRow(header, false, true);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
             SelectionExplanation();
@@ -157,22 +103,32 @@ public class TableLogicklant<T>
         Console.WriteLine(new string('-', tableWidth));
     }
 
-    private static void PrintRow(List<string> columns, bool selected)
+   private static string PrintRow(List<string> columns, bool selected, bool PrintLineBool)
     {
-        int width = (tableWidth - columns.Count) / columns.Count;
+        int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
 
         foreach (string column in columns)
         {
-            if (selected){
-                row += ">> " + AlignCentre(column, width - 6) + " <<|";
+            if (selected)
+            {
+
+                row += $">> {AlignCentre(column, columnWidth - 6)} <<|";   
             }
             else{
-                row += AlignCentre(column, width) + "|";
+                row += $"{AlignCentre(column, columnWidth)}|";
             }
         }
-
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-', row.Length));
+        }
         Console.WriteLine(row);
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-',  row.Length));
+        }
+        return row;
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
