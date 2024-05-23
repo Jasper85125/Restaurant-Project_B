@@ -380,6 +380,7 @@ public static class RouteMenu
         string Title = "Routes overzicht";
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
+        string Kind = "route";
         if (routeModels == null || routeModels.Count == 0)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -392,7 +393,7 @@ public static class RouteMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title, Listupdater);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title, Listupdater, Kind);
                 if(TableInfo != null){
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
 

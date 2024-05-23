@@ -24,6 +24,7 @@ public static class BusMenu
         List<BusModel> ListAllBusses = busLogic.GetAll();
         List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
+        string Kind = "bus";
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -36,7 +37,7 @@ public static class BusMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater, Kind);
                 if(TableInfo != null)
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;

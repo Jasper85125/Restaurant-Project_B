@@ -70,6 +70,7 @@ public static class PriceMenu
         string Title = "Het prijscategorie menu";
         List<string> Header = new() {"Id", "Doelgroep", "Prijs", "Activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
+        string Kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -81,7 +82,7 @@ public static class PriceMenu
         }
         while(true)
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(Header, priceModels, GenerateRow, Title, Listupdater);
+            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(Header, priceModels, GenerateRow, Title, Listupdater, Kind);
             if(TableInfo != null)
             {
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;

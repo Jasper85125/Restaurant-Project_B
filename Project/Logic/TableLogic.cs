@@ -6,14 +6,14 @@ public class TableLogic<T>
 
     public static int tableWidth = 145;
      public static int TableCustomeWidth;
-    public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater)
+    public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater, string Kind)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
-        List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
+        List<string> NewRow = new() {$"nieuwe {Kind}"};
         for (int i = 0; i < Header.Count() - 1; i++)
         {
-            NewRow.Add(Header[i+1]);
+            NewRow.Add("+");
         }
         TableCustomeWidth = PrintRow(Header, false, true).Length;
         do
