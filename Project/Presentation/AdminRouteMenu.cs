@@ -51,10 +51,9 @@ public static class AdminRouteMenu
                             break;
                     }
                     break;
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     Console.Clear();
-                    Console.WriteLine("U keert terug naar het admin hoofdmenu.");
-                    Thread.Sleep(2000);
+                    BackToAdminMenu();
                     AdminStartMenu.Start();
                     break;
             }
@@ -65,30 +64,30 @@ public static class AdminRouteMenu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
+        Console.WriteLine("\nWelkom bij het overzicht van het routemenu.");
+        Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een overzicht van alle routes.");
+        Console.WriteLine("Een overzicht van alle routes.");
 
         // Display option 5
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een halte toevoegen.");
+        Console.WriteLine("Een halte toevoegen.");
 
         // Reset text color
         Console.ResetColor();
 
-        Console.WriteLine("\nSelecteer een optie met de pijltjes.");
-        Console.Write("Als je de juiste hebt klik op ");
+        Console.Write("\nAls je de juiste hebt klik op ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write("Enter");
         Console.ResetColor();
         Console.Write(".");
-        Console.Write("\nOm naar het admin hoofdmenu te gaan klik op");
+        Console.Write("\nOm naar het adminhoofdmenu te gaan klik op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Backspace");
+        Console.Write(" Escape");
         Console.ResetColor();
         Console.WriteLine(".\n");
     }
@@ -645,5 +644,12 @@ public static class AdminRouteMenu
                 Console.Clear();
             }
         }while(true);
+    }
+
+    public static void BackToAdminMenu()
+    {
+        ColorPrint.PrintYellow("U keert terug naar het adminhoofdmenu.");
+        Thread.Sleep(3000);
+        AdminStartMenu.Start();
     }
 }

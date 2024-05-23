@@ -21,7 +21,7 @@ public static class CustomerRouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Haltes", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         List<StopModel> StopsList = new() {};
         if (routeModels == null || routeModels.Count == 0)
@@ -214,7 +214,7 @@ public static class CustomerRouteMenu
     }
 
     public static RouteModel SelectRoute(){
-        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Stops", "Begintijd", "Eindtijd"};
+        List<string> Header = new() {"Routenummer", "Naam", "Tijdsduur", "Haltes", "Begintijd", "Eindtijd"};
         List<RouteModel> routeModels = routeLogic.GetAll();
         string Title = "Selecteer een route";
         if (routeModels == null || routeModels.Count == 0)

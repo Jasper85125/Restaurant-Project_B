@@ -20,7 +20,7 @@ public class CustomerStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
+                    selectedOption = Math.Min(4, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -36,15 +36,15 @@ public class CustomerStartMenu
                             break;
                         case 4:
                             break;
-                        case 5:
-                            Menu.Start();
-                            break;
                         default:
                             Console.WriteLine("Verkeerde input!");
                             Thread.Sleep(3000);
                             Start();
                             break;
                     }
+                    break;
+                case ConsoleKey.Escape:
+                    BackToLogInMenu();
                     break;
             }
             // Clear console and display options
@@ -56,7 +56,7 @@ public class CustomerStartMenu
     public static void DisplayOptions(int selectedOption)
     {
         Console.WriteLine("Welkom op de startpagina");
-        Console.WriteLine("Selecteer een optie:");
+        Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
@@ -78,12 +78,27 @@ public class CustomerStartMenu
         Console.Write(selectedOption == 4 ? ">> " : "   ");
         Console.WriteLine("Placeholder.");
 
-        // Display option 5
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("Keer terug naar de beginpagina.");
-
         // Reset text color
         Console.ResetColor();
+
+        //Display General information
+        Console.Write("\nKlik");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(" Enter ");
+        Console.ResetColor();
+        Console.WriteLine("om een optie te selecteren");
+
+        Console.Write("Klik");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" Escape ");
+        Console.ResetColor();
+        Console.WriteLine("om terug te gaan naar het inlogmenu");
+    }
+
+    public static void BackToLogInMenu()
+    {
+        ColorPrint.PrintYellow("U keert terug naar het inlogmenu.");
+        Thread.Sleep(3000);
+        Menu.Start();
     }
 }
