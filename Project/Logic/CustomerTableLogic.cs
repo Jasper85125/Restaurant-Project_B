@@ -18,7 +18,7 @@ public class TableLogicklant<T>
             Console.Clear();
             Console.WriteLine($"{Title}\n");
             PrintRow(Header, false, true);
-            int maxOptions = 0;
+            int maxOptions = 1;
             for (int rowNumber = 1; rowNumber <= Data.Count(); rowNumber++)
             {
                 dynamic item = Data[rowNumber-1];
@@ -44,7 +44,7 @@ public class TableLogicklant<T>
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedOption = Math.Max(1, selectedOption - 1);
+                    selectedOption = Math.Max(2, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
                     selectedOption = Math.Min(maxOptions, selectedOption + 1);
