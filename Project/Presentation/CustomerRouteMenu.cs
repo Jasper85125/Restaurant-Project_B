@@ -163,7 +163,7 @@ public static class CustomerRouteMenu
                                                     break;
                                             }
                                             break;
-                                        case ConsoleKey.Backspace:
+                                        case ConsoleKey.Escape:
                                             break;
                                         default:
                                             Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");

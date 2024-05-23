@@ -44,6 +44,7 @@ public class CustomerStartMenu
                     }
                     break;
                 case ConsoleKey.Escape:
+                    Console.Clear();
                     BackToLogInMenu();
                     break;
             }
@@ -92,7 +93,6 @@ public class CustomerStartMenu
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write(" Escape ");
         Console.ResetColor();
-        Console.WriteLine("om terug te gaan naar het inlogmenu");
     }
 
     public static void BackToLogInMenu()
