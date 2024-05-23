@@ -102,6 +102,7 @@ public static class AdminRouteMenu
 
     public static void AddRoute()
     {
+        List<RouteModel> overview = routeLogic.GetAll();
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
@@ -414,10 +415,29 @@ public static class AdminRouteMenu
                                     Console.WriteLine("Wat is de naam van de nieuwe route?");
                                     Input = Console.ReadLine();
                                 }
-        
-                                routeModels[selectedRowIndex].Name = Input;
-                                routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                break;
+
+                                    //variable to check Name
+                                    bool NameExists = false;
+
+                                    // Check if the input Name already exists
+                                    foreach(var nameIndex in routeModels) {
+                                        if(Input == nameIndex.Name) {
+                                            NameExists = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if(NameExists) {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Naam bestaat al, geef een andere op.");
+                                        Console.ResetColor();
+                                        Thread.Sleep(3000);
+                                    } else {
+                                        //if Name does not exists, it gets added to the list
+                                        routeModels[selectedRowIndex].Name = Input;
+                                        routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                        break;
+                                    }
                             }
                             else if(selectedIndex == 2){
                                 Console.WriteLine("Voer een nummer in het item te veranderen:");
