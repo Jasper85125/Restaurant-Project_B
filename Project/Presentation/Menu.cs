@@ -61,30 +61,30 @@ public static class Menu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Inlog menu\n");
+        Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Inloggen in uw account.");
+        Console.WriteLine("Inloggen op uw account.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Account aanmaken.");
+        Console.WriteLine("Account aanmaken.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("[3] Informatie over de app.");
+        Console.WriteLine("Informatie over de app.");
 
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("[4] Tijdelijke klantmenu toegang.");
+        Console.WriteLine("Tijdelijke klantmenu toegang.");
 
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
-        Console.WriteLine("[5] Tijdelijk admin hoofdmenu toegang.");
+        Console.WriteLine("Tijdelijk adminmenu toegang.");
 
         // Reset text color
         Console.ResetColor();

@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
 
-public static class PriceMenu
+public static class AdminPriceMenu
 {
     private static PriceLogic pricesLogic = new();
     private static TableLogic<PriceModel> tablePrices = new();
@@ -55,10 +55,8 @@ public static class PriceMenu
         }
         else
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Geen prijscategorie gevonden");
+            ColorPrint.PrintRed("Geen prijscategorie gevonden");
             Thread.Sleep(3000);
-            Console.ResetColor();
 
         }
         BackToStartMenu();
@@ -72,9 +70,7 @@ public static class PriceMenu
         List<PriceModel> priceModels = pricesLogic.GetAll();
         if (priceModels == null || priceModels.Count == 0)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Lege data.");
-            Console.ResetColor();
+            ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
@@ -103,9 +99,7 @@ public static class PriceMenu
 
                         if (selectedIndex == 0)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"U kan de {Header[selectedIndex]} niet aanpassen.");
-                            Console.ResetColor();
+                            ColorPrint.PrintRed($"U kan de {Header[selectedIndex]} niet aanpassen.");
                             Thread.Sleep(3000);
                         }
                         else if(selectedIndex == 1)
@@ -120,9 +114,7 @@ public static class PriceMenu
                                 string Input = Console.ReadLine();
                                 while (!Helper.IsValidString(Input))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"'{Input}' is geen geldige optie.");
-                                    Console.ResetColor();
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                     Console.WriteLine("Wat is de naam van de nieuwe doelgroep?");
                                     Input = Console.ReadLine();
                                 }
@@ -164,9 +156,7 @@ public static class PriceMenu
                                 string Input = Console.ReadLine();
                                 while (!Helper.IsValidDouble(Input))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"'{Input}' is geen geldige optie.");
-                                    Console.ResetColor();
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                     Console.WriteLine("De prijs moet in hele getallen gegeven worden.");
                                     Console.WriteLine("Wat is de nieuwe prijs?");
                                     Input = Console.ReadLine();
@@ -219,9 +209,7 @@ public static class PriceMenu
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -259,27 +247,21 @@ public static class PriceMenu
             keyInfo = Console.ReadKey(true);
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
-                Console.ResetColor();
+                ColorPrint.PrintRed(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
-                Console.ResetColor();
+                ColorPrint.PrintGreen(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 // return false;
             }
