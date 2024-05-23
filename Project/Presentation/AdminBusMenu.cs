@@ -19,13 +19,13 @@ public static class AdminBusMenu
 
     public static void ShowAllBusInformation ()
     {
-        string Title = "Bus menu";
+        string title = "Bus menu";
         BusLogic busLogic = new();
-        List<BusModel> ListAllBusses = busLogic.GetAll();
-        List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
+        List<BusModel> listAllBusses = busLogic.GetAll();
+        List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
-        string Kind = "bus";
-        if (ListAllBusses == null || ListAllBusses.Count == 0)
+        string kind = "bus";
+        if (listAllBusses == null || listAllBusses.Count == 0)
         {
             ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
@@ -35,24 +35,24 @@ public static class AdminBusMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater, Kind);
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
                 if(TableInfo != null)
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> SelectedRow = TableInfo.Value.SelectedRow;
-                    if(selectedRowIndex ==  ListAllBusses.Count())
+                    if(selectedRowIndex ==  listAllBusses.Count())
                     {
                         BusModel newBusModel = new(busLogic.GenerateNewId(),0,"", false);
                         busLogic.UpdateList(newBusModel);
                         continue;
                     }
                     while(true){
-                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, Header);
+                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, header);
                         if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
-                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
                                 Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
@@ -63,7 +63,7 @@ public static class AdminBusMenu
                                 bool licensePlateExists = false;
 
                                 // Check if the input license plate already exists
-                                foreach(var bus in ListAllBusses) {
+                                foreach(var bus in listAllBusses) {
                                     if(Input == bus.LicensePlate) {
                                         licensePlateExists = true;
                                         break;
@@ -77,8 +77,8 @@ public static class AdminBusMenu
                                     Thread.Sleep(3000);
                                 } else {
                                     //if licensePlate does not exists, it gets added to the list
-                                    ListAllBusses[selectedRowIndex].LicensePlate = Input;
-                                    busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                    listAllBusses[selectedRowIndex].LicensePlate = Input;
+                                    busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                     break;
                                 }
                             }
@@ -88,8 +88,8 @@ public static class AdminBusMenu
                                 string Input = Console.ReadLine();
                                 bool containsOnlyNumbers = Input.All(char.IsDigit);
                                 if (containsOnlyNumbers){
-                                    ListAllBusses[selectedRowIndex].Seats = Convert.ToInt32(Input);
-                                    busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                    listAllBusses[selectedRowIndex].Seats = Convert.ToInt32(Input);
+                                    busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                     break;
                                     }
                                 }
@@ -98,7 +98,7 @@ public static class AdminBusMenu
                             else if (selectedIndex == 3)
                             {
                                 Console.Clear();
-                                RoutesList = ListAllBusses[selectedRowIndex].Route;
+                                RoutesList = listAllBusses[selectedRowIndex].Route;
                                 ConsoleKeyInfo keyInfo;
                                 do
                                 {
@@ -135,8 +135,8 @@ public static class AdminBusMenu
                                             if (Input != null){
                                                 RoutesList.Add(Input);
                                                 Console.WriteLine($"{Input.Name} is toegevoegd");
-                                                ListAllBusses[selectedRowIndex].Route = RoutesList;
-                                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                                listAllBusses[selectedRowIndex].Route = RoutesList;
+                                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                                 Thread.Sleep(2000);
                                                 break;
                                                 }
@@ -161,9 +161,9 @@ public static class AdminBusMenu
                                         case ConsoleKey.Enter:
                                             Console.WriteLine("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
                                             Thread.Sleep(2000);
-                                            ListAllBusses[selectedRowIndex].Route = RoutesList;
-                                            busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
-                                            SelectedRow = GenerateRow(ListAllBusses[selectedRowIndex]);
+                                            listAllBusses[selectedRowIndex].Route = RoutesList;
+                                            busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                                            SelectedRow = GenerateRow(listAllBusses[selectedRowIndex]);
 
                                             break;
                                         default:
