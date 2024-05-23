@@ -56,9 +56,29 @@ public static class AdminBusMenu
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
-                                ListAllBusses[selectedRowIndex].LicensePlate = Input;
-                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
-                                break;
+                                
+                                //variable to check licensePlate
+                                bool licensePlateExists = false;
+
+                                // Check if the input license plate already exists
+                                foreach(var bus in ListAllBusses) {
+                                    if(Input == bus.LicensePlate) {
+                                        licensePlateExists = true;
+                                        break;
+                                    }
+                                }
+
+                                if(licensePlateExists) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Kenteken bestaat al, geef een andere op.");
+                                    Console.ResetColor();
+                                    Thread.Sleep(3000);
+                                } else {
+                                    //if licensePlate does not exists, it gets added to the list
+                                    ListAllBusses[selectedRowIndex].LicensePlate = Input;
+                                    busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                    break;
+                                }
                             }
                             else if(selectedIndex == 2){
                                 while (true){
