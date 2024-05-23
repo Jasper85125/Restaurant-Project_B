@@ -24,7 +24,7 @@ public static class AdminBusMenu
         List<BusModel> ListAllBusses = busLogic.GetAll();
         List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
-        string Kind = "bus";
+        string kind = "bus";
         if (ListAllBusses == null || ListAllBusses.Count == 0)
         {
             ColorPrint.PrintRed("Lege data.");
