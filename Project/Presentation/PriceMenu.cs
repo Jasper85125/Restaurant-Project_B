@@ -129,7 +129,7 @@ public static class PriceMenu
                                 //variable to check Passenger
                                 bool PassengerExists = false;
 
-                                // Check if the input license plate already exists
+                                // Check if the input Passenger already exists
                                 foreach(var priceIndex in priceModels) {
                                     if(Input == priceIndex.Passenger) {
                                         PassengerExists = true;
