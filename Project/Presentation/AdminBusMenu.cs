@@ -25,8 +25,9 @@ public static class AdminBusMenu
         List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
+
         if (listAllBusses == null || listAllBusses.Count == 0)
-        {
+
             ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
@@ -35,6 +36,7 @@ public static class AdminBusMenu
         else
         {
             while(true){
+
                 (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
                 if(TableInfo != null)
                 {
