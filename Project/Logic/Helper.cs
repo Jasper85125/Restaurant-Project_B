@@ -57,7 +57,7 @@ public static class Helper
         }
     }
     
-    public static bool IsOnlyLetter(object input)
+    public static bool IsOnlyLetterSpaceDash(object input)
     {
         if (!IsValidString(input)) return false;
 
