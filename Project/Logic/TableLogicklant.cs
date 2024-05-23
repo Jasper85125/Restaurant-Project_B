@@ -104,27 +104,13 @@ public class TableLogicklant<T>
         {
             if (selected)
             {
-                if(columns.Count == 1){
-                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";
-                    Console.WriteLine(new string('-', row.Length));
-                    PrintLineBool = true;
-                }
-                else{
-                    row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
-                }
+                row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
             }
             else
-            {   
-                if(columns.Count == 1){
-                    row += $"{AlignCentre(column, newTablewidth -2)}|";
-                    Console.WriteLine(new string('-', row.Length));
-                    PrintLineBool = true;  
-                }
-                else{
-                    int newTablewidth = row.Length;
-                    row += $"{AlignCentre(column, columnWidth)}|";
-                    newTablewidth = row.Length;
-                }
+            {     
+                int newTablewidth = row.Length;
+                row += $"{AlignCentre(column, columnWidth)}|";
+                newTablewidth = row.Length; 
             }
         }
     }

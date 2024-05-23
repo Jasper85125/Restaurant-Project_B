@@ -2,17 +2,20 @@ using System.Runtime.CompilerServices;
 
 public class TableLogic<T>
 {
-    public static int tableWidth = 145;
-    public static int newTablewidth = tableWidth;
     public static int selectedOption = 0;
 
-    
+    public static int tableWidth = 145;
+     public static int TableCustomeWidth;
      public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
         List<string> NewRow = new() {"Voeg een nieuwe rij toe"};
-
+        for (int i = 0; i < Header.Count() - 1; i++)
+        {
+            NewRow.Add(Header[i+1]);
+        }
+        TableCustomeWidth = PrintRow(Header, false, true).Length;
         do
         {
             Console.Clear();
@@ -42,12 +45,12 @@ public class TableLogic<T>
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         geselecteerdeRow = NewRow;
-                        PrintRow(geselecteerdeRow, true, false);
+                        PrintRow(geselecteerdeRow, true, true);
                         Console.ResetColor();
                     }
                     else
                     {
-                        PrintRow(NewRow, false, false);
+                        PrintRow(NewRow, false, true);
                     }
                 }
             }
@@ -127,7 +130,7 @@ public class TableLogic<T>
         return null;
     }
 
-    private static void PrintRow(List<string> columns, bool selected, bool PrintLineBool)
+    private static string PrintRow(List<string> columns, bool selected, bool PrintLineBool)
     {
         int columnWidth = (tableWidth - 1 - columns.Count) / columns.Count;
         string row = "|";
@@ -136,33 +139,23 @@ public class TableLogic<T>
         {
             if (selected)
             {
-                if(columns.Count == 1){
-                    row += $">> {AlignCentre(column, tableWidth-8)} <<|";
-                    Console.WriteLine(new string('-', row.Length));
-                    PrintLineBool = true;
-                }
-                else{
-                    row += $">> {AlignCentre(column, columnWidth - 6)} <<|";
-                }
+
+                row += $">> {AlignCentre(column, columnWidth - 6)} <<|";   
             }
-            else
-            {   
-                if(columns.Count == 1){
-                    row += $"{AlignCentre(column, newTablewidth -2)}|";
-                    Console.WriteLine(new string('-', row.Length));
-                    PrintLineBool = true;  
-                }
-                else{
-                    int newTablewidth = row.Length;
-                    row += $"{AlignCentre(column, columnWidth)}|";
-                    newTablewidth = row.Length;
-                }
+            else{
+                row += $"{AlignCentre(column, columnWidth)}|";
             }
         }
-
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-', TableCustomeWidth));
+        }
         Console.WriteLine(row);
-        if(PrintLineBool)
-        Console.WriteLine(new string('-', row.Length));
+        if(PrintLineBool){
+            tableWidth = row.Length;
+            Console.WriteLine(new string('-', TableCustomeWidth));
+        }
+        return row;
     }
 
     private static void PrintRowForSelected(List<string> columns, int selectedIndex)
@@ -193,7 +186,7 @@ public class TableLogic<T>
         Console.WriteLine(new string('-', output.Length-1));
     }
 
-     private static string AlignCentre(string text, int width)
+    private static string AlignCentre(string text, int width)
     {
         text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
 
@@ -206,6 +199,7 @@ public class TableLogic<T>
             return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
         }
     }
+
     private static void SelectionExplanation(bool UsedInMainTable){
         Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
         Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
