@@ -1,7 +1,7 @@
-namespace AddBusTest;
+namespace BusTest;
 
 [TestClass]
-public class AddBusTest
+public class BusTest
 {
     private BusLogic busLogic;
 
