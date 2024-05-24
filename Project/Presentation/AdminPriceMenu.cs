@@ -207,7 +207,7 @@ public static class AdminPriceMenu
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
         {
             ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             Console.Clear();
             return false;
         }
@@ -245,21 +245,21 @@ public static class AdminPriceMenu
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 ColorPrint.PrintRed(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 ColorPrint.PrintGreen(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return true;
             }
             else
             {
                 ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 // return false;
             }
         }while(true);

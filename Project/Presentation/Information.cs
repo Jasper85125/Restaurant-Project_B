@@ -37,7 +37,7 @@ static public class Information
     {
         Console.Clear();
         ColorPrint.PrintYellow("U keert terug naar het Startmenu.");
-        Thread.Sleep(500);
+        Thread.Sleep(3000);
         Menu.Start();
     }
 
