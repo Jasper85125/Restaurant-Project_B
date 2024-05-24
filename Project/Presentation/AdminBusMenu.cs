@@ -147,12 +147,12 @@ public static class AdminBusMenu
                                                 Console.WriteLine($"{Input.Name} is toegevoegd");
                                                 listAllBusses[selectedRowIndex].Route = RoutesList;
                                                 busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(3000);
                                                 break;
                                                 }
                                             else{
                                                 Console.WriteLine("U keert terug");
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(3000);
                                                 break;
                                             }
                                         case ConsoleKey.Backspace:
@@ -160,17 +160,17 @@ public static class AdminBusMenu
                                             {
                                                 Console.WriteLine("\nU heeft op Backspace geklikt. De laatste route is verwijderd");
                                                 RoutesList.Remove(RoutesList[LastRouteIndex-1]);
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(3000);
                                             }
                                             else
                                             {
                                                 Console.WriteLine("\nGeen routes om te verwijderen.");
-                                                Thread.Sleep(1000);
+                                                Thread.Sleep(3000);
                                             }
                                             break;
                                         case ConsoleKey.Enter:
                                             Console.WriteLine("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
-                                            Thread.Sleep(2000);
+                                            Thread.Sleep(3000);
                                             listAllBusses[selectedRowIndex].Route = RoutesList;
                                             busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                             SelectedRow = GenerateRow(listAllBusses[selectedRowIndex]);
@@ -178,7 +178,7 @@ public static class AdminBusMenu
                                             break;
                                         default:
                                             Console.WriteLine("\nOngeldige invoer.");
-                                            Thread.Sleep(1000);
+                                            Thread.Sleep(3000);
                                             break;
                                     }
                                 } while (keyInfo.Key != ConsoleKey.Enter);
@@ -271,7 +271,7 @@ public static class AdminBusMenu
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
         {
             ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             Console.Clear();
             return false;
         }
@@ -294,21 +294,21 @@ public static class AdminBusMenu
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 ColorPrint.PrintRed("Toevoegen geannuleerd.");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 ColorPrint.PrintGreen("Data is toegevoegd!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return true;
             }
             else
             {
                 ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
