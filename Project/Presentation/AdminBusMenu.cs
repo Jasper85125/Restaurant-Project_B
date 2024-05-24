@@ -26,12 +26,13 @@ public static class AdminBusMenu
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
 
-        if (listAllBusses == null || listAllBusses.Count == 0)
+        if (listAllBusses == null || listAllBusses.Count == 0){
 
             ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
+            return;
         }
         else
         {
