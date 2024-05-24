@@ -13,8 +13,6 @@ public static class CustomerRouteMenu
         
     }
 
-
-
    public static void PrintedOverview()
 { 
     List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd" };
@@ -136,7 +134,7 @@ public static class CustomerRouteMenu
                                     case ConsoleKey.Enter:
                                         //hier verder
                                         break;
-                                    case ConsoleKey.Backspace:
+                                    case ConsoleKey.Escape:
                                         break;
                                     default:
                                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");

@@ -11,11 +11,13 @@ public class AddBusTest
         busLogic = new BusLogic();
     }
 
-    [TestMethod]
-    public void TestAddBus()
+    [DataTestMethod]
+    [DataRow("ABC-123")]
+    [DataRow("TEST-12")]
+    [DataRow("123-PASS")]
+    public void TestAddBus(string newLicensePlate)
     {
         // Arrange
-        string? newLicensePlate = "ABC-123";
         BusModel expected = new BusModel(busLogic.GenerateNewId(), 40, newLicensePlate);
 
         // Act
