@@ -24,7 +24,7 @@ public class CustomerStartMenu
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
+                    // Perform action based on selected option
                     switch (selectedOption)
                     {
                         case 1:
