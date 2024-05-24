@@ -668,7 +668,7 @@ public static class AdminRouteMenu
     public static void BackToAdminMenu()
     {
         ColorPrint.PrintYellow("U keert terug naar het adminhoofdmenu.");
-        Thread.Sleep(3000);
+        Thread.Sleep(500);
         AdminStartMenu.Start();
     }
 }

@@ -89,16 +89,17 @@ public class CustomerStartMenu
         Console.ResetColor();
         Console.WriteLine("om een optie te selecteren");
 
-        Console.Write("Klik");
+        Console.Write("Om naar het inlogmenu te gaan klik op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape ");
+        Console.Write(" Escape");
         Console.ResetColor();
+        Console.WriteLine(".");
     }
 
     public static void BackToLogInMenu()
     {
         ColorPrint.PrintYellow("U keert terug naar het inlogmenu.");
-        Thread.Sleep(3000);
+        Thread.Sleep(500);
         Menu.Start();
     }
 }
