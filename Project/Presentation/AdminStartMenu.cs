@@ -30,7 +30,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
+                    // Perform action based on selected option
                     switch (selectedOption)
                     {
                         case 1:
@@ -50,7 +50,7 @@ public static class AdminStartMenu
                             break;
                     }
                     break;
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     Console.Clear();
                     Console.WriteLine("U keert terug naar het inlog menu.");
                     Thread.Sleep(2000);
@@ -103,7 +103,7 @@ public static class AdminStartMenu
         Console.Write(".");
         Console.Write("\nOm naar het inlog menu te gaan klik op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Backspace");
+        Console.Write(" Escape");
         Console.ResetColor();
         Console.WriteLine(".\n");
     }
