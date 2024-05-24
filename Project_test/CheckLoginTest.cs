@@ -15,8 +15,8 @@ public class CheckLoginTest
     public void TestCheckLogin_ShouldReturnAccount()
     {
         // Arrange
-        string email = "amer@gmail.com";
-        string password = "amer";
+        string email = "Admin";
+        string password = "Admin";
 
         // Act
         var result = _accounts.CheckLogin(email, password);

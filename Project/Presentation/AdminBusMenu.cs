@@ -1,11 +1,12 @@
 using System.Runtime.CompilerServices;
 
-public static class BusMenu
+public static class AdminBusMenu
 {
     private static TableLogic<BusModel> tableBus = new();
     private static BusLogic busLogic = new();
     private static RouteLogic routeLogic = new();
     private static TableLogic<BusModel> tableRoutes = new();
+     private static TableLogicklant<RouteModel> tableRoutesKlant = new();
     
     
 
@@ -18,16 +19,16 @@ public static class BusMenu
 
     public static void ShowAllBusInformation ()
     {
-        string Title = "Bus menu";
+        string title = "Bus menu";
         BusLogic busLogic = new();
-        List<BusModel> ListAllBusses = busLogic.GetAll();
-        List<string> Header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
+        List<BusModel> listAllBusses = busLogic.GetAll();
+        List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
-        if (ListAllBusses == null || ListAllBusses.Count == 0)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Lege data.");
-            Console.ResetColor();
+        string kind = "bus";
+
+        if (listAllBusses == null || listAllBusses.Count == 0)
+
+            ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
@@ -35,32 +36,53 @@ public static class BusMenu
         else
         {
             while(true){
-                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(Header, ListAllBusses, GenerateRow, Title, Listupdater);
+
+                (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
                 if(TableInfo != null)
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> SelectedRow = TableInfo.Value.SelectedRow;
-                    if(selectedRowIndex ==  ListAllBusses.Count())
+                    if(selectedRowIndex ==  listAllBusses.Count())
                     {
                         BusModel newBusModel = new(busLogic.GenerateNewId(),0,"", false);
                         busLogic.UpdateList(newBusModel);
                         continue;
                     }
                     while(true){
-                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, Header);
+                        (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, header);
                         if (result != null){
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
-                                Console.WriteLine($"U kan {Header[selectedIndex]} niet aanpassen.");
+                                Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
                                 Thread.Sleep(3000);
                             }
                             else if(selectedIndex == 1){
                                 Console.WriteLine("Voer iets in om het item te veranderen:");
                                 string Input = Console.ReadLine();
-                                ListAllBusses[selectedRowIndex].LicensePlate = Input;
-                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
-                                break;
+                                
+                                //variable to check licensePlate
+                                bool licensePlateExists = false;
+
+                                // Check if the input license plate already exists
+                                foreach(var bus in listAllBusses) {
+                                    if(Input == bus.LicensePlate) {
+                                        licensePlateExists = true;
+                                        break;
+                                    }
+                                }
+
+                                if(licensePlateExists) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Kenteken bestaat al, geef een andere op.");
+                                    Console.ResetColor();
+                                    Thread.Sleep(3000);
+                                } else {
+                                    //if licensePlate does not exists, it gets added to the list
+                                    listAllBusses[selectedRowIndex].LicensePlate = Input;
+                                    busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                                    break;
+                                }
                             }
                             else if(selectedIndex == 2){
                                 while (true){
@@ -68,8 +90,8 @@ public static class BusMenu
                                 string Input = Console.ReadLine();
                                 bool containsOnlyNumbers = Input.All(char.IsDigit);
                                 if (containsOnlyNumbers){
-                                    ListAllBusses[selectedRowIndex].Seats = Convert.ToInt32(Input);
-                                    busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                    listAllBusses[selectedRowIndex].Seats = Convert.ToInt32(Input);
+                                    busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                     break;
                                     }
                                 }
@@ -78,7 +100,7 @@ public static class BusMenu
                             else if (selectedIndex == 3)
                             {
                                 Console.Clear();
-                                RoutesList = ListAllBusses[selectedRowIndex].Route;
+                                RoutesList = listAllBusses[selectedRowIndex].Route;
                                 ConsoleKeyInfo keyInfo;
                                 do
                                 {
@@ -111,12 +133,12 @@ public static class BusMenu
                                     {
                                         case ConsoleKey.Spacebar:
                                             Console.WriteLine("\nU heeft op Spatie geklikt. Voeg een nieuwe route toe.");
-                                            RouteModel Input = RouteMenu.SelectRoute();
+                                            RouteModel Input = AdminRouteMenu.SelectRoute();
                                             if (Input != null){
                                                 RoutesList.Add(Input);
                                                 Console.WriteLine($"{Input.Name} is toegevoegd");
-                                                ListAllBusses[selectedRowIndex].Route = RoutesList;
-                                                busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
+                                                listAllBusses[selectedRowIndex].Route = RoutesList;
+                                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                                 Thread.Sleep(2000);
                                                 break;
                                                 }
@@ -141,9 +163,9 @@ public static class BusMenu
                                         case ConsoleKey.Enter:
                                             Console.WriteLine("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
                                             Thread.Sleep(2000);
-                                            ListAllBusses[selectedRowIndex].Route = RoutesList;
-                                            busLogic.UpdateList(ListAllBusses[selectedRowIndex]);
-                                            SelectedRow = GenerateRow(ListAllBusses[selectedRowIndex]);
+                                            listAllBusses[selectedRowIndex].Route = RoutesList;
+                                            busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                                            SelectedRow = GenerateRow(listAllBusses[selectedRowIndex]);
 
                                             break;
                                         default:
@@ -248,9 +270,7 @@ public static class BusMenu
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Thread.Sleep(2000);
             Console.Clear();
             return false;
@@ -273,27 +293,21 @@ public static class BusMenu
             keyInfo = Console.ReadKey(true);
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Toevoegen geannuleerd.");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
+                ColorPrint.PrintGreen("Data is toegevoegd!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return true;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
+                ColorPrint.PrintRed("Ongeldige invoer!");
                 Thread.Sleep(2000);
                 Console.Clear();
                 return false;

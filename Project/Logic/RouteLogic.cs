@@ -15,6 +15,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public override void UpdateList(RouteModel route)
     {
+        _routes = DataAccess<RouteModel>.LoadAll();
         //Find if there is already an model with the same id
         int index = _routes.FindIndex(s => s.Id == route.Id);
 
@@ -45,7 +46,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
        return _routes.Max(route => route.Id) + 1;
     }
 
-    public override List<RouteModel> GetAll() => _routes;
+    public override List<RouteModel> GetAll()=>  _routes = DataAccess<RouteModel>.LoadAll();
 
     public static RouteModel AddToRoute(StopModel stop, RouteModel inputRoute)
     {
