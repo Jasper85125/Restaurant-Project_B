@@ -39,7 +39,7 @@ public static class AdminRouteMenu
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
+                    // Perform action based on selected option
                     switch (selectedOption)
                     {
                         case 1:
@@ -369,7 +369,7 @@ public static class AdminRouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Haltes", "Begintijd", "Eindtijd", "Actieviteit"};
+        List<string> header = new() {"routenummer", "naam", "tijdsduur(uur)", "halte(s)", "begintijd", "eindtijd", "actieviteit"};
         string title = "Routes overzicht";
         
         List<StopModel> stopsList = new() {};
@@ -388,7 +388,12 @@ public static class AdminRouteMenu
             {
                 while(true){
                     (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(header, routeModels, GenerateRow, title, Listupdater, kind);
-                    if(TableInfo != null){
+                    if(TableInfo == null){
+                        Start();
+                        return; //exit loop door escape
+
+                    }
+                    else{
                         int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
 
                         if(selectedRowIndex == routeModels.Count())
@@ -398,18 +403,20 @@ public static class AdminRouteMenu
                             break;
                         }
                         while(true){
-                            (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, header);
-                            //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
-                            if (result != null){
+                            List<string> selectedRow = GenerateRow(routeModels[selectedRowIndex]);
+                            (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(selectedRow, header);
+                            if (result == null){
+                                break; //exit loop door escape
+                            }
+                            else{
                                 string selectedItem = result.Value.SelectedItem;
                                 int selectedIndex = result.Value.SelectedIndex;
                                 if (selectedIndex == 0){
                                     Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
                                     Thread.Sleep(3000);
-                                    break;
                                 }
                                 else if(selectedIndex == 1){
-                                    Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
+                                    Console.WriteLine($"Voer iets in om de {header[selectedIndex]} van de route te veranderen:");
                                     string Input = Console.ReadLine();
 
                                     while(!Helper.IsOnlyLetterSpaceDash(Input))
@@ -422,10 +429,9 @@ public static class AdminRouteMenu
             
                                     routeModels[selectedRowIndex].Name = Input;
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                    break;
                                 }
                                 else if(selectedIndex == 2){
-                                    Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                    Console.WriteLine($"Voer een nummer in om de {header[selectedIndex]} te veranderen:");
                                     string Input = Console.ReadLine();
                                     while (!Helper.IsValidInteger(Input))
                                     {
@@ -436,7 +442,6 @@ public static class AdminRouteMenu
                                     }
                                     routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                    break;
 
                                 }
                                 else if(selectedIndex == 3){
@@ -444,29 +449,22 @@ public static class AdminRouteMenu
                                     List<RouteModel>ListAllRoutes = routeLogic.GetAll();
                                     stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
                                     AddStopToRoute(routeModels[selectedRowIndex], stopsList);
-                                    // while (true){
-                                    // vergeet niet de Helper class !!!!!!!!!!
-                                    // // string Input = Console.ReadLine();
-                                    // // bool containsOnlyNumbers = Input.All(char.IsDigit);
-                                    // // if (containsOnlyNumbers){
-                                    // //     routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
-                                    // //     routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                    //     //break;
-                                    //     //}
-                                    // }
-                                    break;
+                                }
+                                else if (selectedIndex == 3){
+                                    Console.Clear();
+                                    dynamic item = routeModels[selectedRowIndex];
+                                    if (item.IsActive)
+                                    {
+                                        item.IsActive = false;
+                                    }
+                                    else{
+                                    item.IsActive = true;
+                                    }
+                                    Listupdater(item);
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("U keert terug naar het routemenu overzicht.");
-                                break;
-                            }
                         }
-                    }
-                    else{
-                        break;
-                    }
+                    }         
                 }
             }
         }

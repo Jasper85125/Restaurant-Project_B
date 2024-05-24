@@ -66,7 +66,7 @@ public static class AdminPriceMenu
     public static void ShowAllPricesInformation()
     {
         string title = "Het prijscategorie menu";
-        List<string> header = new() {"Id", "Doelgroep", "Prijs", "Activiteit"};
+        List<string> header = new() {"Id", "doelgroep", "prijs", "activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
@@ -79,7 +79,11 @@ public static class AdminPriceMenu
         while(true)
         {
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(header, priceModels, GenerateRow, title, Listupdater, kind);
-            if(TableInfo != null)
+            if(TableInfo == null){
+                AdminStartMenu.Start();
+                return;
+            }
+            else
             {
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                 List<string> selectedRow = TableInfo.Value.SelectedRow;
@@ -91,9 +95,12 @@ public static class AdminPriceMenu
                 }
                 while(true)
                 {
+                    selectedRow = GenerateRow(priceModels[selectedRowIndex]);
                     (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, header);
-                    //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); #test om PrintSelectedRow functie te testen.
-                    if (result != null)
+                    if (result == null){
+                        break; //exit loop door escape
+                    }
+                    else
                     {
                         string selectedItem = result.Value.SelectedItem;
                         int selectedIndex = result.Value.SelectedIndex;
@@ -107,7 +114,7 @@ public static class AdminPriceMenu
                         {
                             while(true)
                             {
-                                Console.WriteLine($"Voer een nieuwe doelgroep in om");
+                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write($"'{selectedItem}'");
                                 Console.ResetColor();
@@ -116,7 +123,7 @@ public static class AdminPriceMenu
                                 while (!Helper.IsValidString(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("Wat is de naam van de nieuwe doelgroep?");
+                                    Console.WriteLine($"Wat is de naam van de nieuwe {header[selectedIndex]}?");
                                     Input = Console.ReadLine();
                                 }
                                 //variable to check Passenger
@@ -142,14 +149,13 @@ public static class AdminPriceMenu
                                     break;
                                 }
                             }
-                            break;
                         
                         }
                         else if(selectedIndex == 2)
                         {
                             while (true)
                             {
-                                Console.WriteLine($"Voer een nieuwe prijs in om");
+                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write($"'{selectedItem}'");
                                 Console.ResetColor();
@@ -166,25 +172,15 @@ public static class AdminPriceMenu
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
                                 break;      
                             }
-                            break;
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
-                        break;
-                    }
                 }
-            }
-            else
-            {
-                break;
             }
         }
         
     }
 
-     public static void Listupdater(PriceModel model){
+    public static void Listupdater(PriceModel model){
         pricesLogic.UpdateList(model);
     }
 

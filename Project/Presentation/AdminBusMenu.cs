@@ -26,19 +26,24 @@ public static class AdminBusMenu
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
 
-        if (listAllBusses == null || listAllBusses.Count == 0)
+        if (listAllBusses == null || listAllBusses.Count == 0){
 
             ColorPrint.PrintRed("Lege data.");
             Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
+            return;
         }
         else
         {
             while(true){
 
                 (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
-                if(TableInfo != null)
+                if(TableInfo == null){
+                    AdminStartMenu.Start(); //exit menu door escape
+                    return;
+                }
+                else
                 {
                     int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                     List<string> SelectedRow = TableInfo.Value.SelectedRow;
@@ -50,7 +55,10 @@ public static class AdminBusMenu
                     }
                     while(true){
                         (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, header);
-                        if (result != null){
+                        if (result == null){
+                            break; //exit loop door escape
+                        }
+                        else{
                             string selectedItem = result.Value.SelectedItem;
                             int selectedIndex = result.Value.SelectedIndex;
                             if (selectedIndex == 0){
@@ -181,15 +189,7 @@ public static class AdminBusMenu
                             }
                                    
                         }
-                        else
-                        {
-                            Console.WriteLine("U keert terug naar het prijsmenu overzicht.");
-                            break;
-                        }
                     }
-                }
-                else{
-                    break;
                 }
             }
 
