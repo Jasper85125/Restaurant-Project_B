@@ -553,20 +553,20 @@ public static class AdminRouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
-        var Actief = routeModel.IsActive;
+        var active = routeModel.IsActive;
         foreach(StopModel stop in stops){
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        string Activiteit = "";
-        if (Actief)
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
         else{
-            Activiteit = "Non-actief";
+            activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{Activiteit}" };
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
     // public static List<string> GenerateRow(StopModel stopModel)

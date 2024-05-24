@@ -190,16 +190,17 @@ public static class AdminPriceMenu
         var id = priceModel.Id;
         var passenger = priceModel.Passenger;
         var price = priceModel.Price;
-        var Actief = priceModel.IsActive;
-        string Activiteit = "";
-        if (Actief)
+        var active = priceModel.IsActive;
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
-        else{
-            Activiteit = "Non-actief";
+        else
+        {
+            activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{Activiteit}" };
+        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{activity}" };
     }
 
     public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)

@@ -323,17 +323,17 @@ public static class AdminBusMenu
         var seats = busModel.Seats;
         var licensePlate = busModel.LicensePlate;
         var routeNames = string.Join(", ", busModel.Route.Select(r => r.Name));
-        var Actief = busModel.IsActive;
-        string Activiteit = "";
-        if (Actief)
+        var active = busModel.IsActive;
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
         else{
-            Activiteit = "Non-actief";
+            activity = "Non-actief";
         }
         
-        return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}",$"{Activiteit}" };
+        return new List<string> { $"{id}", $"{licensePlate}", $"{seats}", $"{routeNames}",$"{activity}" };
     }
 
     public static void Listupdater(BusModel model){
