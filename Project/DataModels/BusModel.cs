@@ -27,9 +27,7 @@ public class BusModel : IActivatable
         LicensePlate = licensePlate;
         Route = new List<RouteModel>{};
         IsActive = isActive;
-        SeatModel[,] SeatingMap = new SeatModel[0,0];
-
-
+        SeatingMap = new SeatModel[0,0];
     }
 
     public void AddRoute(RouteModel route)
