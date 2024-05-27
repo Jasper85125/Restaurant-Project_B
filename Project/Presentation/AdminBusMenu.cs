@@ -26,16 +26,17 @@ public static class AdminBusMenu
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
 
-        if (listAllBusses == null || listAllBusses.Count == 0){
-
+        if (listAllBusses == null || listAllBusses.Count == 0)
+        {
             BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
             busLogic.UpdateList(newBusModel);
-            }
+        }
      
         while(true){
 
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
-            if(TableInfo == null){
+            if(TableInfo == null)
+            {
                 AdminStartMenu.Start(); //exit menu door escape
                 return;
             }

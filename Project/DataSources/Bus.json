@@ -83,5 +83,12 @@
     "licensePlate": "dbau",
     "route": [],
     "IsActive": false
+  },
+  {
+    "id": 5,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false
   }
 ]
