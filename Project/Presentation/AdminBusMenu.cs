@@ -29,7 +29,7 @@ public static class AdminBusMenu
         if (listAllBusses == null || listAllBusses.Count == 0){
 
             ColorPrint.PrintRed("Lege data.");
-            Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
+            Console.WriteLine("U keert terug naar het adminhoofdmenu.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
             return;
