@@ -23,7 +23,10 @@ public static class CustomerRouteMenu
         List<RouteModel> routeModels = routeLogic.GetAll();
         if (routeModels == null || routeModels.Count == 0)
         {
-            Console.WriteLine("Lege data.");
+            Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
+            Thread.Sleep(1000);
+            CustomerStartMenu.Start();
+            return;
         }
         else
         {

@@ -20,7 +20,7 @@ public class BusModel : IActivatable
     [JsonPropertyName("seatingMap")]
     public SeatModel[,] SeatingMap = new SeatModel[0,0];
 
-    public BusModel(int id, int seats, string licensePlate, bool isActive = true)//, SeatModel[,] seatingMap = null)
+    public BusModel(int id, int seats, string licensePlate, bool isActive = false)
     {
         Id = id;
         Seats = seats;
