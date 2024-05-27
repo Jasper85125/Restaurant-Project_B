@@ -22,8 +22,7 @@ public class RouteModel : IActivatable
     public string endTime { get; set; }
 
     [JsonPropertyName("isActive")]
-    public bool IsActive { get; set; } = false;
-
+    public bool IsActive { get; set; }
     public RouteModel(int id, int duration, string name, bool isActive = true)
     {
         Id = id;

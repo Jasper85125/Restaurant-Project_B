@@ -1,7 +1,7 @@
-namespace AddBusTest;
+namespace BusTest;
 
 [TestClass]
-public class AddBusTest
+public class BusTest
 {
     private BusLogic busLogic;
 
@@ -28,6 +28,25 @@ public class AddBusTest
         // Assert
         Assert.AreEqual(actual.LicensePlate, expected.LicensePlate);
         Assert.AreEqual(actual, expected);
+    }
+
+    [DataTestMethod]
+    [DataRow("ABC-123")]
+    [DataRow("TEST-12")]
+    [DataRow("123-PASS")]
+    public void TestDeleteBus(string newLicensePlate)
+    {
+        // Arrange
+        BusModel expected = new BusModel(busLogic.GenerateNewId(), 40, newLicensePlate);
+
+        // Act
+        expected.IsActive = false;
+        busLogic.UpdateList(expected);
+        List<BusModel> busses = busLogic.GetAll();
+        BusModel actual = busses.Last();
+
+        // Assert
+        Assert.AreEqual(actual.IsActive, expected.IsActive);
     }
 }
 
