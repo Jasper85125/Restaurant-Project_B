@@ -1,4 +1,4 @@
-//namespace UpdateListTest;
+// namespace UpdateListTest;
 
 [TestClass]
 public class UpdateListTest
@@ -17,8 +17,6 @@ public class UpdateListTest
         // Arrange
         AccountModel existingAccount = new AccountModel (1, "Yep@g.com", "1234", "Alice", false);
         AccountModel updatedAccount = new AccountModel (1, "no@g.com", "4312", "Bob", false);
-
-        _accounts.UpdateList(existingAccount);
 
         // Act
         _accounts.UpdateList(updatedAccount);

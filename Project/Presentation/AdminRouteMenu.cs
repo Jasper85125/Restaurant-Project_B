@@ -553,20 +553,20 @@ public static class AdminRouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
-        var Actief = routeModel.IsActive;
+        var active = routeModel.IsActive;
         foreach(StopModel stop in stops){
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        string Activiteit = "";
-        if (Actief)
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
         else{
-            Activiteit = "Non-actief";
+            activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{Activiteit}" };
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
     // public static List<string> GenerateRow(StopModel stopModel)
@@ -620,7 +620,7 @@ public static class AdminRouteMenu
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
         {
             ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             Console.Clear();
             return false;
         }
@@ -645,21 +645,21 @@ public static class AdminRouteMenu
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 ColorPrint.PrintRed("Toevoegen geannuleerd.");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 ColorPrint.PrintGreen("Data is toegevoegd!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return true;
             }
             else
             {
                 ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
             }
         }while(true);
@@ -668,7 +668,7 @@ public static class AdminRouteMenu
     public static void BackToAdminMenu()
     {
         ColorPrint.PrintYellow("U keert terug naar het adminhoofdmenu.");
-        Thread.Sleep(500);
+        Thread.Sleep(3000);
         AdminStartMenu.Start();
     }
 }

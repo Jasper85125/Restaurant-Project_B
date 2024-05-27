@@ -3,7 +3,7 @@
     "id": 1,
     "passenger": "Baby",
     "price": 20,
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 2,

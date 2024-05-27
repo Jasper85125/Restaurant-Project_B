@@ -14,54 +14,6 @@ public static class AdminPriceMenu
     {
         ShowAllPricesInformation();
     }
-
-    public static void DeletePriceCategory()
-    {
-        Console.WriteLine("Een overzicht van alle prijscategorieën");
-        OldShowAllPricesInformation();
-        Console.WriteLine("Voer het nummer van de ID in dat u wilt verwijderen: ");
-        PriceModel priceModel = SearchByID();
-
-        if (priceModel != null)
-        {
-            Console.Clear();
-            OldShowPriceInformation(priceModel);
-            Console.WriteLine("Wilt u deze prijscategorie verwijderen? J/N: ");
-            string? answer = Console.ReadLine();
-            // if (Helper.IsString(answer))
-            // {
-            //     System.Console.WriteLine("asdsasa");
-            // }
-            if (answer!= null && answer.ToLower() == "n")
-            {
-                Console.WriteLine("Uw antwoord is nee.");
-                BackToStartMenu();
-            }
-            else if (answer!= null && answer.ToLower() != "j")
-            {
-                Console.WriteLine("Verkeerde input!");
-                Thread.Sleep(3000);
-                DeletePriceCategory();
-            }
-            
-            if (ConfirmValue(priceModel, null, false, true))
-            {
-                pricesLogic.DeletePriceCategory(priceModel.Id);
-            }
-            else
-            {
-                BackToStartMenu();
-            }
-        }
-        else
-        {
-            ColorPrint.PrintRed("Geen prijscategorie gevonden");
-            Thread.Sleep(3000);
-
-        }
-        BackToStartMenu();
-
-    }
     
     public static void ShowAllPricesInformation()
     {
@@ -190,79 +142,17 @@ public static class AdminPriceMenu
         var id = priceModel.Id;
         var passenger = priceModel.Passenger;
         var price = priceModel.Price;
-        var Actief = priceModel.IsActive;
-        string Activiteit = "";
-        if (Actief)
+        var active = priceModel.IsActive;
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
-        else{
-            Activiteit = "Non-actief";
-        }
-        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{Activiteit}" };
-    }
-
-    public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)
-    {
-        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
+        else
         {
-            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
-            Thread.Sleep(2000);
-            Console.Clear();
-            return false;
+            activity = "Non-actief";
         }
-
-        if (delete)
-        {
-            Console.WriteLine($"U staat op het punt de prijscategorie te verwijderen met de volgende info");
-            OldShowPriceInformation(priceModel);
-        }
-        else if (!IsUpdate)
-        {
-            Console.WriteLine($"U staat op het punt een nieuwe prijscategorie toe te voegen met de volgende info");
-            OldShowPriceInformation(priceModel);
-        }
-        else if (IsUpdate)
-        {
-            Console.WriteLine($"U staat op het punt oude data te veranderen met de volgende info");
-            OldShowPriceInformation(priceModel);
-        }
-
-        do
-        {
-            ConsoleKeyInfo keyInfo;
-            Console.Write("Druk op ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter");
-            Console.ResetColor();
-            Console.Write(" om door te gaan of druk op ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Backspace");
-            Console.ResetColor();
-            Console.WriteLine(" om te annuleren.");
-
-            keyInfo = Console.ReadKey(true);
-            if (keyInfo.Key == ConsoleKey.Backspace)
-            {
-                ColorPrint.PrintRed(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
-                Thread.Sleep(2000);
-                Console.Clear();
-                return false;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                ColorPrint.PrintGreen(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
-                Thread.Sleep(2000);
-                Console.Clear();
-                return true;
-            }
-            else
-            {
-                ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(2000);
-                // return false;
-            }
-        }while(true);
+        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{activity}" };
     }
 
     public static void BackToStartMenu()
@@ -272,37 +162,81 @@ public static class AdminPriceMenu
         Menu.Start();
     }
 
-    public static PriceModel SearchByID()
-    {
-        int ID = Convert.ToInt32(Console.ReadLine());
-        PriceModel price = pricesLogic.GetById(ID);
-        return price;
-    }
-    public static void OldShowAllPricesInformation()
-    {
-        List<string> header = new() {"Id", "Doelgroep", "Prijs"};
-        List<PriceModel> priceModels = pricesLogic.GetAll();
-        if (priceModels == null || priceModels.Count == 0)
-        {
-            Console.WriteLine("Lege data.");
-        }
-        else
-        {
-            basictableLogic.PrintTable(header, priceModels, GenerateRow);
-        }
-    }
 
-    public static void OldShowPriceInformation(PriceModel priceModel)
-    {
-        List<PriceModel> priceModels = new() {priceModel};
-        List<string> header = new() {"Id", "Doelgroep", "Prijs"};
-        if (priceModels == null || priceModels.Count == 0)
-        {
-            Console.WriteLine("Lege data.");
-        }
-        else
-        {
-            basictableLogic.PrintTable(header, priceModels, GenerateRow);
-        }
-    }
+    // public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)
+    // {
+    //     if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
+    //     {
+    //         ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
+    //         Thread.Sleep(3000);
+    //         Console.Clear();
+    //         return false;
+    //     }
+
+    //     if (delete)
+    //     {
+    //         Console.WriteLine($"U staat op het punt de prijscategorie te verwijderen met de volgende info");
+    //         OldShowPriceInformation(priceModel);
+    //     }
+    //     else if (!IsUpdate)
+    //     {
+    //         Console.WriteLine($"U staat op het punt een nieuwe prijscategorie toe te voegen met de volgende info");
+    //         OldShowPriceInformation(priceModel);
+    //     }
+    //     else if (IsUpdate)
+    //     {
+    //         Console.WriteLine($"U staat op het punt oude data te veranderen met de volgende info");
+    //         OldShowPriceInformation(priceModel);
+    //     }
+
+    //     do
+    //     {
+    //         ConsoleKeyInfo keyInfo;
+    //         Console.Write("Druk op ");
+    //         Console.ForegroundColor = ConsoleColor.Green;
+    //         Console.Write("Enter");
+    //         Console.ResetColor();
+    //         Console.Write(" om door te gaan of druk op ");
+    //         Console.ForegroundColor = ConsoleColor.Red;
+    //         Console.Write("Backspace");
+    //         Console.ResetColor();
+    //         Console.WriteLine(" om te annuleren.");
+
+    //         keyInfo = Console.ReadKey(true);
+    //         if (keyInfo.Key == ConsoleKey.Backspace)
+    //         {
+    //             ColorPrint.PrintRed(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
+    //             Thread.Sleep(3000);
+    //             Console.Clear();
+    //             return false;
+    //         }
+    //         else if (keyInfo.Key == ConsoleKey.Enter)
+    //         {
+    //             ColorPrint.PrintGreen(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
+    //             Thread.Sleep(3000);
+    //             Console.Clear();
+    //             return true;
+    //         }
+    //         else
+    //         {
+    //             ColorPrint.PrintRed("Ongeldige invoer!");
+    //             Thread.Sleep(3000);
+    //             // return false;
+    //         }
+    //     }while(true);
+    // }
+
+    // public static void OldShowPriceInformation(PriceModel priceModel)
+    // {
+    //     List<PriceModel> priceModels = new() {priceModel};
+    //     List<string> header = new() {"Id", "Doelgroep", "Prijs"};
+    //     if (priceModels == null || priceModels.Count == 0)
+    //     {
+    //         Console.WriteLine("Lege data.");
+    //     }
+    //     else
+    //     {
+    //         basictableLogic.PrintTable(header, priceModels, GenerateRow);
+    //     }
+    // }
 }
