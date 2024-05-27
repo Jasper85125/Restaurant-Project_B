@@ -15,15 +15,19 @@ public class BusModel : IActivatable
     public List<RouteModel> Route { get; set; }
 
     [JsonPropertyName("IsActive")]
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; }
 
-    public BusModel(int id, int seats, string licensePlate, bool isActive = true)
+    [JsonPropertyName("seatingMap")]
+    public SeatModel[,] SeatingMap { get; set; }
+
+    public BusModel(int id, int seats, string licensePlate, bool isActive = true, SeatModel[,] seatingMap = null)
     {
         Id = id;
         Seats = seats;
         LicensePlate = licensePlate;
         Route = new List<RouteModel>{};
         IsActive = isActive;
+        SeatingMap = seatingMap;
     }
 
     public void AddRoute(RouteModel route)
