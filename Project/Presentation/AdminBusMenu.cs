@@ -33,7 +33,6 @@ public static class AdminBusMenu
         }
      
         while(true){
-
             (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableBus.PrintTable(header, listAllBusses, GenerateRow, title, Listupdater, kind);
             if(TableInfo == null)
             {
