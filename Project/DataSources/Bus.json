@@ -4,7 +4,8 @@
     "seats": 20,
     "licensePlate": "WW-56-28",
     "route": [],
-    "IsActive": false
+    "IsActive": false,
+    "seatingMap": {}
   },
   {
     "id": 2,
@@ -27,7 +28,8 @@
         "isActive": false
       }
     ],
-    "IsActive": false
+    "IsActive": false,
+    "seatingMap": {}
   },
   {
     "id": 3,
@@ -75,20 +77,63 @@
         "isActive": false
       }
     ],
-    "IsActive": false
+    "IsActive": false,
+    "seatingMap": {}
   },
   {
     "id": 4,
     "seats": 0,
     "licensePlate": "dbau",
     "route": [],
-    "IsActive": false
+    "IsActive": false,
+    "seatingMap": {}
   },
   {
     "id": 5,
     "seats": 0,
     "licensePlate": "",
     "route": [],
-    "IsActive": false
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 6,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 7,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 8,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 9,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": null
+  },
+  {
+    "id": 10,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
   }
 ]
