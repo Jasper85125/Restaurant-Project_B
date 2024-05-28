@@ -414,7 +414,7 @@ public static class AdminRouteMenu
                                     Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
                                     string Input = Console.ReadLine();
 
-                                while(!Helper.IsOnlyLetter(Input))
+                                while(!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                     Console.WriteLine("De naam kan alleen bestaan uit letters.");
