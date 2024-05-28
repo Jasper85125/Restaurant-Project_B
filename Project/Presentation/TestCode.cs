@@ -1,33 +1,75 @@
 using System.ComponentModel.Design;
 using System.Text.Json.Serialization;
 
-public class TestCode
-{
-    public void Test()
-    {
-        SeatModelEpic seatModel = new(1);
-        SeatModelEpic[,] seatModels = new SeatModelEpic[6, 10];
-        CreateSeats(seatModels);
-        Print(seatModels);
-        Start(seatModels);
-        Console.WriteLine(seatModels[0,0]);
-    }
 
-    void CreateSeats(SeatModelEpic[,] seatModels)
+
+Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
+{
+    {(0,0), new SeatModel(1)},
+    {(0,1), new SeatModel(2)},
+    {(0,2), new SeatModel(3)}
+};
+
+
+PrintArr(ConvertTo2DArr(seatingMap));
+SeatModel[,] seatModels = new SeatModel[6, 10];
+CreateSeats();
+Start(seatModels);
+
+
+Dictionary<(int Row, int Col), SeatModel> ConvertToDict(SeatModel[,] seatingMap)
+{
+    Dictionary<(int Row, int Col), SeatModel> dict = new();
+
+    for (int row = 0; row < seatingMap.GetLength(0); row++)
     {
-        for (int row = 0; row < seatModels.GetLength(0); row++)
+        for (int col = 0; col < seatingMap.GetLength(1); col++)
         {
-            for (int col = 0; col < seatModels.GetLength(1); col++)
-            {
-                if (seatModels[row, col] == null)
-                {
-                    seatModels[row, col] = new SeatModelEpic(1);
-                }
-            }
+            dict[(row, col)] = seatingMap[row, col];
         }
     }
 
-void Print(SeatModelEpic[,] seatModels)
+    return dict;
+}
+
+
+SeatModel[,] ConvertTo2DArr(Dictionary<(int Row, int Col), SeatModel> seatingMap)
+{
+    int maxRow = 0;
+    int maxCol = 0;
+    
+    foreach (KeyValuePair<(int Row, int Col), SeatModel> kvp in seatingMap)
+    {
+        if (kvp.Key.Row > maxRow) maxRow = kvp.Key.Row;
+        if (kvp.Key.Col > maxCol) maxCol = kvp.Key.Col;
+    }
+
+    SeatModel[,] array = new SeatModel[maxRow + 1, maxCol + 1];
+
+    foreach (KeyValuePair<(int Row, int Col), SeatModel> kvp in seatingMap)
+    {
+        array[kvp.Key.Row, kvp.Key.Col] = kvp.Value;
+    }
+
+    return array;
+}
+
+
+void CreateSeats()
+{
+    for (int row = 0; row < seatModels.GetLength(0); row++)
+    {
+        for (int col = 0; col < seatModels.GetLength(1); col++)
+        {
+            if (seatModels[row, col] == null)
+            {
+                seatModels[row, col] = new SeatModel(1); // !!!!!!!!!!!!!!
+            }
+        }
+    }
+}
+
+void Print(SeatModel[,] seatModels)
 {
     for (int row = 0; row < seatModels.GetLength(0); row++)
     {
@@ -43,8 +85,31 @@ void Print(SeatModelEpic[,] seatModels)
 }
 
 
+void PrintArr(SeatModel[,] seatModels)
+{
+    for (int row = 0; row < seatModels.GetLength(0); row++)
+    {
+        for (int col = 0; col < seatModels.GetLength(1); col++)
+        {
+            if (seatModels[row, col] != null)
+            {
+                Console.Write($"({row},{col}) {seatModels[row, col].IsOccupied}");
+            }
+        }
+        Console.WriteLine();
+    }
+}
 
-static void Start(SeatModelEpic[,] seatModels)
+
+void PrintDict(Dictionary<(int Row, int Col), SeatModel> seatingMap)
+{
+    foreach (var kvp in seatingMap)
+    {
+        Console.WriteLine(kvp.Key + " " + kvp.Value.IsOccupied);
+    }
+}
+
+static void Start(SeatModel[,] seatModels)
 {
     
     int rowLength = seatModels.GetLength(0) - 1;
@@ -82,7 +147,7 @@ static void Start(SeatModelEpic[,] seatModels)
                 selectedOption = (selectedOption.Row, Math.Max(0, selectedOption.Col - 1));
                 break;
 
-            case ConsoleKey.Enter:
+            case ConsoleKey.Spacebar:
                 Console.Clear();
                 if (seatModels[selectedOption.Row,selectedOption.Col].IsOccupied)
                 {
@@ -94,15 +159,19 @@ static void Start(SeatModelEpic[,] seatModels)
                     seatModels[selectedOption.Row,selectedOption.Col].IsOccupied = true;
                 }
                 break;
-        }
 
+            case ConsoleKey.Enter:
+                break;
+
+        }
+        break;
         // Clear console and display options
         Console.Clear();
         DisplayOptions(selectedOption, seatModels);
     }
 }
 
-static void DisplayOptions((int Row, int Col) selectedOption, SeatModelEpic[,] seatModels)
+static void DisplayOptions((int Row, int Col) selectedOption, SeatModel[,] seatModels)
 {
     Console.WriteLine("Selecteer een optie:\n");
 
@@ -131,29 +200,39 @@ static void DisplayOptions((int Row, int Col) selectedOption, SeatModelEpic[,] s
     // Reset text color
 
     Console.Write("\nKlik");
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.Write(" Spatie ");
+    Console.ResetColor();
+    Console.WriteLine("om een optie te selecteren");
+
+    Console.Write("Klik");
     Console.ForegroundColor = ConsoleColor.Green;
     Console.Write(" Enter ");
     Console.ResetColor();
-    Console.WriteLine("om een optie te selecteren");
-}
-}
-public class SeatModelEpic : IActivatable
-    {
-    [JsonPropertyName("id")]
-    public int Id { get; set; }
-
-    [JsonPropertyName("isOccupied")]
-    public bool IsOccupied { get; set; }
-
-    [JsonPropertyName("isActive")]
-    public bool IsActive { get; set; }
-
-    public SeatModelEpic(int id, bool isOccupied = false, bool isActive = true)
-    {
-        this.Id = id;
-        this.IsOccupied = isOccupied;
-        this.IsActive = isActive;
-    }
+    Console.WriteLine("om uw keuze te bevestigen.");
 }
 
+// public class SeatModel : IActivatable
+// {
+//     [JsonPropertyName("id")]
+//     public int Id { get; set; }
 
+//     [JsonPropertyName("isOccupied")]
+//     public bool IsOccupied { get; set; }
+
+//     [JsonPropertyName("isActive")]
+//     public bool IsActive { get; set; }
+
+//     public SeatModel(int id, bool isOccupied = false, bool isActive = true)
+//     {
+//         this.Id = id;
+//         this.IsOccupied = isOccupied;
+//         this.IsActive = isActive;
+//     }
+// }
+
+
+// public interface IActivatable
+// {
+//     bool IsActive { get; set; }
+// }
