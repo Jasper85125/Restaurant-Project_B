@@ -39,7 +39,7 @@ public static class AdminRouteMenu
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    // Perform action based on selected option (e.g., execute corresponding function)
+                    // Perform action based on selected option
                     switch (selectedOption)
                     {
                         case 1:
@@ -52,10 +52,9 @@ public static class AdminRouteMenu
                             break;
                     }
                     break;
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     Console.Clear();
-                    Console.WriteLine("U keert terug naar het admin hoofdmenu.");
-                    Thread.Sleep(1000);
+                    BackToAdminMenu();
                     AdminStartMenu.Start();
                     break;
             }
@@ -66,30 +65,30 @@ public static class AdminRouteMenu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("\nWelkom bij het overzicht van het route menu.\n");
+        Console.WriteLine("\nWelkom bij het overzicht van het routemenu.");
+        Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 4
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("[1] Een overzicht van alle routes.");
+        Console.WriteLine("Een overzicht van alle routes.");
 
         // Display option 5
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("[2] Een halte toevoegen.");
+        Console.WriteLine("Een halte toevoegen.");
 
         // Reset text color
         Console.ResetColor();
 
-        Console.WriteLine("\nSelecteer een optie met de pijltjes.");
-        Console.Write("Als je de juiste hebt klik op ");
+        Console.Write("\nAls je de juiste hebt klik op ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write("Enter");
         Console.ResetColor();
         Console.Write(".");
-        Console.Write("\nOm naar het admin hoofdmenu te gaan klik op");
+        Console.Write("\nOm naar het adminhoofdmenu te gaan klik op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Backspace");
+        Console.Write(" Escape");
         Console.ResetColor();
         Console.WriteLine(".\n");
     }
@@ -371,7 +370,7 @@ public static class AdminRouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> header = new() {"Routenummer", "Naam", "Tijdsduur(uur)", "Stops", "Begintijd", "Eindtijd", "Actieviteit"};
+        List<string> header = new() {"routenummer", "naam", "tijdsduur(uur)", "halte(s)", "begintijd", "eindtijd", "actieviteit"};
         string title = "Routes overzicht";
         
         List<StopModel> stopsList = new() {};
@@ -381,16 +380,19 @@ public static class AdminRouteMenu
         
             if (routeModels == null || routeModels.Count == 0)
             {
-                ColorPrint.PrintRed("Lege data.");
-                Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
-                Thread.Sleep(3000);
-                AdminStartMenu.Start();
+                RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
+                routeLogic.UpdateList(newRouteModel);
             }
             else
             {
                 while(true){
                     (List<string> SelectedRow, int SelectedRowIndex)? TableInfo= tableRoutes.PrintTable(header, routeModels, GenerateRow, title, Listupdater, kind);
-                    if(TableInfo != null){
+                    if(TableInfo == null){
+                        Start();
+                        return; //exit loop door escape
+
+                    }
+                    else{
                         int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
 
                         if(selectedRowIndex == routeModels.Count())
@@ -400,18 +402,20 @@ public static class AdminRouteMenu
                             break;
                         }
                         while(true){
-                            (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(TableInfo.Value.SelectedRow, header);
-                            //Console.WriteLine($"Selected Item: {result.Value.SelectedItem}, Selected Index: {result.Value.SelectedIndex}"); //#test om PrintSelectedRow functie te testen.
-                            if (result != null){
+                            List<string> selectedRow = GenerateRow(routeModels[selectedRowIndex]);
+                            (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(selectedRow, header);
+                            if (result == null){
+                                break; //exit loop door escape
+                            }
+                            else{
                                 string selectedItem = result.Value.SelectedItem;
                                 int selectedIndex = result.Value.SelectedIndex;
                                 if (selectedIndex == 0){
                                     Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
                                     Thread.Sleep(3000);
-                                    break;
                                 }
                                 else if(selectedIndex == 1){
-                                    Console.WriteLine("Voer iets in om de naam van de route te veranderen:");
+                                    Console.WriteLine($"Voer iets in om de {header[selectedIndex]} van de route te veranderen:");
                                     string Input = Console.ReadLine();
 
                                 while(!Helper.IsOnlyLetterSpaceDash(Input))
@@ -465,29 +469,22 @@ public static class AdminRouteMenu
                                     List<RouteModel>ListAllRoutes = routeLogic.GetAll();
                                     stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
                                     AddStopToRoute(routeModels[selectedRowIndex], stopsList);
-                                    // while (true){
-                                    // vergeet niet de Helper class !!!!!!!!!!
-                                    // // string Input = Console.ReadLine();
-                                    // // bool containsOnlyNumbers = Input.All(char.IsDigit);
-                                    // // if (containsOnlyNumbers){
-                                    // //     routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
-                                    // //     routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                    //     //break;
-                                    //     //}
-                                    // }
-                                    break;
+                                }
+                                else if (selectedIndex == 3){
+                                    Console.Clear();
+                                    dynamic item = routeModels[selectedRowIndex];
+                                    if (item.IsActive)
+                                    {
+                                        item.IsActive = false;
+                                    }
+                                    else{
+                                    item.IsActive = true;
+                                    }
+                                    Listupdater(item);
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("U keert terug naar het routemenu overzicht.");
-                                break;
-                            }
                         }
-                    }
-                    else{
-                        break;
-                    }
+                    }         
                 }
             }
         }
@@ -576,20 +573,20 @@ public static class AdminRouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
-        var Actief = routeModel.IsActive;
+        var active = routeModel.IsActive;
         foreach(StopModel stop in stops){
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        string Activiteit = "";
-        if (Actief)
+        string activity = "";
+        if (active)
         {
-            Activiteit = "Actief";
+            activity = "Actief";
         }
         else{
-            Activiteit = "Non-actief";
+            activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{Activiteit}" };
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
     // public static List<string> GenerateRow(StopModel stopModel)
@@ -643,7 +640,7 @@ public static class AdminRouteMenu
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
         {
             ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             Console.Clear();
             return false;
         }
@@ -668,23 +665,30 @@ public static class AdminRouteMenu
             if (keyInfo.Key == ConsoleKey.Backspace)
             {
                 ColorPrint.PrintRed("Toevoegen geannuleerd.");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
                 ColorPrint.PrintGreen("Data is toegevoegd!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return true;
             }
             else
             {
                 ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
             }
         }while(true);
+    }
+
+    public static void BackToAdminMenu()
+    {
+        ColorPrint.PrintYellow("U keert terug naar het adminhoofdmenu.");
+        Thread.Sleep(3000);
+        AdminStartMenu.Start();
     }
 }

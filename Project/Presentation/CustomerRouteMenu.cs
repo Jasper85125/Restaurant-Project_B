@@ -13,8 +13,6 @@ public static class CustomerRouteMenu
         
     }
 
-
-
    public static void PrintedOverview()
 { 
     List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd" };
@@ -25,7 +23,10 @@ public static class CustomerRouteMenu
         List<RouteModel> routeModels = routeLogic.GetAll();
         if (routeModels == null || routeModels.Count == 0)
         {
-            Console.WriteLine("Lege data.");
+            Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
+            Thread.Sleep(1000);
+            CustomerStartMenu.Start();
+            return;
         }
         else
         {
@@ -136,7 +137,7 @@ public static class CustomerRouteMenu
                                     case ConsoleKey.Enter:
                                         //hier verder
                                         break;
-                                    case ConsoleKey.Backspace:
+                                    case ConsoleKey.Escape:
                                         break;
                                     default:
                                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
@@ -185,7 +186,7 @@ public static class CustomerRouteMenu
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
             Console.ResetColor();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             Console.Clear();
             return false;
         }
@@ -212,7 +213,7 @@ public static class CustomerRouteMenu
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Toevoegen geannuleerd.");
                 Console.ResetColor();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return false;
             }
@@ -221,7 +222,7 @@ public static class CustomerRouteMenu
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Data is toegevoegd!");
                 Console.ResetColor();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
                 return true;
             }
@@ -230,7 +231,7 @@ public static class CustomerRouteMenu
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Ongeldige invoer!");
                 Console.ResetColor();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 Console.Clear();
             }
         }while(true);

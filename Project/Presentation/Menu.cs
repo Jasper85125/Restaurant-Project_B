@@ -61,7 +61,7 @@ public static class Menu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Selecteer een optie:");
+        Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
@@ -88,5 +88,11 @@ public static class Menu
 
         // Reset text color
         Console.ResetColor();
+
+        Console.Write("\nKlik");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(" Enter ");
+        Console.ResetColor();
+        Console.WriteLine("om een optie te selecteren");
     }
 }
