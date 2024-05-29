@@ -136,29 +136,30 @@ public static class CustomerRouteMenu
                                 switch (confirmInput.Key)
                                 {
                                     case ConsoleKey.Enter:
-                                        // BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
-                                        BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
+                                        // BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
 
-                                        SeatModel[,] seatModels = new SeatModel[6,8];
-                                        seatLogic.CreateSeats(seatModels);
-                                        seatLogic.PrintArr(seatModels);
-                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
-                                        bus.SeatingMap = seatingMap;
-                                        busLogic.UpdateList(bus);
+                                        // SeatModel[,] seatModels = new SeatModel[6,8];
+                                        // seatLogic.CreateSeats(seatModels);
+                                        // seatLogic.PrintArr(seatModels);
+                                        // Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
+                                        // bus.SeatingMap = seatingMap;
+                                        // busLogic.UpdateList(bus);
 
 
-                                        // Dictionary<(int Row, int Col), SeatModel> seatingMap = bus.SeatingMap ;
-                                        // SeatModel[,] seatModels = seatLogic.ConvertToArr(seatingMap);
+                                        BusModel busmodel = busLogic.GetAll().Last();
+                                        Dictionary<(int Row, int Col), SeatModel> seatingMap2 = busmodel.SeatingMap;
+                                        SeatModel[,] seatModels2 = seatLogic.ConvertTo2DArr(seatingMap2);
+
+                                        SeatingMapMenu.Start(seatModels2);
+                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels2);
+                                        busmodel.SeatingMap = seatingMap;
+                                        busLogic.UpdateList(busmodel);
 
                                         /*
                                         SeatModel[,] seatModels = new SeatModel[6,8];
                                         seatLogic.CreateSeats(seatModels);
                                         */
 
-                                        //  SeatingMapMenu.Start(seatModels);
-
-                                        // seatingMap = seatLogic.ConvertToDict(seatModels);
-                                        // bus.SeatingMap = seatingMap;
 
 
                                         break;

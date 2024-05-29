@@ -909,7 +909,7 @@
     "IsActive": false,
     "seatingMap": {
       "(0,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,1)": {
         "isOccupied": false
