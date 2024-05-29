@@ -74,6 +74,7 @@ public static class SeatingMapMenu
                     }
                     break;
             }
+            break;
             // Clear console and display options
             Console.Clear();
             DisplayOptions(selectedOption, seatModels);
