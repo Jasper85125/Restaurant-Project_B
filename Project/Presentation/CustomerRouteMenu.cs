@@ -46,12 +46,14 @@ public static class CustomerRouteMenu
         // }
         else
         {
+            List<BusModel> busList = new List<BusModel>();
             List<RouteModel> routesInBusses = new List<RouteModel>();
             foreach (BusModel bus in busWithRoute)
             {
                 foreach(RouteModel route in bus.Route)
                 {
                     routesInBusses.Add(route);
+                    busList.Add(bus);
                 }  
             }
             var SelectedRowIndex = tableRoutes.PrintTable(Header, routesInBusses, GenerateRow, Title);
@@ -159,7 +161,7 @@ public static class CustomerRouteMenu
                                 switch (confirmInput.Key)
                                 {
                                     case ConsoleKey.Enter:
-                                        //hier verder
+                                        Console.WriteLine(busList[Convert.ToInt32(SelectedRowIndex)]);
                                         break;
                                     case ConsoleKey.Escape:
                                         break;
