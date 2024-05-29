@@ -6,7 +6,7 @@ public static class AdminBusMenu
     private static BusLogic busLogic = new();
     private static RouteLogic routeLogic = new();
     private static TableLogic<BusModel> tableRoutes = new();
-    private static TableLogicklant<RouteModel> tableRoutesKlant = new();
+    private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
     
     
 

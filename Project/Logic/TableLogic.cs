@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 public class TableLogic<T>
 {
-    public static int selectedOption = 0;
+    public static int selectedOption = 1;
 
     public static int tableWidth = 145;
      public static int TableCustomeWidth;

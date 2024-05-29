@@ -4,7 +4,7 @@ using System.Data;
 using System.Text.Json.Nodes;
 using Microsoft.VisualBasic;
 
-public class TableLogicklant<T>
+public class CustomerTableLogic<T>
 {
     public static int tableWidth = 145;
     public static int selectedOption = 1;
