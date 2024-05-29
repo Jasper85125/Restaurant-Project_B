@@ -60,10 +60,10 @@ public static class CustomerRouteMenu
 
                 while (true)
                 {
-                    RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(SelectedRowIndex));
+                    RouteModel selectedRouteModel = routeModels[SelectedRowIndex.Value];
 
                     bool checkStopName = true;
-                    List<StopModel> stops = selectedRouteModel.Stops.ToList();
+                    List<StopModel> stops = selectedRouteModel.Stops;
 
                     int selectedIndex = 0;
                     int currentPage = 1;
@@ -99,7 +99,11 @@ public static class CustomerRouteMenu
                         Console.Write("Enter ");
                         Console.ResetColor();
                         Console.WriteLine("om een halte te selecteren.");
-
+                        Console.Write("Om een stap terug te gaan druk op");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(" Escape");
+                        Console.ResetColor();
+                        Console.Write(".\n");
                         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                         switch (keyInfo.Key)
                         {
@@ -170,6 +174,7 @@ public static class CustomerRouteMenu
                                 break;
 
                             case ConsoleKey.Escape:
+                                Start();
                                 return;
                             default:
                                 Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
