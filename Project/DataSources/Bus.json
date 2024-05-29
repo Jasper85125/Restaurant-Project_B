@@ -1,16 +1,91 @@
 [
   {
     "id": 1,
-    "seats": 20,
-    "licensePlate": "WW-56-28",
-    "route": [],
-    "IsActive": false,
+    "seats": 60,
+    "licensePlate": "Cool-123",
+    "route": [
+      {
+        "id": 5,
+        "duration": 3,
+        "name": "Noord",
+        "stops": [
+          {
+            "id": 26,
+            "name": "Blijdorp",
+            "time": null
+          },
+          {
+            "id": 7,
+            "name": "Schouwburgplein",
+            "time": null
+          },
+          {
+            "id": 15,
+            "name": "Laan op Zuid",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null,
+        "isActive": true
+      },
+      {
+        "id": 2,
+        "duration": 3,
+        "name": "CoolRoute",
+        "stops": [
+          {
+            "id": 14,
+            "name": "De Kuip",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null,
+        "isActive": true
+      }
+    ],
+    "IsActive": true,
     "seatingMap": {}
   },
   {
     "id": 2,
-    "seats": 60,
-    "licensePlate": "123-kkj-23",
+    "seats": 100000,
+    "licensePlate": "Cool-456",
+    "route": [
+      {
+        "id": 5,
+        "duration": 3,
+        "name": "Noord",
+        "stops": [
+          {
+            "id": 26,
+            "name": "Blijdorp",
+            "time": null
+          },
+          {
+            "id": 7,
+            "name": "Schouwburgplein",
+            "time": null
+          },
+          {
+            "id": 15,
+            "name": "Laan op Zuid",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null,
+        "isActive": true
+      }
+    ],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 3,
+    "seats": 1,
+    "licensePlate": "Cool-789",
     "route": [
       {
         "id": 2,
@@ -25,56 +100,7 @@
         ],
         "begin": null,
         "end": null,
-        "isActive": false
-      }
-    ],
-    "IsActive": false,
-    "seatingMap": {}
-  },
-  {
-    "id": 3,
-    "seats": 60,
-    "licensePlate": "fsd",
-    "route": [
-      {
-        "id": 2,
-        "duration": 5,
-        "name": "Euromast",
-        "stops": [
-          {
-            "id": 0,
-            "name": "Beurs",
-            "time": null
-          },
-          {
-            "id": 0,
-            "name": "Blaak",
-            "time": null
-          },
-          {
-            "id": 0,
-            "name": "Brutus",
-            "time": null
-          }
-        ],
-        "begin": null,
-        "end": null,
-        "isActive": false
-      },
-      {
-        "id": 1,
-        "duration": 2,
-        "name": "123",
-        "stops": [
-          {
-            "id": 23,
-            "name": "Centrum-West",
-            "time": null
-          }
-        ],
-        "begin": null,
-        "end": null,
-        "isActive": false
+        "isActive": true
       }
     ],
     "IsActive": false,

@@ -4,8 +4,8 @@ public static class CustomerRouteMenu
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
-    private static TableLogicklant<RouteModel> tableRoutes = new();
-    private static TableLogicklant<StopModel> tableStops = new();
+    private static CustomerTableLogic<RouteModel> tableRoutes = new();
+    private static CustomerTableLogic<StopModel> tableStops = new();
 
     static public void Start()
     {
@@ -21,23 +21,50 @@ public static class CustomerRouteMenu
 
     while (true)
     {
-        List<RouteModel> routeModels = routeLogic.GetAll();
-        if (routeModels == null || routeModels.Count == 0)
+        List<BusModel> busModels = busLogic.GetAll();
+        List<BusModel> busWithRoute = new List<BusModel>();
+        foreach (BusModel bus in busModels)
+        {
+            if (bus.Route.Any())
+            {
+                busWithRoute.Add(bus);
+            }
+        }
+        if (busWithRoute == null || busWithRoute.Count == 0)
         {
             Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
             Thread.Sleep(1000);
             CustomerStartMenu.Start();
             return;
         }
+        // List<RouteModel> routeModels = routeLogic.GetAll();
+        // if (routeModels == null || routeModels.Count == 0)
+        // {
+        //     Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
+        //     Thread.Sleep(1000);
+        //     CustomerStartMenu.Start();
+        //     return;
+        // }
         else
         {
-            var SelectedRowIndex = tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            List<BusModel> busList = new List<BusModel>();
+            List<RouteModel> routesInBusses = new List<RouteModel>();
+            foreach (BusModel bus in busWithRoute)
+            {
+                foreach(RouteModel route in bus.Route)
+                {
+                    routesInBusses.Add(route);
+                    busList.Add(bus);
+                }  
+            }
+            var SelectedRowIndex = tableRoutes.PrintTable(Header, routesInBusses, GenerateRow, Title);
             if (SelectedRowIndex  != null)
             {
 
                 while (true)
                 {
-                    RouteModel selectedRouteModel = routeModels[SelectedRowIndex.Value];
+                    RouteModel selectedRouteModel = routesInBusses[SelectedRowIndex.Value];
+                    BusModel selectedBusModel = busList[SelectedRowIndex.Value];
 
                     bool checkStopName = true;
                     List<StopModel> stops = selectedRouteModel.Stops;
@@ -51,7 +78,8 @@ public static class CustomerRouteMenu
                     {
                         Console.Clear();
 
-                        Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}\n");
+                        Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}");
+                        Console.WriteLine($"Naam: {selectedBusModel.LicensePlate}\n");
                         Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
 
                         int startIndex = (currentPage - 1) * pageSize;

@@ -10,7 +10,7 @@ public static class AdminRouteMenu
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
     private static TableLogic<RouteModel> tableRoutes = new();
-    private static TableLogicklant<RouteModel> tableRoutesKlant = new();
+    private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
     private static TableLogic<StopModel> tableStops = new();
 
     static public void Start()
