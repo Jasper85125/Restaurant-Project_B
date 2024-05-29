@@ -62,7 +62,8 @@ public static class CustomerRouteMenu
 
                 while (true)
                 {
-                    RouteModel selectedRouteModel = routeModels[SelectedRowIndex.Value];
+                    RouteModel selectedRouteModel = routesInBusses[SelectedRowIndex.Value];
+                    BusModel selectedBusModel = busList[SelectedRowIndex.Value];
 
                     bool checkStopName = true;
                     List<StopModel> stops = selectedRouteModel.Stops;
@@ -76,7 +77,8 @@ public static class CustomerRouteMenu
                     {
                         Console.Clear();
 
-                        Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}\n");
+                        Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}");
+                        Console.WriteLine($"Naam: {selectedBusModel.LicensePlate}\n");
                         Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
 
                         int startIndex = (currentPage - 1) * pageSize;
