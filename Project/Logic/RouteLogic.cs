@@ -15,7 +15,6 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public override void UpdateList(RouteModel route)
     {
-        _routes = DataAccess<RouteModel>.LoadAll();
         //Find if there is already an model with the same id
         int index = _routes.FindIndex(s => s.Id == route.Id);
 
@@ -50,7 +49,8 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public static RouteModel AddToRoute(StopModel stop, RouteModel inputRoute)
     {
-        inputRoute.Stops.Add(stop);
+        DateTime stopTime =  new DateTime(2024, 5, 28, 14, 30, 0);
+        inputRoute.AddHalte(stop,stopTime);
         return inputRoute;
     }
 

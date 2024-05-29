@@ -445,7 +445,10 @@ public static class AdminRouteMenu
                                 else if(selectedIndex == 3){
                                     Console.Clear();
                                     List<RouteModel>ListAllRoutes = routeLogic.GetAll();
-                                    stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
+                                    foreach(var stop in ListAllRoutes[selectedRowIndex].Stops){
+                                        stopsList.Append(stop.Key);
+                                    }
+                                    //stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
                                     AddStopToRoute(routeModels[selectedRowIndex], stopsList);
                                 }
                                 else if (selectedIndex == 3){
@@ -552,10 +555,10 @@ public static class AdminRouteMenu
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
         var active = routeModel.IsActive;
-        foreach(StopModel stop in stops){
-            allStops.Add(stop);
+        foreach(var stop in stops){
+            allStops.Add(stop.Key);
         }
-        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Key));
         string activity = "";
         if (active)
         {
@@ -583,10 +586,10 @@ public static class AdminRouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
-        foreach(StopModel stop in stops){
-            allStops.Add(stop);
+        foreach(var stop in stops){
+            allStops.Add(stop.Key);
         }
-        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Key));
         return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}"};
     }
 
@@ -622,7 +625,11 @@ public static class AdminRouteMenu
             Console.Clear();
             return false;
         }
-        List<StopModel> stops = newRoute.Stops;
+        List<StopModel> stops = new List<StopModel>();
+        foreach(var stop in newRoute.Stops){
+            stops.Append(stop.Key);
+        }
+        // List<StopModel> stops = newRoute.Stops;
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
 
         do

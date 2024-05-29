@@ -39,8 +39,10 @@ public static class CustomerRouteMenu
                     RouteModel selectedRouteModel = routeLogic.GetById(Convert.ToInt32(SelectedRowIndex));
 
                     bool checkStopName = true;
-                    List<StopModel> stops = selectedRouteModel.Stops.ToList();
-
+                    List<StopModel> stops = new List<StopModel>();
+                    foreach(var stop in selectedRouteModel.Stops){
+                        stops.Append(stop.Key);
+                    }
                     int selectedIndex = 0;
                     int currentPage = 1;
                     int pageSize = 10;
@@ -171,10 +173,10 @@ public static class CustomerRouteMenu
         var stops = routeModel.Stops;
         var beginTime = routeModel.beginTime;
         var endTime = routeModel.endTime;
-        foreach(StopModel stop in stops){
-            allStops.Add(stop);
+        foreach(var stop in stops){
+            allStops.Add(stop.Key);
         }
-        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        var stopsString = string.Join(", ", stops.Select(stop => stop.Key));
         return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
     }
 
@@ -190,7 +192,10 @@ public static class CustomerRouteMenu
             Console.Clear();
             return false;
         }
-        List<StopModel> stops = newRoute.Stops;
+        List<StopModel> stops = new List<StopModel>();
+        foreach(var stop in newRoute.Stops){
+            stops.Append(stop.Key);
+        }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
 
         do

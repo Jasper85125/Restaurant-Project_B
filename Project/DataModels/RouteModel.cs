@@ -13,7 +13,7 @@ public class RouteModel : IActivatable
     public string Name { get; set; }
 
     [JsonPropertyName("stops")]
-    public List<StopModel> Stops { get; set; }
+    public   Dictionary<StopModel, DateTime> Stops { get; set; }
 
     [JsonPropertyName("begin")]
     public string beginTime { get; set; }
@@ -28,14 +28,21 @@ public class RouteModel : IActivatable
         Id = id;
         Duration = duration;
         Name = name;
-        Stops = new List<StopModel>{};
+        Stops = new Dictionary<StopModel, DateTime>();
         beginTime = null;
         endTime = null;
         IsActive = isActive;
     }
 
-    public void AddStop(StopModel stop)
+    public void AddHalte(StopModel halte, DateTime halteTime)
     {
-        Stops.Add(stop);
+        if (Stops.ContainsKey(halte))
+        {
+            Stops[halte] = halteTime;
+        }
+        else
+        {
+            Stops.Add(halte, halteTime);
+        }
     }
 }
