@@ -20,17 +20,41 @@ public static class CustomerRouteMenu
 
     while (true)
     {
-        List<RouteModel> routeModels = routeLogic.GetAll();
-        if (routeModels == null || routeModels.Count == 0)
+        List<BusModel> busModels = busLogic.GetAll();
+        List<BusModel> busWithRoute = new List<BusModel>();
+        foreach (BusModel bus in busModels)
+        {
+            if (bus.Route.Any())
+            {
+                busWithRoute.Add(bus);
+            }
+        }
+        if (busWithRoute == null || busWithRoute.Count == 0)
         {
             Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
             Thread.Sleep(1000);
             CustomerStartMenu.Start();
             return;
         }
+        // List<RouteModel> routeModels = routeLogic.GetAll();
+        // if (routeModels == null || routeModels.Count == 0)
+        // {
+        //     Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
+        //     Thread.Sleep(1000);
+        //     CustomerStartMenu.Start();
+        //     return;
+        // }
         else
         {
-            var SelectedRowIndex = tableRoutes.PrintTable(Header, routeModels, GenerateRow, Title);
+            List<RouteModel> routesInBusses = new List<RouteModel>();
+            foreach (BusModel bus in busWithRoute)
+            {
+                foreach(RouteModel route in bus.Route)
+                {
+                    routesInBusses.Add(route);
+                }  
+            }
+            var SelectedRowIndex = tableRoutes.PrintTable(Header, routesInBusses, GenerateRow, Title);
             if (SelectedRowIndex  != null)
             {
 

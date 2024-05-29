@@ -42,7 +42,7 @@ public class BusLogic : AbstractLogic<BusModel>
         }
        return _busses.Max(bus => bus.Id) + 1;
     } 
-    public override List<BusModel> GetAll() => _busses;
+    public override List<BusModel> GetAll() => _busses = DataAccess<BusModel>.LoadAll();
 
 }
 

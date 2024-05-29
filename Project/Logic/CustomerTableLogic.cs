@@ -183,7 +183,7 @@ public class TableLogicklant<T>
         Console.Write(" om de rij te selecteren.");
         Console.Write("\nOm een stap terug te gaan druk op");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Backspace");
+        Console.Write(" Escape");
         Console.ResetColor();
         Console.WriteLine();
 
