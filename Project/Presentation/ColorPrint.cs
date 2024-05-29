@@ -27,4 +27,23 @@ public static class ColorPrint
         Console.WriteLine(text);
         Console.ResetColor();
     }
+
+    public static void PrintWriteGreen(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(text);
+        Console.ResetColor();
+    }
+    public static void PrintWriteRed(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(text);
+        Console.ResetColor();
+    }
+    public static void PrintWriteCyan(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(text);
+        Console.ResetColor();
+    }
 }

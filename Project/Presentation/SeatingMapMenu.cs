@@ -28,6 +28,8 @@ public static class SeatingMapMenu
 
     public static void Start(SeatModel[,] seatModels)
     {
+        List<(int Row, int Col)> selectedSeats = new ();
+        
         int rowLength = seatModels.GetLength(0) - 1;
         int colLength = seatModels.GetLength(1) - 1;
 
@@ -35,7 +37,7 @@ public static class SeatingMapMenu
         (int Row, int Col) selectedOption = new(0, 0); // Default selected option
 
         // Display options
-        DisplayOptions(selectedOption, seatModels);
+        DisplayOptions(selectedOption, seatModels, selectedSeats);
 
         while (true)
         {
@@ -61,27 +63,33 @@ public static class SeatingMapMenu
                     // Move left
                     selectedOption = (selectedOption.Row, Math.Max(0, selectedOption.Col - 1));
                     break;
-                case ConsoleKey.Enter:
+                case ConsoleKey.Spacebar:
                     Console.Clear();
                     if (seatModels[selectedOption.Row, selectedOption.Col].IsOccupied)
                     {
-                        Console.WriteLine("Is al bezet!");
-                        Console.ReadLine();
+                        ColorPrint.PrintRed("Is al bezet!");
+                        Thread.Sleep(3000);
                     }
                     else
                     {
-                        seatModels[selectedOption.Row, selectedOption.Col].IsOccupied = true;
+                        // seatModels[selectedOption.Row, selectedOption.Col].IsOccupied = true;
+                        selectedSeats.Add((selectedOption.Row, selectedOption.Col));
                     }
                     break;
+                case ConsoleKey.Enter:
+                    foreach ((int Row, int Col) coordinaten in selectedSeats)
+                    {
+                        seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
+                    }
+                    return;
             }
-            break;
             // Clear console and display options
             Console.Clear();
-            DisplayOptions(selectedOption, seatModels);
+            DisplayOptions(selectedOption, seatModels, selectedSeats);
         }
     }
 
-    public static void DisplayOptions((int Row, int Col) selectedOption, SeatModel[,] seatModels)
+    public static void DisplayOptions((int Row, int Col) selectedOption, SeatModel[,] seatModels,  List<(int Row, int Col)> selectedSeats)
     {
         Console.WriteLine("Selecteer een optie:\n");
 
@@ -91,7 +99,12 @@ public static class SeatingMapMenu
             {
                 if (seatModels[row, col].IsOccupied)
                 {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Green;
+                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
+                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                }
+                else if(selectedSeats.Contains((row, col)))
+                {
+                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Cyan;
                     Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
                 }
                 else
@@ -103,15 +116,22 @@ public static class SeatingMapMenu
             Console.WriteLine();
         }
         Console.ResetColor();
-
-        Console.WriteLine("\n* bezet");
+        ColorPrint.PrintWriteRed("\n* ");
+        Console.WriteLine("bezet");
+        ColorPrint.PrintWriteCyan("* ");
+        Console.WriteLine("geselecteerd");
         Console.WriteLine("- beschikbaar");
 
         Console.Write("\nKlik");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(" Enter ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(" spatie ");
         Console.ResetColor();
-        Console.WriteLine("om een optie te selecteren");
+        Console.WriteLine("om een optie te selecteren.");
+        Console.Write("Klik");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(" enter ");
+        Console.ResetColor();
+        Console.WriteLine("om een optie te bevestigen.");
     }
 }
 
