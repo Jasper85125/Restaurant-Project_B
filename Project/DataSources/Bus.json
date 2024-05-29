@@ -135,5 +135,37 @@
     "route": [],
     "IsActive": false,
     "seatingMap": {}
+  },
+  {
+    "id": 11,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 12,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 13,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
+  },
+  {
+    "id": 14,
+    "seats": 0,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false,
+    "seatingMap": {}
   }
 ]
