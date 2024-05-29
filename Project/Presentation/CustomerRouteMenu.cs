@@ -1,5 +1,6 @@
 public static class CustomerRouteMenu
 {
+    private static SeatLogic seatLogic = new();
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
@@ -135,7 +136,31 @@ public static class CustomerRouteMenu
                                 switch (confirmInput.Key)
                                 {
                                     case ConsoleKey.Enter:
-                                        //hier verder
+                                        // BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
+                                        BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
+
+                                        SeatModel[,] seatModels = new SeatModel[6,8];
+                                        seatLogic.CreateSeats(seatModels);
+                                        seatLogic.PrintArr(seatModels);
+                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
+                                        bus.SeatingMap = seatingMap;
+                                        busLogic.UpdateList(bus);
+
+
+                                        // Dictionary<(int Row, int Col), SeatModel> seatingMap = bus.SeatingMap ;
+                                        // SeatModel[,] seatModels = seatLogic.ConvertToArr(seatingMap);
+
+                                        /*
+                                        SeatModel[,] seatModels = new SeatModel[6,8];
+                                        seatLogic.CreateSeats(seatModels);
+                                        */
+
+                                        //  SeatingMapMenu.Start(seatModels);
+
+                                        // seatingMap = seatLogic.ConvertToDict(seatModels);
+                                        // bus.SeatingMap = seatingMap;
+
+
                                         break;
                                     case ConsoleKey.Escape:
                                         break;

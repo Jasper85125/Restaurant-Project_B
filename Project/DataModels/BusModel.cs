@@ -18,6 +18,7 @@ public class BusModel : IActivatable
     public bool IsActive { get; set; }
 
     [JsonPropertyName("seatingMap")]
+    [JsonConverter(typeof(ValueTupleKeyConverter<(int, int), SeatModel>))]
     public Dictionary<(int Row, int Col), SeatModel> SeatingMap { get; set; } = new();
 
     public BusModel(int id, int seats, string licensePlate, bool isActive = false)
