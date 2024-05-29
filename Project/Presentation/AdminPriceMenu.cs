@@ -23,10 +23,8 @@ public static class AdminPriceMenu
         string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
         {
-            ColorPrint.PrintRed("Lege data.");
-            Console.WriteLine("U keert terug naar het admin hoofd menu.\n");
-            Thread.Sleep(3000);
-            AdminStartMenu.Start();
+            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
+                    pricesLogic.UpdateList(newPriceModel);
         }
         while(true)
         {
