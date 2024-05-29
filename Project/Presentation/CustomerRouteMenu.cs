@@ -3,8 +3,8 @@ public static class CustomerRouteMenu
     private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
     private static StopLogic stopLogic = new();
-    private static TableLogicklant<RouteModel> tableRoutes = new();
-    private static TableLogicklant<StopModel> tableStops = new();
+    private static CustomerTableLogic<RouteModel> tableRoutes = new();
+    private static CustomerTableLogic<StopModel> tableStops = new();
 
     static public void Start()
     {
