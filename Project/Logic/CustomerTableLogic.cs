@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text.Json.Nodes;
 using Microsoft.VisualBasic;
 
 public class TableLogicklant<T>
@@ -18,19 +19,21 @@ public class TableLogicklant<T>
             Console.Clear();
             Console.WriteLine($"{Title}\n");
             PrintRow(Header, false, true);
-            int maxOptions = 1;
+            int maxOptions = 0;
+            int jsonIndex = 0;
             for (int rowNumber = 1; rowNumber <= Data.Count(); rowNumber++)
             {
                 dynamic item = Data[rowNumber-1];
                 if(item.IsActive){
                     maxOptions++;
                     tableWidth = 145;
-                    if (rowNumber == selectedOption)
+                    if (selectedOption == maxOptions)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         geselecteerdeRow = GenerateRow(Data[rowNumber - 1]);
                         PrintRow(geselecteerdeRow, true, false);
                         Console.ResetColor();
+                        jsonIndex = rowNumber - 1;
                     }
                     else
                     {
@@ -51,7 +54,7 @@ public class TableLogicklant<T>
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return selectedOption;
+                    return (jsonIndex);
                 case ConsoleKey.Escape:
                 return null;
             }
@@ -89,7 +92,7 @@ public class TableLogicklant<T>
                     Console.Clear();
                     Console.WriteLine($"Geselecteerd {header[selectedIndex]}: {selectedRow[selectedIndex]}");
                     return (selectedRow[selectedIndex],selectedIndex);
-                case ConsoleKey.Backspace:
+                case ConsoleKey.Escape:
                     return null;
             }
 
@@ -185,7 +188,7 @@ public class TableLogicklant<T>
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write(" Escape");
         Console.ResetColor();
-        Console.WriteLine();
+        Console.Write(".\n");
 
     }
 }
