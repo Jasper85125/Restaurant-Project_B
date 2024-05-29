@@ -60,7 +60,7 @@ public static class CustomerRouteMenu
 
                 while (true)
                 {
-                    RouteModel selectedRouteModel = routeModels[SelectedRowIndex.Value];
+                    RouteModel selectedRouteModel = routesInBusses[SelectedRowIndex.Value];
 
                     bool checkStopName = true;
                     List<StopModel> stops = selectedRouteModel.Stops;

@@ -50,7 +50,7 @@ public class TableLogicklant<T>
                     selectedOption = Math.Max(1, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(maxOptions - 1, selectedOption + 1);
+                    selectedOption = Math.Min(maxOptions, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
