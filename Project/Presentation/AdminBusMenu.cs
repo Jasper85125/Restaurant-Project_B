@@ -7,6 +7,8 @@ public static class AdminBusMenu
     private static RouteLogic routeLogic = new();
     private static TableLogic<BusModel> tableRoutes = new();
     private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
+
+    private static SeatLogic seatLogic = new();
     
     
 
@@ -29,6 +31,10 @@ public static class AdminBusMenu
         if (listAllBusses == null || listAllBusses.Count == 0)
         {
             BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
+            SeatModel[,] seatModels = new SeatModel[6, 8];
+            seatLogic.CreateSeats(seatModels); // seatModels wordt gevuld met stoelen
+            Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels); // seatModels wordt geconvert naar Dictionary
+            newBusModel.AddSeatingMap(seatingMap);
             busLogic.UpdateList(newBusModel);
         }
      
@@ -46,6 +52,10 @@ public static class AdminBusMenu
                 if(selectedRowIndex ==  listAllBusses.Count())
                 {
                     BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
+                    SeatModel[,] seatModels = new SeatModel[6, 8];
+                    seatLogic.CreateSeats(seatModels); // seatModels wordt gevuld met stoelen
+                    Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels); // seatModels wordt geconvert naar Dictionary
+                    newBusModel.AddSeatingMap(seatingMap);
                     busLogic.UpdateList(newBusModel);
                     continue;
                 }
