@@ -18,7 +18,7 @@ public class BusModel : IActivatable
     public bool IsActive { get; set; }
 
     [JsonPropertyName("seatingMap")]
-    public SeatModel[,] SeatingMap = new SeatModel[0,0];
+    public Dictionary<(int Row, int Col), SeatModel> SeatingMap { get; set; } = new();
 
     public BusModel(int id, int seats, string licensePlate, bool isActive = false)
     {
@@ -27,11 +27,15 @@ public class BusModel : IActivatable
         LicensePlate = licensePlate;
         Route = new List<RouteModel>{};
         IsActive = isActive;
-        SeatingMap = new SeatModel[0,0];
     }
 
     public void AddRoute(RouteModel route)
     {
         Route.Add(route);
+    }
+
+    public void AddSeatingMap(Dictionary<(int Row, int Col), SeatModel> seatingMap)
+    {
+        SeatingMap = seatingMap;
     }
 }
