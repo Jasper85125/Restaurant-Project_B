@@ -102,6 +102,7 @@ public static class AdminRouteMenu
 
     public static void AddRoute()
     {
+        List<RouteModel> overview = routeLogic.GetAll();
         // check if Name is string
         Console.WriteLine("Wat is de naam van de nieuwe route?");
         string? newName = Console.ReadLine();
@@ -417,29 +418,50 @@ public static class AdminRouteMenu
                                     Console.WriteLine($"Voer iets in om de {header[selectedIndex]} van de route te veranderen:");
                                     string Input = Console.ReadLine();
 
-                                    while(!Helper.IsOnlyLetterSpaceDash(Input))
-                                    {
-                                        ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                        Console.WriteLine("De naam kan alleen bestaan uit letters.");
-                                        Console.WriteLine("Wat is de naam van de nieuwe route?");
-                                        Input = Console.ReadLine();
-                                    }
-            
-                                    routeModels[selectedRowIndex].Name = Input;
-                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                while(!Helper.IsOnlyLetterSpaceDash(Input))
+                                {
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
+                                    Console.WriteLine("De naam kan alleen bestaan uit letters.");
+                                    Console.WriteLine("Wat is de naam van de nieuwe route?");
+                                    Input = Console.ReadLine();
                                 }
-                                else if(selectedIndex == 2){
-                                    Console.WriteLine($"Voer een nummer in om de {header[selectedIndex]} te veranderen:");
-                                    string Input = Console.ReadLine();
-                                    while (!Helper.IsValidInteger(Input))
-                                    {
-                                        ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                        Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
-                                        Console.WriteLine("Hoelang duurt de route in uren?");
-                                        Input = Console.ReadLine();
+
+                                    //variable to check Name
+                                    bool NameExists = false;
+
+                                    // Check if the input Name already exists
+                                    foreach(var nameIndex in routeModels) {
+                                        if(Input == nameIndex.Name) {
+                                            NameExists = true;
+                                            break;
+                                        }
                                     }
-                                    routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
-                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+
+                                    if(NameExists) {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Naam bestaat al, geef een andere op.");
+                                        Console.ResetColor();
+                                        Thread.Sleep(3000);
+                                    } else {
+                                        //if Name does not exists, it gets added to the list
+                                        routeModels[selectedRowIndex].Name = Input;
+                                        routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                        break;
+                                    }
+                            }
+                            else if(selectedIndex == 2){
+                                Console.WriteLine("Voer een nummer in het item te veranderen:");
+                                string Input = Console.ReadLine();
+                                while (!Helper.IsValidInteger(Input))
+                                {
+                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
+                                    Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
+                                    Console.WriteLine("Hoelang duurt de route in uren?");
+                                    Input = Console.ReadLine();
+                                }
+                                routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
+                                routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                break;
 
                                 }
                                 else if(selectedIndex == 3){
