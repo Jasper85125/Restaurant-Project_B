@@ -90,5 +90,12 @@
     "licensePlate": "",
     "route": [],
     "IsActive": false
+  },
+  {
+    "id": 6,
+    "seats": 80,
+    "licensePlate": "",
+    "route": [],
+    "IsActive": false
   }
 ]
