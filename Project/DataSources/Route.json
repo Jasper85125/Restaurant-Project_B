@@ -30,7 +30,7 @@
     "isActive": true
   },
   {
-    "id": 5,
+    "id": 3,
     "duration": 3,
     "name": "Noord",
     "stops": [
@@ -53,5 +53,23 @@
     "begin": null,
     "end": null,
     "isActive": true
+  },
+  {
+    "id": 4,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
+  },
+  {
+    "id": 5,
+    "duration": 0,
+    "name": "",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
   }
 ]

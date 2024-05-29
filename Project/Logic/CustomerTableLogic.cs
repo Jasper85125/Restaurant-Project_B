@@ -44,14 +44,14 @@ public class TableLogicklant<T>
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedOption = Math.Max(2, selectedOption - 1);
+                    selectedOption = Math.Max(1, selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = Math.Min(maxOptions, selectedOption + 1);
+                    selectedOption = Math.Min(maxOptions - 1, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (selectedOption - 1);
+                    return selectedOption;
                 case ConsoleKey.Escape:
                 return null;
             }
