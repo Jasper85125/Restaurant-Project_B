@@ -73,7 +73,11 @@ public static class SeatingMapMenu
                     else
                     {
                         // seatModels[selectedOption.Row, selectedOption.Col].IsOccupied = true;
-                        selectedSeats.Add((selectedOption.Row, selectedOption.Col));
+                        if (!selectedSeats.Contains((selectedOption.Row, selectedOption.Col)))
+                        {
+                            selectedSeats.Add((selectedOption.Row, selectedOption.Col));
+                        }
+
                     }
                     break;
                 case ConsoleKey.Enter:
@@ -81,7 +85,43 @@ public static class SeatingMapMenu
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
                     }
+                    if (selectedSeats.Count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"U heeft {selectedSeats.Count} stoelen gereserveerd.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"U heeft geen stoelen gereserveerd!");
+                        Console.ResetColor();
+                    }
+
+                    Thread.Sleep(3000);
                     return;
+                case ConsoleKey.Backspace:
+                try
+                {
+                    if (selectedSeats.Contains((selectedOption.Row, selectedOption.Col)))
+                    {
+                        selectedSeats.Remove((selectedOption.Row, selectedOption.Col));
+                    }
+                }
+                catch
+                {
+
+                }
+                break;
+
+                case ConsoleKey.Escape:
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("U gaat terug naar het overzicht voor reserveringen.");
+                Thread.Sleep(3000);
+                Console.ResetColor();
+                CustomerRouteMenu.PrintedOverview();
+                break;
+
             }
             // Clear console and display options
             Console.Clear();
@@ -132,6 +172,17 @@ public static class SeatingMapMenu
         Console.Write(" enter ");
         Console.ResetColor();
         Console.WriteLine("om een optie te bevestigen.");
+
+        Console.Write("Klik");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" backspace ");
+        Console.ResetColor();
+        Console.WriteLine("om te deselecteren.");
+
+        Console.Write("\nOm een stap terug te gaan druk op");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(" Escape\n");
+        Console.ResetColor();
     }
 }
 
