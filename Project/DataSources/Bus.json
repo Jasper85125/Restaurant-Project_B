@@ -617,13 +617,13 @@
         "isOccupied": false
       },
       "(2,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,2)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,3)": {
         "isOccupied": false
@@ -641,7 +641,7 @@
         "isOccupied": false
       },
       "(3,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(3,1)": {
         "isOccupied": true
@@ -650,7 +650,7 @@
         "isOccupied": true
       },
       "(3,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(3,4)": {
         "isOccupied": false
