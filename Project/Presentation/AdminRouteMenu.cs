@@ -401,7 +401,8 @@ public static class AdminRouteMenu
                             routeLogic.UpdateList(newRouteModel);
                             break;
                         }
-                        while(true){
+                        while(true)
+                        {
                             List<string> selectedRow = GenerateRow(routeModels[selectedRowIndex]);
                             (string SelectedItem, int SelectedIndex)? result = tableRoutes.PrintSelectedRow(selectedRow, header);
                             if (result == null){
@@ -446,7 +447,6 @@ public static class AdminRouteMenu
                                         //if Name does not exists, it gets added to the list
                                         routeModels[selectedRowIndex].Name = Input;
                                         routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                        break;
                                     }
                             }
                             else if(selectedIndex == 2){
@@ -461,34 +461,35 @@ public static class AdminRouteMenu
                                 }
                                 routeModels[selectedRowIndex].Duration = Convert.ToInt32(Input);
                                 routeLogic.UpdateList(routeModels[selectedRowIndex]);
-                                break;
 
                                 }
-                                else if(selectedIndex == 3){
-                                    Console.Clear();
-                                    List<RouteModel>ListAllRoutes = routeLogic.GetAll();
-                                    stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
-                                    AddStopToRoute(routeModels[selectedRowIndex], stopsList);
-                                }
-                                else if (selectedIndex == 3){
-                                    Console.Clear();
-                                    dynamic item = routeModels[selectedRowIndex];
-                                    if (item.IsActive)
-                                    {
-                                        item.IsActive = false;
-                                    }
-                                    else{
-                                    item.IsActive = true;
-                                    }
-                                    Listupdater(item);
-                                }
+                            else if(selectedIndex == 3){
+                                Console.Clear();
+                                List<RouteModel>ListAllRoutes = routeLogic.GetAll();
+                                stopsList = ListAllRoutes[selectedRowIndex].Stops.ToList();
+                                AddStopToRoute(routeModels[selectedRowIndex], stopsList);
                             }
+                            else if (selectedIndex == 6)
+                            {
+                                dynamic item = routeModels[selectedRowIndex].IsActive;
+                                if (routeModels[selectedRowIndex].IsActive)
+                                {
+                                    routeModels[selectedRowIndex].IsActive = false;
+                                }
+                                else{
+                                    routeModels[selectedRowIndex].IsActive = true;
+                                }
+                                routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                            }
+                                
+                            
                         }
-                    }         
+                    }      
                 }
             }
         }
     
+    }
     }
 
 

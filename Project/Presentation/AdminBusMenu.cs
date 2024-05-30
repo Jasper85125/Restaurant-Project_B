@@ -95,7 +95,6 @@ public static class AdminBusMenu
                                 //if licensePlate does not exists, it gets added to the list
                                 listAllBusses[selectedRowIndex].LicensePlate = Input;
                                 busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                                break;
                             }
                         }
                         else if(selectedIndex == 2){
@@ -109,7 +108,6 @@ public static class AdminBusMenu
                                 break;
                                 }
                             }
-                            break;
                         }
                         else if (selectedIndex == 3)
                         {
@@ -189,11 +187,18 @@ public static class AdminBusMenu
                                 }
                             } while (keyInfo.Key != ConsoleKey.Enter);
                         }
-                        else{
-                            Console.WriteLine("");
-                            break;
-                        }
-                                
+                        else if (selectedIndex == 6)
+                            {
+                                dynamic item = listAllBusses[selectedRowIndex].IsActive;
+                                if (listAllBusses[selectedRowIndex].IsActive)
+                                {
+                                    listAllBusses[selectedRowIndex].IsActive = false;
+                                }
+                                else{
+                                    listAllBusses[selectedRowIndex].IsActive = true;
+                                }
+                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                            }                   
                     }
                 }
             }

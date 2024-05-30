@@ -123,6 +123,18 @@ public static class AdminPriceMenu
                                 break;      
                             }
                         }
+                         else if (selectedIndex == 3)
+                            {
+                                dynamic item = priceModels[selectedRowIndex].IsActive;
+                                if (priceModels[selectedRowIndex].IsActive)
+                                {
+                                    priceModels[selectedRowIndex].IsActive = false;
+                                }
+                                else{
+                                    priceModels[selectedRowIndex].IsActive = true;
+                                }
+                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+                            }
                     }
                 }
             }
