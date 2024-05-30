@@ -85,7 +85,13 @@ public static class SeatingMapMenu
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
                     }
-                    if (selectedSeats.Count > 0)
+                    if (selectedSeats.Count == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"U heeft {selectedSeats.Count} stoel gereserveerd.");
+                        Console.ResetColor();
+                    }
+                    else if (selectedSeats.Count > 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"U heeft {selectedSeats.Count} stoelen gereserveerd.");
