@@ -52,10 +52,20 @@ public static class SeatingMapMenu
             {
                 case ConsoleKey.UpArrow:
                     // Move up
+                    if (selectedOption.Row == seatModels.GetLength(0) / 2 + 1 /* if selectedOption.Row == 4*/)
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 2), selectedOption.Col);
+                        break;
+                    }
                     selectedOption = (Math.Max(0, selectedOption.Row - 1), selectedOption.Col);
                     break;
                 case ConsoleKey.DownArrow:
                     // Move down
+                    if (selectedOption.Row == seatModels.GetLength(0) / 2 - 1 /* if selectedOption.Row == 2*/)
+                    {
+                        selectedOption =  (Math.Min(rowLength, selectedOption.Row + 2), selectedOption.Col);
+                        break;
+                    }
                     selectedOption = (Math.Min(rowLength, selectedOption.Row + 1), selectedOption.Col); ;
                     break;
                 case ConsoleKey.RightArrow:
@@ -68,11 +78,7 @@ public static class SeatingMapMenu
                     break;
                 case ConsoleKey.Spacebar:
                     Console.Clear();
-                    if(seatModels[selectedOption.Row, selectedOption.Col] == null)
-                    {
-                        break;
-                    }
-                    else if (seatModels[selectedOption.Row, selectedOption.Col].IsOccupied)
+                    if (seatModels[selectedOption.Row, selectedOption.Col].IsOccupied)
                     {
                         ColorPrint.PrintRed("Is al bezet!");
                         Thread.Sleep(3000);
@@ -154,7 +160,8 @@ public static class SeatingMapMenu
         {
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
-                if(seatModels[row, col] != null){
+                if(seatModels[row, col] != null)
+                {
                     if (seatModels[row, col].IsOccupied)
                     {
                         Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
@@ -171,10 +178,11 @@ public static class SeatingMapMenu
                         Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
                     }
                 }
-                else{
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
-                }
+                // else
+                // {
+                //     Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
+                //     Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
+                // }
             }
             Console.WriteLine();
         }
