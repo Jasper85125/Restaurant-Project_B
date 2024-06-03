@@ -24,7 +24,7 @@ public static class AdminBusMenu
         string title = "Bus menu";
         BusLogic busLogic = new();
         List<BusModel> listAllBusses = busLogic.GetAll();
-        List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
+        List<string> header = new() { "Busnummer", "Kenteken", "Busmodel", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
 
@@ -99,7 +99,7 @@ public static class AdminBusMenu
                         }
                         else if(selectedIndex == 2){
                             while (true){
-                            Console.WriteLine("Voer een nummer in het item te veranderen:");
+                            Console.WriteLine($"Voer het {header[2]} in om het huidige {header[2]} te veranderen:");
                             string Input = Console.ReadLine();
                             bool containsOnlyNumbers = Input.All(char.IsDigit);
                             if (containsOnlyNumbers){
