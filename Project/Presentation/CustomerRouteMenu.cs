@@ -186,9 +186,10 @@ public static class CustomerRouteMenu
                                             Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
                                             SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
 
-                                            SeatingMapMenu.Start(seatModels);
+                                            SeatingMapMenu.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
                                             Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
                                             selectedBusModel.SeatingMap = updatedSeatingMap;
+
                                             busLogic.UpdateList(selectedBusModel);
 
                                             /*

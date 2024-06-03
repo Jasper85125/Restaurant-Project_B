@@ -5,6 +5,8 @@ public static class SeatingMapMenu
 {
     public static SeatLogic seatLogic = new();
 
+    static private AccountsLogic accountsLogic = new AccountsLogic();
+
     // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
     // {
     //     {(0,0), new SeatModel(1)},
@@ -27,7 +29,7 @@ public static class SeatingMapMenu
 
 
 
-    public static void Start(SeatModel[,] seatModels)
+    public static void Start(SeatModel[,] seatModels, BusModel busModel, RouteModel routeModel, StopModel stopModel)
     {
         List<(int Row, int Col)> selectedSeats = new ();
         
@@ -92,9 +94,16 @@ public static class SeatingMapMenu
                     }
                     break;
                 case ConsoleKey.Enter:
+                    string combinateCoordinates = "";
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
+                        combinateCoordinates+= $"({coordinaten.Row}.{coordinaten.Col})";
+                    }
+                    if (combinateCoordinates != "")
+                    {
+                        UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
+                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
                     }
                     if (selectedSeats.Count == 1)
                     {
