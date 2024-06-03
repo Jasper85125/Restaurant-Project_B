@@ -5,6 +5,8 @@ public static class SeatingMapMenu
 {
     public static SeatLogic seatLogic = new();
 
+    static private AccountsLogic accountsLogic = new AccountsLogic();
+
     // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
     // {
     //     {(0,0), new SeatModel(1)},
@@ -89,6 +91,8 @@ public static class SeatingMapMenu
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
+                        UserLogin.loggedInAccount.Stoelen.Add($"{coordinaten}");
+                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
                     }
                     if (selectedSeats.Count == 1)
                     {
