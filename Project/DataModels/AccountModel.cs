@@ -19,7 +19,7 @@ public class AccountModel
     public bool IsAdmin { get; set; }
 
     [JsonPropertyName("stoelen")]
-    public List<string> Stoelen { get; set; }
+    public List<List<string>> Stoelen { get; set; }
 
     // [JsonPropertyName("reservations")]
     // public List<ReservationModel> Reservations { get; set; }
@@ -32,7 +32,7 @@ public class AccountModel
         FullName = fullName;
         IsAdmin = isAdmin;
         // Reservations = new List<ReservationModel>{};
-        Stoelen = new List<string>{};
+        Stoelen = new List<List<string>>();
     }
 }
 

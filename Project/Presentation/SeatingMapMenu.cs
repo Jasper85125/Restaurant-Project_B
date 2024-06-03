@@ -29,7 +29,7 @@ public static class SeatingMapMenu
 
 
 
-    public static void Start(SeatModel[,] seatModels)
+    public static void Start(SeatModel[,] seatModels, BusModel busModel, RouteModel routeModel, StopModel stopModel)
     {
         List<(int Row, int Col)> selectedSeats = new ();
         
@@ -88,12 +88,14 @@ public static class SeatingMapMenu
                     }
                     break;
                 case ConsoleKey.Enter:
+                    string combinateCoordinates = "";
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
-                        UserLogin.loggedInAccount.Stoelen.Add($"{coordinaten}");
-                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
+                        combinateCoordinates+= $"({coordinaten.Row}.{coordinaten.Col})";
                     }
+                    UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
+                    accountsLogic.UpdateList(UserLogin.loggedInAccount);
                     if (selectedSeats.Count == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;

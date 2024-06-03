@@ -1,22 +1,6 @@
 [
   {
     "id": 1,
-    "emailAddress": "HeyHey@gmail.com",
-    "password": "admin",
-    "fullName": "admin admin",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 2,
-    "emailAddress": "t@b.c",
-    "password": "xyz",
-    "fullName": "Thomas Edison",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 3,
     "emailAddress": "Admin",
     "password": "Admin",
     "fullName": "Admin",
@@ -24,48 +8,15 @@
     "stoelen": []
   },
   {
-    "id": 4,
-    "emailAddress": "Stiffo@gmail.com",
-    "password": "Stiffo",
-    "fullName": "Stiffo Niffo",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 5,
-    "emailAddress": "Boris@gmail.com",
-    "password": "Boris123!",
-    "fullName": "Boris Water",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 6,
-    "emailAddress": "amer@gmail.com",
-    "password": "amer",
-    "fullName": "amer alhasoun",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 7,
-    "emailAddress": "maxob2005@gmail.com",
-    "password": "wachtwoord",
-    "fullName": "Max Bretherton",
-    "isAdmin": false,
-    "stoelen": []
-  },
-  {
-    "id": 8,
-    "emailAddress": "van.loon.roel@gmail.com",
-    "password": "Roel123",
-    "fullName": "Roel van Loon",
+    "id": 2,
+    "emailAddress": "Test@gmail.com",
+    "password": "Test",
+    "fullName": "Test Test",
     "isAdmin": false,
     "stoelen": [
-      "(0, 0)",
-      "(1, 0)",
-      "(0, 3)",
-      "(6, 3)"
+      [
+        "(0.7)(1.7), Testie, TestTien, Capelsebrug"
+      ]
     ]
   }
 ]
