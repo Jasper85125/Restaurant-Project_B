@@ -713,5 +713,586 @@
         "isOccupied": false
       }
     }
+  },
+  {
+    "id": 5,
+    "seats": 0,
+    "licensePlate": "TestBusSprint6",
+    "route": [
+      {
+        "id": 14,
+        "duration": 0,
+        "name": "TestTien",
+        "stops": [
+          {
+            "id": 5,
+            "name": "Alexander",
+            "time": null
+          },
+          {
+            "id": 4,
+            "name": "Beurs",
+            "time": null
+          },
+          {
+            "id": 2,
+            "name": "Blaak",
+            "time": null
+          },
+          {
+            "id": 26,
+            "name": "Blijdorp",
+            "time": null
+          },
+          {
+            "id": 9,
+            "name": "Capelsebrug",
+            "time": null
+          },
+          {
+            "id": 27,
+            "name": "Centraal",
+            "time": null
+          },
+          {
+            "id": 1,
+            "name": "Centraal Station",
+            "time": null
+          },
+          {
+            "id": 23,
+            "name": "Centrum-West",
+            "time": null
+          },
+          {
+            "id": 30,
+            "name": "Coolhaven",
+            "time": null
+          },
+          {
+            "id": 6,
+            "name": "Kralingse Zoom",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null,
+        "isActive": true
+      }
+    ],
+    "IsActive": true,
+    "seatingMap": {
+      "(0,0)": {
+        "isOccupied": false
+      },
+      "(0,1)": {
+        "isOccupied": false
+      },
+      "(0,2)": {
+        "isOccupied": false
+      },
+      "(0,3)": {
+        "isOccupied": false
+      },
+      "(0,4)": {
+        "isOccupied": false
+      },
+      "(0,5)": {
+        "isOccupied": false
+      },
+      "(0,6)": {
+        "isOccupied": false
+      },
+      "(0,7)": {
+        "isOccupied": false
+      },
+      "(0,8)": {
+        "isOccupied": false
+      },
+      "(0,9)": {
+        "isOccupied": false
+      },
+      "(1,0)": {
+        "isOccupied": false
+      },
+      "(1,1)": {
+        "isOccupied": false
+      },
+      "(1,2)": {
+        "isOccupied": false
+      },
+      "(1,3)": {
+        "isOccupied": false
+      },
+      "(1,4)": {
+        "isOccupied": false
+      },
+      "(1,5)": {
+        "isOccupied": false
+      },
+      "(1,6)": {
+        "isOccupied": false
+      },
+      "(1,7)": {
+        "isOccupied": false
+      },
+      "(1,8)": {
+        "isOccupied": false
+      },
+      "(1,9)": {
+        "isOccupied": false
+      },
+      "(2,0)": {
+        "isOccupied": false
+      },
+      "(2,1)": {
+        "isOccupied": false
+      },
+      "(2,2)": {
+        "isOccupied": false
+      },
+      "(2,3)": {
+        "isOccupied": false
+      },
+      "(2,4)": {
+        "isOccupied": false
+      },
+      "(2,5)": {
+        "isOccupied": false
+      },
+      "(2,6)": {
+        "isOccupied": false
+      },
+      "(2,7)": {
+        "isOccupied": false
+      },
+      "(2,8)": {
+        "isOccupied": false
+      },
+      "(2,9)": {
+        "isOccupied": false
+      },
+      "(3,0)": {
+        "isOccupied": false
+      },
+      "(3,1)": {
+        "isOccupied": false
+      },
+      "(3,2)": {
+        "isOccupied": false
+      },
+      "(3,3)": {
+        "isOccupied": false
+      },
+      "(3,4)": {
+        "isOccupied": false
+      },
+      "(3,5)": {
+        "isOccupied": false
+      },
+      "(3,6)": {
+        "isOccupied": false
+      },
+      "(3,7)": {
+        "isOccupied": false
+      },
+      "(3,8)": {
+        "isOccupied": false
+      },
+      "(3,9)": {
+        "isOccupied": false
+      },
+      "(4,0)": {
+        "isOccupied": false
+      },
+      "(4,1)": {
+        "isOccupied": false
+      },
+      "(4,2)": {
+        "isOccupied": false
+      },
+      "(4,3)": {
+        "isOccupied": false
+      },
+      "(4,4)": {
+        "isOccupied": false
+      },
+      "(4,5)": {
+        "isOccupied": false
+      },
+      "(4,6)": {
+        "isOccupied": false
+      },
+      "(4,7)": {
+        "isOccupied": false
+      },
+      "(4,8)": {
+        "isOccupied": false
+      },
+      "(4,9)": {
+        "isOccupied": false
+      },
+      "(5,0)": {
+        "isOccupied": false
+      },
+      "(5,1)": {
+        "isOccupied": false
+      },
+      "(5,2)": {
+        "isOccupied": false
+      },
+      "(5,3)": {
+        "isOccupied": false
+      },
+      "(5,4)": {
+        "isOccupied": false
+      },
+      "(5,5)": {
+        "isOccupied": false
+      },
+      "(5,6)": {
+        "isOccupied": false
+      },
+      "(5,7)": {
+        "isOccupied": false
+      },
+      "(5,8)": {
+        "isOccupied": false
+      },
+      "(5,9)": {
+        "isOccupied": false
+      },
+      "(6,0)": {
+        "isOccupied": false
+      },
+      "(6,1)": {
+        "isOccupied": false
+      },
+      "(6,2)": {
+        "isOccupied": false
+      },
+      "(6,3)": {
+        "isOccupied": false
+      },
+      "(6,4)": {
+        "isOccupied": false
+      },
+      "(6,5)": {
+        "isOccupied": false
+      },
+      "(6,6)": {
+        "isOccupied": false
+      },
+      "(6,7)": {
+        "isOccupied": false
+      },
+      "(6,8)": {
+        "isOccupied": false
+      },
+      "(6,9)": {
+        "isOccupied": false
+      }
+    }
+  },
+  {
+    "id": 6,
+    "seats": 0,
+    "licensePlate": "TestBus100",
+    "route": [
+      {
+        "id": 5,
+        "duration": 3,
+        "name": "Noord",
+        "stops": [
+          {
+            "id": 26,
+            "name": "Blijdorp",
+            "time": null
+          },
+          {
+            "id": 7,
+            "name": "Schouwburgplein",
+            "time": null
+          },
+          {
+            "id": 15,
+            "name": "Laan op Zuid",
+            "time": null
+          }
+        ],
+        "begin": null,
+        "end": null,
+        "isActive": true
+      }
+    ],
+    "IsActive": true,
+    "seatingMap": {
+      "(0,0)": {
+        "isOccupied": false
+      },
+      "(0,1)": {
+        "isOccupied": true
+      },
+      "(0,2)": {
+        "isOccupied": false
+      },
+      "(0,3)": {
+        "isOccupied": false
+      },
+      "(0,4)": {
+        "isOccupied": false
+      },
+      "(0,5)": {
+        "isOccupied": false
+      },
+      "(0,6)": {
+        "isOccupied": false
+      },
+      "(0,7)": {
+        "isOccupied": false
+      },
+      "(0,8)": {
+        "isOccupied": false
+      },
+      "(0,9)": {
+        "isOccupied": false
+      },
+      "(0,10)": {
+        "isOccupied": false
+      },
+      "(0,11)": {
+        "isOccupied": false
+      },
+      "(0,12)": {
+        "isOccupied": false
+      },
+      "(0,13)": {
+        "isOccupied": false
+      },
+      "(1,0)": {
+        "isOccupied": false
+      },
+      "(1,1)": {
+        "isOccupied": true
+      },
+      "(1,2)": {
+        "isOccupied": false
+      },
+      "(1,3)": {
+        "isOccupied": false
+      },
+      "(1,4)": {
+        "isOccupied": false
+      },
+      "(1,5)": {
+        "isOccupied": false
+      },
+      "(1,6)": {
+        "isOccupied": false
+      },
+      "(1,7)": {
+        "isOccupied": false
+      },
+      "(1,8)": {
+        "isOccupied": false
+      },
+      "(1,9)": {
+        "isOccupied": false
+      },
+      "(1,10)": {
+        "isOccupied": false
+      },
+      "(1,11)": {
+        "isOccupied": false
+      },
+      "(1,12)": {
+        "isOccupied": false
+      },
+      "(1,13)": {
+        "isOccupied": false
+      },
+      "(2,0)": {
+        "isOccupied": false
+      },
+      "(2,1)": {
+        "isOccupied": true
+      },
+      "(2,2)": {
+        "isOccupied": false
+      },
+      "(2,3)": {
+        "isOccupied": false
+      },
+      "(2,4)": {
+        "isOccupied": false
+      },
+      "(2,5)": {
+        "isOccupied": false
+      },
+      "(2,6)": {
+        "isOccupied": false
+      },
+      "(2,7)": {
+        "isOccupied": false
+      },
+      "(2,8)": {
+        "isOccupied": false
+      },
+      "(2,9)": {
+        "isOccupied": false
+      },
+      "(2,10)": {
+        "isOccupied": false
+      },
+      "(2,11)": {
+        "isOccupied": false
+      },
+      "(2,12)": {
+        "isOccupied": false
+      },
+      "(2,13)": {
+        "isOccupied": false
+      },
+      "(3,0)": null,
+      "(3,1)": null,
+      "(3,2)": null,
+      "(3,3)": null,
+      "(3,4)": null,
+      "(3,5)": null,
+      "(3,6)": null,
+      "(3,7)": null,
+      "(3,8)": null,
+      "(3,9)": null,
+      "(3,10)": null,
+      "(3,11)": null,
+      "(3,12)": null,
+      "(3,13)": null,
+      "(4,0)": {
+        "isOccupied": false
+      },
+      "(4,1)": {
+        "isOccupied": true
+      },
+      "(4,2)": {
+        "isOccupied": false
+      },
+      "(4,3)": {
+        "isOccupied": false
+      },
+      "(4,4)": {
+        "isOccupied": false
+      },
+      "(4,5)": {
+        "isOccupied": false
+      },
+      "(4,6)": {
+        "isOccupied": false
+      },
+      "(4,7)": {
+        "isOccupied": false
+      },
+      "(4,8)": {
+        "isOccupied": false
+      },
+      "(4,9)": {
+        "isOccupied": false
+      },
+      "(4,10)": {
+        "isOccupied": false
+      },
+      "(4,11)": {
+        "isOccupied": false
+      },
+      "(4,12)": {
+        "isOccupied": false
+      },
+      "(4,13)": {
+        "isOccupied": false
+      },
+      "(5,0)": {
+        "isOccupied": false
+      },
+      "(5,1)": {
+        "isOccupied": true
+      },
+      "(5,2)": {
+        "isOccupied": false
+      },
+      "(5,3)": {
+        "isOccupied": false
+      },
+      "(5,4)": {
+        "isOccupied": false
+      },
+      "(5,5)": {
+        "isOccupied": false
+      },
+      "(5,6)": {
+        "isOccupied": false
+      },
+      "(5,7)": {
+        "isOccupied": false
+      },
+      "(5,8)": {
+        "isOccupied": false
+      },
+      "(5,9)": {
+        "isOccupied": false
+      },
+      "(5,10)": {
+        "isOccupied": false
+      },
+      "(5,11)": {
+        "isOccupied": false
+      },
+      "(5,12)": {
+        "isOccupied": false
+      },
+      "(5,13)": {
+        "isOccupied": false
+      },
+      "(6,0)": {
+        "isOccupied": false
+      },
+      "(6,1)": {
+        "isOccupied": true
+      },
+      "(6,2)": {
+        "isOccupied": false
+      },
+      "(6,3)": {
+        "isOccupied": false
+      },
+      "(6,4)": {
+        "isOccupied": false
+      },
+      "(6,5)": {
+        "isOccupied": false
+      },
+      "(6,6)": {
+        "isOccupied": false
+      },
+      "(6,7)": {
+        "isOccupied": false
+      },
+      "(6,8)": {
+        "isOccupied": false
+      },
+      "(6,9)": {
+        "isOccupied": false
+      },
+      "(6,10)": {
+        "isOccupied": false
+      },
+      "(6,11)": {
+        "isOccupied": false
+      },
+      "(6,12)": {
+        "isOccupied": false
+      },
+      "(6,13)": {
+        "isOccupied": false
+      }
+    }
   }
 ]
