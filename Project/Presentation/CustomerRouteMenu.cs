@@ -1,3 +1,5 @@
+using System.Drawing;
+
 public static class CustomerRouteMenu
 {
     private static SeatLogic seatLogic = new();
@@ -165,42 +167,46 @@ public static class CustomerRouteMenu
                                 Console.Write("om een halte te selecteren.");
 
                                 ConsoleKeyInfo confirmInput = Console.ReadKey(true);
-                                switch (confirmInput.Key)
+
+                                bool stop = false;
+                                while (stop == false)
                                 {
-                                    case ConsoleKey.Enter:
-                                        // BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
+                                    switch (confirmInput.Key)
+                                    {
+                                        case ConsoleKey.Enter:
+                                            // BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
 
-                                        // SeatModel[,] seatModels = new SeatModel[6,8];
-                                        // seatLogic.CreateSeats(seatModels);
-                                        // seatLogic.PrintArr(seatModels);
-                                        // Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
-                                        // bus.SeatingMap = seatingMap;
-                                        // busLogic.UpdateList(bus);
+                                            // SeatModel[,] seatModels = new SeatModel[6,8];
+                                            // seatLogic.CreateSeats(seatModels);
+                                            // seatLogic.PrintArr(seatModels);
+                                            // Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
+                                            // bus.SeatingMap = seatingMap;
+                                            // busLogic.UpdateList(bus);
 
-                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
-                                        SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+                                            Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
+                                            SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
 
-                                        SeatingMapMenu.Start(seatModels);
-                                        Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
-                                        selectedBusModel.SeatingMap = updatedSeatingMap;
-                                        busLogic.UpdateList(selectedBusModel);
+                                            SeatingMapMenu.Start(seatModels);
+                                            Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                                            selectedBusModel.SeatingMap = updatedSeatingMap;
+                                            busLogic.UpdateList(selectedBusModel);
 
-                                        /*
-                                        SeatModel[,] seatModels = new SeatModel[6,8];
-                                        seatLogic.CreateSeats(seatModels);
-                                        */
+                                            /*
+                                            SeatModel[,] seatModels = new SeatModel[6,8];
+                                            seatLogic.CreateSeats(seatModels);
+                                            */
 
-
-
-                                        break;
-                                    case ConsoleKey.Escape:
-                                        break;
-                                    default:
-                                        Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
-                                        break;
+                                            stop = true;
+                                            break;
+                                        case ConsoleKey.Escape:
+                                            stop = true;
+                                            break;
+                                        default:
+                                            confirmInput = Console.ReadKey(true);
+                                            break;
+                                    }
                                 }
                                 break;
-
                             case ConsoleKey.Escape:
                                 Start();
                                 return;
