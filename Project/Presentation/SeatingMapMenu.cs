@@ -100,8 +100,11 @@ public static class SeatingMapMenu
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
                         combinateCoordinates+= $"({coordinaten.Row}.{coordinaten.Col})";
                     }
-                    UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
-                    accountsLogic.UpdateList(UserLogin.loggedInAccount);
+                    if (combinateCoordinates != "")
+                    {
+                        UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
+                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
+                    }
                     if (selectedSeats.Count == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
