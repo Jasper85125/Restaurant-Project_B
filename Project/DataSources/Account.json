@@ -5,7 +5,7 @@
     "password": "admin",
     "fullName": "admin admin",
     "isAdmin": false,
-    "reservations": []
+    "stoelen": []
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "password": "xyz",
     "fullName": "Thomas Edison",
     "isAdmin": false,
-    "reservations": []
+    "stoelen": []
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
+    "stoelen": []
   },
   {
     "id": 4,
@@ -29,46 +29,43 @@
     "password": "Stiffo",
     "fullName": "Stiffo Niffo",
     "isAdmin": false,
-    "reservations": [
-      {
-        "id": 3,
-        "time": null,
-        "halte": {
-          "id": 7,
-          "name": "Schouwburgplein",
-          "time": null
-        }
-      },
-      {
-        "id": 3,
-        "time": null,
-        "halte": {
-          "id": 26,
-          "name": "Blijdorp",
-          "time": null
-        }
-      }
-    ]
+    "stoelen": []
   },
   {
     "id": 5,
     "emailAddress": "Boris@gmail.com",
     "password": "Boris123!",
     "fullName": "Boris Water",
-    "isAdmin": false
+    "isAdmin": false,
+    "stoelen": []
   },
   {
     "id": 6,
     "emailAddress": "amer@gmail.com",
     "password": "amer",
     "fullName": "amer alhasoun",
-    "isAdmin": false
+    "isAdmin": false,
+    "stoelen": []
   },
   {
     "id": 7,
     "emailAddress": "maxob2005@gmail.com",
     "password": "wachtwoord",
     "fullName": "Max Bretherton",
-    "isAdmin": false
+    "isAdmin": false,
+    "stoelen": []
+  },
+  {
+    "id": 8,
+    "emailAddress": "van.loon.roel@gmail.com",
+    "password": "Roel123",
+    "fullName": "Roel van Loon",
+    "isAdmin": false,
+    "stoelen": [
+      "(0, 0)",
+      "(1, 0)",
+      "(0, 3)",
+      "(6, 3)"
+    ]
   }
 ]
