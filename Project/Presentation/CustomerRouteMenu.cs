@@ -151,7 +151,7 @@ public static class CustomerRouteMenu
                                 StopModel selectedStop = stops[selectedIndex];
 
                                 Console.Clear();
-                                Console.WriteLine("Wilt u hier instappen: ");
+                                Console.Write("Wilt u hier instappen: ");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.Write(selectedStop.Name);
                                 Console.ResetColor();
