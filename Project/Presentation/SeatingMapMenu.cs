@@ -1,3 +1,4 @@
+using System.Formats.Asn1;
 using System.Text.Json.Serialization;
 
 public static class SeatingMapMenu
@@ -65,7 +66,11 @@ public static class SeatingMapMenu
                     break;
                 case ConsoleKey.Spacebar:
                     Console.Clear();
-                    if (seatModels[selectedOption.Row, selectedOption.Col].IsOccupied)
+                    if(seatModels[selectedOption.Row, selectedOption.Col] == null)
+                    {
+                        break;
+                    }
+                    else if (seatModels[selectedOption.Row, selectedOption.Col].IsOccupied)
                     {
                         ColorPrint.PrintRed("Is al bezet!");
                         Thread.Sleep(3000);
@@ -85,7 +90,13 @@ public static class SeatingMapMenu
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
                     }
-                    if (selectedSeats.Count > 0)
+                    if (selectedSeats.Count == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"U heeft {selectedSeats.Count} stoel gereserveerd.");
+                        Console.ResetColor();
+                    }
+                    else if (selectedSeats.Count > 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"U heeft {selectedSeats.Count} stoelen gereserveerd.");
@@ -137,20 +148,26 @@ public static class SeatingMapMenu
         {
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
-                if (seatModels[row, col].IsOccupied)
-                {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                if(seatModels[row, col] != null){
+                    if (seatModels[row, col].IsOccupied)
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                    }
+                    else if(selectedSeats.Contains((row, col)))
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Cyan;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
+                    }
                 }
-                else if(selectedSeats.Contains((row, col)))
-                {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Cyan;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
-                }
-                else
-                {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
+                else{
+                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
+                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
                 }
             }
             Console.WriteLine();

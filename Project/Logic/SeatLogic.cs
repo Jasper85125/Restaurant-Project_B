@@ -87,7 +87,7 @@ public class SeatLogic //: AbstractLogic<SeatModel>
         {
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
-                if (seatModels[row, col] == null)
+                if (seatModels[row, col] == null && row != 3)
                 {
                     seatModels[row, col] = new SeatModel();
                 }
