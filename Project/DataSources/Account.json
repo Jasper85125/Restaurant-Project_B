@@ -1,74 +1,22 @@
 [
   {
     "id": 1,
-    "emailAddress": "HeyHey@gmail.com",
-    "password": "admin",
-    "fullName": "admin admin",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 2,
-    "emailAddress": "t@b.c",
-    "password": "xyz",
-    "fullName": "Thomas Edison",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 3,
     "emailAddress": "Admin",
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
+    "stoelen": []
   },
   {
-    "id": 4,
-    "emailAddress": "Stiffo@gmail.com",
-    "password": "Stiffo",
-    "fullName": "Stiffo Niffo",
+    "id": 2,
+    "emailAddress": "Test@gmail.com",
+    "password": "Test",
+    "fullName": "Test Test",
     "isAdmin": false,
-    "reservations": [
-      {
-        "id": 3,
-        "time": null,
-        "halte": {
-          "id": 7,
-          "name": "Schouwburgplein",
-          "time": null
-        }
-      },
-      {
-        "id": 3,
-        "time": null,
-        "halte": {
-          "id": 26,
-          "name": "Blijdorp",
-          "time": null
-        }
-      }
+    "stoelen": [
+      [
+        "(0.7)(1.7), Testie, TestTien, Capelsebrug"
+      ]
     ]
-  },
-  {
-    "id": 5,
-    "emailAddress": "Boris@gmail.com",
-    "password": "Boris123!",
-    "fullName": "Boris Water",
-    "isAdmin": false
-  },
-  {
-    "id": 6,
-    "emailAddress": "amer@gmail.com",
-    "password": "amer",
-    "fullName": "amer alhasoun",
-    "isAdmin": false
-  },
-  {
-    "id": 7,
-    "emailAddress": "maxob2005@gmail.com",
-    "password": "wachtwoord",
-    "fullName": "Max Bretherton",
-    "isAdmin": false
   }
 ]

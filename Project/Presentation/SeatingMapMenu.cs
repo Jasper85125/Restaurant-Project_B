@@ -1,8 +1,11 @@
+using System.Formats.Asn1;
 using System.Text.Json.Serialization;
 
 public static class SeatingMapMenu
 {
     public static SeatLogic seatLogic = new();
+
+    static private AccountsLogic accountsLogic = new AccountsLogic();
 
     // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
     // {
@@ -26,7 +29,7 @@ public static class SeatingMapMenu
 
 
 
-    public static void Start(SeatModel[,] seatModels)
+    public static void Start(SeatModel[,] seatModels, BusModel busModel, RouteModel routeModel, StopModel stopModel)
     {
         List<(int Row, int Col)> selectedSeats = new ();
         
@@ -49,10 +52,20 @@ public static class SeatingMapMenu
             {
                 case ConsoleKey.UpArrow:
                     // Move up
+                    if (selectedOption.Row == seatModels.GetLength(0) / 2 + 1 /* if selectedOption.Row == 4*/)
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 2), selectedOption.Col);
+                        break;
+                    }
                     selectedOption = (Math.Max(0, selectedOption.Row - 1), selectedOption.Col);
                     break;
                 case ConsoleKey.DownArrow:
                     // Move down
+                    if (selectedOption.Row == seatModels.GetLength(0) / 2 - 1 /* if selectedOption.Row == 2*/)
+                    {
+                        selectedOption =  (Math.Min(rowLength, selectedOption.Row + 2), selectedOption.Col);
+                        break;
+                    }
                     selectedOption = (Math.Min(rowLength, selectedOption.Row + 1), selectedOption.Col); ;
                     break;
                 case ConsoleKey.RightArrow:
@@ -81,9 +94,16 @@ public static class SeatingMapMenu
                     }
                     break;
                 case ConsoleKey.Enter:
+                    string combinateCoordinates = "";
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
+                        combinateCoordinates+= $"({coordinaten.Row}.{coordinaten.Col})";
+                    }
+                    if (combinateCoordinates != "")
+                    {
+                        UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
+                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
                     }
                     if (selectedSeats.Count == 1)
                     {
@@ -143,21 +163,29 @@ public static class SeatingMapMenu
         {
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
-                if (seatModels[row, col].IsOccupied)
+                if(seatModels[row, col] != null)
                 {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                    if (seatModels[row, col].IsOccupied)
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Red;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                    }
+                    else if(selectedSeats.Contains((row, col)))
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Cyan;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
+                        Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
+                    }
                 }
-                else if(selectedSeats.Contains((row, col)))
-                {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.Cyan;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " * " : " * ");
-                }
-                else
-                {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
-                }
+                // else
+                // {
+                //     Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
+                //     Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
+                // }
             }
             Console.WriteLine();
         }

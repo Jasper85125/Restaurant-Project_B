@@ -57,7 +57,7 @@ public class CustomerStartMenu
 
     public static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Welkom op de startpagina");
+        Console.WriteLine($"Welkom op de startpagina {UserLogin.loggedInAccount.FullName}");
         Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 1

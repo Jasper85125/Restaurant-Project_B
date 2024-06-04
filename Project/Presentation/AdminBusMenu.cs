@@ -21,7 +21,7 @@ public static class AdminBusMenu
 
     public static void ShowAllBusInformation ()
     {
-        string title = "Bus menu";
+        string title = "Busmenu";
         BusLogic busLogic = new();
         List<BusModel> listAllBusses = busLogic.GetAll();
         List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
@@ -31,7 +31,7 @@ public static class AdminBusMenu
         if (listAllBusses == null || listAllBusses.Count == 0)
         {
             BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
-            SeatModel[,] seatModels = new SeatModel[6, 8];
+            SeatModel[,] seatModels = new SeatModel[7, 14];
             seatLogic.CreateSeats(seatModels); // seatModels wordt gevuld met stoelen
             Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels); // seatModels wordt geconvert naar Dictionary
             newBusModel.AddSeatingMap(seatingMap);
@@ -52,7 +52,7 @@ public static class AdminBusMenu
                 if(selectedRowIndex ==  listAllBusses.Count())
                 {
                     BusModel newBusModel = new(busLogic.GenerateNewId(),0,"",false);
-                    SeatModel[,] seatModels = new SeatModel[6, 8];
+                    SeatModel[,] seatModels = new SeatModel[7, 14];
                     seatLogic.CreateSeats(seatModels); // seatModels wordt gevuld met stoelen
                     Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels); // seatModels wordt geconvert naar Dictionary
                     newBusModel.AddSeatingMap(seatingMap);
