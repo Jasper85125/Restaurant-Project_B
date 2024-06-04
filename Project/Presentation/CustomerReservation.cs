@@ -92,5 +92,4 @@ public static class CustomerReservation
         Thread.Sleep(3000);
         CustomerStartMenu.Start();
     }
-
 }
