@@ -64,6 +64,15 @@ public class AccountsLogic : AbstractLogic<AccountModel>
             return 1;
         }
        return _accounts.Max(account => account.Id) + 1;
+    }
+
+    public int GenerateNewReservationId(AccountModel account) 
+    {
+        if (account.Reservations == null || account.Reservations.Count == 0)
+        {
+            return 1;
+        }
+       return account.Reservations.Max(account => account.Id) + 1;
     } 
 
     public override void UpdateList(AccountModel acc)
@@ -103,16 +112,16 @@ public class AccountsLogic : AbstractLogic<AccountModel>
 
     public override List<AccountModel> GetAll() => _accounts;
 
-    public void MakeReservation()
-    {
+    // public void MakeReservation()
+    // {
         
-    }
+    // }
 
-    public AccountModel AddReservations(AccountModel inputAccount, ReservationModel reservation)
-    {
-        inputAccount.Reservations.Add(reservation);
-        return inputAccount;
-    }
+//     public AccountModel AddReservations(AccountModel inputAccount, ReservationModel reservation)
+//     {
+//         inputAccount.Reservations.Add(reservation);
+//         return inputAccount;
+//     }
 }
 
 

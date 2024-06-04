@@ -21,7 +21,7 @@ public static class AdminBusMenu
 
     public static void ShowAllBusInformation ()
     {
-        string title = "Bus menu";
+        string title = "Busmenu";
         BusLogic busLogic = new();
         List<BusModel> listAllBusses = busLogic.GetAll();
         List<string> header = new() { "Busnummer", "Kenteken", "Busmodel", "Route(s)", "Activiteit"};

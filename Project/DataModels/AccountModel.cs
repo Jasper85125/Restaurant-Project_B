@@ -28,7 +28,7 @@ public class AccountModel
         Password = password;
         FullName = fullName;
         IsAdmin = isAdmin;
-        Reservations = new List<ReservationModel>{};
+        Reservations = new ();
     }
 }
 
