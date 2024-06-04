@@ -158,10 +158,16 @@ public static class SeatingMapMenu
 
     public static void DisplayOptions((int Row, int Col) selectedOption, SeatModel[,] seatModels,  List<(int Row, int Col)> selectedSeats)
     {
-        Console.WriteLine("Selecteer een optie:\n");
+        Console.WriteLine("Selecteer een stoel:\n");
 
+        // Print top border
+        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3 + 3));
         for (int row = 0; row < seatModels.GetLength(0); row++)
         {
+            if (row == 1 || row == 5)
+                ColorPrint.PrintWriteRed("|"); // Print the left side
+            else
+                Console.Write("|"); // Print the left side
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
                 if(seatModels[row, col] != null)
@@ -181,16 +187,28 @@ public static class SeatingMapMenu
                         Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
                         Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
                     }
+                    Console.ResetColor();
                 }
-                // else
-                // {
+                else
+                {
                 //     Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
                 //     Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
-                // }
+                    Console.Write("   "); // Space for the pad
+                }
             }
-            Console.WriteLine();
+            if (row == 1 || row == 5)
+                ColorPrint.PrintYellow("   |"); // Print the right side
+            else
+                Console.WriteLine("   |"); // Print the right side
         }
+
+        // Print bottom border
+        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3));
+
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("  Achterkant --------------> Voorkant");
         Console.ResetColor();
+
         ColorPrint.PrintWriteRed("\n* ");
         Console.WriteLine("bezet");
         ColorPrint.PrintWriteCyan("* ");
