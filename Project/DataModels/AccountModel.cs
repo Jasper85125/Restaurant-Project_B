@@ -18,11 +18,8 @@ public class AccountModel
     [JsonPropertyName("isAdmin")]
     public bool IsAdmin { get; set; }
 
-    [JsonPropertyName("stoelen")]
-    public List<List<string>> Stoelen { get; set; }
-
-    // [JsonPropertyName("reservations")]
-    // public List<ReservationModel> Reservations { get; set; }
+    [JsonPropertyName("reservations")]
+    public List<ReservationModel> Reservations { get; set; }
 
     public AccountModel(int id, string emailAddress, string password, string fullName, bool isAdmin)
     {
@@ -31,8 +28,7 @@ public class AccountModel
         Password = password;
         FullName = fullName;
         IsAdmin = isAdmin;
-        // Reservations = new List<ReservationModel>{};
-        Stoelen = new List<List<string>>();
+        Reservations = new ();
     }
 }
 
