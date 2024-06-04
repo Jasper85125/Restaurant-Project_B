@@ -12,6 +12,7 @@ public static class AdminRouteMenu
     private static TableLogic<RouteModel> tableRoutes = new();
     private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
     private static TableLogic<StopModel> tableStops = new();
+     private static CustomerTableLogic<StopModel> customerTable = new();
 
     static public void Start()
     {
@@ -340,7 +341,8 @@ public static class AdminRouteMenu
                                         }
                                     }
                                     if (ConfirmValue(route))
-                                    {
+                                    {   
+                                        AddTimesToHalte(route);
                                         routeLogic.UpdateList(route);
                                     }
                                     else
@@ -365,6 +367,19 @@ public static class AdminRouteMenu
                 }
             }
         }
+    }
+
+    public static void AddTimesToHalte(RouteModel route){
+        List<string> header = new List<string>(){"Halte naam" , "Tijd(Uur:Minuten)"};
+        string Title ="Halte(s)";
+        List<StopModel> List = route.Stops.ToList();
+        int? index = customerTable.PrintTable(header, List, GenerateRowHalteTable, Title, false);
+    }
+    public static List<string> GenerateRowHalteTable(StopModel stop){
+    string naam = stop.Name;
+    TimeSpan? Time = stop.Time;
+    string timeString = Time.HasValue ? Time.Value.ToString(@"hh\:mm") : "N/A";
+    return new List<string>{$"{naam}", timeString};
     }
 
 
@@ -625,7 +640,7 @@ public static class AdminRouteMenu
         }
         else
         {
-            var SelectedRowIndex = tableRoutesKlant.PrintTable(header, routeModels, GenerateRowForSelectRoute, title);
+            var SelectedRowIndex = tableRoutesKlant.PrintTable(header, routeModels, GenerateRowForSelectRoute, title, true);
             if(SelectedRowIndex != null){
                 return routeModels[SelectedRowIndex.Value];
             }
