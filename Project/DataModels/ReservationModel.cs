@@ -4,16 +4,38 @@ public class ReservationModel
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
-    [JsonPropertyName("time")]
-    public string Time { get; set; } // moet DateTime worden!
+    [JsonPropertyName("checkInStop")]
+    public string Stop { get; set; } // moet DateTime worden!
 
-    [JsonPropertyName("halte")]
-    public StopModel Stop { get; set; }
+    [JsonPropertyName("routeName")]
+    public string RouteName { get; set; }
+
+    [JsonPropertyName("busLicensePlate")]
+    public string BusLicensePlate { get; set; }
+
+    [JsonPropertyName("seatRow")]
+    public List<int> SeatRow { get; set; }
+
+    [JsonPropertyName("seatCol")]
+    public List<int> SeatCol { get; set; }
     
-    public ReservationModel(int id, string time, StopModel stop = null)
+    public ReservationModel(int id, string stop, string routeName, string busLicensePlate)
     {
         Id = id;
-        Time = time;
         Stop = stop;
+        RouteName = routeName;
+        BusLicensePlate = busLicensePlate;
+        SeatRow = new ();
+        SeatCol = new ();
+    }
+
+    public void AddSeatRow (int row)
+    {
+        SeatRow.Add(row);
+    }
+
+    public void AddSeatCol (int col)
+    {
+        SeatCol.Add(col);
     }
 }

@@ -30,7 +30,8 @@ public class CustomerStartMenu
                         case 1:
                             CustomerRouteMenu.Start();
                             break;
-                        case 2:                            
+                        case 2: 
+                            CustomerReservation.Start();                           
                             break;
                         case 3:
                             break;
@@ -56,18 +57,18 @@ public class CustomerStartMenu
 
     public static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Welkom op de startpagina");
+        Console.WriteLine($"Welkom op de startpagina {UserLogin.loggedInAccount.FullName}");
         Console.WriteLine("Selecteer een optie:\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
         Console.Write(selectedOption == 1 ? ">> " : "   ");
-        Console.WriteLine("Bekijk het overzicht voor reserveringen.");
+        Console.WriteLine("Maak een reservering.");
 
         // Display option 2
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
-        Console.WriteLine("Placeholder.");
+        Console.WriteLine("Uw reserveringen.");
 
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;

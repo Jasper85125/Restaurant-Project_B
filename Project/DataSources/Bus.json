@@ -45,7 +45,7 @@
         "isOccupied": false
       },
       "(0,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,5)": {
         "isOccupied": false
@@ -54,7 +54,7 @@
         "isOccupied": false
       },
       "(0,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,8)": {
         "isOccupied": false
@@ -87,7 +87,7 @@
         "isOccupied": false
       },
       "(1,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,5)": {
         "isOccupied": false
@@ -96,7 +96,7 @@
         "isOccupied": false
       },
       "(1,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,8)": {
         "isOccupied": false
@@ -324,7 +324,7 @@
     "IsActive": false,
     "seatingMap": {
       "(0,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,1)": {
         "isOccupied": false
@@ -333,10 +333,10 @@
         "isOccupied": false
       },
       "(0,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,5)": {
         "isOccupied": false
@@ -366,7 +366,7 @@
         "isOccupied": false
       },
       "(1,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,1)": {
         "isOccupied": false
@@ -375,10 +375,10 @@
         "isOccupied": false
       },
       "(1,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,5)": {
         "isOccupied": false
@@ -417,10 +417,10 @@
         "isOccupied": false
       },
       "(2,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,5)": {
         "isOccupied": false
@@ -473,7 +473,7 @@
         "isOccupied": false
       },
       "(4,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(4,4)": {
         "isOccupied": false
@@ -515,7 +515,7 @@
         "isOccupied": false
       },
       "(5,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,4)": {
         "isOccupied": false
@@ -557,7 +557,7 @@
         "isOccupied": false
       },
       "(6,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(6,4)": {
         "isOccupied": false

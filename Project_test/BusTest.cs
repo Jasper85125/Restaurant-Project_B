@@ -27,6 +27,7 @@ public class BusTest
 
         // Assert
         Assert.AreEqual(actual.LicensePlate, expected.LicensePlate);
+        Assert.AreEqual(actual.Id, expected.Id);
         Assert.AreEqual(actual, expected);
     }
 
