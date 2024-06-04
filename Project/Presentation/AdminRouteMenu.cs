@@ -11,7 +11,7 @@ public static class AdminRouteMenu
     private static StopLogic stopLogic = new();
     private static TableLogic<RouteModel> tableRoutes = new();
     private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
-    private static TableLogic<StopModel> tableStops = new();
+    private static BasicTableLogic<StopModel> tableStops = new();
      private static CustomerTableLogic<StopModel> customerTable = new();
 
     static public void Start()
@@ -373,7 +373,26 @@ public static class AdminRouteMenu
         List<string> header = new List<string>(){"Halte naam" , "Tijd(Uur:Minuten)"};
         string Title ="Halte(s)";
         List<StopModel> List = route.Stops.ToList();
-        int? index = customerTable.PrintTable(header, List, GenerateRowHalteTable, Title);
+        while(true){
+            int? index = tableStops.PrintTable(header, List, GenerateRowHalteTable, Title);
+            Console.WriteLine($"{route.Stops[index.Value].Name}/ {route.Stops[index.Value].Time}");
+            Console.WriteLine("Verander de tijd.");
+            if(route.Stops[index.Value] != null){
+            Console.Write($"Minimaal later dan {route.Stops[index.Value].Time}");
+            }
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            switch (keyInfo)
+            {
+                case ConsoleKey.Escape:
+                    
+                case "nee":
+                    return;
+                default:
+                    ColorPrint.PrintRed($"{answer} is geen geldige input. Probeer het opnieuw.");
+                    break;
+            }
+        }
+
     }
     public static List<string> GenerateRowHalteTable(StopModel stop){
     string naam = stop.Name;
