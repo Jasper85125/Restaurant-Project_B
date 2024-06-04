@@ -373,7 +373,7 @@ public static class AdminRouteMenu
         List<string> header = new List<string>(){"Halte naam" , "Tijd(Uur:Minuten)"};
         string Title ="Halte(s)";
         List<StopModel> List = route.Stops.ToList();
-        int? index = customerTable.PrintTable(header, List, GenerateRowHalteTable, Title, false);
+        int? index = customerTable.PrintTable(header, List, GenerateRowHalteTable, Title);
     }
     public static List<string> GenerateRowHalteTable(StopModel stop){
     string naam = stop.Name;
@@ -640,7 +640,7 @@ public static class AdminRouteMenu
         }
         else
         {
-            var SelectedRowIndex = tableRoutesKlant.PrintTable(header, routeModels, GenerateRowForSelectRoute, title, true);
+            var SelectedRowIndex = tableRoutesKlant.PrintTable(header, routeModels, GenerateRowForSelectRoute, title);
             if(SelectedRowIndex != null){
                 return routeModels[SelectedRowIndex.Value];
             }

@@ -59,7 +59,7 @@ public static class CustomerRouteMenu
                     busList.Add(bus);
                 }  
             }
-            var SelectedRowIndex = tableRoutes.PrintTable(Header, routesInBusses, GenerateRow, Title, true);
+            var SelectedRowIndex = tableRoutes.PrintTable(Header, routesInBusses, GenerateRow, Title);
             if (SelectedRowIndex  != null)
             {
 
