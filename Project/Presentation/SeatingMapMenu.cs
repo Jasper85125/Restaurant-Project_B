@@ -94,15 +94,16 @@ public static class SeatingMapMenu
                     }
                     break;
                 case ConsoleKey.Enter:
-                    string combinateCoordinates = "";
+                    ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.LicensePlate);
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
-                        combinateCoordinates+= $"({coordinaten.Row}.{coordinaten.Col})";
+                        reservation.AddSeatRow(coordinaten.Row);
+                        reservation.AddSeatCol(coordinaten.Col);
                     }
-                    if (combinateCoordinates != "")
+                    if (reservation.SeatCol != null && reservation.SeatCol.Count != 0)
                     {
-                        UserLogin.loggedInAccount.Stoelen.Add(new List<string> (){$"{combinateCoordinates}, {busModel.LicensePlate}, {routeModel.Name}, {stopModel.Name}"});
+                        UserLogin.loggedInAccount.Reservations.Add(reservation);
                         accountsLogic.UpdateList(UserLogin.loggedInAccount);
                     }
                     if (selectedSeats.Count == 1)

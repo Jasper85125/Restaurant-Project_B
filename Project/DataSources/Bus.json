@@ -45,7 +45,7 @@
         "isOccupied": false
       },
       "(0,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,5)": {
         "isOccupied": false
@@ -54,7 +54,7 @@
         "isOccupied": false
       },
       "(0,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,8)": {
         "isOccupied": false
@@ -87,7 +87,7 @@
         "isOccupied": false
       },
       "(1,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,5)": {
         "isOccupied": false
@@ -96,7 +96,7 @@
         "isOccupied": false
       },
       "(1,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,8)": {
         "isOccupied": false
@@ -336,7 +336,7 @@
         "isOccupied": true
       },
       "(0,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,5)": {
         "isOccupied": false
@@ -378,7 +378,7 @@
         "isOccupied": true
       },
       "(1,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,5)": {
         "isOccupied": false
@@ -420,7 +420,7 @@
         "isOccupied": true
       },
       "(2,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,5)": {
         "isOccupied": false

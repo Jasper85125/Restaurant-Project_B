@@ -5,7 +5,7 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "stoelen": []
+    "reservations": []
   },
   {
     "id": 2,
@@ -13,10 +13,23 @@
     "password": "Test",
     "fullName": "Test Test",
     "isAdmin": false,
-    "stoelen": [
-      [
-        "(0.7)(1.7), Testie, TestTien, Capelsebrug"
-      ]
+    "reservations": [
+      {
+        "id": 1,
+        "checkInStop": "De Kuip",
+        "routeName": "CoolRoute",
+        "busLicensePlate": "BCA-321",
+        "seatRow": [
+          0,
+          1,
+          2
+        ],
+        "seatCol": [
+          4,
+          4,
+          4
+        ]
+      }
     ]
   }
 ]
