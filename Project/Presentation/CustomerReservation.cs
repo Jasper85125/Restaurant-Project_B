@@ -6,8 +6,10 @@ using Microsoft.VisualBasic;
 public static class CustomerReservation
 {
     private static PriceLogic pricesLogic = new();
-    private static TableLogic<PriceModel> tablePrices = new();
+    private static BasicTableLogic<ReservationModel> tableReservations = new();
     private static BasicTableLogic<PriceModel> basictableLogic = new();
+    static private AccountsLogic accountsLogic = new AccountsLogic();
+    
 
 
     public static void Start()
@@ -17,27 +19,27 @@ public static class CustomerReservation
     
     public static void ShowAllPricesInformation()
     {
-        string title = "Het prijscategorie menu";
-        List<string> header = new() {"Id", "doelgroep", "prijs", "activiteit"};
-        List<PriceModel> priceModels = pricesLogic.GetAll();
-        string kind = "prijscategorie";
-        if (priceModels == null || priceModels.Count == 0)
+        string title = "Uw reserveringen";
+        List<string> header = new() {"Halte", "Route", "Zitplaats"};
+        AccountModel currentAccount = UserLogin.loggedInAccount;
+        List<ReservationModel> Reservations = currentAccount.Reservations;
+        string kind = "reserveringen";
+        if (Reservations == null || Reservations.Count == 0)
         {
             PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
                     pricesLogic.UpdateList(newPriceModel);
         }
         while(true)
         {
-            (List<string> SelectedRow, int SelectedRowIndex)? TableInfo = tablePrices.PrintTable(header, priceModels, GenerateRow, title, Listupdater, kind);
-            if(TableInfo == null){
-                AdminStartMenu.Start();
+            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
+            if(SelectedRowIndex == null){
+                CustomerStartMenu.Start();
                 return;
             }
             else
             {
-                int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
-                List<string> selectedRow = TableInfo.Value.SelectedRow;
-                if(selectedRowIndex == priceModels.Count())
+                List<string> selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                if(SelectedRowIndex == Reservations.Count())
                 {
                     PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
                     pricesLogic.UpdateList(newPriceModel);
@@ -45,8 +47,8 @@ public static class CustomerReservation
                 }
                 while(true)
                 {
-                    selectedRow = GenerateRow(priceModels[selectedRowIndex]);
-                    (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, header);
+                    selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                    (string SelectedItem, int SelectedIndex)? result = tableReservations.PrintSelectedRow(selectedRow, header);
                     if (result == null){
                         break; //exit loop door escape
                     }
@@ -60,69 +62,7 @@ public static class CustomerReservation
                             ColorPrint.PrintRed($"U kan de {header[selectedIndex]} niet aanpassen.");
                             Thread.Sleep(3000);
                         }
-                        else if(selectedIndex == 1)
-                        {
-                            while(true)
-                            {
-                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"'{selectedItem}'");
-                                Console.ResetColor();
-                                Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine();
-                                while (!Helper.IsValidString(Input))
-                                {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine($"Wat is de naam van de nieuwe {header[selectedIndex]}?");
-                                    Input = Console.ReadLine();
-                                }
-                                //variable to check Passenger
-                                bool PassengerExists = false;
-
-                                // Check if the input Passenger already exists
-                                foreach(var priceIndex in priceModels) {
-                                    if(Input == priceIndex.Passenger) {
-                                        PassengerExists = true;
-                                        break;
-                                    }
-                                }
-
-                                if(PassengerExists) {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Naam bestaat al, geef een andere op.");
-                                    Console.ResetColor();
-                                    Thread.Sleep(3000);
-                                } else {
-                                    //if Passenger does not exists, it gets added to the list
-                                    priceModels[selectedRowIndex].Passenger = Input;
-                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                    break;
-                                }
-                            }
                         
-                        }
-                        else if(selectedIndex == 2)
-                        {
-                            while (true)
-                            {
-                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"'{selectedItem}'");
-                                Console.ResetColor();
-                                Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine();
-                                while (!Helper.IsValidDouble(Input))
-                                {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De prijs moet in hele getallen gegeven worden.");
-                                    Console.WriteLine("Wat is de nieuwe prijs?");
-                                    Input = Console.ReadLine();
-                                }
-                                priceModels[selectedRowIndex].Price = Convert.ToDouble(Input);
-                                pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                break;      
-                            }
-                        }
                     }
                 }
             }
@@ -130,34 +70,27 @@ public static class CustomerReservation
         
     }
 
-    public static void Listupdater(PriceModel model){
-        pricesLogic.UpdateList(model);
-    }
 
-
-    public static List<string> GenerateRow(PriceModel priceModel)
+    public static List<string> GenerateRow(ReservationModel Reservations)
     {
-        var id = priceModel.Id;
-        var passenger = priceModel.Passenger;
-        var price = priceModel.Price;
-        var active = priceModel.IsActive;
-        string activity = "";
-        if (active)
+        var checkInStop = Reservations.Stop;
+        var routeName = Reservations.RouteName;
+        List<int> seatRow = Reservations.SeatRow;
+        List<int> seatCol = Reservations.SeatCol;
+        List<(int row, int col)> seats = new List<(int row, int col)>();
+        for (int i = 0; i < seatRow.Count; i++)
         {
-            activity = "Actief";
+            seats.Add((seatRow[i], seatCol[i]));
         }
-        else
-        {
-            activity = "Non-actief";
-        }
-        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{activity}" };
+        string seatsString = string.Join(",", seats);
+        return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}" };
     }
 
     public static void BackToStartMenu()
     {
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
-        Menu.Start();
+        CustomerStartMenu.Start();
     }
 
 }
