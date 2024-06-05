@@ -56,6 +56,10 @@ public static class SeatingMapMenu2
                     {
                         selectedOption =  (Math.Max(0, selectedOption.Row - 4), selectedOption.Col);
                         break;
+                    }else if(selectedOption.Row == 2 && (selectedOption.Col >= 7 && selectedOption.Col <= 11))
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 0), selectedOption.Col);
+                        break;
                     }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 + 1 /* if selectedOption.Row == 4*/)
                     {
@@ -70,6 +74,12 @@ public static class SeatingMapMenu2
                     {
                         selectedOption =  (Math.Max(0, selectedOption.Row + 4), selectedOption.Col);
                         break;
+                    
+                    }
+                    else if(selectedOption.Row == 4 && (selectedOption.Col >= 7 && selectedOption.Col <= 11))
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 0), selectedOption.Col);
+                        break;
                     }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 - 1 /* if selectedOption.Row == 2*/)
                     {
@@ -80,15 +90,25 @@ public static class SeatingMapMenu2
                     break;
                 case ConsoleKey.RightArrow:
                     // Move right
-                    if (selectedOption.Row == 1 && (selectedOption.Col >= 2 && selectedOption.Col <= 4) /* if selectedOption.Col == 4*/)
+                    if (selectedOption.Col == 1 && (selectedOption.Row == 2 || selectedOption.Row == 4) /* if selectedOption.Col == 4*/)
                     {
-                        selectedOption =  (Math.Max(0, selectedOption.Col + 4), selectedOption.Row);
+                        selectedOption =  (Math.Max(0, selectedOption.Row), selectedOption.Col + 4);
                         break;
                     }
-                    selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 1));
+                    else if(selectedOption.Col == 6 && (selectedOption.Row == 0 || selectedOption.Row == 1 || selectedOption.Row == 5 || selectedOption.Row == 6))
+                    {
+                        selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 0));
+                    }else{
+                        selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 1));
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
                     // Move left
+                    if (selectedOption.Col == 5 && (selectedOption.Row == 2 || selectedOption.Row == 4) /* if selectedOption.Col == 4*/)
+                    {
+                        selectedOption =  (Math.Min(rowLength, selectedOption.Row), selectedOption.Col - 4);
+                        break;
+                    }
                     selectedOption = (selectedOption.Row, Math.Max(0, selectedOption.Col - 1));
                     break;
                 case ConsoleKey.Spacebar:
