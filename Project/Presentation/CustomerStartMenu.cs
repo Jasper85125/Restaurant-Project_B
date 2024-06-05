@@ -30,7 +30,8 @@ public class CustomerStartMenu
                         case 1:
                             CustomerRouteMenu.Start();
                             break;
-                        case 2:                            
+                        case 2: 
+                            CustomerReservation.Start();                           
                             break;
                         case 3:
                             break;
