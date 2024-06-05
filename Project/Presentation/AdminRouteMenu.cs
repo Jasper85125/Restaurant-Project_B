@@ -1,8 +1,4 @@
-using System.Data.Common;
-using System.Formats.Asn1;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System;
+using System.Text.RegularExpressions;
 
 public static class AdminRouteMenu
 {
@@ -12,7 +8,7 @@ public static class AdminRouteMenu
     private static TableLogic<RouteModel> tableRoutes = new();
     private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
     private static BasicTableLogic<StopModel> tableStops = new();
-     private static CustomerTableLogic<StopModel> customerTable = new();
+    private static CustomerTableLogic<StopModel> customerTable = new();
 
     static public void Start()
     {
@@ -340,6 +336,7 @@ public static class AdminRouteMenu
                                             RouteLogic.RemoveFromRoute(halte, route);
                                         }
                                     }
+                                    AddTimesToHalte(route);
                                     if (ConfirmValue(route))
                                     {   
                                         AddTimesToHalte(route);
@@ -375,24 +372,72 @@ public static class AdminRouteMenu
         List<StopModel> List = route.Stops.ToList();
         while(true){
             int? index = tableStops.PrintTable(header, List, GenerateRowHalteTable, Title);
-            Console.WriteLine($"{route.Stops[index.Value].Name}/ {route.Stops[index.Value].Time}");
-            Console.WriteLine("Verander de tijd.");
-            if(route.Stops[index.Value] != null){
-            Console.Write($"Minimaal later dan {route.Stops[index.Value].Time}");
+            Console.WriteLine($"{route.Stops[index.Value].Name} / {route.Stops[index.Value].Time}");
+            Console.WriteLine("Verander de tijd door een nieuwe in te vullen.");
+            if(index > 0 && route.Stops[index.Value - 1].Time != null){
+            Console.Write($"Minimaal later dan {route.Stops[index.Value].Time}. (HH:MM)");
             }
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            switch (keyInfo)
+            string input = "";
+        ConsoleKeyInfo keyInfo;
+        ConsoleKeyInfo key;
+
+        while (true)
+        {
+            keyInfo = Console.ReadKey(intercept: true);
+            
+            if (keyInfo.Key == ConsoleKey.Escape)
             {
-                case ConsoleKey.Escape:
-                    
-                case "nee":
-                    return;
-                default:
-                    ColorPrint.PrintRed($"{answer} is geen geldige input. Probeer het opnieuw.");
-                    break;
+                Console.Clear();
+                Console.WriteLine("\nU drukte op escape, u keert nu terug naar het vorige menu.");
+                Thread.Sleep(1000);
+                break;
+            }
+
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (IsValidTime(input))
+                {
+                    if(index.Value == 0 || TimeSpan.Parse(input) > route.Stops[index.Value - 1].Time || route.Stops[index.Value - 1].Time == null){
+                        Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
+                        Console.WriteLine($"Toevoegen aan {route.Stops[index.Value].Name} klik op");
+                        ColorPrint.PrintGreen("Enter");
+                        Console.Write($"\nOm terug te gaan klik op");
+                        ColorPrint.PrintRed("Escape");
+                        ConsoleKeyInfo Key = Console.ReadKey(intercept: true);
+                        if (Key.Key == ConsoleKey.Escape){
+                            AddStopToRoute(route);
+                            return;
+                        }
+                        else if (Key.Key == ConsoleKey.Enter){
+                            route.Stops[index.Value].Time = TimeSpan.Parse(input);
+                            break;
+                        }
+
+                    }
+                    else{
+                        Console.WriteLine($"Uw tijd moet later zijn dan '{route.Stops[index.Value - 1].Time}'");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nVerkeerde format (Uur:Minuten). Probeer het nog een keer");
+                    input = "";
+                    Thread.Sleep(1000);
+                }
+            }
+            else
+            {
+                input += keyInfo.KeyChar;
+                Console.Write(keyInfo.KeyChar);
             }
         }
+    }
 
+    static bool IsValidTime(string time)
+    {
+        string pattern = @"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
+        return Regex.IsMatch(time, pattern);
+    }
     }
     public static List<string> GenerateRowHalteTable(StopModel stop){
     string naam = stop.Name;
