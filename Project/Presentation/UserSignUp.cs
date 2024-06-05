@@ -30,12 +30,12 @@ public static class UserSignUp
         }
         while (true)
         {
-            Console.WriteLine("Uw email: ");
+            Console.WriteLine("Uw e-mail: ");
             email = Console.ReadLine();
 
             if (!accountsLogic.IsValidEmail(email))
             {
-                ColorPrint.PrintRed("Ongeldig emailadres. Probeer opnieuw.");
+                ColorPrint.PrintRed("Ongeldig e-mailadres. Probeer opnieuw.");
                 continue;
             }
             if (!accountsLogic.EmailExists(email))
@@ -44,7 +44,7 @@ public static class UserSignUp
             }
             else
             {
-                ColorPrint.PrintRed("Er is al een account met dit email. \nProbeer een ander.");
+                ColorPrint.PrintRed("Er is al een account met dit e-mail. \nProbeer een ander.");
             }
         }
         while (true)

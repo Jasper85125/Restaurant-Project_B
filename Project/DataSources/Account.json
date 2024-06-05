@@ -39,5 +39,13 @@
     "fullName": "Stephane Dauvillier",
     "isAdmin": false,
     "reservations": []
+  },
+  {
+    "id": 4,
+    "emailAddress": "amer@gmail.com",
+    "password": "amer",
+    "fullName": "amer alhasoun",
+    "isAdmin": false,
+    "reservations": []
   }
 ]
