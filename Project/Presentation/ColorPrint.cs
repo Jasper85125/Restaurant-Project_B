@@ -28,6 +28,13 @@ public static class ColorPrint
         Console.ResetColor();
     }
 
+    public static void PrintMagenta(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine(text);
+        Console.ResetColor();
+    }
+
     public static void PrintWriteGreen(string text)
     {
         Console.ForegroundColor = ConsoleColor.Green;

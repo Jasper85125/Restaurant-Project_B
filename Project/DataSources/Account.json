@@ -31,5 +31,13 @@
         ]
       }
     ]
+  },
+  {
+    "id": 3,
+    "emailAddress": "Dauvillier04@gmail.com",
+    "password": "Joe",
+    "fullName": "Stephane Dauvillier",
+    "isAdmin": false,
+    "reservations": []
   }
 ]
