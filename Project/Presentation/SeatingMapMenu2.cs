@@ -196,7 +196,10 @@ public static class SeatingMapMenu2
         Console.WriteLine("Selecteer een optie:\n");
 
         // Print top border
-        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3 + 3));
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("         Party        |     Business");
+        Console.ResetColor();
+        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3 + 4));        
         for (int row = 0; row < seatModels.GetLength(0); row++)
         {
             if (row == 1 || row == 5)
@@ -205,6 +208,11 @@ public static class SeatingMapMenu2
                 Console.Write("|"); // Print the left side
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
+
+                if (col == 7) // Assuming the split happens after the 3rd column, adjust as necessary
+                {
+                    Console.Write("|"); // Add the vertical line separator
+                }
                 if(seatModels[row, col] != null)
                 {
                     if (seatModels[row, col].IsOccupied)
@@ -236,7 +244,19 @@ public static class SeatingMapMenu2
         }
 
         // Print bottom border
-        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3));
+        int totalColumns = seatModels.GetLength(1) * 3 + 4;
+        for (int i = 0; i < totalColumns; i++)
+        {
+            if (i == 10 || i == 11 || i == 12 || i == 38 || i == 39)
+            {
+                Console.Write(" ");
+            }
+            else
+            {
+                Console.Write("=");
+            }
+        }
+        Console.WriteLine();
 
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("  Achterkant --------------> Voorkant");
