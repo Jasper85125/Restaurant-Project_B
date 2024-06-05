@@ -1,7 +1,7 @@
 using System.Formats.Asn1;
 using System.Text.Json.Serialization;
 
-public static class SeatingMapMenu
+public static class SeatingMapMenu2
 {
     public static SeatLogic seatLogic = new();
 
@@ -52,6 +52,11 @@ public static class SeatingMapMenu
             {
                 case ConsoleKey.UpArrow:
                     // Move up
+                    if (selectedOption.Row == 5 && (selectedOption.Col >= 2 && selectedOption.Col <= 4) /* if selectedOption.Row == 4*/)
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 4), selectedOption.Col);
+                        break;
+                    }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 + 1 /* if selectedOption.Row == 4*/)
                     {
                         selectedOption =  (Math.Max(0, selectedOption.Row - 2), selectedOption.Col);
@@ -61,6 +66,11 @@ public static class SeatingMapMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move down
+                    if (selectedOption.Row == 1 && (selectedOption.Col >= 2 && selectedOption.Col <= 4) /* if selectedOption.Row == 4*/)
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row + 4), selectedOption.Col);
+                        break;
+                    }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 - 1 /* if selectedOption.Row == 2*/)
                     {
                         selectedOption =  (Math.Min(rowLength, selectedOption.Row + 2), selectedOption.Col);
@@ -70,6 +80,11 @@ public static class SeatingMapMenu
                     break;
                 case ConsoleKey.RightArrow:
                     // Move right
+                    if (selectedOption.Row == 1 && (selectedOption.Col >= 2 && selectedOption.Col <= 4) /* if selectedOption.Col == 4*/)
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Col + 4), selectedOption.Row);
+                        break;
+                    }
                     selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 1));
                     break;
                 case ConsoleKey.LeftArrow:
