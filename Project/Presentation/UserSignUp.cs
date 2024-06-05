@@ -95,15 +95,16 @@ public static class UserSignUp
         AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, false);
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
+        UserLogin.loggedInAccount = acc;
         
         Console.WriteLine($"Welkom {acc.FullName}.");
         Thread.Sleep(3000);
         ColorPrint.PrintGreen("Uw account is aangemaakt.");
 
         Thread.Sleep(3000);
-        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        ColorPrint.PrintMagenta("U bent ingelogd op uw account en gaat naar het startmenu.\n");
         Thread.Sleep(3000);
-        Menu.Start();
+        CustomerStartMenu.Start();
     }
 
     public static void AdminSignUp(string email, string password, string fullName)
@@ -119,6 +120,6 @@ public static class UserSignUp
         Thread.Sleep(3000);
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
-        Menu.Start();
+        AdminStartMenu.Start();
     }
 }
