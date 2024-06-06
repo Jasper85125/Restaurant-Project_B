@@ -65,7 +65,7 @@
 // {
 //     int maxRow = 0;
 //     int maxCol = 0;
-    
+
 //     foreach (KeyValuePair<(int Row, int Col), SeatModel> kvp in seatingMap)
 //     {
 //         if (kvp.Key.Row > maxRow) maxRow = kvp.Key.Row;
@@ -121,21 +121,30 @@
 //         }
 //     }
 // }
+using System.Diagnostics.Contracts;
 
-// void Print(SeatModel[,] seatModels)
-// {
-//     for (int row = 0; row < seatModels.GetLength(0); row++)
-//     {
-//         for (int col = 0; col < seatModels.GetLength(1); col++)
-//         {
-//             if (seatModels[row, col] != null)
-//             {
-//                 Console.Write("-    ");
-//             }
-//         }
-//         Console.WriteLine();
-//     }
-// }
+public class TestCode
+{
+    public static void Print(SeatModel[,] seatModels)
+{
+    for (int row = 0; row < seatModels.GetLength(0); row++)
+    {
+        for (int col = 0; col < seatModels.GetLength(1); col++)
+        {
+            if (seatModels[row, col] != null)
+            {
+                Console.Write("-    ");
+            }
+            else
+            {
+                Console.Write("     ");
+            }
+        }
+        Console.WriteLine();
+    }
+}
+}
+
 // void Print(SeatModel[,] seatModels)
 // {
 //     for (int row = 0; row < seatModels.GetLength(0); row++)
