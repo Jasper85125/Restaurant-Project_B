@@ -1,35 +1,9 @@
 [
   {
     "id": 1,
-    "seats": 0,
-    "licensePlate": "ABC-123",
-    "route": [
-      {
-        "id": 5,
-        "duration": 3,
-        "name": "Noord",
-        "stops": [
-          {
-            "id": 26,
-            "name": "Blijdorp",
-            "time": null
-          },
-          {
-            "id": 7,
-            "name": "Schouwburgplein",
-            "time": null
-          },
-          {
-            "id": 15,
-            "name": "Laan op Zuid",
-            "time": null
-          }
-        ],
-        "begin": null,
-        "end": null,
-        "isActive": true
-      }
-    ],
+    "seats": "Business",
+    "licensePlate": "",
+    "route": [],
     "IsActive": false,
     "seatingMap": {
       "(0,0)": {
@@ -45,7 +19,7 @@
         "isOccupied": false
       },
       "(0,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,5)": {
         "isOccupied": false
@@ -54,7 +28,7 @@
         "isOccupied": false
       },
       "(0,7)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,8)": {
         "isOccupied": false
@@ -87,7 +61,7 @@
         "isOccupied": false
       },
       "(1,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,5)": {
         "isOccupied": false
@@ -96,7 +70,7 @@
         "isOccupied": false
       },
       "(1,7)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,8)": {
         "isOccupied": false
@@ -117,7 +91,7 @@
         "isOccupied": false
       },
       "(2,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(2,1)": {
         "isOccupied": false
@@ -173,7 +147,7 @@
       "(3,12)": null,
       "(3,13)": null,
       "(4,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,1)": {
         "isOccupied": false
@@ -182,10 +156,10 @@
         "isOccupied": false
       },
       "(4,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,5)": {
         "isOccupied": false
@@ -302,29 +276,13 @@
   },
   {
     "id": 2,
-    "seats": 0,
-    "licensePlate": "BCA-321",
-    "route": [
-      {
-        "id": 2,
-        "duration": 3,
-        "name": "CoolRoute",
-        "stops": [
-          {
-            "id": 14,
-            "name": "De Kuip",
-            "time": null
-          }
-        ],
-        "begin": null,
-        "end": null,
-        "isActive": true
-      }
-    ],
+    "seats": "Plebs",
+    "licensePlate": "",
+    "route": [],
     "IsActive": false,
     "seatingMap": {
       "(0,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,1)": {
         "isOccupied": false
@@ -333,10 +291,10 @@
         "isOccupied": false
       },
       "(0,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,5)": {
         "isOccupied": false
@@ -366,7 +324,7 @@
         "isOccupied": false
       },
       "(1,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,1)": {
         "isOccupied": false
@@ -375,10 +333,10 @@
         "isOccupied": false
       },
       "(1,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,5)": {
         "isOccupied": false
@@ -417,10 +375,10 @@
         "isOccupied": false
       },
       "(2,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(2,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(2,5)": {
         "isOccupied": false
@@ -473,7 +431,7 @@
         "isOccupied": false
       },
       "(4,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,4)": {
         "isOccupied": false
@@ -515,7 +473,7 @@
         "isOccupied": false
       },
       "(5,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(5,4)": {
         "isOccupied": false
@@ -557,7 +515,7 @@
         "isOccupied": false
       },
       "(6,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(6,4)": {
         "isOccupied": false
