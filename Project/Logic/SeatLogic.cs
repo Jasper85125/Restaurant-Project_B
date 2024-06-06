@@ -95,6 +95,29 @@ public class SeatLogic //: AbstractLogic<SeatModel>
         }
     }
 
+    public void CreateBusinessSeats(SeatModel[,] seatModels)
+    {
+        for (int row = 0; row < seatModels.GetLength(0); row++)
+        {
+            for (int col = 0; col < seatModels.GetLength(1); col++)
+            {
+                if (seatModels[row, col] == null && row != seatModels.GetLength(0)/2 /* row != 3 */)
+                {
+                    if (row == 2 && (col == 2 || col == 3 || col == 4) || row == 4 && (col == 2 || col == 3 || col == 4)
+                    || row == 0 && (col > 6) || row == 1 && (col > 6) || row == 5 && (col > 6) || row == 6 && (col > 6))
+                    {
+                       seatModels[row, col] = null;
+                    }
+                    else
+                    {
+                        seatModels[row, col] = new SeatModel();
+                    }
+            
+                }
+            }
+        }
+    }
+
     public void Print(SeatModel[,] seatModels)
     {
         for (int row = 0; row < seatModels.GetLength(0); row++)

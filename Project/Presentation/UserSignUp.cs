@@ -30,12 +30,12 @@ public static class UserSignUp
         }
         while (true)
         {
-            Console.WriteLine("Uw email: ");
+            Console.WriteLine("Uw e-mail: ");
             email = Console.ReadLine();
 
             if (!accountsLogic.IsValidEmail(email))
             {
-                ColorPrint.PrintRed("Ongeldig emailadres. Probeer opnieuw.");
+                ColorPrint.PrintRed("Ongeldig e-mailadres. Probeer opnieuw.");
                 continue;
             }
             if (!accountsLogic.EmailExists(email))
@@ -44,7 +44,7 @@ public static class UserSignUp
             }
             else
             {
-                ColorPrint.PrintRed("Er is al een account met dit email. \nProbeer een ander.");
+                ColorPrint.PrintRed("Er is al een account met dit e-mail. \nProbeer een ander.");
             }
         }
         while (true)
@@ -95,15 +95,16 @@ public static class UserSignUp
         AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, false);
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
+        UserLogin.loggedInAccount = acc;
         
         Console.WriteLine($"Welkom {acc.FullName}.");
         Thread.Sleep(3000);
         ColorPrint.PrintGreen("Uw account is aangemaakt.");
 
         Thread.Sleep(3000);
-        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        ColorPrint.PrintMagenta("U bent ingelogd op uw account en gaat naar het startmenu.\n");
         Thread.Sleep(3000);
-        Menu.Start();
+        CustomerStartMenu.Start();
     }
 
     public static void AdminSignUp(string email, string password, string fullName)
@@ -119,6 +120,6 @@ public static class UserSignUp
         Thread.Sleep(3000);
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
-        Menu.Start();
+        AdminStartMenu.Start();
     }
 }
