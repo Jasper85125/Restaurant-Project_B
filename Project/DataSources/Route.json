@@ -37,21 +37,21 @@
       {
         "id": 26,
         "name": "Blijdorp",
-        "time": null
+        "time": "12:00:00"
       },
       {
         "id": 7,
         "name": "Schouwburgplein",
-        "time": null
+        "time": "12:10:00"
       },
       {
         "id": 15,
         "name": "Laan op Zuid",
-        "time": null
+        "time": "12:13:00"
       }
     ],
-    "begin": null,
-    "end": null,
+    "begin": "12:00:00",
+    "end": "12:13:00",
     "isActive": true
   },
   {

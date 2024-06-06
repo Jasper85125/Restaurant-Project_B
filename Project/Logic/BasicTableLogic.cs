@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Text.Json.Nodes;
 using Microsoft.VisualBasic;
 
@@ -10,7 +11,7 @@ public class BasicTableLogic<T>
     public static int selectedOption = 1;
 
     
-   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
+   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title, bool stopstable)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -38,7 +39,7 @@ public class BasicTableLogic<T>
                     PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
                 }            
             }
-            SelectionExplanation();
+            SelectionExplanation(stopstable);
 
             keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
@@ -49,9 +50,12 @@ public class BasicTableLogic<T>
                 case ConsoleKey.DownArrow:
                     selectedOption = Math.Min(maxOptions, selectedOption + 1);
                     break;
+                case ConsoleKey.Spacebar:
+                    Console.Clear();
+                    return jsonIndex;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return (jsonIndex);
+                    return Data.Count() + 1;
                 case ConsoleKey.Escape:
                 return null;
             }
@@ -74,7 +78,7 @@ public class BasicTableLogic<T>
             PrintRow(header, false, true);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
-            SelectionExplanation();
+            SelectionExplanation(false);
             key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -174,18 +178,37 @@ public class BasicTableLogic<T>
         }
     }
 
-    private static void SelectionExplanation(){
-        Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
-        Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Enter");
-        Console.ResetColor();
-        Console.Write(" om de rij te selecteren.");
-        Console.Write("\nOm een stap terug te gaan druk op");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape");
-        Console.ResetColor();
-        Console.Write(".\n");
+    private static void SelectionExplanation(bool stopsTable){
+        if(stopsTable){
+            Console.WriteLine("\nSelecteer een rij doormiddel van de pijltjes.");
+            Console.Write("Als je de juiste rij hebt klik op ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Spatsie");
+            Console.ResetColor();
+            Console.Write("\nAls u klaar bent klik op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om de rij te selecteren.");
+            Console.Write("\nOm terug te gaan klik op");
+            Console.ForegroundColor = ConsoleColor.Red;
+            ColorPrint.PrintRed(" Escape");
+            Console.ResetColor();
+            Console.Write(".\n");
 
+        }
+        else{
+            Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
+            Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om de rij te selecteren.");
+            Console.Write("\nOm terug te gaan klik op escape");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(" Escape");
+            Console.ResetColor();
+            Console.Write(".\n");
+        }
     }
 }

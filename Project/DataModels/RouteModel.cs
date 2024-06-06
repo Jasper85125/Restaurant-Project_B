@@ -7,7 +7,7 @@ public class RouteModel : IActivatable
     public int Id { get; set; }
 
     [JsonPropertyName("duration")]
-    public int Duration { get; set; }
+    public double Duration { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
@@ -23,7 +23,7 @@ public class RouteModel : IActivatable
 
     [JsonPropertyName("isActive")]
     public bool IsActive { get; set; }
-    public RouteModel(int id, int duration, string name, bool isActive = true)
+    public RouteModel(int id, double duration, string name, bool isActive = true)
     {
         Id = id;
         Duration = duration;
