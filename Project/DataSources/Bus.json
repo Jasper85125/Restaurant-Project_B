@@ -239,16 +239,16 @@
         "isOccupied": false
       },
       "(5,8)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,9)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,10)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,11)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,12)": {
         "isOccupied": false
