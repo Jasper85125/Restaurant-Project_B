@@ -81,7 +81,7 @@ public static class CustomerRouteMenu
                         Console.Clear();
 
                         Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}");
-                        Console.WriteLine($"Naam: {selectedBusModel.LicensePlate}\n");
+                        Console.WriteLine($"Kenteken: {selectedBusModel.LicensePlate}\n");
                         Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
 
                         int startIndex = (currentPage - 1) * pageSize;
@@ -98,7 +98,7 @@ public static class CustomerRouteMenu
                             {
                                 Console.Write("   ");
                             }
-                            Console.WriteLine(stops[i].Name);
+                            Console.WriteLine($"{stops[i].Name} | {stops[i].Time}");
                             Console.ResetColor();
                         }
 
@@ -155,14 +155,14 @@ public static class CustomerRouteMenu
                                 Console.Clear();
                                 Console.Write("Wilt u hier instappen: ");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.Write(selectedStop.Name);
+                                Console.Write($"{selectedStop.Name} | {selectedStop.Time}");
                                 Console.ResetColor();
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("\nBackspace ");
                                 Console.ResetColor();
                                 Console.Write("om te annuleren.");
                                 Console.ForegroundColor = ConsoleColor.Green;
-                                Console.Write(" Enter ");
+                                Console.Write(" \nEnter ");
                                 Console.ResetColor();
                                 Console.Write("om een halte te selecteren.");
 

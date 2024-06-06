@@ -182,7 +182,7 @@ public static class AdminBusMenu
                                         break;
                                     default:
                                         Console.WriteLine("\nOngeldige invoer.");
-                                        Thread.Sleep(3000);
+                                        Thread.Sleep(1000);
                                         break;
                                 }
                             } while (keyInfo.Key != ConsoleKey.Enter);
