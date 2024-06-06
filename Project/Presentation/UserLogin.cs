@@ -5,16 +5,51 @@ public static class UserLogin
     static private AccountsLogic accountsLogic = new AccountsLogic();
     public static AccountModel loggedInAccount {get; set;}
 
-
     public static void Start()
     {
-        Console.WriteLine("Welkom op de inlogpagina");
-        Console.WriteLine("Vul uw email in: ");
+        Console.WriteLine("Welkom op de inlogpagina.");
+        Console.WriteLine("Vul uw e-mail in: ");
         string? email = Console.ReadLine();
+        while (true)
+        {
+            if (!accountsLogic.IsValidEmail(email) && email != "Admin")
+            {
+                ColorPrint.PrintRed("Ongeldig e-mailadres. Probeer opnieuw.");
+            }
+            else
+            {
+                if (!accountsLogic.EmailExists(email))
+                {
+                    ColorPrint.PrintRed("Uw e-mail is niet geregistreerd in ons systeem");
+                    EnterOrEscape();
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+            Console.WriteLine("Vul uw e-mail in: ");
+            email = Console.ReadLine();
+        }
+
         Console.WriteLine("Vul uw wachtwoord in: ");
         string? password = Console.ReadLine();
+        while (!Helper.IsValidString(password))
+        {
+            ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
+            Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
+            Console.WriteLine("Vul uw wachtwoord in: ");
+            password = Console.ReadLine();
+        }
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         loggedInAccount = acc;
+
+        if (acc == null)
+        {
+            ColorPrint.PrintRed("Geen account gevonden met de opgegeven e-mail en wachtwoord combinatie.");
+            EnterOrEscape();
+        }
 
         if (acc != null && acc.IsAdmin == false)
         {
@@ -36,10 +71,38 @@ public static class UserLogin
             Thread.Sleep(3000);
             AdminStartMenu.Start();
         }
-        else
+    }
+
+    public static void EnterOrEscape()
+    {
+        Console.Write("Om naar het startmenu te gaan, druk op");
+        ColorPrint.PrintWriteRed(" Escape.\n");
+        Console.Write("Om nog een poging te doen tot inloggen, druk op");
+        ColorPrint.PrintWriteGreen(" Enter.\n");
+        while (true)
         {
-            ColorPrint.PrintRed("Geen account gevonden met die email en wachtwoord combinatie.");
-            Thread.Sleep(3000);
+            // Wait for key press
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            // Check arrow key presses
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.Escape:
+                    // Move to the previous option
+                    BackToStartMenu();
+                    break;
+                case ConsoleKey.Enter:
+                    Start();
+                    break;
+            }
         }
+    }
+
+    public static void BackToStartMenu()
+    {
+        Console.Clear();
+        ColorPrint.PrintYellow("U keert terug naar het Startmenu.");
+        Thread.Sleep(3000);
+        Menu.Start();
     }
 }
