@@ -29,6 +29,24 @@
           4,
           4
         ]
+      },
+      {
+        "id": 2,
+        "checkInStop": "Laan op Zuid",
+        "routeName": "Noord",
+        "busLicensePlate": "ABC-123",
+        "seatRow": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          8,
+          9,
+          10,
+          11
+        ]
       }
     ]
   },
