@@ -24,7 +24,7 @@ public static class AdminBusMenu
         string title = "Busmenu";
         BusLogic busLogic = new();
         List<BusModel> listAllBusses = busLogic.GetAll();
-        List<string> header = new() { "Busnummer", "Kenteken", "Zitplaatsen", "Route(s)", "Activiteit"};
+        List<string> header = new() { "Busnummer", "Kenteken", "Busmodel", "Route(s)", "Activiteit"};
         List<RouteModel> RoutesList = new() {};
         string kind = "bus";
 
@@ -95,12 +95,11 @@ public static class AdminBusMenu
                                 //if licensePlate does not exists, it gets added to the list
                                 listAllBusses[selectedRowIndex].LicensePlate = Input;
                                 busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                                break;
                             }
                         }
                         else if(selectedIndex == 2){
                             while (true){
-                            Console.WriteLine("Voer een nummer in het item te veranderen:");
+                            Console.WriteLine($"Voer het {header[2]} in om het huidige {header[2]} te veranderen:");
                             string Input = Console.ReadLine();
                             bool containsOnlyNumbers = Input.All(char.IsDigit);
                             if (containsOnlyNumbers){
@@ -109,7 +108,6 @@ public static class AdminBusMenu
                                 break;
                                 }
                             }
-                            break;
                         }
                         else if (selectedIndex == 3)
                         {
@@ -184,16 +182,23 @@ public static class AdminBusMenu
                                         break;
                                     default:
                                         Console.WriteLine("\nOngeldige invoer.");
-                                        Thread.Sleep(3000);
+                                        Thread.Sleep(1000);
                                         break;
                                 }
                             } while (keyInfo.Key != ConsoleKey.Enter);
                         }
-                        else{
-                            Console.WriteLine("");
-                            break;
-                        }
-                                
+                        else if (selectedIndex == 6)
+                            {
+                                dynamic item = listAllBusses[selectedRowIndex].IsActive;
+                                if (listAllBusses[selectedRowIndex].IsActive)
+                                {
+                                    listAllBusses[selectedRowIndex].IsActive = false;
+                                }
+                                else{
+                                    listAllBusses[selectedRowIndex].IsActive = true;
+                                }
+                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                            }                   
                     }
                 }
             }

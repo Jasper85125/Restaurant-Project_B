@@ -31,7 +31,7 @@ public static class CustomerReservation
         }
         while(true)
         {
-            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
+            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title, false);
             if(SelectedRowIndex == null){
                 CustomerStartMenu.Start();
                 return;
