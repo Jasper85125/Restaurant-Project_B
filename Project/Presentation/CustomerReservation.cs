@@ -77,12 +77,12 @@ public static class CustomerReservation
         var routeName = Reservations.RouteName;
         List<int> seatRow = Reservations.SeatRow;
         List<int> seatCol = Reservations.SeatCol;
-        List<(int row, int col)> seats = new List<(int row, int col)>();
+        List<string> seats = new List<string>();
         for (int i = 0; i < seatRow.Count; i++)
         {
-            seats.Add((seatRow[i],seatCol[i]));
+            seats.Add($"Rij: {seatRow[i]} Stoel: {seatCol[i]}");
         }
-        string seatsString = string.Join(",", seats);
+        string seatsString = string.Join(", ", seats);
         return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}" };
     }
 
