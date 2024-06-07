@@ -26,7 +26,7 @@ public static class Menu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
+                    selectedOption = Math.Min(4, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -43,12 +43,8 @@ public static class Menu
                             Information.Info();
                             break; 
                         case 4:
-                            CustomerStartMenu.Start();
-                            break;
-                        case 5:
                             AdminStartMenu.Start();
                             break;
-
                     }
                     break;
             }
@@ -78,12 +74,9 @@ public static class Menu
         Console.Write(selectedOption == 3 ? ">> " : "   ");
         Console.WriteLine("Informatie over de app.");
 
+
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("Tijdelijke klantmenu toegang.");
-
-        Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 5 ? ">> " : "   ");
         Console.WriteLine("Tijdelijk adminmenu toegang.");
 
         // Reset text color

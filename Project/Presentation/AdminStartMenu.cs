@@ -27,7 +27,7 @@ public static class AdminStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(6, selectedOption + 1);
+                    selectedOption = Math.Min(5, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -48,12 +48,6 @@ public static class AdminStartMenu
                             break;
                         case 5:
                             CustomerStartMenu.Start();
-                            break;
-                        case 6:
-                            SeatModel[,] seatModels = new SeatModel[7, 12];
-                            seatLogic.CreateBusinessSeats(seatModels);
-                            SeatingMapMenu2.Start(seatModels, null,null, null);
-                            Thread.Sleep(5000);
                             break;
                     }
                     break;
@@ -97,9 +91,6 @@ public static class AdminStartMenu
         Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 5 ? ">> " : "   ");
         Console.WriteLine("Klantmenu.");
-        Console.ForegroundColor = selectedOption == 6 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 6 ? ">> " : "   ");
-        Console.WriteLine("bbus.");
 
         // Reset text color
         Console.ResetColor();
