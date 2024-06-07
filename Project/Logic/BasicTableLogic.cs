@@ -11,7 +11,7 @@ public class BasicTableLogic<T>
     public static int selectedOption = 1;
 
     
-   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title, bool stopstable)
+   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -39,7 +39,7 @@ public class BasicTableLogic<T>
                     PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
                 }            
             }
-            SelectionExplanation(stopstable);
+            SelectionExplanation();
 
             keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
@@ -78,7 +78,7 @@ public class BasicTableLogic<T>
             PrintRow(header, false, true);
             PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
-            SelectionExplanation(false);
+            SelectionExplanation();
             key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -178,26 +178,7 @@ public class BasicTableLogic<T>
         }
     }
 
-    private static void SelectionExplanation(bool stopsTable){
-        if(stopsTable){
-            Console.WriteLine("\nSelecteer een rij doormiddel van de pijltjes.");
-            Console.Write("Als je de juiste rij hebt klik op ");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Spatsie");
-            Console.ResetColor();
-            Console.Write("\nAls u klaar bent klik op ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter");
-            Console.ResetColor();
-            Console.Write(" om de rij te selecteren.");
-            Console.Write("\nOm terug te gaan klik op");
-            Console.ForegroundColor = ConsoleColor.Red;
-            ColorPrint.PrintRed(" Escape");
-            Console.ResetColor();
-            Console.Write(".\n");
-
-        }
-        else{
+    private static void SelectionExplanation(){
             Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
             Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
             Console.ForegroundColor = ConsoleColor.Green;
@@ -209,6 +190,5 @@ public class BasicTableLogic<T>
             Console.Write(" Escape");
             Console.ResetColor();
             Console.Write(".\n");
-        }
     }
 }
