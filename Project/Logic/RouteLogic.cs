@@ -7,6 +7,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
 {
     private List<RouteModel> _routes;
     public static RouteModel? CurrentRoute { get; private set; }
+     private static BusLogic busLogic = new();
 
     public RouteLogic()
     {
@@ -30,6 +31,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
             _routes.Add(route);
         }
         DataAccess<RouteModel>.WriteAll(_routes);
+        RouteLogic.busLogic.UpdateBusRoutes();
     }
 
     public override RouteModel GetById(int id)

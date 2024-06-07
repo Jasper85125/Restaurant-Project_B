@@ -6,7 +6,7 @@ public class BusModel : IActivatable, IEquatable<BusModel>
     public int Id { get; set; }
 
     [JsonPropertyName("seats")]
-    public int Seats { get; set; }
+    public string Seats { get; set; }
 
     [JsonPropertyName("licensePlate")]
     public string LicensePlate { get; set; }
@@ -21,7 +21,7 @@ public class BusModel : IActivatable, IEquatable<BusModel>
     [JsonConverter(typeof(ValueTupleKeyConverter<(int, int), SeatModel>))]
     public Dictionary<(int Row, int Col), SeatModel> SeatingMap { get; set; } = new();
 
-    public BusModel(int id, int seats, string licensePlate, bool isActive = false)
+    public BusModel(int id, string seats, string licensePlate, bool isActive = false)
     {
         Id = id;
         Seats = seats;
