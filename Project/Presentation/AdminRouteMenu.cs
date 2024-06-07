@@ -174,7 +174,12 @@ public static class AdminRouteMenu
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     for (int i = 0; i < selectedStops.Count; i++)
                     {
-                        Console.Write(selectedStops[i].Name);
+                        if(selectedStops[i].Time.HasValue){
+                            Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"hh\:mm")}");
+                        }
+                        else{
+                            Console.Write($"{selectedStops[i].Name} | N/A"); 
+                        }
                         
                         if (i < selectedStops.Count - 1 && selectedStops.Count > 1)
                         {
@@ -273,7 +278,13 @@ public static class AdminRouteMenu
                         StopModel selectedStop = stops[selectedIndex];
                         if (!selectedStops.Contains(selectedStop))
                         {
+
                             selectedStops.Add(selectedStop);
+                            if(AddTimesToHalte(selectedStops, selectedStops.Count()-1) == false){
+                                selectedStops.Remove(selectedStop);
+                                break;
+                            }
+
                             duplicateStopMessage = "";
                         }
                         else
@@ -297,7 +308,12 @@ public static class AdminRouteMenu
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             for (int i = 0; i < selectedStops.Count; i++)
                             {
-                                Console.Write(selectedStops[i].Name);
+                                if(selectedStops[i].Time.HasValue){
+                                    Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"hh\:mm")}");
+                                }
+                                else{
+                                    Console.Write($"{selectedStops[i].Name} | N/A"); 
+                                }
                                 
                                 if (i < selectedStops.Count - 1 && selectedStops.Count > 1)
                                 {
@@ -341,12 +357,15 @@ public static class AdminRouteMenu
                                             RouteLogic.RemoveFromRoute(halte, route);
                                         }
                                     }
-                                    AddTimesToHalte(route);
-                                    if(!AddTimesToHalte(route)){
-                                        return;
+                                    route.beginTime = route.Stops.Where(stop => stop.Time.HasValue).Min(stop => stop.Time);
+                                    route.endTime = route.Stops.Where(stop => stop.Time.HasValue).Max(stop => stop.Time);
+                                    if(route.endTime.HasValue && route.beginTime.HasValue){
+                                        TimeSpan timeDifference = route.endTime.Value - route.beginTime.Value;
+                                        route.Duration = timeDifference.TotalHours;
                                     }
+
                                     if (ConfirmValue(route))
-                                    {   
+                                    {      
                                         routeLogic.UpdateList(route);
                                     }
                                     else
@@ -374,32 +393,22 @@ public static class AdminRouteMenu
         }
     }
 
-    public static bool AddTimesToHalte(RouteModel route){
-        List<string> header = new List<string>(){"Halte naam" , "Tijd(Uur:Minuten)"};
-        string Title ="Halte(s)";
-        List<StopModel> List = route.Stops.ToList();
-
+    public static bool AddTimesToHalte(List<StopModel> Stops, int index){
+        Console.Clear();
         while(true){
-            int? index = tableStops.PrintTable(header, List, GenerateRowHalteTable, Title, true);
-            if (!index.HasValue){
-                AddStopToRoute(route, route.Stops.ToList());
-                return false;
+            if(Stops[index].Time.HasValue){
+                ColorPrint.PrintGreen($"{Stops[index].Name} / {Stops[index].Time.Value.ToString(@"hh\:mm")}");
             }
-            if(index.Value == List.Count() + 1){
-                route.beginTime = route.Stops.Where(stop => stop.Time.HasValue).Min(stop => stop.Time);
-                route.endTime = route.Stops.Where(stop => stop.Time.HasValue).Max(stop => stop.Time);
-                if(route.endTime.HasValue && route.beginTime.HasValue){
-                    TimeSpan timeDifference = route.endTime.Value - route.beginTime.Value;
-                    route.Duration = timeDifference.TotalHours;
-                }
-                return true;
+            else {
+                ColorPrint.PrintGreen($"{Stops[index].Name} / N/A");
             }
-            ColorPrint.PrintGreen($"{route.Stops[index.Value].Name} / {route.Stops[index.Value].Time.Value.ToString(@"hh\:mm")}");
             Console.WriteLine("Verander de tijd door een nieuwe in te vullen.");
-            if(index > 0 && route.Stops[index.Value - 1].Time != null){
-            Console.Write($"Minimaal later dan {route.Stops[index.Value - 1].Time.Value.ToString(@"hh\:mm")}.");
+            if(index > 0 && Stops[index - 1].Time != null){
+            Console.Write($"Minimaal later dan {Stops[index - 1].Time.Value.ToString(@"hh\:mm")}.");
             ColorPrint.PrintCyan("(HH:MM)\n");
             }
+            ColorPrint.PrintRed("Escape");
+            Console.Write(" om terug te gaan.\n");
             string input = "";
         ConsoleKeyInfo keyInfo;
         ConsoleKeyInfo key;
@@ -413,33 +422,33 @@ public static class AdminRouteMenu
                 Console.Clear();
                 Console.WriteLine("\nU drukte op escape, u keert nu terug naar het vorige menu.");
                 Thread.Sleep(1000);
-                break;
+
+                return false;
             }
 
             if (keyInfo.Key == ConsoleKey.Enter)
             {
                 if (IsValidTime(input))
                 {
-                    if(index.Value == 0 || TimeSpan.Parse(input) > route.Stops[index.Value - 1].Time || route.Stops[index.Value - 1].Time == null){
+                    if(index == 0 || TimeSpan.Parse(input) > Stops[index - 1].Time || Stops[index - 1].Time == null){
                         Console.Clear();
                         Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
-                        Console.Write($"Toevoegen aan {route.Stops[index.Value].Name} klik op");
+                        Console.Write($"Toevoegen aan {Stops[index].Name} klik op");
                         ColorPrint.PrintGreen(" Enter");
                         Console.Write($"Om terug te gaan klik op");
                         ColorPrint.PrintRed(" Escape");
                         ConsoleKeyInfo Key = Console.ReadKey(intercept: true);
                         if (Key.Key == ConsoleKey.Escape){
-                            AddStopToRoute(route, route.Stops.ToList());
                             return false;
                         }
                         else if (Key.Key == ConsoleKey.Enter){
-                            route.Stops[index.Value].Time = TimeSpan.Parse(input);
+                            Stops[index].Time = TimeSpan.Parse(input);
                             return true;
                         }
 
                     }
                     else{
-                        ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{route.Stops[index.Value - 1].Time}'");
+                        ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{Stops[index - 1].Time}'");
                     }
                 }
                 else
@@ -572,8 +581,8 @@ public static class AdminRouteMenu
                             else if (selectedIndex == 4)
                             {
                                 if (routeModels[selectedRowIndex].endTime.HasValue && routeModels[selectedRowIndex].beginTime.HasValue){
-                                    var timeDifference = routeModels[selectedIndex].Stops.Where(stop => stop.Time.HasValue).Min(stop => stop.Time);
-                                    routeModels[selectedIndex].beginTime = timeDifference;
+                                    var timeDifference = routeModels[selectedRowIndex].Stops.Where(stop => stop.Time.HasValue).Min(stop => stop.Time);
+                                    routeModels[selectedRowIndex].beginTime = timeDifference;
                                 }
                                 else{
                                     ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben");
@@ -582,8 +591,8 @@ public static class AdminRouteMenu
                             else if (selectedIndex == 5)
                             {
                                 if (routeModels[selectedRowIndex].endTime.HasValue && routeModels[selectedRowIndex].beginTime.HasValue){
-                                    var timeDifference = routeModels[selectedIndex].Stops.Where(stop => stop.Time.HasValue).Max(stop => stop.Time);
-                                    routeModels[selectedIndex].endTime = timeDifference;
+                                    var timeDifference = routeModels[selectedRowIndex].Stops.Where(stop => stop.Time.HasValue).Max(stop => stop.Time);
+                                    routeModels[selectedRowIndex].endTime = timeDifference;
                                 }
                                 else{          
                                     ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben");
@@ -764,12 +773,12 @@ public static class AdminRouteMenu
             return false;
         }
         List<StopModel> stops = newRoute.Stops;
-        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
+        var stopsString = string.Join(", ", stops.Select(stop => $"{stop.Name} | {stop.Time.Value.ToString(@"hh\:mm")}"));
 
         do
         {
             ConsoleKeyInfo keyInfo;
-            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info:\nNaam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
+            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info:\nNaam: {newRoute.Name}, Tijdsduur(uur): {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
             Console.Write("Druk op ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Enter");
