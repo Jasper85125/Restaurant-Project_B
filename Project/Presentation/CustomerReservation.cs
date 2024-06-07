@@ -33,9 +33,15 @@ public static class CustomerReservation
         while(true)
         {
             int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
-            if(SelectedRowIndex == null){
+            if(SelectedRowIndex == null) // escape to go back into Startmenu
+            {
                 CustomerStartMenu.Start();
                 return;
+            }
+            else if (SelectedRowIndex < 0) // backspace to delete reservation
+            {
+                CancelReservation(-SelectedRowIndex);
+                ShowAllPricesInformation();
             }
             else
             {
@@ -85,6 +91,25 @@ public static class CustomerReservation
         }
     }
 
+    public static void CancelReservation(int? selectedRowIndex)
+    {
+        Console.Clear();
+        Console.WriteLine("Weet u zeker dat u deze reservering wilt annuleren.");
+        bool answer = JaNee();
+        if (answer)
+        {
+            ReservationModel toCancel = UserLogin.loggedInAccount.Reservations[Convert.ToInt32(selectedRowIndex)];
+            UserLogin.loggedInAccount.Reservations.Remove(toCancel);
+            accountsLogic.UpdateList(UserLogin.loggedInAccount);
+            Console.WriteLine("Uw reservering is geannuleerd.");
+            ShowAllPricesInformation();
+        }
+        else
+        {
+            ShowAllPricesInformation();
+        }
+    }
+
     public static List<string> GenerateRow(ReservationModel Reservations)
     {
         var checkInStop = Reservations.Stop;
@@ -118,5 +143,56 @@ public static class CustomerReservation
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
         CustomerStartMenu.Start();
+    }
+
+    public static bool JaNee()
+    {
+        int selectedOption = 1;
+
+        DisplayOptionsJaNee(selectedOption);
+
+        while (true)
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = Math.Max(1, selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = Math.Min(2, selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            return true;
+                        case 2:
+                            return false;
+                    }
+                    break;
+            }
+            Console.Clear();
+            DisplayOptionsJaNee(selectedOption);
+        }
+
+    }
+    public static void DisplayOptionsJaNee(int selectedOption)
+    {
+        Console.WriteLine("Selecteer een optie:");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("Ja.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("Nee.");
+
+        Console.ResetColor();
     }
 }

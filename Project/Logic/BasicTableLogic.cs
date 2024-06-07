@@ -57,13 +57,10 @@ public class BasicTableLogic<T>
                     Console.Clear();
                     return Data.Count - 1;
                 case ConsoleKey.Backspace:
-                    Console.Clear();
-                    Console.WriteLine("Joe Biden");
-                    Thread.Sleep(5000);
-                    break;
+                    return -(Data.Count - 1);
                 case ConsoleKey.Escape:
                     Console.Clear();
-                return null;
+                    return null;
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
         
