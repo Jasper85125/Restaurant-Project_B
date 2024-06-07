@@ -5,9 +5,9 @@
     "licensePlate": "Route 1",
     "route": [
       {
-        "id": 14,
-        "duration": 0,
-        "name": "TestTien",
+        "id": 3,
+        "duration": 3,
+        "name": "Noord",
         "stops": [
           {
             "id": 5,
@@ -27,41 +27,21 @@
           {
             "id": 26,
             "name": "Blijdorp",
-            "time": null
+            "time": "12:00:00"
           },
           {
-            "id": 9,
-            "name": "Capelsebrug",
-            "time": null
+            "id": 7,
+            "name": "Schouwburgplein",
+            "time": "12:10:00"
           },
           {
-            "id": 27,
-            "name": "Centraal",
-            "time": null
-          },
-          {
-            "id": 1,
-            "name": "Centraal Station",
-            "time": null
-          },
-          {
-            "id": 23,
-            "name": "Centrum-West",
-            "time": null
-          },
-          {
-            "id": 30,
-            "name": "Coolhaven",
-            "time": null
-          },
-          {
-            "id": 6,
-            "name": "Kralingse Zoom",
-            "time": null
+            "id": 15,
+            "name": "Laan op Zuid",
+            "time": "12:13:00"
           }
         ],
-        "begin": null,
-        "end": null,
+        "begin": "12:00:00",
+        "end": "12:13:00",
         "isActive": true
       }
     ],
@@ -274,16 +254,16 @@
         "isOccupied": false
       },
       "(5,8)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,9)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,10)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,11)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,12)": {
         "isOccupied": false
