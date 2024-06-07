@@ -10,8 +10,6 @@ public static class CustomerReservation
     private static BasicTableLogic<PriceModel> basictableLogic = new();
     static private AccountsLogic accountsLogic = new AccountsLogic();
     
-
-
     public static void Start()
     {
         ShowAllPricesInformation();
@@ -69,7 +67,6 @@ public static class CustomerReservation
         }
         
     }
-
 
     public static List<string> GenerateRow(ReservationModel Reservations)
     {

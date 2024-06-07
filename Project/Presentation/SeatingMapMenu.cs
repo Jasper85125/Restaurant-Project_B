@@ -205,9 +205,7 @@ public static class SeatingMapMenu
         // Print bottom border
         Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3));
 
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("  Achterkant --------------> Voorkant");
-        Console.ResetColor();
+        ColorPrint.PrintMagenta("  Achterkant --------------> Voorkant");
 
         ColorPrint.PrintWriteRed("\n* ");
         Console.WriteLine("bezet");

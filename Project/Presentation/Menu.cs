@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 public static class Menu
 {
     //This shows the menu. You can call back to this method to show the menu again
@@ -90,9 +91,7 @@ public static class Menu
         Console.ResetColor();
 
         Console.Write("\nKlik");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(" Enter ");
-        Console.ResetColor();
+        ColorPrint.PrintWriteGreen(" Enter ");
         Console.WriteLine("om een optie te selecteren");
     }
 }
