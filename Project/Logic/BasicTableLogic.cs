@@ -56,6 +56,11 @@ public class BasicTableLogic<T>
                 case ConsoleKey.Enter:
                     Console.Clear();
                     return Data.Count() + 1;
+                case ConsoleKey.Backspace:
+                    Console.Clear();
+                    Console.WriteLine("Joe Biden");
+                    Thread.Sleep(5000);
+                    break;
                 case ConsoleKey.Escape:
                 return null;
             }

@@ -81,14 +81,11 @@ public static class CustomerReservation
                                 // Clear console and display options
                                 Console.Clear();
                             }
-
                         }
-                        
                     }
                 }
             }
         }
-        
     }
 
     public static List<string> GenerateRow(ReservationModel Reservations)
