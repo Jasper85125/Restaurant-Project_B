@@ -56,6 +56,10 @@ public static class SeatingMapMenu2
                     {
                         selectedOption =  (Math.Max(0, selectedOption.Row - 4), selectedOption.Col);
                         break;
+                    }else if(selectedOption.Row == 2 && (selectedOption.Col >= 7 && selectedOption.Col <= 11))
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 0), selectedOption.Col);
+                        break;
                     }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 + 1 /* if selectedOption.Row == 4*/)
                     {
@@ -70,6 +74,12 @@ public static class SeatingMapMenu2
                     {
                         selectedOption =  (Math.Max(0, selectedOption.Row + 4), selectedOption.Col);
                         break;
+                    
+                    }
+                    else if(selectedOption.Row == 4 && (selectedOption.Col >= 7 && selectedOption.Col <= 11))
+                    {
+                        selectedOption =  (Math.Max(0, selectedOption.Row - 0), selectedOption.Col);
+                        break;
                     }
                     if (selectedOption.Row == seatModels.GetLength(0) / 2 - 1 /* if selectedOption.Row == 2*/)
                     {
@@ -80,15 +90,25 @@ public static class SeatingMapMenu2
                     break;
                 case ConsoleKey.RightArrow:
                     // Move right
-                    if (selectedOption.Row == 1 && (selectedOption.Col >= 2 && selectedOption.Col <= 4) /* if selectedOption.Col == 4*/)
+                    if (selectedOption.Col == 1 && (selectedOption.Row == 2 || selectedOption.Row == 4) /* if selectedOption.Col == 4*/)
                     {
-                        selectedOption =  (Math.Max(0, selectedOption.Col + 4), selectedOption.Row);
+                        selectedOption =  (Math.Max(0, selectedOption.Row), selectedOption.Col + 4);
                         break;
                     }
-                    selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 1));
+                    else if(selectedOption.Col == 6 && (selectedOption.Row == 0 || selectedOption.Row == 1 || selectedOption.Row == 5 || selectedOption.Row == 6))
+                    {
+                        selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 0));
+                    }else{
+                        selectedOption = (selectedOption.Row, Math.Min(colLength, selectedOption.Col + 1));
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
                     // Move left
+                    if (selectedOption.Col == 5 && (selectedOption.Row == 2 || selectedOption.Row == 4) /* if selectedOption.Col == 4*/)
+                    {
+                        selectedOption =  (Math.Min(rowLength, selectedOption.Row), selectedOption.Col - 4);
+                        break;
+                    }
                     selectedOption = (selectedOption.Row, Math.Max(0, selectedOption.Col - 1));
                     break;
                 case ConsoleKey.Spacebar:
@@ -175,10 +195,24 @@ public static class SeatingMapMenu2
     {
         Console.WriteLine("Selecteer een optie:\n");
 
+        // Print top border
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("         Party        |     Business");
+        Console.ResetColor();
+        Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3 + 4));        
         for (int row = 0; row < seatModels.GetLength(0); row++)
         {
+            if (row == 1 || row == 5)
+                ColorPrint.PrintWriteRed("|"); // Print the left side
+            else
+                Console.Write("|"); // Print the left side
             for (int col = 0; col < seatModels.GetLength(1); col++)
             {
+
+                if (col == 7) // Assuming the split happens after the 3rd column, adjust as necessary
+                {
+                    Console.Write("|"); // Add the vertical line separator
+                }
                 if(seatModels[row, col] != null)
                 {
                     if (seatModels[row, col].IsOccupied)
@@ -196,15 +230,37 @@ public static class SeatingMapMenu2
                         Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Green : ConsoleColor.White;
                         Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " O " : " - ");
                     }
+                    Console.ResetColor();
                 }
                 else
                 {
-                    Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
-                    Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
+                    Console.Write("   "); // Space for the pad
                 }
             }
-            Console.WriteLine();
+            if (row == 1 || row == 5)
+                ColorPrint.PrintYellow("   |"); // Print the right side
+            else
+                Console.WriteLine("   |"); // Print the right side
         }
+
+        // Print bottom border
+        int totalColumns = seatModels.GetLength(1) * 3 + 4;
+        for (int i = 0; i < totalColumns; i++)
+        {
+            if (i == 10 || i == 11 || i == 12 || i == 38 || i == 39)
+            {
+                Console.Write(" ");
+            }
+            else
+            {
+                Console.Write("=");
+            }
+        }
+        Console.WriteLine();
+
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("  Achterkant --------------> Voorkant");
+        Console.ResetColor();
         Console.ResetColor();
         ColorPrint.PrintWriteRed("\n* ");
         Console.WriteLine("bezet");

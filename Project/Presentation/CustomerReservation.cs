@@ -29,7 +29,7 @@ public static class CustomerReservation
         }
         while(true)
         {
-            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
+            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title, false);
             if(SelectedRowIndex == null){
                 CustomerStartMenu.Start();
                 return;
@@ -54,11 +54,34 @@ public static class CustomerReservation
                     {
                         string selectedItem = result.Value.SelectedItem;
                         int selectedIndex = result.Value.SelectedIndex;
-
-                        if (selectedIndex == 0)
+                        if (selectedIndex == 2)
                         {
-                            ColorPrint.PrintRed($"U kan de {header[selectedIndex]} niet aanpassen.");
-                            Thread.Sleep(3000);
+                            foreach (string stoel in SeatString(currentAccount.Reservations[SelectedRowIndex.Value]))
+                            {
+                                Console.WriteLine(stoel);
+                                Console.Write("Om een stap terug te gaan druk op");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(" Escape");
+                                Console.ResetColor();
+                                Console.Write(".\n");
+                            }
+                            while (true)
+                            {
+                                // Wait for key press
+                                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                                // Check arrow key presses
+                                switch (keyInfo.Key)
+                                {
+                                    case ConsoleKey.Escape:
+                                        Console.Clear();
+                                        ShowAllPricesInformation();
+                                        break;
+                                }
+                                // Clear console and display options
+                                Console.Clear();
+                            }
+
                         }
                         
                     }
@@ -74,13 +97,26 @@ public static class CustomerReservation
         var routeName = Reservations.RouteName;
         List<int> seatRow = Reservations.SeatRow;
         List<int> seatCol = Reservations.SeatCol;
-        List<(int row, int col)> seats = new List<(int row, int col)>();
+        List<string> seats = new List<string>();
         for (int i = 0; i < seatRow.Count; i++)
         {
-            seats.Add((seatRow[i], seatCol[i]));
+            seats.Add($"Rij: {seatRow[i]} Stoel: {seatCol[i]}");
         }
-        string seatsString = string.Join(",", seats);
+        string seatsString = string.Join(", ", seats);
         return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}" };
+    }
+
+    public static List<string> SeatString(ReservationModel Reservations)
+    {
+        List<int> seatRow = Reservations.SeatRow;
+        List<int> seatCol = Reservations.SeatCol;
+        List<string> seats = new List<string>();
+        for (int i = 0; i < seatRow.Count; i++)
+        {
+            seats.Add($"|  Rij: {seatRow[i]} Stoel: {seatCol[i]}  |\n");
+        }
+        string seatsString = string.Join("", seats);
+        return new List<string> {$"--------------------- \n{seatsString}---------------------"};
     }
 
     public static void BackToStartMenu()

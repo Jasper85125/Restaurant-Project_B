@@ -7,7 +7,7 @@ public class RouteModel : IActivatable
     public int Id { get; set; }
 
     [JsonPropertyName("duration")]
-    public int Duration { get; set; }
+    public double Duration { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
@@ -16,21 +16,21 @@ public class RouteModel : IActivatable
     public List<StopModel> Stops { get; set; }
 
     [JsonPropertyName("begin")]
-    public string beginTime { get; set; }
+    public TimeSpan? beginTime { get; set; }
 
     [JsonPropertyName("end")]
-    public string endTime { get; set; }
+    public TimeSpan? endTime { get; set; }
 
     [JsonPropertyName("isActive")]
     public bool IsActive { get; set; }
-    public RouteModel(int id, int duration, string name, bool isActive = true)
+    public RouteModel(int id, double duration, string name, bool isActive = true)
     {
         Id = id;
         Duration = duration;
         Name = name;
         Stops = new List<StopModel>{};
-        beginTime = null;
-        endTime = null;
+        beginTime = Stops.Where(stop => stop.Time.HasValue).Min(stop => stop.Time);
+        endTime = Stops.Where(stop => stop.Time.HasValue).Max(stop => stop.Time);
         IsActive = isActive;
     }
 

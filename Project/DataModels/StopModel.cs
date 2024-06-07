@@ -10,13 +10,13 @@ public class StopModel : IEquatable<StopModel>
     public string Name { get; set; }
 
     [JsonPropertyName("time")]
-    public string Time { get; set; } //Moet Datetime worden!
+    public TimeSpan? Time { get; set; } //Moet Datetime worden!
 
-    public StopModel(int id, string name)
+    public StopModel(int id, string name, TimeSpan? time = null)
     {
         Id = id;
         Name = name;
-        Time = null;
+        Time = time;
     }
 
     public bool Equals(StopModel? stopModel)

@@ -5,32 +5,32 @@
     "licensePlate": "ABC-123",
     "route": [
       {
-        "id": 5,
+        "id": 3,
         "duration": 3,
         "name": "Noord",
         "stops": [
           {
             "id": 26,
             "name": "Blijdorp",
-            "time": null
+            "time": "12:00:00"
           },
           {
             "id": 7,
             "name": "Schouwburgplein",
-            "time": null
+            "time": "12:10:00"
           },
           {
             "id": 15,
             "name": "Laan op Zuid",
-            "time": null
+            "time": "12:13:00"
           }
         ],
-        "begin": null,
-        "end": null,
+        "begin": "12:00:00",
+        "end": "12:13:00",
         "isActive": true
       }
     ],
-    "IsActive": false,
+    "IsActive": true,
     "seatingMap": {
       "(0,0)": {
         "isOccupied": false
@@ -239,16 +239,16 @@
         "isOccupied": false
       },
       "(5,8)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,9)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,10)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,11)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,12)": {
         "isOccupied": false
