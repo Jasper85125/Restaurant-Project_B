@@ -55,8 +55,9 @@ public class BasicTableLogic<T>
                     return jsonIndex;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return Data.Count() + 1;
+                    return Data.Count - 1;
                 case ConsoleKey.Escape:
+                    Console.Clear();
                 return null;
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
