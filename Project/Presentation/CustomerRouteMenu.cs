@@ -182,14 +182,25 @@ public static class CustomerRouteMenu
                                             // Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
                                             // bus.SeatingMap = seatingMap;
                                             // busLogic.UpdateList(bus);
-
-                                            Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
-                                            SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
-
-                                            SeatingMapMenu.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
-                                            Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
-                                            selectedBusModel.SeatingMap = updatedSeatingMap;
-                                            busLogic.UpdateList(selectedBusModel);
+                                            if (selectedBusModel.Seats == "Plebs")
+                                            {
+                                                Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
+                                                SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+                                                SeatingMapMenu.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
+                                                Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                                                selectedBusModel.SeatingMap = updatedSeatingMap;
+                                                busLogic.UpdateList(selectedBusModel);
+                                            }
+                                            else if (selectedBusModel.Seats == "Business")
+                                            {
+                                                Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
+                                                SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+                                                SeatingMapMenu2.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
+                                                Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                                                selectedBusModel.SeatingMap = updatedSeatingMap;
+                                                busLogic.UpdateList(selectedBusModel);
+                                            }
+                                            
 
                                             /*
                                             SeatModel[,] seatModels = new SeatModel[6,8];
