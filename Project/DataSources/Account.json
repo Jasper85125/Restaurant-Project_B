@@ -5,7 +5,36 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
+    "reservations": [
+      {
+        "id": 1,
+        "checkInStop": "De Kuip",
+        "routeName": "CoolRoute",
+        "busLicensePlate": "",
+        "seatRow": [
+          0,
+          0
+        ],
+        "seatCol": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": 2,
+        "checkInStop": "De Kuip",
+        "routeName": "CoolRoute",
+        "busLicensePlate": "",
+        "seatRow": [
+          4,
+          5
+        ],
+        "seatCol": [
+          0,
+          0
+        ]
+      }
+    ]
   },
   {
     "id": 2,

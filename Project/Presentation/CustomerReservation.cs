@@ -24,8 +24,11 @@ public static class CustomerReservation
         string kind = "reserveringen";
         if (Reservations == null || Reservations.Count == 0)
         {
-            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
-                    pricesLogic.UpdateList(newPriceModel);
+            ColorPrint.PrintYellow("U heeft nog geen reserveringen.");
+            ColorPrint.PrintYellow("U gaat terug naar het Klantmenu.");
+            Thread.Sleep(4000);
+            Console.Clear();
+            CustomerStartMenu.Start();
         }
         while(true)
         {
@@ -37,12 +40,6 @@ public static class CustomerReservation
             else
             {
                 List<string> selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
-                if(SelectedRowIndex == Reservations.Count())
-                {
-                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
-                    pricesLogic.UpdateList(newPriceModel);
-                    continue;
-                }
                 while(true)
                 {
                     selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
