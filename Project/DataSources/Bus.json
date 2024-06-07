@@ -36,49 +36,49 @@
         "isOccupied": true
       },
       "(0,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,2)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,5)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,6)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,8)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,9)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,10)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,11)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,12)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,13)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,2)": {
         "isOccupied": false
@@ -117,7 +117,7 @@
         "isOccupied": false
       },
       "(2,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,1)": {
         "isOccupied": true
@@ -453,10 +453,10 @@
         "isOccupied": false
       },
       "(2,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(2,2)": {
         "isOccupied": false

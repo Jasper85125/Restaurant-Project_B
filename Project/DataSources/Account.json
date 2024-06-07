@@ -5,36 +5,7 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": [
-      {
-        "id": 1,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "",
-        "seatRow": [
-          0,
-          0
-        ],
-        "seatCol": [
-          1,
-          2
-        ]
-      },
-      {
-        "id": 2,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "",
-        "seatRow": [
-          4,
-          5
-        ],
-        "seatCol": [
-          0,
-          0
-        ]
-      }
-    ]
+    "reservations": []
   },
   {
     "id": 2,
@@ -45,54 +16,56 @@
     "reservations": [
       {
         "id": 1,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "BCA-321",
+        "checkInStop": "Schouwburgplein",
+        "routeName": "Noord",
+        "busLicensePlate": 1,
         "seatRow": [
           0,
-          1,
-          2
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
         ],
         "seatCol": [
           4,
-          4,
-          4
+          5,
+          1,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
         ]
       },
       {
         "id": 2,
-        "checkInStop": "Laan op Zuid",
+        "checkInStop": "Blijdorp",
         "routeName": "Noord",
-        "busLicensePlate": "ABC-123",
+        "busLicensePlate": 1,
         "seatRow": [
-          5,
-          5,
-          5,
-          5
+          1,
+          1,
+          2
         ],
         "seatCol": [
-          8,
-          9,
-          10,
-          11
+          0,
+          1,
+          0
         ]
       }
     ]
-  },
-  {
-    "id": 3,
-    "emailAddress": "Dauvillier04@gmail.com",
-    "password": "Joe",
-    "fullName": "Stephane Dauvillier",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 4,
-    "emailAddress": "amer@gmail.com",
-    "password": "amer",
-    "fullName": "amer alhasoun",
-    "isAdmin": false,
-    "reservations": []
   }
 ]

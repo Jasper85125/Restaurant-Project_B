@@ -5,6 +5,8 @@ using Microsoft.VisualBasic;
 
 public static class CustomerReservation
 {
+    private static BusLogic busLogic = new();
+    private static SeatLogic seatLogic = new();
     private static PriceLogic pricesLogic = new();
     private static BasicTableLogic<ReservationModel> tableReservations = new();
     private static BasicTableLogic<PriceModel> basictableLogic = new();
@@ -99,6 +101,15 @@ public static class CustomerReservation
         if (answer)
         {
             ReservationModel toCancel = UserLogin.loggedInAccount.Reservations[Convert.ToInt32(selectedRowIndex)];
+            BusModel busToUpdate = busLogic.GetById(toCancel.BusId);
+            List<(int, int)> seatCoords = new List<(int, int)>();
+            for (int i = 0; i < toCancel.SeatCol.Count; i++)
+            {
+                (int, int) coords = (toCancel.SeatCol[i],toCancel.SeatRow[i]);
+                seatCoords.Add(coords);
+            }
+            SeatingMapMenu.MakeAvailable(busToUpdate, seatCoords);
+
             UserLogin.loggedInAccount.Reservations.Remove(toCancel);
             accountsLogic.UpdateList(UserLogin.loggedInAccount);
             Console.WriteLine("Uw reservering is geannuleerd.");
