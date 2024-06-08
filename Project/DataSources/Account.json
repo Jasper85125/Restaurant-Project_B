@@ -94,5 +94,13 @@
     "fullName": "amer alhasoun",
     "isAdmin": false,
     "reservations": []
+  },
+  {
+    "id": 5,
+    "emailAddress": "jadalhasoun@gmail.com",
+    "password": "8888",
+    "fullName": "Jad Alhasoun",
+    "isAdmin": false,
+    "reservations": []
   }
 ]

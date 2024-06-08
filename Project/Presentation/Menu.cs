@@ -72,7 +72,7 @@ public static class Menu
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("Informatie over de app.");
+        Console.WriteLine("Informatiepagina.");
 
 
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
