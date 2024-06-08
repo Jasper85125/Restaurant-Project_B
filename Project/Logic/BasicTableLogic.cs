@@ -60,7 +60,7 @@ public class BasicTableLogic<T>
                     return -(Data.Count - 1);
                 case ConsoleKey.Escape:
                     Console.Clear();
-                    return null;
+                return null;
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
         

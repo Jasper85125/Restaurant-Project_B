@@ -249,11 +249,11 @@ public static class SeatingMapMenu
                 (int, int) coord = (row, col);
                 foreach ((int, int) chair in coordinates)
                 {
-                    Console.WriteLine(coord);
-                    Console.WriteLine(chair);
-                    Thread.Sleep(500);
                     if (coord == chair)
                     {
+                        Console.WriteLine(coord);
+                        Console.WriteLine(chair);
+                        Thread.Sleep(100);
                         seatModels[row,col].IsOccupied = false;
                     }
                 }   
