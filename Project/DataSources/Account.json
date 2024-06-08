@@ -78,29 +78,5 @@
         ]
       }
     ]
-  },
-  {
-    "id": 3,
-    "emailAddress": "Dauvillier04@gmail.com",
-    "password": "Joe",
-    "fullName": "Stephane Dauvillier",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 4,
-    "emailAddress": "amer@gmail.com",
-    "password": "amer",
-    "fullName": "amer alhasoun",
-    "isAdmin": false,
-    "reservations": []
-  },
-  {
-    "id": 5,
-    "emailAddress": "jadalhasoun@gmail.com",
-    "password": "8888",
-    "fullName": "Jad Alhasoun",
-    "isAdmin": false,
-    "reservations": []
   }
 ]
