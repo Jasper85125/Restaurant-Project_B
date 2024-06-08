@@ -219,7 +219,8 @@ public static class CustomerRouteMenu
                                 }
                                 break;
                             case ConsoleKey.Escape:
-                                CustomerStartMenu.Start();
+                                Console.Clear();
+                                CustomerRouteMenu.Start();
                                 return;
                             default:
                                 Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
