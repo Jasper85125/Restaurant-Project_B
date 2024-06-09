@@ -79,55 +79,12 @@ public static class AdminRouteMenu
         Console.ResetColor();
 
         Console.Write("\nAls je de juiste hebt klik op ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Enter");
-        Console.ResetColor();
-        Console.Write(".");
-        Console.Write("\nOm naar het adminhoofdmenu te gaan klik op");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape");
-        Console.ResetColor();
+        ColorPrint.PrintWriteGreen("Enter");
+        Console.Write(".\nOm naar het adminhoofdmenu te gaan klik op");
+        ColorPrint.PrintWriteRed(" Escape");
         Console.WriteLine(".\n");
     }
-    
 
-    public static List<RouteModel> Overview()
-    {
-        List<RouteModel> overview = routeLogic.GetAll();
-        return overview;
-    }
-
-    public static void AddRoute()
-    {
-        List<RouteModel> overview = routeLogic.GetAll();
-        // check if Name is string
-        Console.WriteLine("Wat is de naam van de nieuwe route?");
-        string? newName = Console.ReadLine();
-        while (!Helper.IsOnlyLetterSpaceDash(newName))
-        {
-            ColorPrint.PrintRed($"'{newName}' is geen geldige optie.");
-            Console.WriteLine("De naam van de route kan alleen bestaan uit letters.");
-            Console.WriteLine("Wat is de naam van de nieuwe route?");
-            newName = Console.ReadLine();
-        }
-
-        //checks if Duration is Int input
-        Console.WriteLine("Hoelang duurt de route in uur?");
-        string? newDuration = Console.ReadLine();
-        while(!Helper.IsValidInteger(newDuration)) 
-        {
-            ColorPrint.PrintRed($"'{newDuration}' is geen geldige optie.");
-            Console.WriteLine("De duur van de route moet in hele getallen gegeven worden.");
-            Console.WriteLine("Hoelang duurt de route in uren?");
-            newDuration = Console.ReadLine();
-        }
-
-        // Makes the route
-        RouteModel newRoute = new RouteModel(routeLogic.GenerateNewId(), Convert.ToInt32(newDuration), newName, false);
-        Console.WriteLine("Nu gaat U haltes toevoegen aan de route");
-        AddStopToRoute(newRoute);
-
-    }
     public static void Listupdater(RouteModel model){
         routeLogic.UpdateList(model);
     }
@@ -212,29 +169,21 @@ public static class AdminRouteMenu
                     }
                     if (selectedStops.Contains(stops[i]))
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine(stops[i].Name);
-                        Console.ResetColor();
+                        ColorPrint.PrintCyan(stops[i].Name);
                     }
                     else
                     {
                         Console.WriteLine(stops[i].Name);
-                        Console.ResetColor();
                     }
+                    Console.ResetColor();
                 }
 
                 Console.WriteLine("\nDruk op:");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("Spatie ");
-                Console.ResetColor();
+                ColorPrint.PrintWriteCyan("Spatie ");
                 Console.WriteLine("om te selecteren.");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Backspace ");
-                Console.ResetColor();
+                ColorPrint.PrintWriteRed("Backspace ");
                 Console.WriteLine("om te deselecteren.");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Enter ");
-                Console.ResetColor();
+                ColorPrint.PrintWriteGreen("Enter ");
                 Console.WriteLine("om de lijst op te slaan.");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -322,13 +271,9 @@ public static class AdminRouteMenu
                             }
                             Console.ResetColor();
                             Console.WriteLine($"\naan route: {route.Name}?");
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write("\nBackspace ");
-                            Console.ResetColor();
+                            ColorPrint.PrintWriteRed("\nBackspace ");
                             Console.Write("om te annuleren.");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write(" \nEnter ");
-                            Console.ResetColor();
+                            ColorPrint.PrintWriteGreen(" Enter ");
                             Console.Write("om de lijst op te slaan.");
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("\nEscape ");
@@ -379,7 +324,6 @@ public static class AdminRouteMenu
                                     break;
                             }
                         }
-
                         break;
                     case ConsoleKey.Escape:
                         checkStopName = false;
@@ -393,77 +337,99 @@ public static class AdminRouteMenu
         }
     }
 
-    public static bool AddTimesToHalte(List<StopModel> Stops, int index){
+    public static bool AddTimesToHalte(List<StopModel> Stops, int index)
+    {
         Console.Clear();
-        while(true){
-            if(Stops[index].Time.HasValue){
+        while(true)
+        {
+            if(Stops[index].Time.HasValue)
+            {
                 ColorPrint.PrintGreen($"{Stops[index].Name} / {Stops[index].Time.Value.ToString(@"hh\:mm")}");
             }
-            else {
-                ColorPrint.PrintGreen($"{Stops[index].Name} / N/A");
+            else
+            {
+                ColorPrint.PrintGreen($"{Stops[index].Name} 00:00");
             }
-            Console.WriteLine("Verander de tijd door een nieuwe in te vullen.");
-            if(index > 0 && Stops[index - 1].Time != null){
-            Console.Write($"Minimaal later dan {Stops[index - 1].Time.Value.ToString(@"hh\:mm")}.");
-            ColorPrint.PrintCyan("(HH:MM)\n");
+
+            Console.Write("Verander de tijd door een nieuwe in te vullen(");
+            ColorPrint.PrintWriteCyan("format HH:MM");
+            Console.WriteLine(").");
+
+            if (index > 0 && Stops[index - 1].Time != null)
+            {
+                Console.Write($"Minimaal later dan {Stops[index - 1].Time.Value.ToString(@"hh\:mm")}.");
+                ColorPrint.PrintCyan("(HH:MM)\n");
             }
-            ColorPrint.PrintRed("Escape");
-            Console.Write(" om terug te gaan.\n");
+
+            Console.Write("Om terug te gaan klik op ");
+            ColorPrint.PrintRed("Escape\n");
+
             string input = "";
-        ConsoleKeyInfo keyInfo;
-        ConsoleKeyInfo key;
+            ConsoleKeyInfo keyInfo;
 
-        while (true)
-        {
-            keyInfo = Console.ReadKey(intercept: true);
-            
-            if (keyInfo.Key == ConsoleKey.Escape)
+
+            while (true)
             {
-                Console.Clear();
-                Console.WriteLine("\nU drukte op escape, u keert nu terug naar het vorige menu.");
-                Thread.Sleep(1000);
+                keyInfo = Console.ReadKey(intercept: true);
 
-                return false;
-            }
-
-            if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                if (IsValidTime(input))
+                if (keyInfo.Key == ConsoleKey.Escape)
                 {
-                    if(index == 0 || TimeSpan.Parse(input) > Stops[index - 1].Time || Stops[index - 1].Time == null){
-                        Console.Clear();
-                        Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
-                        Console.Write($"Toevoegen aan {Stops[index].Name} klik op");
-                        ColorPrint.PrintGreen(" Enter");
-                        Console.Write($"Om terug te gaan klik op");
-                        ColorPrint.PrintRed(" Escape");
-                        ConsoleKeyInfo Key = Console.ReadKey(intercept: true);
-                        if (Key.Key == ConsoleKey.Escape){
-                            return false;
-                        }
-                        else if (Key.Key == ConsoleKey.Enter){
-                            Stops[index].Time = TimeSpan.Parse(input);
-                            return true;
-                        }
+                    Console.Clear();
+                    Console.WriteLine("\nU drukte op escape, u keert nu terug naar het vorige menu.");
+                    Thread.Sleep(3000);
+                    return false;
+                }
 
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    if (IsValidTime(input))
+                    {
+                        if (index == 0 || TimeSpan.Parse(input) > Stops[index - 1].Time || Stops[index - 1].Time == null)
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
+                            Console.Write($"Om de tijd toe te voegen aan {Stops[index].Name}, klik op ");
+                            ColorPrint.PrintGreen("Enter.");
+                            Console.Write("Om terug te gaan klik op ");
+                            ColorPrint.PrintRed("Escape\n");
+
+                            ConsoleKeyInfo confirmationKey = Console.ReadKey(intercept: true);
+                            if (confirmationKey.Key == ConsoleKey.Escape)
+                            {
+                                return false;
+                            }
+                            else if (confirmationKey.Key == ConsoleKey.Enter)
+                            {
+                                Stops[index].Time = TimeSpan.Parse(input);
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{Stops[index - 1].Time.Value.ToString(@"hh\:mm")}'");
+                        }
                     }
-                    else{
-                        ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{Stops[index - 1].Time}'");
+                    else
+                    {
+                        ColorPrint.PrintRed("\nVerkeerde format HH:MM. Probeer het nog een keer.");
+                        input = "";
+                        Thread.Sleep(1000);
+                    }
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace)
+                {
+                    if (input.Length > 0)
+                    {
+                        input = input.Substring(0, input.Length - 1);
+                        Console.Write("\b \b"); // Remove last character from console
                     }
                 }
                 else
                 {
-                    ColorPrint.PrintRed("\nVerkeerde format (HH:MM). Probeer het nog een keer");
-                    input = "";
-                    Thread.Sleep(1000);
+                    input += keyInfo.KeyChar;
+                    Console.Write(keyInfo.KeyChar);
                 }
             }
-            else
-            {
-                input += keyInfo.KeyChar;
-                Console.Write(keyInfo.KeyChar);
-            }
-        }
     }
 
     static bool IsValidTime(string time)
@@ -471,6 +437,7 @@ public static class AdminRouteMenu
         string pattern = @"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
         return Regex.IsMatch(time, pattern);
     }
+
     }
     public static List<string> GenerateRowHalteTable(StopModel stop){
     string naam = stop.Name;
@@ -492,7 +459,7 @@ public static class AdminRouteMenu
         
             if (routeModels == null || routeModels.Count == 0)
             {
-                RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
+                RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                 routeLogic.UpdateList(newRouteModel);
             }
             else
@@ -509,7 +476,7 @@ public static class AdminRouteMenu
 
                         if(selectedRowIndex == routeModels.Count())
                         {
-                            RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
+                            RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                             routeLogic.UpdateList(newRouteModel);
                             break;
                         }
@@ -524,43 +491,38 @@ public static class AdminRouteMenu
                                 string selectedItem = result.Value.SelectedItem;
                                 int selectedIndex = result.Value.SelectedIndex;
                                 if (selectedIndex == 0){
-                                    Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
+                                    ColorPrint.PrintRed($"U kan {header[selectedIndex]} niet aanpassen.");
                                     Thread.Sleep(3000);
                                 }
-                                else if(selectedIndex == 1){
+                                else if(selectedIndex == 1)
+                                {
                                     Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
                                     string Input = Console.ReadLine();
-
-                                while(!Helper.IsOnlyLetterSpaceDash(Input))
-                                {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De naam kan alleen bestaan uit letters.");
-                                    Console.WriteLine("Wat is de naam van de nieuwe route?");
-                                    Input = Console.ReadLine();
-                                }
-
-                                    //variable to check Name
-                                    bool NameExists = false;
-
-                                    // Check if the input Name already exists
-                                    foreach(var nameIndex in routeModels) {
-                                        if(Input == nameIndex.Name) {
-                                            NameExists = true;
-                                            break;
+                                    while (true)
+                                    {
+                                        if (!Helper.IsOnlyLetterSpaceDash(Input))
+                                        {
+                                            ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
+                                            Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
                                         }
-                                    }
+                                        else if (routeModels.Any(route => route.Name == Input))
+                                        {
+                                            ColorPrint.PrintRed("Naam bestaat al, geef een andere op.");
+                                        }
+                                        else
+                                        {
+                                            break; // De invoer is geldig en de naam bestaat niet.
+                                        }
 
-                                    if(NameExists) {
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("Naam bestaat al, geef een andere op.");
-                                        Console.ResetColor();
-                                        Thread.Sleep(3000);
-                                    } else {
-                                        //if Name does not exists, it gets added to the list
-                                        routeModels[selectedRowIndex].Name = Input;
-                                        routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                        Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
+                                        Input = Console.ReadLine();
                                     }
-                            }
+                                    
+                                    //if Name does not exists, it gets added to the list
+                                    routeModels[selectedRowIndex].Name = Input;
+                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                        
+                                }
                             else if(selectedIndex == 2){
                                 if (routeModels[selectedRowIndex].endTime.HasValue && routeModels[selectedRowIndex].beginTime.HasValue){
                                     var timeDifference = routeModels[selectedRowIndex].endTime.Value - routeModels[selectedRowIndex].beginTime.Value;
@@ -568,8 +530,8 @@ public static class AdminRouteMenu
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
                                 }
                                 else{
-                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben");
-                                    Thread.Sleep(1000);
+                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben.");
+                                    Thread.Sleep(4000);
                                 }
                             }
                             else if(selectedIndex == 3){
@@ -585,7 +547,8 @@ public static class AdminRouteMenu
                                     routeModels[selectedRowIndex].beginTime = timeDifference;
                                 }
                                 else{
-                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben");
+                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben.");
+                                    Thread.Sleep(4000);
                                 }
                             }
                             else if (selectedIndex == 5)
@@ -595,7 +558,8 @@ public static class AdminRouteMenu
                                     routeModels[selectedRowIndex].endTime = timeDifference;
                                 }
                                 else{          
-                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben");
+                                    ColorPrint.PrintRed("De halte(s) hebben nog geen tijden. \nVoeg deze eerst toe om een tijdsduur te hebben.");
+                                    Thread.Sleep(4000);
                                 }
                             }
                             else if (selectedIndex == 6)
@@ -610,8 +574,6 @@ public static class AdminRouteMenu
                                 }
                                 routeLogic.UpdateList(routeModels[selectedRowIndex]);
                             }
-                                
-                            
                         }
                     }      
                 }
@@ -634,9 +596,7 @@ public static class AdminRouteMenu
         {
             Console.WriteLine("Wat is de naam van de halte?");
             Console.Write("\nOm terug te keren klik op");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(" Backspace");
-            Console.ResetColor();
+            ColorPrint.PrintWriteRed(" Backspace");
             Console.WriteLine(".\n");
     
              // Wait for key press
@@ -724,6 +684,7 @@ public static class AdminRouteMenu
     //     var time = stopModel.Time;
     //     return new List<string> {$"{id}", $"{name}", $"{time}"};
     // }
+
     public static List<string> GenerateRowForSelectRoute(RouteModel routeModel)
     {
         List<StopModel> allStops = new() {};
@@ -767,7 +728,7 @@ public static class AdminRouteMenu
     {
         if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(Convert.ToString(newRoute.Id))))
         {
-            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
+            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe routegegevens ontbreken!");
             Thread.Sleep(3000);
             Console.Clear();
             return false;
@@ -780,13 +741,10 @@ public static class AdminRouteMenu
             ConsoleKeyInfo keyInfo;
             Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info:\nNaam: {newRoute.Name}, Tijdsduur(uur): {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
             Console.Write("Druk op ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter");
-            Console.ResetColor();
+            ColorPrint.PrintWriteGreen("Enter");
             Console.Write(" om door te gaan of druk op ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Backspace");
-            Console.ResetColor();
+            ColorPrint.PrintWriteRed("Backspace");
+
             Console.WriteLine(" om te annuleren.");
             keyInfo = Console.ReadKey(true);
 

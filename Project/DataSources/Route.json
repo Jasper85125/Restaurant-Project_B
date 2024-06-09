@@ -1,37 +1,66 @@
 [
   {
     "id": 1,
-    "duration": 0.2,
-    "name": "Coolroute",
+    "duration": 0.16666666666666666,
+    "name": "Kees",
     "stops": [
       {
-        "id": 4,
-        "name": "Beurs",
+        "id": 2,
+        "name": "Blaak",
         "time": "12:00:00"
       },
       {
-        "id": 9,
-        "name": "Capelsebrug",
-        "time": "12:12:00"
+        "id": 26,
+        "name": "Blijdorp",
+        "time": "12:10:00"
       }
     ],
     "begin": "12:00:00",
-    "end": "12:12:00",
+    "end": "12:10:00",
     "isActive": true
   },
   {
     "id": 2,
     "duration": 0,
-    "name": "",
+    "name": "Test",
     "stops": [],
     "begin": null,
     "end": null,
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 3,
+    "duration": 1,
+    "name": "Joe",
+    "stops": [
+      {
+        "id": 1,
+        "name": "Centraal Station",
+        "time": "13:00:00"
+      },
+      {
+        "id": 30,
+        "name": "Coolhaven",
+        "time": "14:00:00"
+      }
+    ],
+    "begin": "13:00:00",
+    "end": "14:00:00",
+    "isActive": true
+  },
+  {
+    "id": 2,
     "duration": 0,
-    "name": "",
+    "name": "TestTestTEst",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": true
+  },
+  {
+    "id": 4,
+    "duration": 0,
+    "name": "Nieuwe route",
     "stops": [],
     "begin": null,
     "end": null,

@@ -27,7 +27,7 @@ public static class CustomerRouteMenu
         List<BusModel> busWithRoute = new List<BusModel>();
         foreach (BusModel bus in busModels)
         {
-            if (bus.Route.Any())
+            if (bus.Route.Any() && bus.IsActive == true)
             {
                 busWithRoute.Add(bus);
             }
@@ -219,7 +219,8 @@ public static class CustomerRouteMenu
                                 }
                                 break;
                             case ConsoleKey.Escape:
-                                CustomerStartMenu.Start();
+                                Console.Clear();
+                                CustomerRouteMenu.Start();
                                 return;
                             default:
                                 Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
@@ -230,6 +231,10 @@ public static class CustomerRouteMenu
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine("U gaat terug naar het startmenu");
+                Thread.Sleep(3000);
+                CustomerStartMenu.Start();
                 break;
             }
         }

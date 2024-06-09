@@ -2,6 +2,7 @@ public class CustomerStartMenu
 {
     public static void Start()
     {
+        Console.Clear();
         int selectedOption = 1; // Default selected option
 
         DisplayOptions(selectedOption);

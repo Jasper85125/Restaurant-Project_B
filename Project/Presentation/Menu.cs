@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 public static class Menu
 {
     //This shows the menu. You can call back to this method to show the menu again
@@ -72,7 +73,7 @@ public static class Menu
         // Display option 3
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("Informatie over de app.");
+        Console.WriteLine("Informatiepagina.");
 
 
         Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
@@ -83,9 +84,7 @@ public static class Menu
         Console.ResetColor();
 
         Console.Write("\nKlik");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(" Enter ");
-        Console.ResetColor();
+        ColorPrint.PrintWriteGreen(" Enter ");
         Console.WriteLine("om een optie te selecteren");
     }
 }

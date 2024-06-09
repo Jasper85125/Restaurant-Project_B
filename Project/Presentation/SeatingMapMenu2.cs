@@ -129,7 +129,7 @@ public static class SeatingMapMenu2
                     }
                     break;
                 case ConsoleKey.Enter:
-                    ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.LicensePlate);
+                    ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.Id);
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;

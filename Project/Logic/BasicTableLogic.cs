@@ -11,7 +11,7 @@ public class BasicTableLogic<T>
     public static int selectedOption = 1;
 
     
-   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
+   public (int?, string) PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -52,17 +52,21 @@ public class BasicTableLogic<T>
                     break;
                 case ConsoleKey.Spacebar:
                     Console.Clear();
-                    return jsonIndex;
+                    return (jsonIndex, "space");
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return Data.Count() + 1;
+                    return (jsonIndex, "enter");
+                case ConsoleKey.Backspace:
+                    Console.Clear();
+                    return (jsonIndex, "backspace");
                 case ConsoleKey.Escape:
-                return null;
+                    Console.Clear();
+                return (null, null);
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
         
         Console.WriteLine("U keert terug naar het menu");
-        return null;
+        return (null, null);
     }
         
     public (string,int)? PrintSelectedRow(List<string> selectedRow, List<string> header)
@@ -73,7 +77,7 @@ public class BasicTableLogic<T>
         do
         {
             Console.Clear();
-            Console.WriteLine("Geselecteerde Route:");
+            Console.WriteLine("Geselecteerde reservering:");
             PrintLine();
             PrintRow(header, false, true);
             PrintLine();
@@ -185,9 +189,11 @@ public class BasicTableLogic<T>
             Console.Write("Enter");
             Console.ResetColor();
             Console.Write(" om de rij te selecteren.");
-            Console.Write("\nOm terug te gaan klik op escape");
+            Console.Write("\nOm uw reservering te annuleren klik op ");
+            ColorPrint.PrintWriteCyan("backspace");
+            Console.Write("\nOm terug te gaan klik op ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(" Escape");
+            Console.Write("Escape");
             Console.ResetColor();
             Console.Write(".\n");
     }
