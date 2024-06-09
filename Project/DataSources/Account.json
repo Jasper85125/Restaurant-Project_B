@@ -47,6 +47,20 @@
           10,
           11
         ]
+      },
+      {
+        "id": 3,
+        "checkInStop": "Centraal Station",
+        "routeName": "TestTien",
+        "busLicensePlate": "",
+        "seatRow": [
+          1,
+          0
+        ],
+        "seatCol": [
+          5,
+          5
+        ]
       }
     ]
   },

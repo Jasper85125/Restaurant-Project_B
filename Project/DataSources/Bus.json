@@ -4,31 +4,7 @@
     "seats": "Plebs",
     "licensePlate": "",
     "route": [
-      {
-        "id": 3,
-        "duration": 3,
-        "name": "Noord",
-        "stops": [
-          {
-            "id": 26,
-            "name": "Blijdorp",
-            "time": "12:00:00"
-          },
-          {
-            "id": 7,
-            "name": "Schouwburgplein",
-            "time": "12:10:00"
-          },
-          {
-            "id": 15,
-            "name": "Laan op Zuid",
-            "time": "12:13:00"
-          }
-        ],
-        "begin": "12:00:00",
-        "end": "12:13:00",
-        "isActive": true
-      }
+      null
     ],
     "IsActive": false,
     "seatingMap": {
@@ -384,7 +360,7 @@
         "isOccupied": false
       },
       "(0,5)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,6)": {
         "isOccupied": false
@@ -426,7 +402,7 @@
         "isOccupied": false
       },
       "(1,5)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(1,6)": {
         "isOccupied": false
