@@ -23,7 +23,7 @@ public static class AdminPriceMenu
         string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
         {
-            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
+            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
             pricesLogic.UpdateList(newPriceModel);
         }
         while(true)
@@ -39,7 +39,7 @@ public static class AdminPriceMenu
                 List<string> selectedRow = TableInfo.Value.SelectedRow;
                 if(selectedRowIndex == priceModels.Count())
                 {
-                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
+                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
                     pricesLogic.UpdateList(newPriceModel);
                     continue;
                 }
@@ -63,44 +63,37 @@ public static class AdminPriceMenu
                         }
                         else if(selectedIndex == 1)
                         {
-                            while(true)
+                            Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
+                            ColorPrint.PrintWriteRed($"'{selectedItem}'");
+                            Console.WriteLine(" te vervangen:");
+                            string Input = Console.ReadLine();
+
+                            while (true)
                             {
-                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
-                                ColorPrint.PrintWriteRed($"'{selectedItem}'");
-                                Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine();
-                                while (!Helper.IsValidString(Input))
+                                if (!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine($"Wat is de naam van de nieuwe {header[selectedIndex]}?");
-                                    Input = Console.ReadLine();
+                                    Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
                                 }
-                                //variable to check Passenger
-                                bool PassengerExists = false;
-
-                                // Check if the input Passenger already exists
-                                foreach(var priceIndex in priceModels) 
-                                {
-                                    if(Input == priceIndex.Passenger)
-                                    {
-                                        PassengerExists = true;
-                                        break;
-                                    }
-                                }
-
-                                if(PassengerExists) 
+                                else if (priceModels.Any(price => price.Passenger == Input))
                                 {
                                     ColorPrint.PrintRed("Naam bestaat al, geef een andere op.");
-                                    Thread.Sleep(3000);
-                                } 
-                                else 
-                                {
-                                    //if Passenger does not exists, it gets added to the list
-                                    priceModels[selectedRowIndex].Passenger = Input;
-                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                    break;
                                 }
+                                else
+                                {
+                                    break; // De invoer is geldig en de naam bestaat niet.
+                                }
+
+                                Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
+                                ColorPrint.PrintWriteRed($"'{selectedItem}'");
+                                Console.WriteLine(" te vervangen:");
+                                Input = Console.ReadLine();
                             }
+
+                            //if Passenger does not exists, it gets added to the list
+                            priceModels[selectedRowIndex].Passenger = Input;
+                            pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+
                         }
                         else if(selectedIndex == 2)
                         {

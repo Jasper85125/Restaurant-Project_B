@@ -10,5 +10,17 @@
     "passenger": "oudere",
     "price": 10,
     "isActive": true
+  },
+  {
+    "id": 3,
+    "passenger": "dass",
+    "price": 0,
+    "isActive": false
+  },
+  {
+    "id": 4,
+    "passenger": "Nieuwe prijscatogrie",
+    "price": 0,
+    "isActive": false
   }
 ]

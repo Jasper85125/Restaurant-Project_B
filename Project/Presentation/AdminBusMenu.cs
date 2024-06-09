@@ -378,7 +378,7 @@ public static class AdminBusMenu
                     switch (selectedOption)
                     {
                         case 1:
-                            BusModel newBusBusiness = new(busLogic.GenerateNewId(),"Business","",false);
+                            BusModel newBusBusiness = new(busLogic.GenerateNewId(),"Business","Nieuwe Bus",false);
                             SeatModel[,] seatModelsBusiness  = new SeatModel[7, 12];
                             seatLogic.CreateBusinessSeats(seatModelsBusiness);
                             Dictionary<(int Row, int Col), SeatModel> seatingMapBusiness = seatLogic.ConvertToDict(seatModelsBusiness); // seatModels wordt geconvert naar Dictionary
@@ -387,7 +387,7 @@ public static class AdminBusMenu
                             ShowAllBusInformation();
                             break;
                         case 2:
-                            BusModel newBusModelPlebs = new(busLogic.GenerateNewId(),"Plebs","",false);
+                            BusModel newBusModelPlebs = new(busLogic.GenerateNewId(),"Plebs","Nieuwe Bus",false);
                             SeatModel[,] seatModelsPlebs = new SeatModel[7, 14];
                             seatLogic.CreateSeats(seatModelsPlebs); // seatModels wordt gevuld met stoelen
                             Dictionary<(int Row, int Col), SeatModel> seatingMapPlebs = seatLogic.ConvertToDict(seatModelsPlebs); // seatModels wordt geconvert naar Dictionary

@@ -459,7 +459,7 @@ public static class AdminRouteMenu
         
             if (routeModels == null || routeModels.Count == 0)
             {
-                RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
+                RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                 routeLogic.UpdateList(newRouteModel);
             }
             else
@@ -476,7 +476,7 @@ public static class AdminRouteMenu
 
                         if(selectedRowIndex == routeModels.Count())
                         {
-                            RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"", false);
+                            RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                             routeLogic.UpdateList(newRouteModel);
                             break;
                         }
@@ -514,7 +514,7 @@ public static class AdminRouteMenu
                                             break; // De invoer is geldig en de naam bestaat niet.
                                         }
 
-                                        Console.WriteLine("Wat is de naam van de nieuwe route?");
+                                        Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
                                         Input = Console.ReadLine();
                                     }
                                     
