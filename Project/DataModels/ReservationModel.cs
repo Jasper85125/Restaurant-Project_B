@@ -11,7 +11,7 @@ public class ReservationModel
     public string RouteName { get; set; }
 
     [JsonPropertyName("busLicensePlate")]
-    public string BusLicensePlate { get; set; }
+    public int BusId { get; set; }
 
     [JsonPropertyName("seatRow")]
     public List<int> SeatRow { get; set; }
@@ -19,12 +19,12 @@ public class ReservationModel
     [JsonPropertyName("seatCol")]
     public List<int> SeatCol { get; set; }
     
-    public ReservationModel(int id, string stop, string routeName, string busLicensePlate)
+    public ReservationModel(int id, string stop, string routeName, int busid)
     {
         Id = id;
         Stop = stop;
         RouteName = routeName;
-        BusLicensePlate = busLicensePlate;
+        BusId = busid;
         SeatRow = new ();
         SeatCol = new ();
     }

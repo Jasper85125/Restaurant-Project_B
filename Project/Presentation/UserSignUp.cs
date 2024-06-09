@@ -103,7 +103,8 @@ public static class UserSignUp
 
         Thread.Sleep(3000);
         ColorPrint.PrintMagenta("U bent ingelogd op uw account en gaat naar het startmenu.\n");
-        Thread.Sleep(3000);
+        Thread.Sleep(4000);
+        Console.Clear();
         CustomerStartMenu.Start();
     }
 

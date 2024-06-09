@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
 
@@ -9,7 +10,6 @@ public static class AdminPriceMenu
     private static TableLogic<PriceModel> tablePrices = new();
     private static BasicTableLogic<PriceModel> basictableLogic = new();
 
-
     public static void Start()
     {
         ShowAllPricesInformation();
@@ -18,13 +18,13 @@ public static class AdminPriceMenu
     public static void ShowAllPricesInformation()
     {
         string title = "Het prijscategorie menu";
-        List<string> header = new() {"Id", "doelgroep", "prijs", "activiteit"};
+        List<string> header = new() {"Id", "doelgroep", "prijs in euro", "activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
         {
-            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
-                    pricesLogic.UpdateList(newPriceModel);
+            PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
+            pricesLogic.UpdateList(newPriceModel);
         }
         while(true)
         {
@@ -39,7 +39,7 @@ public static class AdminPriceMenu
                 List<string> selectedRow = TableInfo.Value.SelectedRow;
                 if(selectedRowIndex == priceModels.Count())
                 {
-                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"",0,false);
+                    PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
                     pricesLogic.UpdateList(newPriceModel);
                     continue;
                 }
@@ -47,7 +47,8 @@ public static class AdminPriceMenu
                 {
                     selectedRow = GenerateRow(priceModels[selectedRowIndex]);
                     (string SelectedItem, int SelectedIndex)? result = tablePrices.PrintSelectedRow(selectedRow, header);
-                    if (result == null){
+                    if (result == null)
+                    {
                         break; //exit loop door escape
                     }
                     else
@@ -62,59 +63,50 @@ public static class AdminPriceMenu
                         }
                         else if(selectedIndex == 1)
                         {
-                            while(true)
+                            Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
+                            ColorPrint.PrintWriteRed($"'{selectedItem}'");
+                            Console.WriteLine(" te vervangen:");
+                            string Input = Console.ReadLine();
+
+                            while (true)
                             {
-                                Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"'{selectedItem}'");
-                                Console.ResetColor();
-                                Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine();
-                                while (!Helper.IsValidString(Input))
+                                if (!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine($"Wat is de naam van de nieuwe {header[selectedIndex]}?");
-                                    Input = Console.ReadLine();
+                                    Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
                                 }
-                                //variable to check Passenger
-                                bool PassengerExists = false;
-
-                                // Check if the input Passenger already exists
-                                foreach(var priceIndex in priceModels) {
-                                    if(Input == priceIndex.Passenger) {
-                                        PassengerExists = true;
-                                        break;
-                                    }
+                                else if (priceModels.Any(price => price.Passenger == Input))
+                                {
+                                    ColorPrint.PrintRed("Naam bestaat al, geef een andere op.");
+                                }
+                                else
+                                {
+                                    break; // De invoer is geldig en de naam bestaat niet.
                                 }
 
-                                if(PassengerExists) {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Naam bestaat al, geef een andere op.");
-                                    Console.ResetColor();
-                                    Thread.Sleep(3000);
-                                } else {
-                                    //if Passenger does not exists, it gets added to the list
-                                    priceModels[selectedRowIndex].Passenger = Input;
-                                    pricesLogic.UpdateList(priceModels[selectedRowIndex]);
-                                    break;
-                                }
+                                Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
+                                ColorPrint.PrintWriteRed($"'{selectedItem}'");
+                                Console.WriteLine(" te vervangen:");
+                                Input = Console.ReadLine();
                             }
-                        
+
+                            //if Passenger does not exists, it gets added to the list
+                            priceModels[selectedRowIndex].Passenger = Input;
+                            pricesLogic.UpdateList(priceModels[selectedRowIndex]);
+
                         }
                         else if(selectedIndex == 2)
                         {
                             while (true)
                             {
                                 Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"'{selectedItem}'");
-                                Console.ResetColor();
+                                ColorPrint.PrintWriteRed($"'{selectedItem}'");
                                 Console.Write(" te vervangen:\n");
                                 string Input = Console.ReadLine();
                                 while (!Helper.IsValidDouble(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De prijs moet in hele getallen gegeven worden.");
+                                    Console.WriteLine("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
                                     Console.WriteLine("Wat is de nieuwe prijs?");
                                     Input = Console.ReadLine();
                                 }
@@ -138,11 +130,11 @@ public static class AdminPriceMenu
                     }
                 }
             }
-        }
-        
+        } 
     }
 
-    public static void Listupdater(PriceModel model){
+    public static void Listupdater(PriceModel model)
+    {
         pricesLogic.UpdateList(model);
     }
 
@@ -162,7 +154,7 @@ public static class AdminPriceMenu
         {
             activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{activity}" };
+        return new List<string> { $"{id}", $"{passenger}", $"{price:F2}",$"{activity}" };
     }
 
     public static void BackToStartMenu()
@@ -171,82 +163,4 @@ public static class AdminPriceMenu
         Thread.Sleep(3000);
         Menu.Start();
     }
-
-
-    // public static bool ConfirmValue(PriceModel priceModel, string UpdatedValue = null, bool IsUpdate = false, bool delete = false)
-    // {
-    //     if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) && !delete || !IsUpdate && (priceModel == null) && !delete)
-    //     {
-    //         ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe prijsgevens ontbreken!");
-    //         Thread.Sleep(3000);
-    //         Console.Clear();
-    //         return false;
-    //     }
-
-    //     if (delete)
-    //     {
-    //         Console.WriteLine($"U staat op het punt de prijscategorie te verwijderen met de volgende info");
-    //         OldShowPriceInformation(priceModel);
-    //     }
-    //     else if (!IsUpdate)
-    //     {
-    //         Console.WriteLine($"U staat op het punt een nieuwe prijscategorie toe te voegen met de volgende info");
-    //         OldShowPriceInformation(priceModel);
-    //     }
-    //     else if (IsUpdate)
-    //     {
-    //         Console.WriteLine($"U staat op het punt oude data te veranderen met de volgende info");
-    //         OldShowPriceInformation(priceModel);
-    //     }
-
-    //     do
-    //     {
-    //         ConsoleKeyInfo keyInfo;
-    //         Console.Write("Druk op ");
-    //         Console.ForegroundColor = ConsoleColor.Green;
-    //         Console.Write("Enter");
-    //         Console.ResetColor();
-    //         Console.Write(" om door te gaan of druk op ");
-    //         Console.ForegroundColor = ConsoleColor.Red;
-    //         Console.Write("Backspace");
-    //         Console.ResetColor();
-    //         Console.WriteLine(" om te annuleren.");
-
-    //         keyInfo = Console.ReadKey(true);
-    //         if (keyInfo.Key == ConsoleKey.Backspace)
-    //         {
-    //             ColorPrint.PrintRed(!delete ? "Toevoegen geannuleerd." : "Verwijderen geannuleerd");
-    //             Thread.Sleep(3000);
-    //             Console.Clear();
-    //             return false;
-    //         }
-    //         else if (keyInfo.Key == ConsoleKey.Enter)
-    //         {
-    //             ColorPrint.PrintGreen(!delete ? "Data is toegevoegd!" : "De verwijdering is voltooid");
-    //             Thread.Sleep(3000);
-    //             Console.Clear();
-    //             return true;
-    //         }
-    //         else
-    //         {
-    //             ColorPrint.PrintRed("Ongeldige invoer!");
-    //             Thread.Sleep(3000);
-    //             // return false;
-    //         }
-    //     }while(true);
-    // }
-
-    // public static void OldShowPriceInformation(PriceModel priceModel)
-    // {
-    //     List<PriceModel> priceModels = new() {priceModel};
-    //     List<string> header = new() {"Id", "Doelgroep", "Prijs"};
-    //     if (priceModels == null || priceModels.Count == 0)
-    //     {
-    //         Console.WriteLine("Lege data.");
-    //     }
-    //     else
-    //     {
-    //         basictableLogic.PrintTable(header, priceModels, GenerateRow);
-    //     }
-    // }
 }

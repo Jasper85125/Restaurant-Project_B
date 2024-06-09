@@ -13,9 +13,7 @@ static public class Information
     public static void Start()
     {
         Console.Write("\nKlik op");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape ");
-        Console.ResetColor();
+        ColorPrint.PrintWriteRed(" Escape ");
         Console.WriteLine("om terug te gaan naar het inlogmenu.");
         while (true)
         {
