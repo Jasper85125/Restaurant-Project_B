@@ -11,7 +11,7 @@ public class BasicTableLogic<T>
     public static int selectedOption = 1;
 
     
-   public int? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
+   public (int?, string) PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title)
     {
         ConsoleKeyInfo keyInfo;
         List<string> geselecteerdeRow = new List<string>();
@@ -52,20 +52,21 @@ public class BasicTableLogic<T>
                     break;
                 case ConsoleKey.Spacebar:
                     Console.Clear();
-                    return jsonIndex;
+                    return (jsonIndex, "space");
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    return Data.Count - 1;
+                    return (jsonIndex, "enter");
                 case ConsoleKey.Backspace:
-                    return -(Data.Count - 1);
+                    Console.Clear();
+                    return (jsonIndex, "backspace");
                 case ConsoleKey.Escape:
                     Console.Clear();
-                return null;
+                return (null, null);
             }
         } while (keyInfo.Key != ConsoleKey.Escape);
         
         Console.WriteLine("U keert terug naar het menu");
-        return null;
+        return (null, null);
     }
         
     public (string,int)? PrintSelectedRow(List<string> selectedRow, List<string> header)

@@ -34,23 +34,23 @@ public static class CustomerReservation
         }
         while(true)
         {
-            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
-            if(SelectedRowIndex == null) // escape to go back into Startmenu
+            (int?, string) SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
+            if(SelectedRowIndex.Item1 == null) // escape to go back into Startmenu
             {
                 CustomerStartMenu.Start();
                 return;
             }
-            else if (SelectedRowIndex < 0) // backspace to delete reservation
+            else if (SelectedRowIndex.Item2 == "backspace") // backspace to delete reservation
             {
-                CancelReservation(-SelectedRowIndex);
+                CancelReservation(SelectedRowIndex.Item1);
                 ShowAllPricesInformation();
             }
             else
             {
-                List<string> selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                List<string> selectedRow = GenerateRow(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]);
                 while(true)
                 {
-                    selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                    selectedRow = GenerateRow(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]);
                     (string SelectedItem, int SelectedIndex)? result = tableReservations.PrintSelectedRow(selectedRow, header);
                     if (result == null){
                         break; //exit loop door escape
@@ -61,7 +61,7 @@ public static class CustomerReservation
                         int selectedIndex = result.Value.SelectedIndex;
                         if (selectedIndex == 2)
                         {
-                            foreach (string stoel in SeatString(currentAccount.Reservations[SelectedRowIndex.Value]))
+                            foreach (string stoel in SeatString(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]))
                             {
                                 Console.WriteLine(stoel);
                                 Console.Write("Om een stap terug te gaan druk op");
@@ -97,6 +97,7 @@ public static class CustomerReservation
     {
         Console.Clear();
         Console.WriteLine("Weet u zeker dat u deze reservering wilt annuleren.");
+        Console.WriteLine(selectedRowIndex);
         bool answer = JaNee();
         if (answer)
         {
@@ -105,7 +106,7 @@ public static class CustomerReservation
             List<(int, int)> seatCoords = new List<(int, int)>();
             for (int i = 0; i < toCancel.SeatCol.Count; i++)
             {
-                (int, int) coords = (toCancel.SeatCol[i],toCancel.SeatRow[i]);
+                (int, int) coords = (toCancel.SeatRow[i],toCancel.SeatCol[i]);
                 seatCoords.Add(coords);
             }
             SeatingMapMenu.MakeAvailable(busToUpdate, seatCoords);

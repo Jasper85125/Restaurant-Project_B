@@ -28,10 +28,10 @@
     "IsActive": true,
     "seatingMap": {
       "(0,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,1)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(0,2)": {
         "isOccupied": false
@@ -54,10 +54,10 @@
       "(0,10)": null,
       "(0,11)": null,
       "(1,0)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,1)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(1,2)": {
         "isOccupied": false
@@ -609,10 +609,10 @@
         "isOccupied": false
       },
       "(4,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(4,5)": {
         "isOccupied": false
@@ -651,10 +651,10 @@
         "isOccupied": false
       },
       "(5,3)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(5,4)": {
-        "isOccupied": true
+        "isOccupied": false
       },
       "(5,5)": {
         "isOccupied": false

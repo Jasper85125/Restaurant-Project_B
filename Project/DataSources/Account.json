@@ -5,47 +5,6 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": [
-      {
-        "id": 1,
-        "checkInStop": "Centraal Station",
-        "routeName": "Joe",
-        "busLicensePlate": 1,
-        "seatRow": [
-          0,
-          0,
-          1,
-          1,
-          2,
-          2
-        ],
-        "seatCol": [
-          0,
-          1,
-          0,
-          1,
-          0,
-          1
-        ]
-      },
-      {
-        "id": 2,
-        "checkInStop": "Blaak",
-        "routeName": "Kees",
-        "busLicensePlate": 3,
-        "seatRow": [
-          4,
-          4,
-          5,
-          5
-        ],
-        "seatCol": [
-          3,
-          4,
-          4,
-          3
-        ]
-      }
-    ]
+    "reservations": []
   }
 ]
