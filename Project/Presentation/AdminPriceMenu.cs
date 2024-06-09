@@ -18,7 +18,7 @@ public static class AdminPriceMenu
     public static void ShowAllPricesInformation()
     {
         string title = "Het prijscategorie menu";
-        List<string> header = new() {"Id", "doelgroep", "prijs", "activiteit"};
+        List<string> header = new() {"Id", "doelgroep", "prijs in euro", "activiteit"};
         List<PriceModel> priceModels = pricesLogic.GetAll();
         string kind = "prijscategorie";
         if (priceModels == null || priceModels.Count == 0)
@@ -114,7 +114,7 @@ public static class AdminPriceMenu
                                 while (!Helper.IsValidDouble(Input))
                                 {
                                     ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De prijs moet in hele getallen gegeven worden.");
+                                    Console.WriteLine("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
                                     Console.WriteLine("Wat is de nieuwe prijs?");
                                     Input = Console.ReadLine();
                                 }
@@ -162,7 +162,7 @@ public static class AdminPriceMenu
         {
             activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{passenger}", $"{price}",$"{activity}" };
+        return new List<string> { $"{id}", $"{passenger}", $"{price:F2}",$"{activity}" };
     }
 
     public static void BackToStartMenu()
