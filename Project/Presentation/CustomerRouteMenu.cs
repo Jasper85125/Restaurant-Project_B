@@ -27,7 +27,7 @@ public static class CustomerRouteMenu
         List<BusModel> busWithRoute = new List<BusModel>();
         foreach (BusModel bus in busModels)
         {
-            if (bus.Route.Any())
+            if (bus.Route.Any() && bus.IsActive == true)
             {
                 busWithRoute.Add(bus);
             }

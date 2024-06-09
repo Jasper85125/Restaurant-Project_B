@@ -1,38 +1,14 @@
 [
   {
     "id": 1,
-    "passenger": "Baby",
+    "passenger": "Volwassene",
     "price": 20,
     "isActive": true
   },
   {
     "id": 2,
-    "passenger": "Volwassene",
-    "price": 20,
-    "isActive": false
-  },
-  {
-    "id": 3,
-    "passenger": "old",
+    "passenger": "oudere",
     "price": 10,
-    "isActive": false
-  },
-  {
-    "id": 4,
-    "passenger": "",
-    "price": 0,
-    "isActive": false
-  },
-  {
-    "id": 5,
-    "passenger": "",
-    "price": 0,
-    "isActive": false
-  },
-  {
-    "id": 6,
-    "passenger": "",
-    "price": 0,
-    "isActive": false
+    "isActive": true
   }
 ]

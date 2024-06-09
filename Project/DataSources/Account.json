@@ -5,65 +5,45 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
-  },
-  {
-    "id": 2,
-    "emailAddress": "Test@gmail.com",
-    "password": "Test",
-    "fullName": "Test Test",
-    "isAdmin": false,
     "reservations": [
       {
         "id": 1,
-        "checkInStop": "Schouwburgplein",
-        "routeName": "Noord",
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
         "busLicensePlate": 1,
         "seatRow": [
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "seatCol": [
-          4,
-          5,
+          1,
           1,
           2,
-          3,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13
-        ]
-      },
-      {
-        "id": 2,
-        "checkInStop": "Blijdorp",
-        "routeName": "Noord",
-        "busLicensePlate": 1,
-        "seatRow": [
-          1,
-          1,
           2
         ],
         "seatCol": [
           0,
           1,
-          0
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "checkInStop": "Blaak",
+        "routeName": "Kees",
+        "busLicensePlate": 3,
+        "seatRow": [
+          4,
+          4,
+          5,
+          5
+        ],
+        "seatCol": [
+          3,
+          4,
+          4,
+          3
         ]
       }
     ]
