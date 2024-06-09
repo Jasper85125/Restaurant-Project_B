@@ -550,7 +550,8 @@ public static class AdminRouteMenu
                                     ColorPrint.PrintRed($"U kan {header[selectedIndex]} niet aanpassen.");
                                     Thread.Sleep(3000);
                                 }
-                                else if(selectedIndex == 1){
+                                else if(selectedIndex == 1)
+                                {
                                     Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
                                     string Input = Console.ReadLine();
                                     while (true)
@@ -577,7 +578,7 @@ public static class AdminRouteMenu
                                     routeModels[selectedRowIndex].Name = Input;
                                     routeLogic.UpdateList(routeModels[selectedRowIndex]);
                                         
-                            }
+                                }
                             else if(selectedIndex == 2){
                                 if (routeModels[selectedRowIndex].endTime.HasValue && routeModels[selectedRowIndex].beginTime.HasValue){
                                     var timeDifference = routeModels[selectedRowIndex].endTime.Value - routeModels[selectedRowIndex].beginTime.Value;
