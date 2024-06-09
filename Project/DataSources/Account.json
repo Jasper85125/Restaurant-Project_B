@@ -5,6 +5,25 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
+    "reservations": [
+      {
+        "id": 1,
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
+        "busLicensePlate": 1,
+        "seatRow": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "seatCol": [
+          0,
+          1,
+          1,
+          0
+        ]
+      }
+    ]
   }
 ]

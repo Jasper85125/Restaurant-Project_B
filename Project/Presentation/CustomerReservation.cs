@@ -97,7 +97,6 @@ public static class CustomerReservation
     {
         Console.Clear();
         Console.WriteLine("Weet u zeker dat u deze reservering wilt annuleren.");
-        Console.WriteLine(selectedRowIndex);
         bool answer = JaNee();
         if (answer)
         {

@@ -77,7 +77,7 @@ public class BasicTableLogic<T>
         do
         {
             Console.Clear();
-            Console.WriteLine("Geselecteerde Route:");
+            Console.WriteLine("Geselecteerde reservering:");
             PrintLine();
             PrintRow(header, false, true);
             PrintLine();
@@ -189,9 +189,11 @@ public class BasicTableLogic<T>
             Console.Write("Enter");
             Console.ResetColor();
             Console.Write(" om de rij te selecteren.");
-            Console.Write("\nOm terug te gaan klik op escape");
+            Console.Write("\nOm uw reservering te annuleren klik op ");
+            ColorPrint.PrintWriteCyan("backspace");
+            Console.Write("\nOm terug te gaan klik op ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(" Escape");
+            Console.Write("Escape");
             Console.ResetColor();
             Console.Write(".\n");
     }

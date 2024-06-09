@@ -251,9 +251,6 @@ public static class SeatingMapMenu
                 {
                     if (coord == chair)
                     {
-                        Console.WriteLine(coord);
-                        Console.WriteLine(chair);
-                        Thread.Sleep(100);
                         seatModels[row,col].IsOccupied = false;
                     }
                 }   
