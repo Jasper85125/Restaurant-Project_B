@@ -5,6 +5,8 @@ public static class SeatingMapMenu
 {
     public static SeatLogic seatLogic = new();
 
+    private static BusLogic busLogic = new();
+
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
     // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
@@ -94,7 +96,7 @@ public static class SeatingMapMenu
                     }
                     break;
                 case ConsoleKey.Enter:
-                    ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.LicensePlate);
+                    ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.Id);
                     foreach ((int Row, int Col) coordinaten in selectedSeats)
                     {
                         seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
@@ -205,9 +207,7 @@ public static class SeatingMapMenu
         // Print bottom border
         Console.WriteLine(" " + new string('=', seatModels.GetLength(1) * 3));
 
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("  Achterkant --------------> Voorkant");
-        Console.ResetColor();
+        ColorPrint.PrintMagenta("  Achterkant --------------> Voorkant");
 
         ColorPrint.PrintWriteRed("\n* ");
         Console.WriteLine("bezet");
@@ -236,6 +236,29 @@ public static class SeatingMapMenu
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write(" Escape\n");
         Console.ResetColor();
+    }
+
+    public static void MakeAvailable(BusModel bus, List<(int, int)> coordinates)
+    {
+        Dictionary<(int Row, int Col), SeatModel> seatingMap = bus.SeatingMap;
+        SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+        for (int row = 0; row < seatModels.GetLength(0); row++)
+        {
+            for (int col = 0; col < seatModels.GetLength(1); col++)
+            {
+                (int, int) coord = (row, col);
+                foreach ((int, int) chair in coordinates)
+                {
+                    if (coord == chair)
+                    {
+                        seatModels[row,col].IsOccupied = false;
+                    }
+                }   
+            }
+        }
+        Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+        bus.SeatingMap = updatedSeatingMap;
+        busLogic.UpdateList(bus);
     }
 }
 

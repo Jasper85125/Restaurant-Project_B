@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 public static class AdminStartMenu
 {
     private static SeatLogic seatLogic = new();
@@ -96,14 +97,10 @@ public static class AdminStartMenu
         Console.ResetColor();
 
         Console.Write("\nKlik");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(" Enter ");
-        Console.ResetColor();
+        ColorPrint.PrintWriteGreen(" Enter ");
         Console.WriteLine("om een optie te selecteren");
         Console.Write("Om naar het inlogmenu te gaan klik op");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape");
-        Console.ResetColor();
+        ColorPrint.PrintWriteRed(" Escape");
         Console.WriteLine(".\n");
     }
 

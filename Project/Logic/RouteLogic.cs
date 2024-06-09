@@ -31,7 +31,7 @@ public class RouteLogic : AbstractLogic<RouteModel>
             _routes.Add(route);
         }
         DataAccess<RouteModel>.WriteAll(_routes);
-        RouteLogic.busLogic.UpdateBusRoutes();
+        busLogic.UpdateBusRoutes();
     }
 
     public override RouteModel GetById(int id)

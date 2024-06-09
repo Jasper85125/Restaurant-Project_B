@@ -162,7 +162,6 @@ public class CustomerTableLogic<T>
         Console.WriteLine(new string('-', output.Length-1));
     }
 
-
     private static string AlignCentre(string text, int width)
     {
         text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
@@ -189,6 +188,5 @@ public class CustomerTableLogic<T>
         Console.Write(" Escape");
         Console.ResetColor();
         Console.Write(".\n");
-
     }
 }

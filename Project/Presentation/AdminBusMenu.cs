@@ -78,9 +78,7 @@ public static class AdminBusMenu
                             }
 
                             if(licensePlateExists) {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Kenteken bestaat al, geef een andere op.");
-                                Console.ResetColor();
+                                ColorPrint.PrintRed("Kenteken bestaat al, geef een andere op.");
                                 Thread.Sleep(3000);
                             } else {
                                 //if licensePlate does not exists, it gets added to the list
@@ -120,17 +118,11 @@ public static class AdminBusMenu
                                 
                                 Console.WriteLine();
                                 Console.Write("Als u nog een route wil toevoegen klik op");
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                                Console.Write(" Spatie.");
-                                Console.ResetColor();
+                                ColorPrint.PrintWriteBlue(" Spatie.");
                                 Console.Write("\nAls u de laatste route wil verwijderen klik op");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write(" Backspace.");
-                                Console.ResetColor();
+                                ColorPrint.PrintWriteRed(" Backspace.");
                                 Console.Write("\nAls u tevreden bent met de routelijst, voeg de lijst toe met");
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.Write(" Enter.");
-                                Console.ResetColor();
+                                ColorPrint.PrintWriteGreen(" Enter.");
 
                                 keyInfo = Console.ReadKey(true);
                                 
@@ -281,13 +273,9 @@ public static class AdminBusMenu
 
         Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
         Console.Write("Druk op ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Enter");
-        Console.ResetColor();
+        ColorPrint.PrintWriteGreen("Enter");
         Console.Write(" om door te gaan of druk op ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("Backspace");
-        Console.ResetColor();
+        ColorPrint.PrintWriteRed("Backspace");
         Console.WriteLine(" om te annuleren.");
 
         ConsoleKeyInfo keyInfo;

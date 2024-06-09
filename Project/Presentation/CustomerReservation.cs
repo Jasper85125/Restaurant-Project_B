@@ -5,13 +5,13 @@ using Microsoft.VisualBasic;
 
 public static class CustomerReservation
 {
+    private static BusLogic busLogic = new();
+    private static SeatLogic seatLogic = new();
     private static PriceLogic pricesLogic = new();
     private static BasicTableLogic<ReservationModel> tableReservations = new();
     private static BasicTableLogic<PriceModel> basictableLogic = new();
     static private AccountsLogic accountsLogic = new AccountsLogic();
     
-
-
     public static void Start()
     {
         ShowAllPricesInformation();
@@ -34,17 +34,23 @@ public static class CustomerReservation
         }
         while(true)
         {
-            int? SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
-            if(SelectedRowIndex == null){
+            (int?, string) SelectedRowIndex = tableReservations.PrintTable(header, Reservations, GenerateRow, title);
+            if(SelectedRowIndex.Item1 == null) // escape to go back into Startmenu
+            {
                 CustomerStartMenu.Start();
                 return;
             }
+            else if (SelectedRowIndex.Item2 == "backspace") // backspace to delete reservation
+            {
+                CancelReservation(SelectedRowIndex.Item1);
+                ShowAllPricesInformation();
+            }
             else
             {
-                List<string> selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                List<string> selectedRow = GenerateRow(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]);
                 while(true)
                 {
-                    selectedRow = GenerateRow(currentAccount.Reservations[SelectedRowIndex.Value]);
+                    selectedRow = GenerateRow(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]);
                     (string SelectedItem, int SelectedIndex)? result = tableReservations.PrintSelectedRow(selectedRow, header);
                     if (result == null){
                         break; //exit loop door escape
@@ -55,7 +61,7 @@ public static class CustomerReservation
                         int selectedIndex = result.Value.SelectedIndex;
                         if (selectedIndex == 2)
                         {
-                            foreach (string stoel in SeatString(currentAccount.Reservations[SelectedRowIndex.Value]))
+                            foreach (string stoel in SeatString(currentAccount.Reservations[Convert.ToInt32(SelectedRowIndex.Item1)]))
                             {
                                 Console.WriteLine(stoel);
                                 Console.Write("Om een stap terug te gaan druk op");
@@ -80,16 +86,40 @@ public static class CustomerReservation
                                 // Clear console and display options
                                 Console.Clear();
                             }
-
                         }
-                        
                     }
                 }
             }
         }
-        
     }
 
+    public static void CancelReservation(int? selectedRowIndex)
+    {
+        Console.Clear();
+        Console.WriteLine("Weet u zeker dat u deze reservering wilt annuleren.");
+        bool answer = JaNee();
+        if (answer)
+        {
+            ReservationModel toCancel = UserLogin.loggedInAccount.Reservations[Convert.ToInt32(selectedRowIndex)];
+            BusModel busToUpdate = busLogic.GetById(toCancel.BusId);
+            List<(int, int)> seatCoords = new List<(int, int)>();
+            for (int i = 0; i < toCancel.SeatCol.Count; i++)
+            {
+                (int, int) coords = (toCancel.SeatRow[i],toCancel.SeatCol[i]);
+                seatCoords.Add(coords);
+            }
+            SeatingMapMenu.MakeAvailable(busToUpdate, seatCoords);
+
+            UserLogin.loggedInAccount.Reservations.Remove(toCancel);
+            accountsLogic.UpdateList(UserLogin.loggedInAccount);
+            Console.WriteLine("Uw reservering is geannuleerd.");
+            ShowAllPricesInformation();
+        }
+        else
+        {
+            ShowAllPricesInformation();
+        }
+    }
 
     public static List<string> GenerateRow(ReservationModel Reservations)
     {
@@ -124,5 +154,56 @@ public static class CustomerReservation
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
         CustomerStartMenu.Start();
+    }
+
+    public static bool JaNee()
+    {
+        int selectedOption = 1;
+
+        DisplayOptionsJaNee(selectedOption);
+
+        while (true)
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = Math.Max(1, selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = Math.Min(2, selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            return true;
+                        case 2:
+                            return false;
+                    }
+                    break;
+            }
+            Console.Clear();
+            DisplayOptionsJaNee(selectedOption);
+        }
+
+    }
+    public static void DisplayOptionsJaNee(int selectedOption)
+    {
+        Console.WriteLine("Selecteer een optie:");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("Ja.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("Nee.");
+
+        Console.ResetColor();
     }
 }

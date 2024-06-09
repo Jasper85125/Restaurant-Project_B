@@ -32,7 +32,6 @@ public class BusLogic : AbstractLogic<BusModel>
         DataAccess<BusModel>.WriteAll(_busses);
     }
 
-
     public override BusModel GetById(int id)
     {
         return _busses.Find(p => p.Id == id);
@@ -48,17 +47,28 @@ public class BusLogic : AbstractLogic<BusModel>
     } 
     public override List<BusModel> GetAll() => _busses = DataAccess<BusModel>.LoadAll();
 
-    public void UpdateBusRoutes(){
-        for(int i = 0; i <= _busses.Count(); i++){
-            for(int j = 0; j <= _busses[i].Route.Count(); j++){
+    public void UpdateBusRoutes()
+    {
+        for(int i = 0; i < _busses.Count(); i++)
+        {
+            for(int j = 0; j < _busses[i].Route.Count(); j++)
+            {
                 List<RouteModel> _routes = routeLogic.GetAll();
-                RouteModel Route = _routes.Where(r => r.Id == _busses[i].Route[j].Id).FirstOrDefault();
-                _busses[i].Route[j] = Route;
+                foreach (RouteModel route in _routes)
+                {
+                    Console.WriteLine(route.Id);
+                    Console.WriteLine(i);
+                    Console.WriteLine(j);
+                }
+                if (_busses[i].Route.Count() != 0)
+                {
+                    RouteModel Route = _routes.Where(r => r.Id == _busses[i].Route[j].Id).FirstOrDefault();
+                    _busses[i].Route[j] = Route;
+                }
                 UpdateList(_busses[i]);
             }
         }
     }
-
 }
 
 

@@ -8,55 +8,20 @@
     "reservations": [
       {
         "id": 1,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "",
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
+        "busLicensePlate": 1,
         "seatRow": [
           0,
-          0
-        ],
-        "seatCol": [
-          1,
-          2
-        ]
-      },
-      {
-        "id": 2,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "",
-        "seatRow": [
-          4,
-          5
-        ],
-        "seatCol": [
-          0,
-          0
-        ]
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "emailAddress": "Test@gmail.com",
-    "password": "Test",
-    "fullName": "Test Test",
-    "isAdmin": false,
-    "reservations": [
-      {
-        "id": 1,
-        "checkInStop": "De Kuip",
-        "routeName": "CoolRoute",
-        "busLicensePlate": "BCA-321",
-        "seatRow": [
           0,
           1,
-          2
+          1
         ],
         "seatCol": [
-          4,
-          4,
-          4
+          0,
+          1,
+          1,
+          0
         ]
       },
       {

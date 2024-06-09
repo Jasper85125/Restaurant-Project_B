@@ -53,4 +53,11 @@ public static class ColorPrint
         Console.Write(text);
         Console.ResetColor();
     }
+
+    public static void PrintWriteBlue(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Write(text);
+        Console.ResetColor();
+    }
 }
