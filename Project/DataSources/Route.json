@@ -21,23 +21,12 @@
   },
   {
     "id": 2,
-    "duration": 0.5,
-    "name": "Zuid",
-    "stops": [
-      {
-        "id": 1,
-        "name": "Centraal Station",
-        "time": "15:00:00"
-      },
-      {
-        "id": 23,
-        "name": "Centrum-West",
-        "time": "15:30:00"
-      }
-    ],
-    "begin": "15:00:00",
-    "end": "15:30:00",
-    "isActive": false
+    "duration": 0,
+    "name": "Test",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": true
   },
   {
     "id": 3,
