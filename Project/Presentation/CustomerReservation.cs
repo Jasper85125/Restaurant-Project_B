@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Dynamic;
 using System.Formats.Asn1;
 using Microsoft.VisualBasic;
 
@@ -7,6 +8,8 @@ public static class CustomerReservation
 {
     private static BusLogic busLogic = new();
     private static SeatLogic seatLogic = new();
+    private static RouteLogic routeLogic = new();
+
     private static PriceLogic pricesLogic = new();
     private static BasicTableLogic<ReservationModel> tableReservations = new();
     private static BasicTableLogic<PriceModel> basictableLogic = new();
@@ -20,7 +23,7 @@ public static class CustomerReservation
     public static void ShowAllPricesInformation()
     {
         string title = "Uw reserveringen";
-        List<string> header = new() {"Halte", "Route", "Zitplaats"};
+        List<string> header = new() {"Halte", "Route", "Zitplaats(en)", "Tijd"};
         AccountModel currentAccount = UserLogin.loggedInAccount;
         List<ReservationModel> Reservations = currentAccount.Reservations;
         string kind = "reserveringen";
@@ -128,12 +131,25 @@ public static class CustomerReservation
         List<int> seatRow = Reservations.SeatRow;
         List<int> seatCol = Reservations.SeatCol;
         List<string> seats = new List<string>();
+        List<StopModel> stops = routeLogic.GetByName(routeName).Stops;
+        TimeSpan? time = default;
+        int Count = 0;
+        foreach (StopModel stop in stops)
+        {
+            if(stop.Name == checkInStop)
+            {
+                time = stop.Time;
+            }
+        }
+
         for (int i = 0; i < seatRow.Count; i++)
         {
+            Count += 1;
             seats.Add($"Rij: {seatRow[i]} Stoel: {seatCol[i]}");
         }
+
         string seatsString = string.Join(", ", seats);
-        return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}" };
+        return new List<string> { $"{checkInStop}", $"{routeName}", $"{Count}", $"{time}" };
     }
 
     public static List<string> SeatString(ReservationModel Reservations)
@@ -188,7 +204,6 @@ public static class CustomerReservation
             Console.Clear();
             DisplayOptionsJaNee(selectedOption);
         }
-
     }
     public static void DisplayOptionsJaNee(int selectedOption)
     {

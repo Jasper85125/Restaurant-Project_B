@@ -10,28 +10,45 @@ public static class UserSignUp
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
 
+        Console.Write("Om te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om terug te gaan druk ");
+        ColorPrint.PrintRed("Escape");
         Console.WriteLine("Uw voornaam: ");
-        string? firstName = Console.ReadLine();
+        string? firstName = Helper.StringHelper();
+        if (firstName == "Escape/GoBack.") Menu.Start();
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
             ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
             Console.WriteLine("Uw voornaam kan alleen bestaan uit letters.");
             Console.WriteLine("Uw voornaam: ");
-            firstName = Console.ReadLine();
+            firstName = Helper.StringHelper();
         }
+
+        Console.Write("\nOm te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om terug te gaan druk ");
+        ColorPrint.PrintRed("Escape");
         Console.WriteLine("Uw achternaam: ");
-        string? lastName = Console.ReadLine();
+        string? lastName = Helper.StringHelper();
+        if (lastName == "Escape/GoBack.") Menu.Start();
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
             ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
             Console.WriteLine("Uw achternaam kan alleen bestaan uit letters.");
             Console.WriteLine("Uw achternaam: ");
-            lastName = Console.ReadLine();
+            lastName = Helper.StringHelper();
         }
+
         while (true)
         {
+            Console.Write("\nOm te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
+            Console.Write("Om terug te gaan druk ");
+            ColorPrint.PrintRed("Escape");
             Console.WriteLine("Uw e-mail: ");
-            email = Console.ReadLine();
+            email = Helper.StringHelper();
+            if (email == "Escape/GoBack.") Menu.Start();
 
             if (!accountsLogic.IsValidEmail(email))
             {
@@ -47,26 +64,37 @@ public static class UserSignUp
                 ColorPrint.PrintRed("Er is al een account met dit e-mail. \nProbeer een ander.");
             }
         }
+
         while (true)
         {
+            Console.Write("\nOm te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
+            Console.Write("Om terug te gaan druk ");
+            ColorPrint.PrintRed("Escape");
             Console.WriteLine("Uw wachtwoord:");
-            password = Console.ReadLine();
+            password = Helper.StringHelper();
+            if (password == "Escape/GoBack.") Menu.Start();
             while (!Helper.IsValidString(password))
             {
                 ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Uw wachtwoord: ");
-                password = Console.ReadLine();
+                password = Helper.StringHelper();
             }
 
+            Console.Write("\nOm te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
+            Console.Write("Om terug te gaan druk ");
+            ColorPrint.PrintRed("Escape");
             Console.WriteLine("Controleer uw wachtwoord:");
-            string? password2 = Console.ReadLine();
+            string? password2 = Helper.StringHelper();
+            if (password2 == "Escape/GoBack.") Menu.Start();
             while (!Helper.IsValidString(password2))
             {
                 ColorPrint.PrintRed($"'{password2}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Controleer uw wachtwoord:");
-                password2 = Console.ReadLine();
+                password2 = Helper.StringHelper();
             }
 
             if (password == password2)
@@ -78,6 +106,7 @@ public static class UserSignUp
                 ColorPrint.PrintRed("Uw wachtwoord komt niet overeen.\nProbeer het opnieuw.");
             }
         }
+
         string fullName = $"{firstName} {lastName}";
         if (IsAdminSign)
         {

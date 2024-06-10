@@ -50,6 +50,11 @@ public class RouteLogic : AbstractLogic<RouteModel>
 
     public override List<RouteModel> GetAll()=>  _routes = DataAccess<RouteModel>.LoadAll();
 
+    public RouteModel GetByName(string name)
+    {
+        return _routes.Find(i => i.Name == name);
+    }
+
     public static RouteModel AddToRoute(StopModel stop, RouteModel inputRoute)
     {
         inputRoute.Stops.Add(stop);
