@@ -204,7 +204,6 @@ public static class CustomerReservation
             Console.Clear();
             DisplayOptionsJaNee(selectedOption);
         }
-
     }
     public static void DisplayOptionsJaNee(int selectedOption)
     {

@@ -8,8 +8,13 @@ public static class UserLogin
     public static void Start()
     {
         Console.WriteLine("Welkom op de inlogpagina.");
+        Console.Write("Om te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om terug te gaan druk ");
+        ColorPrint.PrintRed("Escape");
         Console.WriteLine("Vul uw e-mail in: ");
-        string? email = Console.ReadLine();
+        string? email = Helper.StringHelper();
+        if (email == "Escape/GoBack.") Menu.Start();
         while (true)
         {
             if (!accountsLogic.IsValidEmail(email) && email != "Admin")
@@ -33,8 +38,13 @@ public static class UserLogin
             email = Console.ReadLine();
         }
 
+        Console.Write("\nOm te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om terug te gaan druk ");
+        ColorPrint.PrintRed("Escape");
         Console.WriteLine("Vul uw wachtwoord in: ");
-        string? password = Console.ReadLine();
+        string? password = Helper.StringHelper();
+        if (password == "Escape/GoBack.") Menu.Start();
         while (!Helper.IsValidString(password))
         {
             ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
