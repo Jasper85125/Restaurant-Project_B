@@ -478,7 +478,7 @@ public static class AdminRouteMenu
                         {
                             RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                             routeLogic.UpdateList(newRouteModel);
-                            break;
+                            selectedRowIndex = routeModels.Count() - 1;
                         }
                         while(true)
                         {
@@ -674,7 +674,7 @@ public static class AdminRouteMenu
         else{
             activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
+        return new List<string> { $"{id}", $"{name}", $"{String.Format("{0:0.00}", duration)}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
     // public static List<string> GenerateRow(StopModel stopModel)

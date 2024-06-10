@@ -54,12 +54,6 @@ public class BusLogic : AbstractLogic<BusModel>
             for(int j = 0; j < _busses[i].Route.Count(); j++)
             {
                 List<RouteModel> _routes = routeLogic.GetAll();
-                foreach (RouteModel route in _routes)
-                {
-                    Console.WriteLine(route.Id);
-                    Console.WriteLine(i);
-                    Console.WriteLine(j);
-                }
                 if (_busses[i].Route.Count() != 0)
                 {
                     RouteModel Route = _routes.Where(r => r.Id == _busses[i].Route[j].Id).FirstOrDefault();
