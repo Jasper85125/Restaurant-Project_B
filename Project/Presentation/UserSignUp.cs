@@ -25,7 +25,7 @@ public static class UserSignUp
             firstName = Helper.StringHelper();
         }
 
-        Console.Write("\n Om te bevestigen druk enter in "); 
+        Console.Write("\nOm te bevestigen druk enter in "); 
         ColorPrint.PrintGreen("Enter");
         Console.Write("Om terug te gaan druk ");
         ColorPrint.PrintRed("Escape");
@@ -42,7 +42,7 @@ public static class UserSignUp
 
         while (true)
         {
-            Console.Write("\n Om te bevestigen druk enter in "); 
+            Console.Write("\nOm te bevestigen druk enter in "); 
             ColorPrint.PrintGreen("Enter");
             Console.Write("Om terug te gaan druk ");
             ColorPrint.PrintRed("Escape");
@@ -67,7 +67,7 @@ public static class UserSignUp
 
         while (true)
         {
-            Console.Write("\n Om te bevestigen druk enter in "); 
+            Console.Write("\nOm te bevestigen druk enter in "); 
             ColorPrint.PrintGreen("Enter");
             Console.Write("Om terug te gaan druk ");
             ColorPrint.PrintRed("Escape");
@@ -82,7 +82,7 @@ public static class UserSignUp
                 password = Helper.StringHelper();
             }
 
-            Console.Write("\n Om te bevestigen druk enter in "); 
+            Console.Write("\nOm te bevestigen druk enter in "); 
             ColorPrint.PrintGreen("Enter");
             Console.Write("Om terug te gaan druk ");
             ColorPrint.PrintRed("Escape");
