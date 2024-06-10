@@ -248,8 +248,8 @@ public static class CustomerRouteMenu
         var duration = routeModel.Duration;
         var name = routeModel.Name;
         var stops = routeModel.Stops;
-        var beginTime = routeModel.beginTime;
-        var endTime = routeModel.endTime;
+        var beginTime = routeModel.beginTime?.ToString(@"hh\:mm");
+        var endTime = routeModel.endTime?.ToString(@"hh\:mm");
         foreach(StopModel stop in stops){
             allStops.Add(stop);
         }
