@@ -45,6 +45,7 @@ public static class UserLogin
         Console.WriteLine("Vul uw wachtwoord in: ");
         string? password = Helper.StringHelper();
         if (password == "Escape/GoBack.") Menu.Start();
+        Console.WriteLine("");
         while (!Helper.IsValidString(password))
         {
             ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
