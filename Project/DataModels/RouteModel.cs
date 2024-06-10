@@ -6,8 +6,14 @@ public class RouteModel : IActivatable
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
+    private double _duration;
+
     [JsonPropertyName("duration")]
-    public double Duration { get; set; }
+    public double Duration
+    {
+        get { return _duration; }
+        set { _duration = Math.Round(value, 2); }
+    }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
