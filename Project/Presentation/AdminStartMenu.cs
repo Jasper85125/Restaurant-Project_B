@@ -66,8 +66,7 @@ public static class AdminStartMenu
 
     static void DisplayOptions(int selectedOption)
     {
-        Console.WriteLine("Adminhoofdmenu");
-        Console.WriteLine("Selecteer een optie:\n");
+        Console.WriteLine("Adminhoofdmenu\n");
 
         // Display option 1
         Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.White;
