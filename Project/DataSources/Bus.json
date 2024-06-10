@@ -376,16 +376,16 @@
         "isOccupied": false
       },
       "(4,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(4,2)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(4,3)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(4,4)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(4,5)": {
         "isOccupied": false
@@ -418,10 +418,10 @@
         "isOccupied": false
       },
       "(5,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,2)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,3)": {
         "isOccupied": false
@@ -460,10 +460,10 @@
         "isOccupied": false
       },
       "(6,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(6,2)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(6,3)": {
         "isOccupied": false
