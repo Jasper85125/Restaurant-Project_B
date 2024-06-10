@@ -9,7 +9,7 @@ public static class UserSignUp
         string? email;
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
-        
+
         Console.Write("Om te bevestigen druk enter in "); 
         ColorPrint.PrintGreen("Enter");
         Console.WriteLine("Uw voornaam: ");
