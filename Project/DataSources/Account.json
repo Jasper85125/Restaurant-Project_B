@@ -5,6 +5,61 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": []
+    "reservations": [
+      {
+        "id": 1,
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
+        "busLicensePlate": 2,
+        "seatRow": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "id": 2,
+        "checkInStop": "Coolhaven",
+        "routeName": "Joe",
+        "busLicensePlate": 2,
+        "seatRow": [
+          4,
+          5,
+          6,
+          6,
+          5,
+          4
+        ],
+        "seatCol": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "checkInStop": "Coolhaven",
+        "routeName": "Joe",
+        "busLicensePlate": 2,
+        "seatRow": [
+          4,
+          4
+        ],
+        "seatCol": [
+          3,
+          4
+        ]
+      }
+    ]
   }
 ]

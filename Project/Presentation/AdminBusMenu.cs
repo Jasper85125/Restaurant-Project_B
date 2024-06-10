@@ -45,12 +45,14 @@ public static class AdminBusMenu
             {
                 int selectedRowIndex = TableInfo.Value.SelectedRowIndex;
                 List<string> SelectedRow = TableInfo.Value.SelectedRow;
-                if(selectedRowIndex ==  listAllBusses.Count())
+                if(selectedRowIndex == listAllBusses.Count())
                 {
                     Console.Clear();
                     MakeBusFormation();
+                    selectedRowIndex = listAllBusses.Count() - 1;
                 }
                 while(true){
+                    SelectedRow = GenerateRow(listAllBusses[selectedRowIndex]);
                     (string SelectedItem, int SelectedIndex)? result = tableBus.PrintSelectedRow(SelectedRow, header);
                     if (result == null){
                         break; //exit loop door escape
@@ -162,7 +164,6 @@ public static class AdminBusMenu
                                         Thread.Sleep(3000);
                                         listAllBusses[selectedRowIndex].Route = RoutesList;
                                         busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                                        SelectedRow = GenerateRow(listAllBusses[selectedRowIndex]);
 
                                         break;
                                     default:
@@ -172,7 +173,7 @@ public static class AdminBusMenu
                                 }
                             } while (keyInfo.Key != ConsoleKey.Enter);
                         }
-                        else if (selectedIndex == 6)
+                        else if (selectedIndex == 4)
                             {
                                 dynamic item = listAllBusses[selectedRowIndex].IsActive;
                                 if (listAllBusses[selectedRowIndex].IsActive)
@@ -370,7 +371,7 @@ public static class AdminBusMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(5, selectedOption + 1);
+                    selectedOption = Math.Min(2, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -384,8 +385,7 @@ public static class AdminBusMenu
                             Dictionary<(int Row, int Col), SeatModel> seatingMapBusiness = seatLogic.ConvertToDict(seatModelsBusiness); // seatModels wordt geconvert naar Dictionary
                             newBusBusiness.AddSeatingMap(seatingMapBusiness);
                             busLogic.UpdateList(newBusBusiness);
-                            ShowAllBusInformation();
-                            break;
+                            return;
                         case 2:
                             BusModel newBusModelPlebs = new(busLogic.GenerateNewId(),"Plebs","Nieuwe Bus",false);
                             SeatModel[,] seatModelsPlebs = new SeatModel[7, 14];
@@ -393,10 +393,12 @@ public static class AdminBusMenu
                             Dictionary<(int Row, int Col), SeatModel> seatingMapPlebs = seatLogic.ConvertToDict(seatModelsPlebs); // seatModels wordt geconvert naar Dictionary
                             newBusModelPlebs.AddSeatingMap(seatingMapPlebs);
                             busLogic.UpdateList(newBusModelPlebs);
-                            ShowAllBusInformation();
-                            break;
+                            return;
                     }
                     break;
+                case ConsoleKey.Escape:
+                    ShowAllBusInformation();
+                    return;
             }
 
             // Clear console and display options
@@ -430,6 +432,12 @@ public static class AdminBusMenu
             Console.Write(" Enter ");
             Console.ResetColor();
             Console.WriteLine("om een optie te selecteren");
+
+            Console.Write("Klik");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(" Escape ");
+            Console.ResetColor();
+            Console.WriteLine("om naar het bussen overzicht te gaan.\n");
         }
     }
 }   
