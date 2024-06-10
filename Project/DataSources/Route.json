@@ -22,11 +22,11 @@
   {
     "id": 2,
     "duration": 0,
-    "name": "Test",
+    "name": "TestTestTEst",
     "stops": [],
     "begin": null,
     "end": null,
-    "isActive": true
+    "isActive": false
   },
   {
     "id": 3,
@@ -65,5 +65,43 @@
     "begin": null,
     "end": null,
     "isActive": false
+  },
+  {
+    "id": 5,
+    "duration": 0,
+    "name": "Nieuwe route",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
+  },
+  {
+    "id": 6,
+    "duration": 0,
+    "name": "Nieuwe route",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
+  },
+  {
+    "id": 7,
+    "duration": 2.816666666666667,
+    "name": "Kralingen",
+    "stops": [
+      {
+        "id": 30,
+        "name": "Coolhaven",
+        "time": "15:36:00"
+      },
+      {
+        "id": 26,
+        "name": "Blijdorp",
+        "time": "18:25:00"
+      }
+    ],
+    "begin": "15:36:00",
+    "end": "18:25:00",
+    "isActive": true
   }
 ]
