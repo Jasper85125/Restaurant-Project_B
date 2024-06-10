@@ -7,14 +7,16 @@ public static class UserLogin
 
     public static void Start()
     {
+        Console.Clear();
         Console.WriteLine("Welkom op de inlogpagina.");
-        Console.Write("Om te bevestigen druk enter in "); 
-        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om te bevestigen druk "); 
+        ColorPrint.PrintGreen("Enter.");
         Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
+        ColorPrint.PrintRed("Escape.");
         Console.WriteLine("Vul uw e-mail in: ");
         string? email = Helper.StringHelper();
         if (email == "Escape/GoBack.") Menu.Start();
+        Console.WriteLine();
         while (true)
         {
             if (!accountsLogic.IsValidEmail(email) && email != "Admin")
@@ -25,7 +27,7 @@ public static class UserLogin
             {
                 if (!accountsLogic.EmailExists(email))
                 {
-                    ColorPrint.PrintRed("Uw e-mail is niet geregistreerd in ons systeem");
+                    ColorPrint.PrintRed("Uw e-mail is niet geregistreerd in ons systeem.");
                     EnterOrEscape();
 
                 }
@@ -35,22 +37,23 @@ public static class UserLogin
                 }
             }
             Console.WriteLine("Vul uw e-mail in: ");
-            email = Console.ReadLine();
+            email = Helper.StringHelper();
+            if (email == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
         }
 
-        Console.Write("\nOm te bevestigen druk enter in "); 
-        ColorPrint.PrintGreen("Enter");
-        Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
         Console.WriteLine("Vul uw wachtwoord in: ");
         string? password = Helper.StringHelper();
         if (password == "Escape/GoBack.") Menu.Start();
+        Console.WriteLine();
         while (!Helper.IsValidString(password))
         {
             ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
             Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
             Console.WriteLine("Vul uw wachtwoord in: ");
-            password = Console.ReadLine();
+            password = Helper.StringHelper();
+            if (password == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
         }
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         loggedInAccount = acc;
