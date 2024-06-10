@@ -230,7 +230,7 @@
         "isActive": true
       }
     ],
-    "IsActive": false,
+    "IsActive": true,
     "seatingMap": {
       "(0,0)": {
         "isOccupied": false
@@ -430,16 +430,16 @@
         "isOccupied": false
       },
       "(5,5)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,6)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,7)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,8)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(5,9)": {
         "isOccupied": false
@@ -504,8 +504,29 @@
     "id": 3,
     "seats": "Business",
     "licensePlate": "Nieuwe Bus",
-    "route": [],
-    "IsActive": false,
+    "route": [
+      {
+        "id": 3,
+        "duration": 1,
+        "name": "Joe",
+        "stops": [
+          {
+            "id": 1,
+            "name": "Centraal Station",
+            "time": "13:00:00"
+          },
+          {
+            "id": 30,
+            "name": "Coolhaven",
+            "time": "14:00:00"
+          }
+        ],
+        "begin": "13:00:00",
+        "end": "14:00:00",
+        "isActive": true
+      }
+    ],
+    "IsActive": true,
     "seatingMap": {
       "(0,0)": {
         "isOccupied": false

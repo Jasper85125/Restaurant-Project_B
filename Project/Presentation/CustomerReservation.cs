@@ -20,7 +20,7 @@ public static class CustomerReservation
     public static void ShowAllPricesInformation()
     {
         string title = "Uw reserveringen";
-        List<string> header = new() {"Halte", "Route", "Zitplaats"};
+        List<string> header = new() {"Halte", "Route", "Zitplaats", "Tijd"};
         AccountModel currentAccount = UserLogin.loggedInAccount;
         List<ReservationModel> Reservations = currentAccount.Reservations;
         string kind = "reserveringen";
@@ -128,12 +128,21 @@ public static class CustomerReservation
         List<int> seatRow = Reservations.SeatRow;
         List<int> seatCol = Reservations.SeatCol;
         List<string> seats = new List<string>();
+        RouteModel selectedRouteModel = routesInBusses[SelectedRowIndex.Value];
+        List<StopModel> stops = selectedRouteModel.Stops;
+
+
+        for (int i = 0; i < seatRow.Count; i++)
+        {
+            var time = stops[i].Time;
+        }
+
         for (int i = 0; i < seatRow.Count; i++)
         {
             seats.Add($"Rij: {seatRow[i]} Stoel: {seatCol[i]}");
         }
         string seatsString = string.Join(", ", seats);
-        return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}" };
+        return new List<string> { $"{checkInStop}", $"{routeName}", $"{seatsString}", $"{time}" };
     }
 
     public static List<string> SeatString(ReservationModel Reservations)

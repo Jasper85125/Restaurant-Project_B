@@ -148,5 +148,15 @@
     "id": 30,
     "name": "Coolhaven",
     "time": null
+  },
+  {
+    "id": 31,
+    "name": "Melachtonweg",
+    "time": null
+  },
+  {
+    "id": 32,
+    "name": "Meijersplein",
+    "time": null
   }
 ]
