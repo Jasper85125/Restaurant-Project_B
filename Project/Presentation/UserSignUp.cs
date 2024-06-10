@@ -22,7 +22,7 @@ public static class UserSignUp
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
             ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
-            Console.WriteLine("Uw voornaam kan alleen bestaan uit letters.");
+            Console.WriteLine("Uw voornaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw voornaam: ");
             firstName = Helper.StringHelper();
             if (firstName == "Escape/GoBack.") Menu.Start();
@@ -37,7 +37,7 @@ public static class UserSignUp
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
             ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
-            Console.WriteLine("Uw achternaam kan alleen bestaan uit letters.");
+            Console.WriteLine("Uw achternaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw achternaam: ");
             lastName = Helper.StringHelper();
             if (lastName == "Escape/GoBack.") Menu.Start();
