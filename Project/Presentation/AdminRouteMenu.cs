@@ -167,7 +167,7 @@ public static class AdminRouteMenu
                     {
                         Console.Write("   ");
                     }
-                    if (selectedStops.Contains(stops[i]))
+                    if (selectedStops.Any(stop => stop.Name == stops[i].Name))
                     {
                         ColorPrint.PrintCyan(stops[i].Name);
                     }
@@ -351,14 +351,14 @@ public static class AdminRouteMenu
                 ColorPrint.PrintGreen($"{Stops[index].Name} 00:00");
             }
 
-            Console.Write("Verander de tijd door een nieuwe in te vullen(");
-            ColorPrint.PrintWriteCyan("format HH:MM");
-            Console.WriteLine(").");
+            Console.Write("Verander de tijd door een nieuwe in te vullen");
+            ColorPrint.PrintWriteCyan("(UU:MM)");
+
 
             if (index > 0 && Stops[index - 1].Time != null)
             {
-                Console.Write($"Minimaal later dan {Stops[index - 1].Time.Value.ToString(@"hh\:mm")}.");
-                ColorPrint.PrintCyan("(HH:MM)\n");
+                Console.Write($"\nMinimaal later dan {Stops[index - 1].Time.Value.ToString(@"hh\:mm")}.");
+
             }
 
             Console.Write("Om terug te gaan klik op ");
@@ -390,7 +390,7 @@ public static class AdminRouteMenu
                             Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
                             Console.Write($"Om de tijd toe te voegen aan {Stops[index].Name}, klik op ");
                             ColorPrint.PrintGreen("Enter.");
-                            Console.Write("Om terug te gaan klik op ");
+                            Console.Write("\nOm terug te gaan klik op ");
                             ColorPrint.PrintRed("Escape\n");
 
                             ConsoleKeyInfo confirmationKey = Console.ReadKey(intercept: true);
@@ -411,7 +411,7 @@ public static class AdminRouteMenu
                     }
                     else
                     {
-                        ColorPrint.PrintRed("\nVerkeerde format HH:MM. Probeer het nog een keer.");
+                        ColorPrint.PrintRed("\nVerkeerde format UU:MM. Probeer het nog een keer.");
                         input = "";
                         Thread.Sleep(1000);
                     }
@@ -674,7 +674,7 @@ public static class AdminRouteMenu
         else{
             activity = "Non-actief";
         }
-        return new List<string> { $"{id}", $"{name}", $"{String.Format("{0:0.00}", duration)}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
+        return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
     // public static List<string> GenerateRow(StopModel stopModel)
