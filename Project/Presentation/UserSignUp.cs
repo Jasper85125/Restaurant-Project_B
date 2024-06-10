@@ -9,7 +9,9 @@ public static class UserSignUp
         string? email;
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
-
+        
+        Console.Write("Om te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
         Console.WriteLine("Uw voornaam: ");
         string? firstName = Console.ReadLine();
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
@@ -19,6 +21,9 @@ public static class UserSignUp
             Console.WriteLine("Uw voornaam: ");
             firstName = Console.ReadLine();
         }
+
+        Console.Write("Om te bevestigen druk enter in "); 
+        ColorPrint.PrintGreen("Enter");
         Console.WriteLine("Uw achternaam: ");
         string? lastName = Console.ReadLine();
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
@@ -28,8 +33,11 @@ public static class UserSignUp
             Console.WriteLine("Uw achternaam: ");
             lastName = Console.ReadLine();
         }
+
         while (true)
         {
+            Console.Write("Om te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
             Console.WriteLine("Uw e-mail: ");
             email = Console.ReadLine();
 
@@ -47,8 +55,11 @@ public static class UserSignUp
                 ColorPrint.PrintRed("Er is al een account met dit e-mail. \nProbeer een ander.");
             }
         }
+
         while (true)
         {
+            Console.Write("Om te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
             Console.WriteLine("Uw wachtwoord:");
             password = Console.ReadLine();
             while (!Helper.IsValidString(password))
@@ -59,6 +70,8 @@ public static class UserSignUp
                 password = Console.ReadLine();
             }
 
+            Console.Write("Om te bevestigen druk enter in "); 
+            ColorPrint.PrintGreen("Enter");
             Console.WriteLine("Controleer uw wachtwoord:");
             string? password2 = Console.ReadLine();
             while (!Helper.IsValidString(password2))
@@ -78,6 +91,7 @@ public static class UserSignUp
                 ColorPrint.PrintRed("Uw wachtwoord komt niet overeen.\nProbeer het opnieuw.");
             }
         }
+
         string fullName = $"{firstName} {lastName}";
         if (IsAdminSign)
         {
