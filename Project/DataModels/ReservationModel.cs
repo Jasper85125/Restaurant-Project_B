@@ -5,12 +5,12 @@ public class ReservationModel
     public int Id { get; set; }
 
     [JsonPropertyName("checkInStop")]
-    public string Stop { get; set; } // moet DateTime worden!
+    public string Stop { get; set; } 
 
     [JsonPropertyName("routeName")]
     public string RouteName { get; set; }
 
-    [JsonPropertyName("busLicensePlate")]
+    [JsonPropertyName("busId")]
     public int BusId { get; set; }
 
     [JsonPropertyName("seatRow")]
