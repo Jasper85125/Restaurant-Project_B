@@ -592,64 +592,42 @@ public static class AdminRouteMenu
     public static void MakeStop()
     {
         bool checkStopName = true;
-        while (checkStopName)
+        while (true)
         {
             Console.WriteLine("Wat is de naam van de halte?");
             Console.Write("\nOm terug te keren klik op");
-            ColorPrint.PrintWriteRed(" Backspace");
+            ColorPrint.PrintWriteRed(" Escape");
             Console.WriteLine(".\n");
-    
-             // Wait for key press
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-            // Check arrow key presses
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.Backspace:
-                    // Move to the previous option
-                    return;
-            }
-            string? newName = Console.ReadLine();
-            
+            string newName = Helper.StringHelper();
+            if (newName == "Escape/GoBack.") Start();
+
+        
             if (Helper.IsOnlyLetterSpaceDash(newName))
             {
                 foreach (StopModel stop in stopLogic.GetAll())
                 {
                     if (stop.Name == newName)
                     {
-                        Console.WriteLine("Halte bestaat al");
+                        ColorPrint.PrintRed("Halte bestaat al");
+                        Thread.Sleep(3000);
                         MakeStop();
                     }
                 }
                 StopModel newStop = new StopModel(stopLogic.GenerateNewId() ,Convert.ToString(newName));
                 stopLogic.UpdateList(newStop);
                 checkStopName = false;
-                bool switchMainer = true;
-                while (switchMainer)
-                {
-                    Console.WriteLine("Wilt U nog een halte toevoegen. Ja of Nee");
-                    string? answer = Console.ReadLine();
-                    switch (answer.ToLower())
-                    {
-                        case "ja":
-                            MakeStop();
-                            break;
-                        case "nee":
-                            return;
-                        default:
-                            ColorPrint.PrintRed($"{answer} is geen geldige input. Probeer het opnieuw.");
-                            break;
-                    }
-                }
+
+                Console.WriteLine("Wilt U nog een halte toevoegen. Ja of Nee");
+                JaNee();
+                
             }
             else
             {
-                ColorPrint.PrintRed($"'{newName}' is geen geldige optie.");
-                Console.WriteLine("De naam van een halte kan alleen letters zijn.");
+                Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
                 Console.WriteLine("Probeer het nog een keer.\n");
             }
         }
-        Console.Clear();
     }
 
     public static List<string> GenerateRow(RouteModel routeModel)
@@ -776,5 +754,59 @@ public static class AdminRouteMenu
         ColorPrint.PrintYellow("U keert terug naar het adminhoofdmenu.");
         Thread.Sleep(3000);
         AdminStartMenu.Start();
+    }
+
+    public static void JaNee()
+    {
+        Console.Clear();
+        int selectedOption = 1;
+
+        DisplayOptionsJaNee(selectedOption);
+
+        while (true)
+        {
+            Console.Write("\nOm terug te keren klik op");
+            ColorPrint.PrintWriteRed(" Escape");
+            Console.WriteLine(".\n");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = Math.Max(1, selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = Math.Min(2, selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }
+                    break;
+            }
+            Console.Clear();
+            DisplayOptionsJaNee(selectedOption);
+        }
+    }
+    public static void DisplayOptionsJaNee(int selectedOption)
+    {
+        Console.WriteLine("Selecteer een optie:");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("Ja.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("Nee.");
+
+        Console.ResetColor();
     }
 }

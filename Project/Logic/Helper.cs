@@ -79,6 +79,42 @@ public static class Helper
             return false;
         }
     }
+
+
+    public static string StringHelper()
+    {
+        // Lees karakters één voor één totdat Enter of Escape wordt ingedrukt
+        string newName = string.Empty;
+        ConsoleKeyInfo keyInfo;
+
+        do
+        {
+            keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                return "Escape/GoBack.";
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                return newName;
+            }
+            else if (keyInfo.Key == ConsoleKey.Backspace)
+            {
+                if (newName.Length > 0)
+                {
+                    newName = newName.Substring(0, newName.Length - 1);
+                    // Verwijder het laatste karakter van de console
+                    Console.Write("\b \b");
+                }
+            }
+            else
+            {
+                // Voeg het ingedrukte karakter toe aan de nieuwe naam
+                newName += keyInfo.KeyChar;
+                Console.Write(keyInfo.KeyChar);  // Toon het karakter in de console
+            }
+        } while (true);
+    }
     
     // public static void Function(string message, Func<bool> func)
     // {
