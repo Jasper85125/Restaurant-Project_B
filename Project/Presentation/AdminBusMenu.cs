@@ -1,20 +1,11 @@
-using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 public static class AdminBusMenu
 {
     private static TableLogic<BusModel> tableBus = new();
     private static BusLogic busLogic = new();
-    private static RouteLogic routeLogic = new();
-    private static TableLogic<BusModel> tableRoutes = new();
-    private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
-
     private static SeatLogic seatLogic = new();
     
-    
-
-
     public static void Start()
     {
 

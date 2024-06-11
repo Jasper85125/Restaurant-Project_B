@@ -2,7 +2,6 @@ public static class AdminPriceMenu
 {
     private static PriceLogic pricesLogic = new();
     private static TableLogic<PriceModel> tablePrices = new();
-    private static BasicTableLogic<PriceModel> basictableLogic = new();
 
     public static void Start()
     {

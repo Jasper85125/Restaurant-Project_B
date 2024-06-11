@@ -1,12 +1,9 @@
 public static class CustomerReservation
 {
     private static BusLogic busLogic = new();
-    private static SeatLogic seatLogic = new();
     private static RouteLogic routeLogic = new();
 
-    private static PriceLogic pricesLogic = new();
     private static BasicTableLogic<ReservationModel> tableReservations = new();
-    private static BasicTableLogic<PriceModel> basictableLogic = new();
     static private AccountsLogic accountsLogic = new AccountsLogic();
     
     public static void Start()
