@@ -191,7 +191,7 @@
     "route": [
       {
         "id": 1,
-        "duration": 0.16666666666666666,
+        "duration": 0.17,
         "name": "Kees",
         "stops": [
           {
@@ -233,10 +233,10 @@
     "IsActive": true,
     "seatingMap": {
       "(0,0)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,1)": {
-        "isOccupied": false
+        "isOccupied": true
       },
       "(0,2)": {
         "isOccupied": false
