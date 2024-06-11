@@ -1,33 +1,8 @@
-using System.Formats.Asn1;
-using System.Text.Json.Serialization;
-
 public static class SeatingMapMenu2
 {
     public static SeatLogic seatLogic = new();
 
     static private AccountsLogic accountsLogic = new AccountsLogic();
-
-    // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
-    // {
-    //     {(0,0), new SeatModel(1)},
-    //     {(0,1), new SeatModel(2)},
-    //     {(0,2), new SeatModel(3)}
-    // };
-
-
-    // public static void Main()
-    // {
-    //     SeatModel[,] seatModels = new SeatModel[6, 10];
-    //     seatLogic.CreateSeats(seatModels);
-    //     Start(seatModels);
-
-    //     seatLogic.PrintArr(seatLogic.ConvertTo2DArr(seatingMap));
-    //     // SeatModel[,] seatModels = new SeatModel[6, 10];
-    //     // CreateSeats();
-    //     // Start(seatModels);
-    // }
-
-
 
     public static void Start(SeatModel[,] seatModels, BusModel busModel, RouteModel routeModel, StopModel stopModel)
     {

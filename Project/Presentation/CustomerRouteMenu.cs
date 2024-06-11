@@ -1,13 +1,8 @@
-using System.Drawing;
-
 public static class CustomerRouteMenu
 {
     private static SeatLogic seatLogic = new();
-    private static RouteLogic routeLogic = new();
     private static BusLogic busLogic = new();
-    private static StopLogic stopLogic = new();
     private static CustomerTableLogic<RouteModel> tableRoutes = new();
-    private static BasicTableLogic<StopModel> tableStops = new();
 
     static public void Start()
     {
@@ -39,14 +34,6 @@ public static class CustomerRouteMenu
             CustomerStartMenu.Start();
             return;
         }
-        // List<RouteModel> routeModels = routeLogic.GetAll();
-        // if (routeModels == null || routeModels.Count == 0)
-        // {
-        //     Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
-        //     Thread.Sleep(1000);
-        //     CustomerStartMenu.Start();
-        //     return;
-        // }
         else
         {
             List<BusModel> busList = new List<BusModel>();
@@ -238,64 +225,5 @@ public static class CustomerRouteMenu
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
         return new List<string> {$"{name}", $"{duration}", stopsString, $"{KindSeat}", $"{beginTime}", $"{endTime}" };
-    }
-
-
-    public static bool ConfirmValue(RouteModel newRoute, string UpdatedValue = null, bool IsUpdate = false)
-    {
-        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newRoute == null || string.IsNullOrEmpty(newRoute.Name)))
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Console.ResetColor();
-            Thread.Sleep(3000);
-            Console.Clear();
-            return false;
-        }
-        List<StopModel> stops = newRoute.Stops;
-        var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-
-        do
-        {
-            ConsoleKeyInfo keyInfo;
-            Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe route toe te voegen met de volgende info:\nNaam: {newRoute.Name}, Tijdsduur: {newRoute.Duration}, Haltes: {stopsString}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
-            Console.Write("Druk op ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter");
-            Console.ResetColor();
-            Console.Write(" om door te gaan of druk op ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Backspace");
-            Console.ResetColor();
-            Console.WriteLine(" om te annuleren.");
-            keyInfo = Console.ReadKey(true);
-
-            if (keyInfo.Key == ConsoleKey.Backspace)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Toevoegen geannuleerd.");
-                Console.ResetColor();
-                Thread.Sleep(3000);
-                Console.Clear();
-                return false;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data is toegevoegd!");
-                Console.ResetColor();
-                Thread.Sleep(3000);
-                Console.Clear();
-                return true;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Ongeldige invoer!");
-                Console.ResetColor();
-                Thread.Sleep(3000);
-                Console.Clear();
-            }
-        }while(true);
     }
 }

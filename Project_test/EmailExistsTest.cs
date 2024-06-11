@@ -1,4 +1,4 @@
-//namespace EmailExistsTest;
+namespace EmailExistsTest;
 
 [TestClass]
 public class EmailExistsTest
@@ -14,7 +14,7 @@ public class EmailExistsTest
     [TestMethod]
     public void EmailExists_ReturnsTrue()
     {
-        string existingEmail = "amer@gmail.com";
+        string existingEmail = "Admin";
 
         bool emailExists = _accounts.EmailExists(existingEmail);
 

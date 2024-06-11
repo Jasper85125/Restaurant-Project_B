@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text.Json.Nodes;
-using Microsoft.VisualBasic;
-
 public class CustomerTableLogic<T>
 {
     public static int tableWidth = 145;
@@ -197,7 +191,5 @@ public class CustomerTableLogic<T>
         Console.Write(" Escape");
         Console.ResetColor();
         Console.Write(".\n");
-
-
     }
 }

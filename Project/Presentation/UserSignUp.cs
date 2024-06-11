@@ -2,7 +2,6 @@ public static class UserSignUp
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
-
     public static void SignUp(bool IsAdminSign)
     {
         Console.Clear();

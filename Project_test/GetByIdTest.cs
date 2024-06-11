@@ -1,4 +1,4 @@
-//namespace GetByIdTest;
+namespace GetByIdTest;
 
 [TestClass]
 public class GetByIdTest

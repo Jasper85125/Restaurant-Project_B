@@ -7,8 +7,6 @@ public static class AdminRouteMenu
     private static StopLogic stopLogic = new();
     private static TableLogic<RouteModel> tableRoutes = new();
     private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
-    private static BasicTableLogic<StopModel> tableStops = new();
-    private static CustomerTableLogic<StopModel> customerTable = new();
 
     static public void Start()
     {
@@ -696,14 +694,6 @@ public static class AdminRouteMenu
         return new List<string> { $"{id}", $"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}",$"{activity}" };
     }
 
-    // public static List<string> GenerateRow(StopModel stopModel)
-    // {
-    //     var id = stopModel.Id;
-    //     var name = stopModel.Name;
-    //     var time = stopModel.Time;
-    //     return new List<string> {$"{id}", $"{name}", $"{time}"};
-    // }
-
     public static List<string> GenerateRowForSelectRoute(RouteModel routeModel)
     {
         List<StopModel> allStops = new() {};
@@ -806,9 +796,6 @@ public static class AdminRouteMenu
 
         while (true)
         {
-            // Console.Write("\nOm terug te keren klik op");
-            // ColorPrint.PrintWriteRed(" Escape");
-            // Console.WriteLine(".\n");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             switch (keyInfo.Key)

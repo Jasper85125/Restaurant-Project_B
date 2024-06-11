@@ -1,4 +1,4 @@
-//namespace GetAllTests;
+namespace GetAllTests;
 
 [TestClass]
 public class GetAllTests
