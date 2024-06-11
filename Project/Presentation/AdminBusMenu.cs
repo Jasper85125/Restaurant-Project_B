@@ -108,17 +108,10 @@ public static class AdminBusMenu
                             }
                         }
 
-                        else if(selectedIndex == 2){
-                            while (true){
-                            Console.WriteLine($"Voer het {header[2]} in om het huidige {header[2]} te veranderen:");
-                            string Input = Console.ReadLine();
-                            bool containsOnlyNumbers = Input.All(char.IsDigit);
-                            if (containsOnlyNumbers){
-                                listAllBusses[selectedRowIndex].Seats = Input;
-                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                                break;
-                                }
-                            }
+                        else if(selectedIndex == 2)
+                        {
+                            ColorPrint.PrintRed("U kan de busindeling niet aanpassen.");
+                            Thread.Sleep(3000);
                         }
 
                     
