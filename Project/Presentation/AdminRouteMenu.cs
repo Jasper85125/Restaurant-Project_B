@@ -133,7 +133,7 @@ public static class AdminRouteMenu
                     for (int i = 0; i < selectedStops.Count; i++)
                     {
                         if(selectedStops[i].Time.HasValue){
-                            Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"uu\:mm")}");
+                            Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"hh\:mm")}");
                         }
                         else{
                             Console.Write($"{selectedStops[i].Name} | N/A"); 
@@ -267,7 +267,7 @@ public static class AdminRouteMenu
                             for (int i = 0; i < selectedStops.Count; i++)
                             {
                                 if(selectedStops[i].Time.HasValue){
-                                    Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"uu\:mm")}");
+                                    Console.Write($"{selectedStops[i].Name} | {selectedStops[i].Time.Value.ToString(@"hh\:mm")}");
                                 }
                                 else{
                                     Console.Write($"{selectedStops[i].Name} | N/A"); 
@@ -352,7 +352,7 @@ public static class AdminRouteMenu
         {
             if(Stops[index].Time.HasValue)
             {
-                ColorPrint.PrintGreen($"{Stops[index].Name} / {Stops[index].Time.Value.ToString(@"uu\:mm")}");
+                ColorPrint.PrintGreen($"{Stops[index].Name} / {Stops[index].Time.Value.ToString(@"hh\:mm")}");
             }
             else
             {
@@ -417,7 +417,7 @@ public static class AdminRouteMenu
                         }
                         else
                         {
-                            ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{Stops[index - 1].Time.Value.ToString(@"uu\:mm")}'");
+                            ColorPrint.PrintRed($"\nUw tijd moet later zijn dan '{Stops[index - 1].Time.Value.ToString(@"hh\:mm")}'");
                         }
                     }
                     else
@@ -453,7 +453,7 @@ public static class AdminRouteMenu
     public static List<string> GenerateRowHalteTable(StopModel stop){
     string naam = stop.Name;
     TimeSpan? Time = stop.Time;
-    string timeString = Time.HasValue ? Time.Value.ToString(@"uu\:mm") : "N/A";
+    string timeString = Time.HasValue ? Time.Value.ToString(@"hh\:mm") : "N/A";
     return new List<string>{$"{naam}", timeString};
     }
 
@@ -649,8 +649,8 @@ public static class AdminRouteMenu
         var duration = routeModel.Duration;
         var name = routeModel.Name;
         var stops = routeModel.Stops;
-        string beginTime = routeModel.beginTime?.ToString(@"uu\:mm") ?? "N/A";
-        var endTime = routeModel.endTime?.ToString(@"uu\:mm") ?? "N/A";
+        string beginTime = routeModel.beginTime?.ToString(@"hh\:mm") ?? "N/A";
+        var endTime = routeModel.endTime?.ToString(@"hh\:mm") ?? "N/A";
         var active = routeModel.IsActive;
         foreach(StopModel stop in stops){
             allStops.Add(stop);
@@ -724,7 +724,7 @@ public static class AdminRouteMenu
             return false;
         }
         List<StopModel> stops = newRoute.Stops;
-        var stopsString = string.Join(", ", stops.Select(stop => $"{stop.Name} | {stop.Time.Value.ToString(@"uu\:mm")}"));
+        var stopsString = string.Join(", ", stops.Select(stop => $"{stop.Name} | {stop.Time.Value.ToString(@"hh\:mm")}"));
 
         do
         {
