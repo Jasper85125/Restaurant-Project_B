@@ -497,12 +497,13 @@ public static class AdminRouteMenu
                                 else if(selectedIndex == 1)
                                 {
                                     Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                    string Input = Console.ReadLine().Trim();
+                                    string Input = Helper.StringHelper();
+                                    if (Input == "Escape/GoBack.") PrintedOverview();
+                                    Console.WriteLine();
                                     while (true)
                                     {
                                         if (!Helper.IsOnlyLetterSpaceDash(Input))
                                         {
-                                            ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                             Console.WriteLine("De naam mag alleen letters, spaties en streepjes bevatten.");
                                         }
                                         else if (routeModels.Any(route => route.Name == Input))
@@ -515,7 +516,9 @@ public static class AdminRouteMenu
                                         }
 
                                         Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                        Input = Console.ReadLine().Trim();
+                                        Input = Helper.StringHelper();
+                                        if (Input == "Escape/GoBack.") PrintedOverview();
+                                        Console.WriteLine();
                                     }
                                     
                                     //if Name does not exists, it gets added to the list
