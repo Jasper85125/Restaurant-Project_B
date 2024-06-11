@@ -60,4 +60,10 @@ public static class ColorPrint
         Console.Write(text);
         Console.ResetColor();
     }
+    public static void PrintWriteYellow(string text)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write(text);
+        Console.ResetColor();
+    }
 }

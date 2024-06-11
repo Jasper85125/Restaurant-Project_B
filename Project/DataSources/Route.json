@@ -1,118 +1,22 @@
 [
   {
     "id": 1,
-    "duration": 0.17,
-    "name": "Kees",
+    "duration": 2,
+    "name": "Test",
     "stops": [
       {
-        "id": 2,
-        "name": "Blaak",
+        "id": 9,
+        "name": "Capelsebrug",
         "time": "12:00:00"
-      },
-      {
-        "id": 26,
-        "name": "Blijdorp",
-        "time": "12:10:00"
-      }
-    ],
-    "begin": "12:00:00",
-    "end": "12:10:00",
-    "isActive": true
-  },
-  {
-    "id": 2,
-    "duration": 0,
-    "name": "TestTestTEst",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
-  },
-  {
-    "id": 3,
-    "duration": 1,
-    "name": "Joe",
-    "stops": [
-      {
-        "id": 1,
-        "name": "Centraal Station",
-        "time": "13:00:00"
-      },
-      {
-        "id": 30,
-        "name": "Coolhaven",
-        "time": "14:00:00"
-      }
-    ],
-    "begin": "13:00:00",
-    "end": "14:00:00",
-    "isActive": true
-  },
-  {
-    "id": 2,
-    "duration": 0,
-    "name": "TestTestTEst",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": true
-  },
-  {
-    "id": 4,
-    "duration": 0.7,
-    "name": "Lange jan",
-    "stops": [
-      {
-        "id": 4,
-        "name": "Beurs",
-        "time": "12:13:00"
       },
       {
         "id": 27,
         "name": "Centraal",
-        "time": "12:55:00"
+        "time": "14:00:00"
       }
     ],
-    "begin": "12:13:00",
-    "end": "12:55:00",
-    "isActive": true
-  },
-  {
-    "id": 5,
-    "duration": 0,
-    "name": "Nieuwe route",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
-  },
-  {
-    "id": 6,
-    "duration": 0,
-    "name": "Zuid",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
-  },
-  {
-    "id": 7,
-    "duration": 2.82,
-    "name": "Kralingen",
-    "stops": [
-      {
-        "id": 30,
-        "name": "Coolhaven",
-        "time": "15:36:00"
-      },
-      {
-        "id": 26,
-        "name": "Blijdorp",
-        "time": "18:25:00"
-      }
-    ],
-    "begin": "15:36:00",
-    "end": "18:25:00",
+    "begin": "12:00:00",
+    "end": "14:00:00",
     "isActive": true
   }
 ]

@@ -23,7 +23,7 @@ public static class CustomerReservation
     public static void ShowAllPricesInformation()
     {
         string title = "Uw reserveringen";
-        List<string> header = new() {"Halte", "Route", "Zitplaats(en)", "Tijd"};
+        List<string> header = new() {"Halte", "Route", "Zitplaats(en)", "Type bus", "Tijd"};
         AccountModel currentAccount = UserLogin.loggedInAccount;
         List<ReservationModel> Reservations = currentAccount.Reservations;
         string kind = "reserveringen";
@@ -126,6 +126,17 @@ public static class CustomerReservation
 
     public static List<string> GenerateRow(ReservationModel Reservations)
     {
+        string KindSeat = "";
+        List<BusModel> busModels = busLogic.GetAll();
+
+        var busWithRoute = busModels.Where(bus => bus.Route.Any() && bus.IsActive).ToList();
+        foreach( var bus in busWithRoute){
+            foreach(var route in bus.Route){
+                if (route.Name == Reservations.RouteName){
+                    KindSeat = bus.Seats;
+                }
+            }
+        }
         var checkInStop = Reservations.Stop;
         var routeName = Reservations.RouteName;
         List<int> seatRow = Reservations.SeatRow;
@@ -149,7 +160,7 @@ public static class CustomerReservation
         }
 
         string seatsString = string.Join(", ", seats);
-        return new List<string> { $"{checkInStop}", $"{routeName}", $"{Count}", $"{time}" };
+        return new List<string> { $"{checkInStop}", $"{routeName}", $"{Count}", $"{KindSeat}",$"{time?.ToString(@"hh\:mm") ?? "N/A"}" };
     }
 
     public static List<string> SeatString(ReservationModel Reservations)

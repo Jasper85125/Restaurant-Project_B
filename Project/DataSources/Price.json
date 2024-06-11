@@ -1,25 +1,7 @@
 [
   {
     "id": 1,
-    "passenger": "Volwassene",
-    "price": 20,
-    "isActive": true
-  },
-  {
-    "id": 2,
-    "passenger": "oudere",
-    "price": 10,
-    "isActive": true
-  },
-  {
-    "id": 3,
-    "passenger": "dass",
-    "price": 0,
-    "isActive": true
-  },
-  {
-    "id": 4,
-    "passenger": "Kind",
+    "passenger": "Nieuwe prijscatogrie",
     "price": 0,
     "isActive": false
   },
