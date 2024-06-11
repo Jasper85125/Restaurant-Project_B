@@ -343,7 +343,7 @@ public static class SeatingMapMenu2
     }
     public static void DisplayOptionsJaNee(int selectedOption)
     {
-        Console.WriteLine("Weet u zeker dat u deze stoel(en) wilt reserveren.");
+        Console.WriteLine($"Weet u zeker dat u deze stoel(en) wilt reserveren.");
         Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
