@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "duration": 0.16666666666666666,
+    "duration": 0.17,
     "name": "Kees",
     "stops": [
       {
@@ -59,12 +59,23 @@
   },
   {
     "id": 4,
-    "duration": 0,
-    "name": "Nieuwe route",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
+    "duration": 0.7,
+    "name": "Lange jan",
+    "stops": [
+      {
+        "id": 4,
+        "name": "Beurs",
+        "time": "12:13:00"
+      },
+      {
+        "id": 27,
+        "name": "Centraal",
+        "time": "12:55:00"
+      }
+    ],
+    "begin": "12:13:00",
+    "end": "12:55:00",
+    "isActive": true
   },
   {
     "id": 5,
@@ -86,7 +97,7 @@
   },
   {
     "id": 7,
-    "duration": 2.816666666666667,
+    "duration": 2.82,
     "name": "Kralingen",
     "stops": [
       {

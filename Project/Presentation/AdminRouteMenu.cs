@@ -327,7 +327,7 @@ public static class AdminRouteMenu
                         break;
                     case ConsoleKey.Escape:
                         checkStopName = false;
-                        Start();
+                        PrintedOverview();
                         return;
                     default:
                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");

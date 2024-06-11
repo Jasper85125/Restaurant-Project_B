@@ -15,7 +15,7 @@
     "id": 3,
     "passenger": "dass",
     "price": 0,
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 4,
