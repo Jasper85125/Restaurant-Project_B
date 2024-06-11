@@ -182,7 +182,7 @@ public static class AdminRouteMenu
                 Console.WriteLine("\nDruk op:");
                 ColorPrint.PrintWriteCyan("Spatie ");
                 Console.Write("om te selecteren.\n");
-                ColorPrint.PrintYellow("Backspace ");
+                ColorPrint.PrintWriteYellow("Backspace ");
                 Console.Write("om te deselecteren.\n");
                 ColorPrint.PrintWriteGreen("Enter ");
                 Console.Write("om de lijst op te slaan.\n");
