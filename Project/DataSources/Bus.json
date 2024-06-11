@@ -191,7 +191,7 @@
     "route": [
       {
         "id": 1,
-        "duration": 0.16666666666666666,
+        "duration": 0.17,
         "name": "Kees",
         "stops": [
           {
@@ -709,7 +709,7 @@
   {
     "id": 4,
     "seats": "Plebs",
-    "licensePlate": "Nieuwe Bus",
+    "licensePlate": "assda ",
     "route": [],
     "IsActive": false,
     "seatingMap": {

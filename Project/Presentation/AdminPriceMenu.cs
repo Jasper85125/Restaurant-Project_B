@@ -66,14 +66,15 @@ public static class AdminPriceMenu
                             Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
                             ColorPrint.PrintWriteRed($"'{selectedItem}'");
                             Console.WriteLine(" te vervangen:");
-                            string Input = Console.ReadLine().Trim();
+                            string Input = Helper.StringHelper();
+                            if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                            Console.WriteLine();
 
                             while (true)
                             {
                                 if (!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De naam mag alleen letters, spaties en streepjes bevatten.");
+                                    ColorPrint.PrintRed("De naam mag alleen letters, spaties en streepjes bevatten.");
                                 }
                                 else if (priceModels.Any(price => price.Passenger == Input))
                                 {
@@ -87,7 +88,9 @@ public static class AdminPriceMenu
                                 Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
                                 ColorPrint.PrintWriteRed($"'{selectedItem}'");
                                 Console.WriteLine(" te vervangen:");
-                                Input = Console.ReadLine().Trim();
+                                Input = Helper.StringHelper();
+                                if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                Console.WriteLine();
                             }
 
                             //if Passenger does not exists, it gets added to the list
@@ -102,13 +105,16 @@ public static class AdminPriceMenu
                                 Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
                                 ColorPrint.PrintWriteRed($"'{selectedItem}'");
                                 Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine().Trim();
+                                string Input = Helper.StringHelper();
+                                if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                Console.WriteLine();
                                 while (!Helper.IsValidDouble(Input))
                                 {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
+                                    ColorPrint.PrintRed("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
                                     Console.WriteLine("Wat is de nieuwe prijs?");
-                                    Input = Console.ReadLine().Trim();
+                                    Input = Helper.StringHelper();
+                                    if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                    Console.WriteLine();
                                 }
                                 priceModels[selectedRowIndex].Price = Convert.ToDouble(Input);
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);
