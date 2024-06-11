@@ -1,9 +1,3 @@
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Formats.Asn1;
-using Microsoft.VisualBasic;
-
 public static class AdminPriceMenu
 {
     private static PriceLogic pricesLogic = new();

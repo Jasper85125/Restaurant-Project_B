@@ -1,5 +1,3 @@
-using System;
-using System.Drawing;
 public static class AdminStartMenu
 {
     private static SeatLogic seatLogic = new();

@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 
-
 public class StopModel : IEquatable<StopModel>
 {
     [JsonPropertyName("id")]
@@ -10,7 +9,7 @@ public class StopModel : IEquatable<StopModel>
     public string Name { get; set; }
 
     [JsonPropertyName("time")]
-    public TimeSpan? Time { get; set; } //Moet Datetime worden!
+    public TimeSpan? Time { get; set; }
 
     public StopModel(int id, string name, TimeSpan? time = null)
     {

@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 
-
 public class AccountModel
 {
     [JsonPropertyName("id")]
@@ -31,7 +30,3 @@ public class AccountModel
         Reservations = new ();
     }
 }
-
-
-
-

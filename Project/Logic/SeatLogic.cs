@@ -1,49 +1,5 @@
-public class SeatLogic //: AbstractLogic<SeatModel>
+public class SeatLogic
 {
-    // private List<SeatModel> _seats;
-
-    // public static SeatModel? CurrentSeat{ get; private set; }
-
-
-    // public SeatLogic()
-    // {
-    //    _seats = DataAccess<SeatModel>.LoadAll();
-    // }
-
-    // public override void UpdateList(SeatModel seat)
-    // {
-    //     //Find if there is already an model with the same id
-    //     int index = _seats.FindIndex(p => p.Id == seat.Id);
-
-    //     if (index != -1)
-    //     {
-    //         //update existing model
-    //         _seats[index] = seat;
-    //     }
-    //     else
-    //     {
-    //         //add new model
-    //         _seats.Add(seat);
-    //     }
-    //     DataAccess<SeatModel>.WriteAll(_seats);
-    // }
-
-
-    // public override SeatModel GetById(int id)
-    // {
-    //     return _seats.Find(p => p.Id == id);
-    // }
-
-    // public override int GenerateNewId() 
-    // {
-    //     if (_seats == null || _seats.Count == 0)
-    //     {
-    //         return 1;
-    //     }
-    //    return _seats.Max(seat => seat.Id) + 1;
-    // } 
-    // public override List<SeatModel> GetAll() => _seats;
-
     public SeatModel[,] ConvertTo2DArr(Dictionary<(int Row, int Col), SeatModel> seatingMap)
     {
         // Find the maximum rows and columns to determine the size of the 2D array

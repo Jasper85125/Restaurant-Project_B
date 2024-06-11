@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 
-
 public class RouteModel : IActivatable
 {
     [JsonPropertyName("id")]

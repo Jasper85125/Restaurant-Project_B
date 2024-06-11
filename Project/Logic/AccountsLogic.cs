@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 
@@ -111,19 +107,4 @@ public class AccountsLogic : AbstractLogic<AccountModel>
     }
 
     public override List<AccountModel> GetAll() => _accounts;
-
-    // public void MakeReservation()
-    // {
-        
-    // }
-
-//     public AccountModel AddReservations(AccountModel inputAccount, ReservationModel reservation)
-//     {
-//         inputAccount.Reservations.Add(reservation);
-//         return inputAccount;
-//     }
 }
-
-
-
-

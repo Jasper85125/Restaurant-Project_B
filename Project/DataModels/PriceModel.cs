@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 
-
 public class PriceModel : IActivatable
 {
     [JsonPropertyName("id")]
@@ -23,5 +22,3 @@ public class PriceModel : IActivatable
         this.IsActive = isActive;
     }
 }
-
-
