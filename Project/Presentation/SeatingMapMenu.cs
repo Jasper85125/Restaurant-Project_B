@@ -329,9 +329,5 @@ public static class SeatingMapMenu
         Console.ResetColor();
     }
 
-
-
-
-
 }
 
