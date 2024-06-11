@@ -14,7 +14,7 @@ public static class UserSignUp
         Console.Write("Om te bevestigen druk "); 
         ColorPrint.PrintGreen("Enter.");
         Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
+        ColorPrint.PrintRed("Escape.");
         Console.WriteLine("Uw voornaam: ");
         string? firstName = Helper.StringHelper();
         if (firstName == "Escape/GoBack.") Menu.Start();
