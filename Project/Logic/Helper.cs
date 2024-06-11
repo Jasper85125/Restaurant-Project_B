@@ -96,6 +96,7 @@ public static class Helper
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
+                newName = newName.Trim();
                 return newName;
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
