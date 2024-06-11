@@ -42,6 +42,7 @@ public static class AdminPriceMenu
                     PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
                     pricesLogic.UpdateList(newPriceModel);
                     selectedRowIndex = priceModels.Count() - 1;
+                    priceModels = pricesLogic.GetAll();
                 }
                 while(true)
                 {
@@ -66,14 +67,15 @@ public static class AdminPriceMenu
                             Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
                             ColorPrint.PrintWriteRed($"'{selectedItem}'");
                             Console.WriteLine(" te vervangen:");
-                            string Input = Console.ReadLine();
+                            string Input = Helper.StringHelper();
+                            if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                            Console.WriteLine();
 
                             while (true)
                             {
                                 if (!Helper.IsOnlyLetterSpaceDash(Input))
                                 {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
+                                    ColorPrint.PrintRed("De naam mag alleen letters, spaties en streepjes bevatten.");
                                 }
                                 else if (priceModels.Any(price => price.Passenger == Input))
                                 {
@@ -87,7 +89,9 @@ public static class AdminPriceMenu
                                 Console.Write($"Voer een nieuwe {header[selectedIndex]} in om ");
                                 ColorPrint.PrintWriteRed($"'{selectedItem}'");
                                 Console.WriteLine(" te vervangen:");
-                                Input = Console.ReadLine();
+                                Input = Helper.StringHelper();
+                                if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                Console.WriteLine();
                             }
 
                             //if Passenger does not exists, it gets added to the list
@@ -102,13 +106,16 @@ public static class AdminPriceMenu
                                 Console.WriteLine($"Voer een nieuwe {header[selectedIndex]} in om");
                                 ColorPrint.PrintWriteRed($"'{selectedItem}'");
                                 Console.Write(" te vervangen:\n");
-                                string Input = Console.ReadLine();
+                                string Input = Helper.StringHelper();
+                                if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                Console.WriteLine();
                                 while (!Helper.IsValidDouble(Input))
                                 {
-                                    ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                    Console.WriteLine("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
+                                    ColorPrint.PrintRed("De prijs moet als een geheel getal of een decimaal getal worden ingevoerd.");
                                     Console.WriteLine("Wat is de nieuwe prijs?");
-                                    Input = Console.ReadLine();
+                                    Input = Helper.StringHelper();
+                                    if (Input == "Escape/GoBack.") ShowAllPricesInformation();
+                                    Console.WriteLine();
                                 }
                                 priceModels[selectedRowIndex].Price = Convert.ToDouble(Input);
                                 pricesLogic.UpdateList(priceModels[selectedRowIndex]);

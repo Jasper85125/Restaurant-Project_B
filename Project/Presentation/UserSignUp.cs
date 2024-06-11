@@ -5,50 +5,49 @@ public static class UserSignUp
 
     public static void SignUp(bool IsAdminSign)
     {
+        Console.Clear();
         string? password;
         string? email;
         Console.WriteLine("Welkom op de registreer pagina.");
         Console.WriteLine("Om je account aan te maken vul de volgende vakken in.");
 
-        Console.Write("Om te bevestigen druk enter in "); 
-        ColorPrint.PrintGreen("Enter");
+        Console.Write("Om te bevestigen druk "); 
+        ColorPrint.PrintGreen("Enter.");
         Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
+        ColorPrint.PrintRed("Escape.");
         Console.WriteLine("Uw voornaam: ");
         string? firstName = Helper.StringHelper();
         if (firstName == "Escape/GoBack.") Menu.Start();
+        Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
-            ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
-            Console.WriteLine("Uw voornaam kan alleen bestaan uit letters.");
+            Console.WriteLine("Uw voornaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw voornaam: ");
             firstName = Helper.StringHelper();
+            if (firstName == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
         }
 
-        Console.Write("\nOm te bevestigen druk enter in "); 
-        ColorPrint.PrintGreen("Enter");
-        Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
+
         Console.WriteLine("Uw achternaam: ");
         string? lastName = Helper.StringHelper();
         if (lastName == "Escape/GoBack.") Menu.Start();
+        Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
-            ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
-            Console.WriteLine("Uw achternaam kan alleen bestaan uit letters.");
+            Console.WriteLine("Uw achternaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw achternaam: ");
             lastName = Helper.StringHelper();
+            if (lastName == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
         }
 
         while (true)
         {
-            Console.Write("\nOm te bevestigen druk enter in "); 
-            ColorPrint.PrintGreen("Enter");
-            Console.Write("Om terug te gaan druk ");
-            ColorPrint.PrintRed("Escape");
             Console.WriteLine("Uw e-mail: ");
             email = Helper.StringHelper();
             if (email == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
 
             if (!accountsLogic.IsValidEmail(email))
             {
@@ -66,35 +65,33 @@ public static class UserSignUp
         }
 
         while (true)
-        {
-            Console.Write("\nOm te bevestigen druk enter in "); 
-            ColorPrint.PrintGreen("Enter");
-            Console.Write("Om terug te gaan druk ");
-            ColorPrint.PrintRed("Escape");
+        {;
             Console.WriteLine("Uw wachtwoord:");
             password = Helper.StringHelper();
             if (password == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
             while (!Helper.IsValidString(password))
             {
                 ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Uw wachtwoord: ");
                 password = Helper.StringHelper();
+                if (password == "Escape/GoBack.") Menu.Start();
+                Console.WriteLine();
             }
 
-            Console.Write("\nOm te bevestigen druk enter in "); 
-            ColorPrint.PrintGreen("Enter");
-            Console.Write("Om terug te gaan druk ");
-            ColorPrint.PrintRed("Escape");
             Console.WriteLine("Controleer uw wachtwoord:");
             string? password2 = Helper.StringHelper();
             if (password2 == "Escape/GoBack.") Menu.Start();
+            Console.WriteLine();
             while (!Helper.IsValidString(password2))
             {
                 ColorPrint.PrintRed($"'{password2}' is geen geldige optie.");
                 Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Controleer uw wachtwoord:");
                 password2 = Helper.StringHelper();
+                if (password2 == "Escape/GoBack.") Menu.Start();
+                Console.WriteLine();
             }
 
             if (password == password2)
