@@ -39,7 +39,7 @@ public class BasicTableLogic<T>
                     PrintRow(GenerateRow(Data[rowNumber - 1]), false, false);
                 }            
             }
-            SelectionExplanation(false);
+            SelectionExplanation();
 
             keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
@@ -78,9 +78,11 @@ public class BasicTableLogic<T>
         {
             Console.Clear();
             Console.WriteLine("Geselecteerde reservering:");
+            PrintLine();
             PrintRow(header, false, true);
+            PrintLine();
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
-            SelectionExplanation(true);
+            SelectionExplanation();
             key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -180,29 +182,19 @@ public class BasicTableLogic<T>
         }
     }
 
-    private static void SelectionExplanation(bool printSelectedRow){
-        if(printSelectedRow){
-             Console.WriteLine("Selecteer een kolom met de pijltjes.");
-            Console.Write("Als je de juiste kolom hebt klik op ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter");
-            Console.ResetColor();
-            Console.Write(" om het te bewerken.");
-        }
-        else{
+    private static void SelectionExplanation(){
             Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
             Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Enter");
             Console.ResetColor();
-            Console.Write(" om de rij te bewerken.");
-        }
-        Console.Write("\nOm een stap terug te gaan druk op");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write(" Escape");
-        Console.ResetColor();
-        Console.Write(".\n");
-
-
+            Console.Write(" om de rij te selecteren.");
+            Console.Write("\nOm uw reservering te annuleren klik op ");
+            ColorPrint.PrintWriteCyan("backspace");
+            Console.Write("\nOm terug te gaan klik op ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Escape");
+            Console.ResetColor();
+            Console.Write(".\n");
     }
 }

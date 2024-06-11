@@ -18,7 +18,7 @@ public static class CustomerRouteMenu
 
    public static void PrintedOverview()
 { 
-    List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Type bus", "Begintijd", "Eindtijd" };
+    List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd" };
     string Title = "Beschikbare routes:\n";
 
     while (true)
@@ -243,19 +243,6 @@ public static class CustomerRouteMenu
     
     public static List<string> GenerateRow(RouteModel routeModel)
     {
-        string KindSeat = "";
-        List<BusModel> busModels = busLogic.GetAll();
-
-        // Filter active buses with routes using LINQ
-        var busWithRoute = busModels.Where(bus => bus.Route.Any() && bus.IsActive).ToList();
-
-        // Find the first bus with the specific route and get its seats
-        var busWithRouteMatch = busWithRoute.FirstOrDefault(bus => bus.Route.Contains(routeModel));
-        if (busWithRouteMatch != null)
-        {
-            KindSeat = busWithRouteMatch.Seats;
-        }
-
         List<StopModel> allStops = new() {};
         var id = routeModel.Id;
         var duration = routeModel.Duration;
@@ -267,7 +254,7 @@ public static class CustomerRouteMenu
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> {$"{name}", $"{duration}", stopsString, $"{KindSeat}", $"{beginTime}", $"{endTime}" };
+        return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
     }
 
 
