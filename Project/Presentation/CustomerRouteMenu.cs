@@ -181,7 +181,6 @@ public static class CustomerRouteMenu
                                 CustomerRouteMenu.Start();
                                 return;
                             default:
-                                Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
                                 break;
                         }
                     }
