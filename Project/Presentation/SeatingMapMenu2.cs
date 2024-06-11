@@ -130,36 +130,43 @@ public static class SeatingMapMenu2
                     break;
                 case ConsoleKey.Enter:
                     ReservationModel reservation = new (accountsLogic.GenerateNewReservationId(UserLogin.loggedInAccount), stopModel.Name, routeModel.Name, busModel.Id);
-                    foreach ((int Row, int Col) coordinaten in selectedSeats)
+                    switch(JaNee())
                     {
-                        seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
-                        reservation.AddSeatRow(coordinaten.Row);
-                        reservation.AddSeatCol(coordinaten.Col);
+                        case true:
+                            foreach ((int Row, int Col) coordinaten in selectedSeats)
+                            {
+                                seatModels[coordinaten.Row, coordinaten.Col].IsOccupied = true;
+                                reservation.AddSeatRow(coordinaten.Row);
+                                reservation.AddSeatCol(coordinaten.Col);
+                            }
+                            if (reservation.SeatCol != null && reservation.SeatCol.Count != 0)
+                            {
+                                UserLogin.loggedInAccount.Reservations.Add(reservation);
+                                accountsLogic.UpdateList(UserLogin.loggedInAccount);
+                            }
+                            if (selectedSeats.Count == 1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"U heeft {selectedSeats.Count} stoel gereserveerd.");
+                                Console.ResetColor();
+                            }
+                            else if (selectedSeats.Count > 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"U heeft {selectedSeats.Count} stoelen gereserveerd.");
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine($"U heeft geen stoelen gereserveerd!");
+                                Console.ResetColor();
+                            }
+                            return;
+                        case false:
+                            SeatingMapMenu2.Start(seatModels, busModel, routeModel, stopModel);
+                            break;
                     }
-                    if (reservation.SeatCol != null && reservation.SeatCol.Count != 0)
-                    {
-                        UserLogin.loggedInAccount.Reservations.Add(reservation);
-                        accountsLogic.UpdateList(UserLogin.loggedInAccount);
-                    }
-                    if (selectedSeats.Count == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"U heeft {selectedSeats.Count} stoel gereserveerd.");
-                        Console.ResetColor();
-                    }
-                    else if (selectedSeats.Count > 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"U heeft {selectedSeats.Count} stoelen gereserveerd.");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"U heeft geen stoelen gereserveerd!");
-                        Console.ResetColor();
-                    }
-                    
                     Console.WriteLine("");
                     ColorPrint.PrintYellow("U keert terug naar het overzicht!");
                     Thread.Sleep(3000);
@@ -271,7 +278,10 @@ public static class SeatingMapMenu2
         Console.WriteLine("geselecteerd");
         Console.WriteLine("- beschikbaar");
 
-        Console.Write("\nKlik");
+        Console.WriteLine("\nOm te bewegen door de bus gebruik de pijltjes toetsen.");
+
+
+        Console.Write("Klik");
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.Write(" spatie ");
         Console.ResetColor();
@@ -293,5 +303,60 @@ public static class SeatingMapMenu2
         Console.Write(" Escape\n");
         Console.ResetColor();
     }
-}
 
+    public static bool JaNee()
+    {
+        Console.Clear();
+        int selectedOption = 1;
+
+        DisplayOptionsJaNee(selectedOption);
+
+        while (true)
+        {
+            // Console.Write("\nOm terug te keren klik op");
+            // ColorPrint.PrintWriteRed(" Escape");
+            // Console.WriteLine(".\n");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = Math.Max(1, selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = Math.Min(2, selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Console.Clear();
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            return true;
+                        case 2:
+                            return false;
+                    }
+                    break;
+            }
+            Console.Clear();
+            DisplayOptionsJaNee(selectedOption);
+        }
+    }
+    public static void DisplayOptionsJaNee(int selectedOption)
+    {
+        Console.WriteLine($"Weet u zeker dat u deze stoel(en) wilt reserveren.");
+        Console.WriteLine("Selecteer een optie:");
+
+        // Display option 1
+        Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green: ConsoleColor.White;
+        Console.Write(selectedOption == 1 ? ">> " : "   ");
+        Console.WriteLine("Ja.");
+
+        // Display option 2
+        Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
+        Console.Write(selectedOption == 2 ? ">> " : "   ");
+        Console.WriteLine("Nee.");
+
+        Console.ResetColor();
+    }
+
+}

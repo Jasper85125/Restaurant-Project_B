@@ -73,6 +73,32 @@
           0,
           1
         ]
+      },
+      {
+        "id": 5,
+        "checkInStop": "Blijdorp",
+        "routeName": "Kees",
+        "busLicensePlate": 2,
+        "seatRow": [
+          0
+        ],
+        "seatCol": [
+          3
+        ]
+      },
+      {
+        "id": 6,
+        "checkInStop": "Blaak",
+        "routeName": "Kees",
+        "busLicensePlate": 2,
+        "seatRow": [
+          0,
+          0
+        ],
+        "seatCol": [
+          2,
+          3
+        ]
       }
     ]
   },
