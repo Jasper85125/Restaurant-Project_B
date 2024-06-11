@@ -42,6 +42,7 @@ public static class AdminPriceMenu
                     PriceModel newPriceModel = new(pricesLogic.GenerateNewId(),"Nieuwe prijscatogrie",0,false);
                     pricesLogic.UpdateList(newPriceModel);
                     selectedRowIndex = priceModels.Count() - 1;
+                    priceModels = pricesLogic.GetAll();
                 }
                 while(true)
                 {
