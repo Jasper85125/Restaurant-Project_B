@@ -497,13 +497,13 @@ public static class AdminRouteMenu
                                 else if(selectedIndex == 1)
                                 {
                                     Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                    string Input = Console.ReadLine();
+                                    string Input = Console.ReadLine().Trim();
                                     while (true)
                                     {
                                         if (!Helper.IsOnlyLetterSpaceDash(Input))
                                         {
                                             ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
-                                            Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
+                                            Console.WriteLine("De naam mag alleen letters, spaties en streepjes bevatten.");
                                         }
                                         else if (routeModels.Any(route => route.Name == Input))
                                         {
@@ -515,7 +515,7 @@ public static class AdminRouteMenu
                                         }
 
                                         Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                        Input = Console.ReadLine();
+                                        Input = Console.ReadLine().Trim();
                                     }
                                     
                                     //if Name does not exists, it gets added to the list
@@ -591,42 +591,39 @@ public static class AdminRouteMenu
 
     public static void MakeStop()
     {
-        bool checkStopName = true;
         while (true)
         {
             Console.WriteLine("Wat is de naam van de halte?");
             Console.Write("\nOm terug te keren klik op");
             ColorPrint.PrintWriteRed(" Escape");
-            Console.WriteLine(".\n");
+            Console.WriteLine(".");
 
             string newName = Helper.StringHelper();
             if (newName == "Escape/GoBack.") Start();
+            Console.WriteLine();
 
-        
-            if (Helper.IsOnlyLetterSpaceDash(newName))
+            if (!Helper.IsOnlyLetterSpaceDash(newName))
             {
-                foreach (StopModel stop in stopLogic.GetAll())
-                {
-                    if (stop.Name == newName)
-                    {
-                        ColorPrint.PrintRed("Halte bestaat al");
-                        Thread.Sleep(3000);
-                        MakeStop();
-                    }
-                }
-                StopModel newStop = new StopModel(stopLogic.GenerateNewId() ,Convert.ToString(newName));
-                stopLogic.UpdateList(newStop);
-                checkStopName = false;
-
-                Console.WriteLine("Wilt U nog een halte toevoegen. Ja of Nee");
-                JaNee();
-                
-            }
-            else
-            {
-                Console.WriteLine("De naam kan alleen bestaan uit letters, spaties en streepjes.");
+                ColorPrint.PrintRed("De naam mag alleen letters, spaties en streepjes bevatten.");
                 Console.WriteLine("Probeer het nog een keer.\n");
+                MakeStop();
+
             }
+
+            foreach (StopModel stop in stopLogic.GetAll())
+            {
+                if (stop.Name == newName)
+                {
+                    ColorPrint.PrintRed("Halte bestaat al");
+                    MakeStop();
+                }
+            }
+            StopModel newStop = new StopModel(stopLogic.GenerateNewId() ,Convert.ToString(newName));
+            stopLogic.UpdateList(newStop);
+            ColorPrint.PrintGreen($"{newName} is toegevoegd.");
+            Thread.Sleep(3000);
+            Console.Clear();
+            JaNee();
         }
     }
 
@@ -765,9 +762,9 @@ public static class AdminRouteMenu
 
         while (true)
         {
-            Console.Write("\nOm terug te keren klik op");
-            ColorPrint.PrintWriteRed(" Escape");
-            Console.WriteLine(".\n");
+            // Console.Write("\nOm terug te keren klik op");
+            // ColorPrint.PrintWriteRed(" Escape");
+            // Console.WriteLine(".\n");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             switch (keyInfo.Key)
@@ -783,8 +780,10 @@ public static class AdminRouteMenu
                     switch (selectedOption)
                     {
                         case 1:
+                            MakeStop();
                             break;
                         case 2:
+                            Start();
                             break;
                     }
                     break;
@@ -795,6 +794,7 @@ public static class AdminRouteMenu
     }
     public static void DisplayOptionsJaNee(int selectedOption)
     {
+        Console.WriteLine("Wilt u nog een halte toevoegen.");
         Console.WriteLine("Selecteer een optie:");
 
         // Display option 1
