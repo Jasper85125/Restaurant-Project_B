@@ -49,6 +49,7 @@ public static class AdminBusMenu
                 {
                     Console.Clear();
                     MakeBusFormation();
+                    listAllBusses = busLogic.GetAll();
                     selectedRowIndex = listAllBusses.Count() - 1;
                 }
                 while(true){
