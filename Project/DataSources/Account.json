@@ -73,6 +73,34 @@
           0,
           1
         ]
+      },
+      {
+        "id": 5,
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
+        "busLicensePlate": 3,
+        "seatRow": [
+          0,
+          0
+        ],
+        "seatCol": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": 6,
+        "checkInStop": "Centraal Station",
+        "routeName": "Joe",
+        "busLicensePlate": 3,
+        "seatRow": [
+          0,
+          0
+        ],
+        "seatCol": [
+          1,
+          2
+        ]
       }
     ]
   },

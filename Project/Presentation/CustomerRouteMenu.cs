@@ -232,7 +232,7 @@ public static class CustomerRouteMenu
             else
             {
                 Console.Clear();
-                Console.WriteLine("U gaat terug naar het startmenu");
+                ColorPrint.PrintYellow("U gaat terug naar het startmenu");
                 Thread.Sleep(3000);
                 CustomerStartMenu.Start();
                 break;
