@@ -98,7 +98,7 @@ public static class CustomerRouteMenu
                             {
                                 Console.Write("   ");
                             }
-                            Console.WriteLine($"{stops[i].Name} | {stops[i].Time}");
+                            Console.WriteLine($"{stops[i].Name} | {stops[i].Time?.ToString(@"hh\:mm") ?? "N/A"}");
                             Console.ResetColor();
                         }
 
@@ -155,7 +155,7 @@ public static class CustomerRouteMenu
                                 Console.Clear();
                                 Console.Write("Wilt u hier instappen: ");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.Write($"{selectedStop.Name} | {selectedStop.Time}");
+                                Console.Write($"{selectedStop.Name} | {selectedStop.Time?.ToString(@"hh\:mm") ?? "N/A"}");
                                 Console.ResetColor();
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("\nBackspace ");
@@ -246,16 +246,14 @@ public static class CustomerRouteMenu
         string KindSeat = "";
         List<BusModel> busModels = busLogic.GetAll();
 
-        // Filter active buses with routes using LINQ
         var busWithRoute = busModels.Where(bus => bus.Route.Any() && bus.IsActive).ToList();
-
-        // Find the first bus with the specific route and get its seats
-        var busWithRouteMatch = busWithRoute.FirstOrDefault(bus => bus.Route.Contains(routeModel));
-        if (busWithRouteMatch != null)
-        {
-            KindSeat = busWithRouteMatch.Seats;
+        foreach( var bus in busWithRoute){
+            foreach(var route in bus.Route){
+                if (route.Id == routeModel.Id){
+                    KindSeat = bus.Seats;
+                }
+            }
         }
-
         List<StopModel> allStops = new() {};
         var id = routeModel.Id;
         var duration = routeModel.Duration;
