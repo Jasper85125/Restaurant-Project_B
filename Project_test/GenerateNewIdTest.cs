@@ -1,4 +1,4 @@
-//namespace GenerateNewIdTest;
+namespace GenerateNewIdTest;
 
 [TestClass]
 public class GenerateNewIdTest
@@ -13,9 +13,6 @@ public class GenerateNewIdTest
 
     public void Test_NoExistingAccounts()
     {
-        // Arrange
-        // _accounts.ResetAccounts();
-
         // Act
         int newId = _accounts.GenerateNewId();
 

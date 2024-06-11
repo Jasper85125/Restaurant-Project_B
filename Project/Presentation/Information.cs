@@ -1,5 +1,3 @@
-using System.Drawing;
-
 static public class Information
 {
     public static void Info()
@@ -38,5 +36,4 @@ static public class Information
         Thread.Sleep(3000);
         Menu.Start();
     }
-
 }

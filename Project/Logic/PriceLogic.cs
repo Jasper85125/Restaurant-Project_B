@@ -58,5 +58,4 @@ public class PriceLogic : AbstractLogic<PriceModel>
     } 
 
     public override List<PriceModel> GetAll() => _prices;
-
 }

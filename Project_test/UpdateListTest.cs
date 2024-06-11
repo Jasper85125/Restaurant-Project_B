@@ -1,4 +1,4 @@
-// namespace UpdateListTest;
+namespace UpdateListTest;
 
 [TestClass]
 public class UpdateListTest

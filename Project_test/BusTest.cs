@@ -18,7 +18,7 @@ public class BusTest
     public void TestAddBus(string newLicensePlate)
     {
         // Arrange
-        BusModel expected = new BusModel(busLogic.GenerateNewId(), 40, newLicensePlate);
+        BusModel expected = new BusModel(busLogic.GenerateNewId(), "Business", newLicensePlate);
 
         // Act
         busLogic.UpdateList(expected);
@@ -38,7 +38,7 @@ public class BusTest
     public void TestDeleteBus(string newLicensePlate)
     {
         // Arrange
-        BusModel expected = new BusModel(busLogic.GenerateNewId(), 40, newLicensePlate);
+        BusModel expected = new BusModel(busLogic.GenerateNewId(), "Business", newLicensePlate);
 
         // Act
         expected.IsActive = false;

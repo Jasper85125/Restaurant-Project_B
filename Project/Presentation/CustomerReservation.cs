@@ -1,29 +1,20 @@
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Dynamic;
-using System.Formats.Asn1;
-using Microsoft.VisualBasic;
-
 public static class CustomerReservation
 {
     private static BusLogic busLogic = new();
-    private static SeatLogic seatLogic = new();
     private static RouteLogic routeLogic = new();
 
-    private static PriceLogic pricesLogic = new();
     private static BasicTableLogic<ReservationModel> tableReservations = new();
-    private static BasicTableLogic<PriceModel> basictableLogic = new();
     static private AccountsLogic accountsLogic = new AccountsLogic();
     
     public static void Start()
     {
-        ShowAllPricesInformation();
+        ShowAllReservations();
     }
     
-    public static void ShowAllPricesInformation()
+    public static void ShowAllReservations()
     {
         string title = "Uw reserveringen";
-        List<string> header = new() {"Halte", "Route", "Zitplaats(en)", "Tijd"};
+        List<string> header = new() {"Halte", "Route", "Zitplaats(en)", "Type bus", "Tijd"};
         AccountModel currentAccount = UserLogin.loggedInAccount;
         List<ReservationModel> Reservations = currentAccount.Reservations;
         string kind = "reserveringen";
@@ -46,7 +37,7 @@ public static class CustomerReservation
             else if (SelectedRowIndex.Item2 == "backspace") // backspace to delete reservation
             {
                 CancelReservation(SelectedRowIndex.Item1);
-                ShowAllPricesInformation();
+                ShowAllReservations();
             }
             else
             {
@@ -83,7 +74,7 @@ public static class CustomerReservation
                                 {
                                     case ConsoleKey.Escape:
                                         Console.Clear();
-                                        ShowAllPricesInformation();
+                                        ShowAllReservations();
                                         break;
                                 }
                                 // Clear console and display options
@@ -116,16 +107,27 @@ public static class CustomerReservation
             UserLogin.loggedInAccount.Reservations.Remove(toCancel);
             accountsLogic.UpdateList(UserLogin.loggedInAccount);
             Console.WriteLine("Uw reservering is geannuleerd.");
-            ShowAllPricesInformation();
+            ShowAllReservations();
         }
         else
         {
-            ShowAllPricesInformation();
+            ShowAllReservations();
         }
     }
 
     public static List<string> GenerateRow(ReservationModel Reservations)
     {
+        string KindSeat = "";
+        List<BusModel> busModels = busLogic.GetAll();
+
+        var busWithRoute = busModels.Where(bus => bus.Route.Any() && bus.IsActive).ToList();
+        foreach( var bus in busWithRoute){
+            foreach(var route in bus.Route){
+                if (route.Name == Reservations.RouteName){
+                    KindSeat = bus.Seats;
+                }
+            }
+        }
         var checkInStop = Reservations.Stop;
         var routeName = Reservations.RouteName;
         List<int> seatRow = Reservations.SeatRow;
@@ -149,7 +151,7 @@ public static class CustomerReservation
         }
 
         string seatsString = string.Join(", ", seats);
-        return new List<string> { $"{checkInStop}", $"{routeName}", $"{Count}", $"{time}" };
+        return new List<string> { $"{checkInStop}", $"{routeName}", $"{Count}", $"{KindSeat}",$"{time?.ToString(@"hh\:mm") ?? "N/A"}" };
     }
 
     public static List<string> SeatString(ReservationModel Reservations)

@@ -4,10 +4,7 @@ public class BusLogic : AbstractLogic<BusModel>
 {
     private static RouteLogic routeLogic = new();
     private List<BusModel> _busses;
-    
-
     public static BusModel? CurrentBus{ get; private set; }
-
 
     public BusLogic()
     {

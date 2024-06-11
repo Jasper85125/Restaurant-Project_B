@@ -21,7 +21,7 @@ public class CustomerStartMenu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(4, selectedOption + 1);
+                    selectedOption = Math.Min(2, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -33,10 +33,6 @@ public class CustomerStartMenu
                             break;
                         case 2: 
                             CustomerReservation.Start();                           
-                            break;
-                        case 3:
-                            break;
-                        case 4:
                             break;
                         default:
                             Console.WriteLine("Verkeerde input!");
@@ -70,16 +66,6 @@ public class CustomerStartMenu
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
         Console.WriteLine("Uw reserveringen.");
-
-        // Display option 3
-        Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 3 ? ">> " : "   ");
-        Console.WriteLine("Placeholder.");
-
-        // Display option 4
-        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("Placeholder.");
 
         // Reset text color
         Console.ResetColor();

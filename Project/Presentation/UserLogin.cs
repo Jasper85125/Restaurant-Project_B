@@ -1,5 +1,3 @@
-using System.Formats.Asn1;
-
 public static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
@@ -48,8 +46,7 @@ public static class UserLogin
         Console.WriteLine();
         while (!Helper.IsValidString(password))
         {
-            ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
-            Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
+            ColorPrint.PrintRed("Uw wachtwoord kan niet leeg zijn.");
             Console.WriteLine("Vul uw wachtwoord in: ");
             password = Helper.StringHelper();
             if (password == "Escape/GoBack.") Menu.Start();
@@ -70,8 +67,8 @@ public static class UserLogin
             Console.WriteLine("Welkom " + acc.FullName);
 
             //Write some code to go back to the menu
-            Thread.Sleep(3000);
             ColorPrint.PrintGreen("U gaat nu naar de startpagina voor klanten.\n");
+            Thread.Sleep(3000);
             CustomerStartMenu.Start();
         }
         else if (acc != null && acc.IsAdmin == true)
@@ -79,7 +76,6 @@ public static class UserLogin
             ColorPrint.PrintGreen("Welkom " + acc.FullName);
 
             //Write some code to go back to the menu
-            Thread.Sleep(3000);
             ColorPrint.PrintGreen("U gaat nu naar de startpagina voor admins.\n");
             Thread.Sleep(3000);
             AdminStartMenu.Start();
