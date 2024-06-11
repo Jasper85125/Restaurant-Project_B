@@ -19,7 +19,7 @@ public static class CustomerRouteMenu
    public static void PrintedOverview()
 { 
     List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Type bus", "Begintijd", "Eindtijd" };
-    string Title = "Beschikbare routes:\n";
+    string Title = "Kies een beschikbare route waar u op wilt reserveren:\n";
 
     while (true)
     {
@@ -82,7 +82,7 @@ public static class CustomerRouteMenu
 
                         Console.WriteLine($"Naam: {selectedRouteModel.Name}, tijdsduur: {selectedRouteModel.Duration}");
                         Console.WriteLine($"Kenteken: {selectedBusModel.LicensePlate}\n");
-                        Console.WriteLine($"Selecteer een halte (Pagina {currentPage}/{totalPages}):");
+                        Console.WriteLine($"Selecteer de halte waar u wilt opstappen (Pagina {currentPage}/{totalPages}):");
 
                         int startIndex = (currentPage - 1) * pageSize;
                         int endIndex = Math.Min(startIndex + pageSize, stops.Count);
@@ -181,7 +181,6 @@ public static class CustomerRouteMenu
                                 CustomerRouteMenu.Start();
                                 return;
                             default:
-                                Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
                                 break;
                         }
                     }
@@ -190,7 +189,7 @@ public static class CustomerRouteMenu
             else
             {
                 Console.Clear();
-                Console.WriteLine("U gaat terug naar het startmenu");
+                ColorPrint.PrintYellow("U gaat terug naar het startmenu");
                 Thread.Sleep(3000);
                 CustomerStartMenu.Start();
                 break;
