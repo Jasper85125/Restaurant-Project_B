@@ -1,4 +1,4 @@
-//namespace EmailValidatorTests;
+namespace EmailValidatorTests;
 
 [TestClass]
 public class EmailValidatorTests
