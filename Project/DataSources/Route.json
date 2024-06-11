@@ -1,17 +1,22 @@
 [
   {
     "id": 1,
-    "duration": 0,
+    "duration": 2,
     "name": "Test",
     "stops": [
       {
         "id": 9,
         "name": "Capelsebrug",
         "time": "12:00:00"
+      },
+      {
+        "id": 27,
+        "name": "Centraal",
+        "time": "14:00:00"
       }
     ],
     "begin": "12:00:00",
-    "end": "12:00:00",
+    "end": "14:00:00",
     "isActive": true
   }
 ]
