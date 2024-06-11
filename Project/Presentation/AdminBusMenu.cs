@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 public static class AdminBusMenu
 {
@@ -64,30 +65,48 @@ public static class AdminBusMenu
                             Console.WriteLine($"U kan {header[selectedIndex]} niet aanpassen.");
                             Thread.Sleep(3000);
                         }
-                        else if(selectedIndex == 1){
-                            Console.WriteLine("Voer iets in om het item te veranderen:");
-                            string Input = Console.ReadLine();
-                            
-                            //variable to check licensePlate
-                            bool licensePlateExists = false;
+                        else if(selectedIndex == 1)
+                        {
+                            while (true)
+                            {
+                                Console.Write("Voer een kenteken in");
+                                ColorPrint.PrintCyan(" (X-999-XX):");
+                                string Input = Helper.StringHelper();
+                                if (Input == "Escape/GoBack.") ShowAllBusInformation();
+                                Console.WriteLine();
 
-                            // Check if the input license plate already exists
-                            foreach(var bus in listAllBusses) {
-                                if(Input == bus.LicensePlate) {
-                                    licensePlateExists = true;
+                                while (!Helper.IsValidString(Input))
+                                {
+                                    ColorPrint.PrintRed("Uw opgegeven kenteken kan niet leeg zijn.");
+                                    Console.Write("Voer een kenteken in");
+                                    ColorPrint.PrintCyan(" (X-999-XX):");
+                                    Input = Helper.StringHelper();
+                                    if (Input == "Escape/GoBack.") ShowAllBusInformation();
+                                    Console.WriteLine();
+                                }
+
+                                Input = Input.ToUpper();
+
+                                bool isValidLicensePlate = Regex.IsMatch(Input, @"^[A-Z]{1}-[0-9]{3}-[A-Z]{2}$");
+
+                                if (listAllBusses.Any(bus => bus.LicensePlate == Input))
+                                {
+                                    ColorPrint.PrintRed("Kenteken bestaat al, geef een andere op.");  
+                                }
+                                else if (!isValidLicensePlate)
+                                {
+                                    ColorPrint.PrintRed("Kenteken is ongeldig. Gebruik het formaat X-999-XX.");
+                                }
+                                else
+                                {
+                                    // If the input is valid and does not exist in the list, break the loop
+                                    listAllBusses[selectedRowIndex].LicensePlate = Input;
+                                    busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                     break;
                                 }
                             }
-
-                            if(licensePlateExists) {
-                                ColorPrint.PrintRed("Kenteken bestaat al, geef een andere op.");
-                                Thread.Sleep(3000);
-                            } else {
-                                //if licensePlate does not exists, it gets added to the list
-                                listAllBusses[selectedRowIndex].LicensePlate = Input;
-                                busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-                            }
                         }
+
                         else if(selectedIndex == 2){
                             while (true){
                             Console.WriteLine($"Voer het {header[2]} in om het huidige {header[2]} te veranderen:");
