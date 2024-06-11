@@ -218,7 +218,9 @@ public static class SeatingMapMenu
         Console.WriteLine("geselecteerd");
         Console.WriteLine("- beschikbaar");
 
-        Console.Write("\nKlik");
+        Console.WriteLine("\nOm te bewegen door de bus gebruik de pijltjes toetsen.");
+
+        Console.Write("Klik");
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.Write(" spatie ");
         Console.ResetColor();
