@@ -180,11 +180,13 @@ public static class AdminRouteMenu
 
                 Console.WriteLine("\nDruk op:");
                 ColorPrint.PrintWriteCyan("Spatie ");
-                Console.WriteLine("om te selecteren.");
-                ColorPrint.PrintWriteRed("Backspace ");
-                Console.WriteLine("om te deselecteren.");
+                Console.Write("om te selecteren.\n");
+                ColorPrint.PrintYellow("Backspace ");
+                Console.Write("om te deselecteren.\n");
                 ColorPrint.PrintWriteGreen("Enter ");
-                Console.WriteLine("om de lijst op te slaan.");
+                Console.Write("om de lijst op te slaan.\n");
+                ColorPrint.PrintWriteRed("Escape ");
+                Console.Write("om terug te gaan.\n");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
@@ -327,7 +329,6 @@ public static class AdminRouteMenu
                         break;
                     case ConsoleKey.Escape:
                         checkStopName = false;
-                        Start();
                         return;
                     default:
                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
