@@ -4,5 +4,11 @@
     "passenger": "Nieuwe prijscatogrie",
     "price": 0,
     "isActive": false
+  },
+  {
+    "id": 5,
+    "passenger": "Nieuwe prijscatogrie",
+    "price": 0,
+    "isActive": false
   }
 ]

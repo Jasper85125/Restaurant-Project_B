@@ -332,6 +332,7 @@ public static class AdminRouteMenu
                         
                     case ConsoleKey.Escape:
                         checkStopName = false;
+                        PrintedOverview();
                         return;
                     default:
                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
@@ -538,7 +539,7 @@ public static class AdminRouteMenu
                                     {
                                         if (!Helper.IsOnlyLetterSpaceDash(Input))
                                         {
-                                            Console.WriteLine("De naam mag alleen letters, spaties en streepjes bevatten.");
+                                            ColorPrint.PrintRed("De naam mag alleen letters, spaties en streepjes bevatten.");
                                         }
                                         else if (routeModels.Any(route => route.Name == Input))
                                         {
