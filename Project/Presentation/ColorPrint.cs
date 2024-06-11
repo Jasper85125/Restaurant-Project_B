@@ -24,7 +24,7 @@ public static class ColorPrint
     public static void PrintYellow(string text)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write(text);
+        Console.WriteLine(text);
         Console.ResetColor();
     }
 

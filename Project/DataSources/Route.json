@@ -59,12 +59,23 @@
   },
   {
     "id": 4,
-    "duration": 0,
-    "name": "Nieuwe route",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
+    "duration": 0.7,
+    "name": "Lange jan",
+    "stops": [
+      {
+        "id": 4,
+        "name": "Beurs",
+        "time": "12:13:00"
+      },
+      {
+        "id": 27,
+        "name": "Centraal",
+        "time": "12:55:00"
+      }
+    ],
+    "begin": "12:13:00",
+    "end": "12:55:00",
+    "isActive": true
   },
   {
     "id": 5,
@@ -102,15 +113,6 @@
     ],
     "begin": "15:36:00",
     "end": "18:25:00",
-    "isActive": false
-  },
-  {
-    "id": 8,
-    "duration": 0,
-    "name": "Nieuwe route",
-    "stops": [],
-    "begin": null,
-    "end": null,
-    "isActive": false
+    "isActive": true
   }
 ]

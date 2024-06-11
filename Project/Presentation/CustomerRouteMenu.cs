@@ -18,7 +18,7 @@ public static class CustomerRouteMenu
 
    public static void PrintedOverview()
 { 
-    List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Begintijd", "Eindtijd" };
+    List<string> Header = new() { "Naam", "Tijdsduur(uur)", "Halte(s)", "Type bus", "Begintijd", "Eindtijd" };
     string Title = "Kies een beschikbare route waar u op wilt reserveren:\n";
 
     while (true)
@@ -151,71 +151,29 @@ public static class CustomerRouteMenu
 
                             case ConsoleKey.Enter:
                                 StopModel selectedStop = stops[selectedIndex];
-
                                 Console.Clear();
-                                Console.Write("Wilt u hier instappen: ");
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.Write($"{selectedStop.Name} | {selectedStop.Time}");
-                                Console.ResetColor();
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write("\nBackspace ");
-                                Console.ResetColor();
-                                Console.Write("om te annuleren.");
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.Write(" \nEnter ");
-                                Console.ResetColor();
-                                Console.Write("om een halte te selecteren.");
-
-                                ConsoleKeyInfo confirmInput = Console.ReadKey(true);
-
                                 bool stop = false;
                                 while (stop == false)
                                 {
-                                    switch (confirmInput.Key)
+                                    if (selectedBusModel.Seats == "Plebs")
                                     {
-                                        case ConsoleKey.Enter:
-                                            // BusModel bus = new(busLogic.GenerateNewId(),0,"",false);
-
-                                            // SeatModel[,] seatModels = new SeatModel[6,8];
-                                            // seatLogic.CreateSeats(seatModels);
-                                            // seatLogic.PrintArr(seatModels);
-                                            // Dictionary<(int Row, int Col), SeatModel> seatingMap = seatLogic.ConvertToDict(seatModels);
-                                            // bus.SeatingMap = seatingMap;
-                                            // busLogic.UpdateList(bus);
-                                            if (selectedBusModel.Seats == "Plebs")
-                                            {
-                                                Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
-                                                SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
-                                                SeatingMapMenu.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
-                                                Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
-                                                selectedBusModel.SeatingMap = updatedSeatingMap;
-                                                busLogic.UpdateList(selectedBusModel);
-                                            }
-                                            else if (selectedBusModel.Seats == "Business")
-                                            {
-                                                Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
-                                                SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
-                                                SeatingMapMenu2.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
-                                                Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
-                                                selectedBusModel.SeatingMap = updatedSeatingMap;
-                                                busLogic.UpdateList(selectedBusModel);
-                                            }
-                                            
-
-                                            /*
-                                            SeatModel[,] seatModels = new SeatModel[6,8];
-                                            seatLogic.CreateSeats(seatModels);
-                                            */
-
-                                            stop = true;
-                                            break;
-                                        case ConsoleKey.Escape:
-                                            stop = true;
-                                            break;
-                                        default:
-                                            confirmInput = Console.ReadKey(true);
-                                            break;
+                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
+                                        SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+                                        SeatingMapMenu.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
+                                        Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                                        selectedBusModel.SeatingMap = updatedSeatingMap;
+                                        busLogic.UpdateList(selectedBusModel);
                                     }
+                                    else if (selectedBusModel.Seats == "Business")
+                                    {
+                                        Dictionary<(int Row, int Col), SeatModel> seatingMap = selectedBusModel.SeatingMap;
+                                        SeatModel[,] seatModels = seatLogic.ConvertTo2DArr(seatingMap);
+                                        SeatingMapMenu2.Start(seatModels, selectedBusModel,selectedRouteModel, selectedStop);
+                                        Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                                        selectedBusModel.SeatingMap = updatedSeatingMap;
+                                        busLogic.UpdateList(selectedBusModel);
+                                    }
+                                    
                                 }
                                 break;
                             case ConsoleKey.Escape:
@@ -243,6 +201,19 @@ public static class CustomerRouteMenu
     
     public static List<string> GenerateRow(RouteModel routeModel)
     {
+        string KindSeat = "";
+        List<BusModel> busModels = busLogic.GetAll();
+
+        // Filter active buses with routes using LINQ
+        var busWithRoute = busModels.Where(bus => bus.Route.Any() && bus.IsActive).ToList();
+
+        // Find the first bus with the specific route and get its seats
+        var busWithRouteMatch = busWithRoute.FirstOrDefault(bus => bus.Route.Contains(routeModel));
+        if (busWithRouteMatch != null)
+        {
+            KindSeat = busWithRouteMatch.Seats;
+        }
+
         List<StopModel> allStops = new() {};
         var id = routeModel.Id;
         var duration = routeModel.Duration;
@@ -254,7 +225,7 @@ public static class CustomerRouteMenu
             allStops.Add(stop);
         }
         var stopsString = string.Join(", ", stops.Select(stop => stop.Name));
-        return new List<string> {$"{name}", $"{duration}", stopsString, $"{beginTime}", $"{endTime}" };
+        return new List<string> {$"{name}", $"{duration}", stopsString, $"{KindSeat}", $"{beginTime}", $"{endTime}" };
     }
 
 

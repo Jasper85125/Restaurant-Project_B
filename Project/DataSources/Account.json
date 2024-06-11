@@ -76,30 +76,28 @@
       },
       {
         "id": 5,
-        "checkInStop": "Centraal Station",
-        "routeName": "Joe",
-        "busLicensePlate": 3,
+        "checkInStop": "Blijdorp",
+        "routeName": "Kees",
+        "busLicensePlate": 2,
         "seatRow": [
-          0,
           0
         ],
         "seatCol": [
-          0,
-          1
+          3
         ]
       },
       {
         "id": 6,
-        "checkInStop": "Centraal Station",
-        "routeName": "Joe",
-        "busLicensePlate": 3,
+        "checkInStop": "Blaak",
+        "routeName": "Kees",
+        "busLicensePlate": 2,
         "seatRow": [
           0,
           0
         ],
         "seatCol": [
-          1,
-          2
+          2,
+          3
         ]
       }
     ]
