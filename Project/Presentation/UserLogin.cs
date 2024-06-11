@@ -48,8 +48,7 @@ public static class UserLogin
         Console.WriteLine();
         while (!Helper.IsValidString(password))
         {
-            ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
-            Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
+            ColorPrint.PrintRed("Uw wachtwoord kan niet leeg zijn.");
             Console.WriteLine("Vul uw wachtwoord in: ");
             password = Helper.StringHelper();
             if (password == "Escape/GoBack.") Menu.Start();

@@ -21,7 +21,7 @@ public static class UserSignUp
         Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
-            Console.WriteLine("Uw voornaam mag alleen letters, spaties en streepjes bevatten.");
+            ColorPrint.PrintRed("Uw voornaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw voornaam: ");
             firstName = Helper.StringHelper();
             if (firstName == "Escape/GoBack.") Menu.Start();
@@ -35,7 +35,7 @@ public static class UserSignUp
         Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
-            Console.WriteLine("Uw achternaam mag alleen letters, spaties en streepjes bevatten.");
+            ColorPrint.PrintRed("Uw achternaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw achternaam: ");
             lastName = Helper.StringHelper();
             if (lastName == "Escape/GoBack.") Menu.Start();
@@ -72,8 +72,7 @@ public static class UserSignUp
             Console.WriteLine();
             while (!Helper.IsValidString(password))
             {
-                ColorPrint.PrintRed($"'{password}' is geen geldige optie.");
-                Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
+                ColorPrint.PrintRed("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Uw wachtwoord: ");
                 password = Helper.StringHelper();
                 if (password == "Escape/GoBack.") Menu.Start();
@@ -86,8 +85,7 @@ public static class UserSignUp
             Console.WriteLine();
             while (!Helper.IsValidString(password2))
             {
-                ColorPrint.PrintRed($"'{password2}' is geen geldige optie.");
-                Console.WriteLine("Uw wachtwoord kan niet leeg zijn.");
+                ColorPrint.PrintRed("Uw wachtwoord kan niet leeg zijn.");
                 Console.WriteLine("Controleer uw wachtwoord:");
                 password2 = Helper.StringHelper();
                 if (password2 == "Escape/GoBack.") Menu.Start();
