@@ -14,14 +14,13 @@ public static class UserSignUp
         Console.Write("Om te bevestigen druk "); 
         ColorPrint.PrintGreen("Enter.");
         Console.Write("Om terug te gaan druk ");
-        ColorPrint.PrintRed("Escape");
+        ColorPrint.PrintRed("Escape.");
         Console.WriteLine("Uw voornaam: ");
         string? firstName = Helper.StringHelper();
         if (firstName == "Escape/GoBack.") Menu.Start();
         Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(firstName))
         {
-            ColorPrint.PrintRed($"'{firstName}' is geen geldige optie.");
             Console.WriteLine("Uw voornaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw voornaam: ");
             firstName = Helper.StringHelper();
@@ -36,7 +35,6 @@ public static class UserSignUp
         Console.WriteLine();
         while (!Helper.IsOnlyLetterSpaceDash(lastName))
         {
-            ColorPrint.PrintRed($"'{lastName}' is geen geldige optie.");
             Console.WriteLine("Uw achternaam mag alleen letters, spaties en streepjes bevatten.");
             Console.WriteLine("Uw achternaam: ");
             lastName = Helper.StringHelper();

@@ -92,6 +92,7 @@ public static class AdminRouteMenu
     public static void AddStopToRoute(RouteModel route, List<StopModel> selectedStops = null)
     {
         List<StopModel> selectedStopsCopy = new List<StopModel> ();
+        int stopIndex = 0;
         if (selectedStops != null)
         {
             selectedStops =  route.Stops.ToList();
@@ -180,11 +181,13 @@ public static class AdminRouteMenu
 
                 Console.WriteLine("\nDruk op:");
                 ColorPrint.PrintWriteCyan("Spatie ");
-                Console.WriteLine("om te selecteren.");
-                ColorPrint.PrintWriteRed("Backspace ");
-                Console.WriteLine("om te deselecteren.");
+                Console.Write("om te selecteren.\n");
+                ColorPrint.PrintYellow("Backspace ");
+                Console.Write("om te deselecteren.\n");
                 ColorPrint.PrintWriteGreen("Enter ");
-                Console.WriteLine("om de lijst op te slaan.");
+                Console.Write("om de lijst op te slaan.\n");
+                ColorPrint.PrintWriteRed("Escape ");
+                Console.Write("om terug te gaan.\n");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 switch (keyInfo.Key)
@@ -229,6 +232,12 @@ public static class AdminRouteMenu
                         {
 
                             selectedStops.Add(selectedStop);
+                            foreach (var stop in selectedStops){
+                                stopIndex++;
+                                if(stop == selectedStop){
+                                    break;
+                                }
+                            }
                             if(AddTimesToHalte(selectedStops, selectedStops.Count()-1) == false){
                                 selectedStops.Remove(selectedStop);
                                 break;
@@ -361,7 +370,7 @@ public static class AdminRouteMenu
 
             }
 
-            Console.Write("Om terug te gaan klik op ");
+            Console.Write("\nOm terug te gaan klik op ");
             ColorPrint.PrintRed("Escape\n");
 
             string input = "";
@@ -388,10 +397,13 @@ public static class AdminRouteMenu
                         {
                             Console.Clear();
                             Console.WriteLine($"\nDit is een geldige tijd: '{input}'");
-                            Console.Write($"Om de tijd toe te voegen aan {Stops[index].Name}, klik op ");
-                            ColorPrint.PrintGreen("Enter.");
+                            Console.Write($"klik op");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(" Enter ");
+                            Console.ResetColor();
+                            Console.Write($"om de tijd toe te voegen aan {Stops[index].Name}.");
                             Console.Write("\nOm terug te gaan klik op ");
-                            ColorPrint.PrintRed("Escape\n");
+                            ColorPrint.PrintRed("Escape.\n");
 
                             ConsoleKeyInfo confirmationKey = Console.ReadKey(intercept: true);
                             if (confirmationKey.Key == ConsoleKey.Escape)
@@ -478,6 +490,7 @@ public static class AdminRouteMenu
                         {
                             RouteModel newRouteModel = new(routeLogic.GenerateNewId(),0,"Nieuwe route", false);
                             routeLogic.UpdateList(newRouteModel);
+                            routeModels = routeLogic.GetAll();
                             selectedRowIndex = routeModels.Count() - 1;
                         }
                         while(true)
@@ -497,12 +510,13 @@ public static class AdminRouteMenu
                                 else if(selectedIndex == 1)
                                 {
                                     Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                    string Input = Console.ReadLine().Trim();
+                                    string Input = Helper.StringHelper();
+                                    if (Input == "Escape/GoBack.") PrintedOverview();
+                                    Console.WriteLine();
                                     while (true)
                                     {
                                         if (!Helper.IsOnlyLetterSpaceDash(Input))
                                         {
-                                            ColorPrint.PrintRed($"'{Input}' is geen geldige optie.");
                                             Console.WriteLine("De naam mag alleen letters, spaties en streepjes bevatten.");
                                         }
                                         else if (routeModels.Any(route => route.Name == Input))
@@ -515,7 +529,9 @@ public static class AdminRouteMenu
                                         }
 
                                         Console.WriteLine($"Voer een woord in om de {header[selectedIndex]} ('{routeModels[selectedRowIndex].Name}') van de route te veranderen:");
-                                        Input = Console.ReadLine().Trim();
+                                        Input = Helper.StringHelper();
+                                        if (Input == "Escape/GoBack.") PrintedOverview();
+                                        Console.WriteLine();
                                     }
                                     
                                     //if Name does not exists, it gets added to the list

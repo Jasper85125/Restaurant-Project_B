@@ -54,7 +54,7 @@ public class TableLogic<T>
                     }
                 }
             }
-            SelectionExplanation(true);
+            SelectionExplanation(true, false);
 
             keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
@@ -106,7 +106,7 @@ public class TableLogic<T>
             Console.WriteLine("Geselecteerde rij:");
             PrintRow(header, false, true);
             PrintRowForSelected(selectedRow, selectedIndex); // Pass selectedIndex to highlight the selected item
-            SelectionExplanation(false);
+            SelectionExplanation(false, true);
             key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -199,13 +199,23 @@ public class TableLogic<T>
         }
     }
 
-    private static void SelectionExplanation(bool UsedInMainTable){
-        Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
-        Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Enter");
-        Console.ResetColor();
-        Console.Write(" om de rij te bewerken.");
+    private static void SelectionExplanation(bool UsedInMainTable, bool printSelectedRow){
+        if(printSelectedRow){
+             Console.WriteLine("Selecteer een kolom met de pijltjes.");
+            Console.Write("Als je de juiste kolom hebt klik op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om het te bewerken.");
+        }
+        else{
+            Console.WriteLine("Selecteer een rij doormiddel van de pijltjes.");
+            Console.Write("Als je de juiste rij hebt geselecteerd klik op ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter");
+            Console.ResetColor();
+            Console.Write(" om de rij te bewerken.");
+        }
         if (UsedInMainTable){
             Console.Write("\nOm de rij actief/non-actief te maken klik op ");
             Console.ForegroundColor = ConsoleColor.Blue;
