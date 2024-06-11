@@ -59,6 +59,20 @@
           3,
           4
         ]
+      },
+      {
+        "id": 4,
+        "checkInStop": "Blaak",
+        "routeName": "Kees",
+        "busLicensePlate": 2,
+        "seatRow": [
+          0,
+          0
+        ],
+        "seatCol": [
+          0,
+          1
+        ]
       }
     ]
   },
