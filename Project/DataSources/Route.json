@@ -103,5 +103,14 @@
     "begin": "15:36:00",
     "end": "18:25:00",
     "isActive": false
+  },
+  {
+    "id": 8,
+    "duration": 0,
+    "name": "Nieuwe route",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
   }
 ]
