@@ -193,7 +193,7 @@ public static class AdminRouteMenu
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        if (selectedIndex > 0)
+                        if (selectedIndex > startIndex)
                         {
                             selectedIndex--;
                         }
@@ -244,14 +244,19 @@ public static class AdminRouteMenu
                         if (selectedStops.Count > 0 && selectedIndex >= 0)
                         {
                             StopModel removeStop = stops[selectedIndex];
-                            selectedStops.Remove(removeStop);
+                            selectedStops.Remove(selectedStops.Where(stop => stop.Name == removeStop.Name).FirstOrDefault());
                         }
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
                         
-                        if (selectedStops.Count() != 0)
-                        {
+                        if (selectedStops.Count() == 0){
+                            ColorPrint.PrintRed("U moet haltes toevoegen.");
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                        else
+                            {
                             Console.WriteLine("Wilt u deze haltes toevoegen?: ");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             for (int i = 0; i < selectedStops.Count; i++)
@@ -324,6 +329,7 @@ public static class AdminRouteMenu
                             }
                         }
                         break;
+                        
                     case ConsoleKey.Escape:
                         checkStopName = false;
                         return;
@@ -331,6 +337,7 @@ public static class AdminRouteMenu
                         Console.WriteLine("Ongeldige invoer. Probeer het opnieuw.");
                         break;
                 }
+                        
             }
         }
     }
@@ -377,8 +384,6 @@ public static class AdminRouteMenu
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nU drukte op escape, u keert nu terug naar het vorige menu.");
-                    Thread.Sleep(3000);
                     return false;
                 }
 
