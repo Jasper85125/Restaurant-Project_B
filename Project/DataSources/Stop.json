@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Centraal Station",
+    "name": "Rotterdam Centraal Station",
     "time": null
   },
   {
@@ -131,47 +131,27 @@
   },
   {
     "id": 27,
-    "name": "Centraal",
-    "time": null
-  },
-  {
-    "id": 28,
     "name": "Eendrachtsplein",
     "time": null
   },
   {
-    "id": 29,
+    "id": 28,
     "name": "Schiekade",
     "time": null
   },
   {
-    "id": 30,
+    "id": 29,
     "name": "Coolhaven",
     "time": null
   },
   {
-    "id": 31,
+    "id": 30,
     "name": "Melachtonweg",
     "time": null
   },
   {
-    "id": 32,
+    "id": 31,
     "name": "Meijersplein",
-    "time": null
-  },
-  {
-    "id": 33,
-    "name": "Kaas",
-    "time": null
-  },
-  {
-    "id": 34,
-    "name": "Kaas",
-    "time": null
-  },
-  {
-    "id": 35,
-    "name": "asdd",
     "time": null
   }
 ]
