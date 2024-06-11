@@ -124,10 +124,9 @@ public static class UserSignUp
         UserLogin.loggedInAccount = acc;
         
         Console.WriteLine($"Welkom {acc.FullName}.");
-        Thread.Sleep(3000);
         ColorPrint.PrintGreen("Uw account is aangemaakt.");
-
         Thread.Sleep(3000);
+        
         ColorPrint.PrintMagenta("U bent ingelogd op uw account en gaat naar het startmenu.\n");
         Thread.Sleep(4000);
         Console.Clear();
@@ -141,10 +140,9 @@ public static class UserSignUp
         AccountModel acc = accountsLogic.CheckLogin(email, password);
 
         Console.WriteLine($"Welkom {acc.FullName}.");
-        Thread.Sleep(3000);
         ColorPrint.PrintGreen("Uw Admin account is aangemaakt.");
-
         Thread.Sleep(3000);
+    
         Console.WriteLine("U keert terug naar het Startmenu.\n");
         Thread.Sleep(3000);
         AdminStartMenu.Start();
