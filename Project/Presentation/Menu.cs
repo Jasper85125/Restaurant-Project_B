@@ -1,5 +1,3 @@
-using System;
-using System.Drawing;
 public static class Menu
 {
     //This shows the menu. You can call back to this method to show the menu again
@@ -27,7 +25,7 @@ public static class Menu
                     break;
                 case ConsoleKey.DownArrow:
                     // Move to the next option
-                    selectedOption = Math.Min(4, selectedOption + 1);
+                    selectedOption = Math.Min(3, selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
@@ -43,9 +41,6 @@ public static class Menu
                         case 3:
                             Information.Info();
                             break; 
-                        case 4:
-                            AdminStartMenu.Start();
-                            break;
                     }
                     break;
             }
@@ -74,11 +69,6 @@ public static class Menu
         Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 3 ? ">> " : "   ");
         Console.WriteLine("Informatiepagina.");
-
-
-        Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.White;
-        Console.Write(selectedOption == 4 ? ">> " : "   ");
-        Console.WriteLine("Tijdelijk adminmenu toegang.");
 
         // Reset text color
         Console.ResetColor();

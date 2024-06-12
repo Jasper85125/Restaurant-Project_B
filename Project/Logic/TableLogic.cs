@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 public class TableLogic<T>
 {
     public static int selectedOption = 1;
@@ -228,7 +226,5 @@ public class TableLogic<T>
         Console.Write(" Escape");
         Console.ResetColor();
         Console.Write(".\n");
-
-
     }
 }

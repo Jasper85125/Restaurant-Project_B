@@ -1,4 +1,3 @@
-
 public static class Helper
 {
     public static bool IsValidString(object input)
@@ -80,7 +79,6 @@ public static class Helper
         }
     }
 
-
     public static string StringHelper()
     {
         // Lees karakters één voor één totdat Enter of Escape wordt ingedrukt
@@ -116,17 +114,4 @@ public static class Helper
             }
         } while (true);
     }
-    
-    // public static void Function(string message, Func<bool> func)
-    // {
-    //     try
-    //     {
-    //         func();
-    //     }
-    //     catch
-    //     {
-    //         Console.WriteLine(message);
-    //     }
-    // }
-
 }

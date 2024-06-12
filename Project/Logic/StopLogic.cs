@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
-
 public class StopLogic : AbstractLogic<StopModel>
 {
     private List<StopModel> _stops;
@@ -46,5 +41,4 @@ public class StopLogic : AbstractLogic<StopModel>
     }
 
     public override List<StopModel> GetAll() => _stops;
-
 }

@@ -1,6 +1,3 @@
-using System.Formats.Asn1;
-using System.Text.Json.Serialization;
-
 public static class SeatingMapMenu
 {
     public static SeatLogic seatLogic = new();
@@ -8,28 +5,6 @@ public static class SeatingMapMenu
     private static BusLogic busLogic = new();
 
     static private AccountsLogic accountsLogic = new AccountsLogic();
-
-    // static Dictionary<(int Row, int Col), SeatModel> seatingMap = new ()
-    // {
-    //     {(0,0), new SeatModel(1)},
-    //     {(0,1), new SeatModel(2)},
-    //     {(0,2), new SeatModel(3)}
-    // };
-
-
-    // public static void Main()
-    // {
-    //     SeatModel[,] seatModels = new SeatModel[6, 10];
-    //     seatLogic.CreateSeats(seatModels);
-    //     Start(seatModels);
-
-    //     seatLogic.PrintArr(seatLogic.ConvertTo2DArr(seatingMap));
-    //     // SeatModel[,] seatModels = new SeatModel[6, 10];
-    //     // CreateSeats();
-    //     // Start(seatModels);
-    // }
-
-
 
     public static void Start(SeatModel[,] seatModels, BusModel busModel, RouteModel routeModel, StopModel stopModel)
     {
@@ -87,7 +62,6 @@ public static class SeatingMapMenu
                     }
                     else
                     {
-                        // seatModels[selectedOption.Row, selectedOption.Col].IsOccupied = true;
                         if (!selectedSeats.Contains((selectedOption.Row, selectedOption.Col)))
                         {
                             selectedSeats.Add((selectedOption.Row, selectedOption.Col));
@@ -203,9 +177,7 @@ public static class SeatingMapMenu
                 }
                 else
                 {
-                //     Console.ForegroundColor = selectedOption.Row == row && selectedOption.Col == col ? ConsoleColor.Red : ConsoleColor.White;
-                //     Console.Write(selectedOption.Row == row && selectedOption.Col == col ? " X " : "   ");
-                    Console.Write("   "); // Space for the pad
+                    Console.Write("   ");
                 }
             }
             if (row == 1 || row == 5)
@@ -283,9 +255,6 @@ public static class SeatingMapMenu
 
         while (true)
         {
-            // Console.Write("\nOm terug te keren klik op");
-            // ColorPrint.PrintWriteRed(" Escape");
-            // Console.WriteLine(".\n");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
             switch (keyInfo.Key)
@@ -325,9 +294,6 @@ public static class SeatingMapMenu
         Console.ForegroundColor = selectedOption == 2 ? ConsoleColor.Green : ConsoleColor.White;
         Console.Write(selectedOption == 2 ? ">> " : "   ");
         Console.WriteLine("Nee.");
-
         Console.ResetColor();
     }
-
 }
-

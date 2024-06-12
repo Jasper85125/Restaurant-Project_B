@@ -1,20 +1,11 @@
-using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 public static class AdminBusMenu
 {
     private static TableLogic<BusModel> tableBus = new();
     private static BusLogic busLogic = new();
-    private static RouteLogic routeLogic = new();
-    private static TableLogic<BusModel> tableRoutes = new();
-    private static CustomerTableLogic<RouteModel> tableRoutesKlant = new();
-
     private static SeatLogic seatLogic = new();
     
-    
-
-
     public static void Start()
     {
 
@@ -205,123 +196,6 @@ public static class AdminBusMenu
 
     }
 
-
-    /// Voor deze functies moet later nog een string format checker worden geschreven.
-    // public static void AddTime()
-    // {
-    //     ShowAllBusInformation(Overview());
-    //     Console.WriteLine("Aan welke bus met route wilt U een tijd geven?");
-    //     string? busID = Console.ReadLine();
-    //     try
-    //     {
-    //         BusLogic LogicInstance = new BusLogic ();
-    //         int intInputBus = Convert.ToInt32(busID);
-    //         BusModel bus = LogicInstance.GetById(intInputBus);
-    //         if (HasRoute(bus))
-    //         {
-    //             foreach (RouteModel Route in bus.Route)
-    //             {
-    //                 Console.WriteLine("Wat is de begintijd voor de route?");
-    //                 string? beginTimeRoute = Console.ReadLine();
-    //                 while (beginTimeRoute == null)
-    //                 {
-    //                     Console.WriteLine("Vul een correcte waarde in");
-    //                 }
-    //                 Route.beginTime = beginTimeRoute;
-
-    //                 foreach (StopModel Stop in Route.Stops)
-    //                 {
-    //                     Console.WriteLine($"Wat is de tijd voor halte {Stop.Name}");
-    //                     string? newTime = Console.ReadLine();
-    //                     while (newTime == null)
-    //                     {
-    //                         Console.WriteLine("Vul een correcte waarde in");
-    //                     }
-    //                     Stop.Time = newTime;
-    //                 }
-
-    //                 Console.WriteLine("Wat is de eindtijd voor de route?");
-    //                 string? endTimeRoute = Console.ReadLine();
-    //                 while (endTimeRoute == null)
-    //                 {
-    //                     Console.WriteLine("Vul een correcte waarde in");
-    //                 }
-    //                 Route.endTime = endTimeRoute;
-    //             }
-    //             LogicInstance.UpdateList(bus);
-    //         }
-    //         else
-    //         {
-    //             Console.WriteLine("Deze bus heeft nog geen route aangewezen gekregen.");
-    //             Start();
-    //         }
-    //     }
-    //     catch (Exception)
-    //     {
-    //         Console.WriteLine("Verkeerde input ");
-    //     }
-
-    // }
-
-    public static bool HasRoute(BusModel bus)
-    {
-        if (bus.Route.Count() == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public static bool ConfirmValue(BusModel newBus, string UpdatedValue = null, bool IsUpdate = false)
-    {
-        if (IsUpdate && string.IsNullOrEmpty(UpdatedValue) || !IsUpdate && (newBus == null || string.IsNullOrEmpty(newBus.LicensePlate)))
-        {
-            ColorPrint.PrintRed(IsUpdate ? "Ongeldige invoer." : "Fout: Nieuwe busgegevens ontbreken!");
-            Thread.Sleep(3000);
-            Console.Clear();
-            return false;
-        }
-
-        Console.WriteLine(!IsUpdate ? $"U staat op het punt een nieuwe bus toe te voegen met de volgende info: zitplaatsen: {newBus.Seats}, Kenteken: {newBus.LicensePlate}" : $"U staat op het punt oude data te veranderen: {UpdatedValue}");
-        Console.Write("Druk op ");
-        ColorPrint.PrintWriteGreen("Enter");
-        Console.Write(" om door te gaan of druk op ");
-        ColorPrint.PrintWriteRed("Backspace");
-        Console.WriteLine(" om te annuleren.");
-
-        ConsoleKeyInfo keyInfo;
-        do
-        {
-            keyInfo = Console.ReadKey(true);
-            if (keyInfo.Key == ConsoleKey.Backspace)
-            {
-                ColorPrint.PrintRed("Toevoegen geannuleerd.");
-                Thread.Sleep(3000);
-                Console.Clear();
-                return false;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                ColorPrint.PrintGreen("Data is toegevoegd!");
-                Thread.Sleep(3000);
-                Console.Clear();
-                return true;
-            }
-            else
-            {
-                ColorPrint.PrintRed("Ongeldige invoer!");
-                Thread.Sleep(3000);
-                Console.Clear();
-                return false;
-            }
-        }while(true);
-    }
-
-
-
     public static List<string> GenerateRow(BusModel busModel)
     {
         var id = busModel.Id;
@@ -343,17 +217,6 @@ public static class AdminBusMenu
 
     public static void Listupdater(BusModel model){
         busLogic.UpdateList(model);
-    }
-
-    public static void AfterShowingInformation()
-    {
-        string answer = "";
-        while (answer.ToLower() !="j")
-        {       
-            Console.WriteLine("Om terug te gaan naar het Startmenu voer J in.");
-            answer = Console.ReadLine();
-        }
-        BackToStartMenu();
     }
 
     public static void BackToStartMenu()
