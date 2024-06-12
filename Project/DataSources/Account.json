@@ -1,3 +1,247 @@
 [
-  
+  {
+    "id": 1,
+    "emailAddress": "Admin",
+    "password": "Admin",
+    "fullName": "Admin",
+    "isAdmin": true,
+    "reservations": [
+      {
+        "id": 1,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Nieuwe route",
+        "busLicensePlate": 1,
+        "seatRow": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "seatCol": [
+          1,
+          2,
+          3,
+          3,
+          4
+        ]
+      },
+      {
+        "id": 2,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Nieuwe route",
+        "busLicensePlate": 2,
+        "seatRow": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "seatCol": [
+          0,
+          2,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "id": 3,
+        "checkInStop": "Beurs",
+        "routeName": "Nieuwe route",
+        "busLicensePlate": 2,
+        "seatRow": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "seatCol": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "id": 4,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Jhon",
+        "busLicensePlate": 1,
+        "seatRow": [
+          5,
+          5,
+          6,
+          6
+        ],
+        "seatCol": [
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "id": 5,
+        "checkInStop": "Beurs",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": 6,
+        "checkInStop": "Beurs",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": 7,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "id": 8,
+        "checkInStop": "Beurs",
+        "routeName": "Jhon",
+        "busLicensePlate": 1,
+        "seatRow": [
+          2,
+          2,
+          2,
+          2,
+          4,
+          4,
+          4,
+          4
+        ],
+        "seatCol": [
+          8,
+          9,
+          10,
+          11,
+          10,
+          9,
+          8,
+          11
+        ]
+      },
+      {
+        "id": 9,
+        "checkInStop": "Beurs",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "seatCol": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "id": 10,
+        "checkInStop": "Beurs",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "seatCol": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": 11,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "seatCol": [
+          6,
+          8,
+          9,
+          10,
+          7
+        ]
+      },
+      {
+        "id": 12,
+        "checkInStop": "Capelsebrug",
+        "routeName": "Jhow",
+        "busLicensePlate": 2,
+        "seatRow": [
+          6,
+          6,
+          6,
+          6
+        ],
+        "seatCol": [
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  }
 ]

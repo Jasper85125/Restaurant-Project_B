@@ -112,7 +112,7 @@ public static class SeatingMapMenu
                     ColorPrint.PrintYellow("U keert terug naar het overzicht!");
                     Thread.Sleep(3000);
                     CustomerRouteMenu.Start();
-                    return;
+                    break;
                 case ConsoleKey.Backspace:
                 try
                 {
@@ -132,7 +132,7 @@ public static class SeatingMapMenu
                 Console.WriteLine("U gaat terug naar het overzicht voor reserveringen.");
                 Thread.Sleep(3000);
                 Console.ResetColor();
-                CustomerRouteMenu.PrintedOverview();
+                CustomerRouteMenu.Start();
                 break;
 
             }

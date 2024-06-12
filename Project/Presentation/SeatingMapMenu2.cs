@@ -137,7 +137,7 @@ public static class SeatingMapMenu2
                                 Console.WriteLine($"U heeft geen stoelen gereserveerd!");
                                 Console.ResetColor();
                             }
-                            return;
+                            break;
                         case false:
                             SeatingMapMenu2.Start(seatModels, busModel, routeModel, stopModel);
                             break;
