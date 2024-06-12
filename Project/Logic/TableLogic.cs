@@ -69,15 +69,39 @@ public class TableLogic<T>
                 case ConsoleKey.Delete:
                     if (selectedOption > 0 && selectedOption <= Data.Count())
                     {
-                        dynamic item = Data[selectedOption - 1];
-                        if (item.IsActive)
+                        if (Data[selectedOption - 1] is RouteModel routeModel)
                         {
-                            item.IsActive = false;
+                            dynamic item = Data[selectedOption - 1];
+                            if (item.IsActive)
+                            {
+                                item.IsActive = false;
+                                Listupdater(item);
+                                break;
+                            }
+                            if(routeModel.Stops != null && routeModel.Stops.Count > 1 )
+                            {
+                                item.IsActive = true;
+                                Listupdater(item);
+                            }
+                            else
+                            {
+                                ColorPrint.PrintRed("U moet minimaal twee haltes toevoegen om de route actief te maken.");
+                                Thread.Sleep(3000);
+                            }
                         }
-                        else{
-                        item.IsActive = true;
+                        else
+                        {
+                            dynamic item = Data[selectedOption - 1];
+                            if (item.IsActive)
+                            {
+                                item.IsActive = false;
+                            }
+                            else
+                            {
+                            item.IsActive = true;
+                            }
+                            Listupdater(item);
                         }
-                        Listupdater(item);
                         
                     }
                     break;
