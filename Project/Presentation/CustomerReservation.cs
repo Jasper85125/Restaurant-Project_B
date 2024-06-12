@@ -85,6 +85,8 @@ public static class CustomerReservation
                                         Console.Clear();
                                         ShowAllPricesInformation();
                                         break;
+                                    default:
+                                        continue;
                                 }
                                 // Clear console and display options
                                 Console.Clear();
