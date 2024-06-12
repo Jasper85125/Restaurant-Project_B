@@ -12,7 +12,6 @@ static class DataAccess<T>
         {
             string json = File.ReadAllText(path);
             ListToReturn = JsonSerializer.Deserialize<List<T>>(json);
-            return ListToReturn;
         }
         catch (Exception ex)
         {
