@@ -2,8 +2,8 @@ static public class Information
 {
     public static void Info()
     {
-        Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op");
-        Console.WriteLine("meerderen plekken kan instappen zodat je kan eten terwijl de bus een rondje rijdt."); 
+        Console.WriteLine("Ons pannenkoeken restaurant is een bus waar je op meerderen plekken kan instappen");
+        Console.WriteLine("zodat je kan eten terwijl de bus een rondje rijdt."); 
         Console.WriteLine("En op deze app/site kan je reserveren waar en wanneer je met ons mee wil rijden.");
         Start();
     }
@@ -23,17 +23,9 @@ static public class Information
             {
                 case ConsoleKey.Escape:
                     // Move to the previous option
-                    BackToStartMenu();
+                    Menu.Start();
                     break;
             }
         }
-    }
-
-    public static void BackToStartMenu()
-    {
-        Console.Clear();
-        ColorPrint.PrintYellow("U keert terug naar het Startmenu.");
-        Thread.Sleep(3000);
-        Menu.Start();
     }
 }

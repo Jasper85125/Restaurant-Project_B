@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public static class CustomerReservation
 {
     private static BusLogic busLogic = new();

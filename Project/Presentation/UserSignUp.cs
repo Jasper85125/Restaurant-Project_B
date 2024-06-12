@@ -104,16 +104,16 @@ public static class UserSignUp
         string fullName = $"{firstName} {lastName}";
         if (IsAdminSign)
         {
-            AdminSignUp(email, password, fullName);
+            SignUp(email, password, fullName, true);
         }
         else 
         {
-            CostumerSignUp(email, password, fullName);
+            SignUp(email, password, fullName);
         }
         
     }
 
-    public static void CostumerSignUp(string email, string password, string fullName)
+    public static void SignUp(string email, string password, string fullName)
     {
         AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, false);
         accountsLogic.UpdateList(newAcc);
@@ -129,8 +129,7 @@ public static class UserSignUp
         Console.Clear();
         CustomerStartMenu.Start();
     }
-
-    public static void AdminSignUp(string email, string password, string fullName)
+    public static void SignUp(string email, string password, string fullName, bool IsAdmin)
     {
         AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, true);
         accountsLogic.UpdateList(newAcc);
@@ -140,8 +139,10 @@ public static class UserSignUp
         ColorPrint.PrintGreen("Uw Admin account is aangemaakt.");
         Thread.Sleep(3000);
     
-        Console.WriteLine("U keert terug naar het Startmenu.\n");
+        ColorPrint.PrintYellow("U keert terug naar het Adminhoofdmenu.\n");
         Thread.Sleep(3000);
         AdminStartMenu.Start();
     }
+
+
 }

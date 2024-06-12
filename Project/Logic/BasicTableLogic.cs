@@ -189,6 +189,8 @@ public class BasicTableLogic<T>
             Console.Write("Enter");
             Console.ResetColor();
             Console.Write(" om de rij te bewerken.");
+            Console.Write("\nOm uw reservering te annuleren klik op ");
+            ColorPrint.PrintWriteCyan("backspace.");
         }
         Console.Write("\nOm een stap terug te gaan druk op");
         Console.ForegroundColor = ConsoleColor.Red;

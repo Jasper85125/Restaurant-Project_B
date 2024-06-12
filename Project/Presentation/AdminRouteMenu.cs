@@ -49,7 +49,6 @@ public static class AdminRouteMenu
                     break;
                 case ConsoleKey.Escape:
                     Console.Clear();
-                    BackToAdminMenu();
                     AdminStartMenu.Start();
                     break;
             }
@@ -323,6 +322,8 @@ public static class AdminRouteMenu
                                     checkStopName = false;
                                     break;
                                 case ConsoleKey.Backspace:
+                                    break;
+                                default:
                                     break;
                             }
                         }
@@ -606,15 +607,23 @@ public static class AdminRouteMenu
                             }
                             else if (selectedIndex == 6)
                             {
-                                dynamic item = routeModels[selectedRowIndex].IsActive;
-                                if (routeModels[selectedRowIndex].IsActive)
+                                dynamic item = routeModels[selectedRowIndex];
+                                if (item.IsActive)
                                 {
-                                    routeModels[selectedRowIndex].IsActive = false;
+                                    item.IsActive = false;
+                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                    continue;
                                 }
-                                else{
-                                    routeModels[selectedRowIndex].IsActive = true;
+                                if(item.Stops != null && item.Stops.Count > 1 )
+                                {
+                                    item.IsActive = true;
+                                    routeLogic.UpdateList(routeModels[selectedRowIndex]);
                                 }
-                                routeLogic.UpdateList(routeModels[selectedRowIndex]);
+                                else
+                                {
+                                    ColorPrint.PrintRed("U moet minimaal twee haltes toevoegen om de route actief te maken.");
+                                    Thread.Sleep(3000);
+                                }
                             }
                         }
                     }      
@@ -717,7 +726,14 @@ public static class AdminRouteMenu
         string title = "Selecteer een route voor de bus.";
         if (routeModels == null || routeModels.Count == 0)
         {
-            Console.WriteLine("Lege data.");
+            ColorPrint.PrintRed("\nGeen routes gevonden, maak een route!");
+            Thread.Sleep(3000);
+            return null;
+        }
+        else if(routeModels.All(r => r.IsActive == false))
+        {
+            ColorPrint.PrintRed("\nGeen actieve routes!");
+            Thread.Sleep(3000);
             return null;
         }
         else
