@@ -12,7 +12,7 @@ public static class AdminBusMenu
         ShowAllBusInformation();
     }
 
-    public static void ShowAllBusInformation ()
+    public static void ShowAllBusInformation()
     {
         string title = "Busmenu";
         BusLogic busLogic = new();
@@ -24,6 +24,7 @@ public static class AdminBusMenu
         if (listAllBusses == null || listAllBusses.Count == 0)
         {
             MakeBusFormation(true);
+            listAllBusses = busLogic.GetAll();
         }
      
         while(true){
@@ -111,6 +112,7 @@ public static class AdminBusMenu
                             Console.Clear();
                             RoutesList = listAllBusses[selectedRowIndex].Route;
                             ConsoleKeyInfo keyInfo;
+                            bool EndLoop = true;
                             do
                             {
                                 Console.Clear();
@@ -128,54 +130,63 @@ public static class AdminBusMenu
                                 Console.Write("\nAls u de laatste route wil verwijderen klik op");
                                 ColorPrint.PrintWriteRed(" Backspace.");
                                 Console.Write("\nAls u tevreden bent met de routelijst, voeg de lijst toe met");
-                                ColorPrint.PrintWriteGreen(" Enter.");
+                                ColorPrint.PrintGreen(" Enter.");
+                                Console.Write("Klik");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(" Escape ");
+                                Console.ResetColor();
+                                Console.WriteLine("om naar het bussen overzicht te gaan.\n");
+
 
                                 keyInfo = Console.ReadKey(true);
-                                
                                 switch (keyInfo.Key)
                                 {
                                     case ConsoleKey.Spacebar:
-                                        Console.WriteLine("\nU heeft op Spatie geklikt. Voeg een nieuwe route toe.");
-                                        RouteModel Input = AdminRouteMenu.SelectRoute();
+                                        RouteModel Input = AdminRouteMenu.SelectRoute(); 
                                         if (Input != null){
                                             RoutesList.Add(Input);
-                                            Console.WriteLine($"{Input.Name} is toegevoegd");
+                                            ColorPrint.PrintGreen($"{Input.Name} is toegevoegd");
                                             listAllBusses[selectedRowIndex].Route = RoutesList;
                                             busLogic.UpdateList(listAllBusses[selectedRowIndex]);
                                             Thread.Sleep(3000);
                                             break;
                                             }
-                                        else{
-                                            Console.WriteLine("U keert terug");
-                                            Thread.Sleep(3000);
+ 
                                             break;
-                                        }
                                     case ConsoleKey.Backspace:
                                         if (LastRouteIndex >= 1)
                                         {
-                                            Console.WriteLine("\nU heeft op Backspace geklikt. De laatste route is verwijderd");
+                                            ColorPrint.PrintGreen("\nU heeft op Backspace geklikt. De laatste route is verwijderd");
                                             RoutesList.Remove(RoutesList[LastRouteIndex-1]);
                                             Thread.Sleep(3000);
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\nGeen routes om te verwijderen.");
+                                            ColorPrint.PrintRed("\nGeen routes om te verwijderen.");
                                             Thread.Sleep(3000);
                                         }
                                         break;
                                     case ConsoleKey.Enter:
-                                        Console.WriteLine("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
-                                        Thread.Sleep(3000);
-                                        listAllBusses[selectedRowIndex].Route = RoutesList;
-                                        busLogic.UpdateList(listAllBusses[selectedRowIndex]);
-
+                                        if (RoutesList.Count > 0)
+                                        {
+                                            listAllBusses[selectedRowIndex].Route = RoutesList;
+                                            busLogic.UpdateList(listAllBusses[selectedRowIndex]);
+                                            ColorPrint.PrintGreen("\nU heeft op Enter geklikt. De routelijst is toegevoegd");
+                                            Thread.Sleep(3000);
+                                            EndLoop = false;
+                                        }
+                                        else
+                                        {
+                                            ColorPrint.PrintRed("\nU moet minimaal een route toevoegen!");
+                                            Thread.Sleep(3000);
+                                        }
+                                        break;
+                                    case ConsoleKey.Escape:
                                         break;
                                     default:
-                                        Console.WriteLine("\nOngeldige invoer.");
-                                        Thread.Sleep(1000);
                                         break;
                                 }
-                            } while (keyInfo.Key != ConsoleKey.Enter);
+                            } while (keyInfo.Key != ConsoleKey.Escape && EndLoop);
                         }
                         else if (selectedIndex == 4)
                             {
@@ -273,7 +284,14 @@ public static class AdminBusMenu
                     }
                     break;
                 case ConsoleKey.Escape:
-                    ShowAllBusInformation();
+                    if (showMessage)
+                    {
+                        AdminStartMenu.Start();
+                    }
+                    else
+                    {
+                        ShowAllBusInformation();
+                    }
                     return;
             }
 

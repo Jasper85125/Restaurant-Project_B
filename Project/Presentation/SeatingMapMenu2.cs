@@ -1,6 +1,8 @@
 public static class SeatingMapMenu2
 {
     public static SeatLogic seatLogic = new();
+    
+    private static BusLogic busLogic = new();
 
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
@@ -137,37 +139,40 @@ public static class SeatingMapMenu2
                                 Console.WriteLine($"U heeft geen stoelen gereserveerd!");
                                 Console.ResetColor();
                             }
-                            return;
+                            break;
                         case false:
                             SeatingMapMenu2.Start(seatModels, busModel, routeModel, stopModel);
                             break;
                     }
                     Console.WriteLine("");
                     ColorPrint.PrintYellow("U keert terug naar het overzicht!");
+                    Dictionary<(int Row, int Col), SeatModel> updatedSeatingMap = seatLogic.ConvertToDict(seatModels);
+                    busModel.SeatingMap = updatedSeatingMap;
+                    busLogic.UpdateList(busModel);
                     Thread.Sleep(3000);
                     CustomerRouteMenu.Start();
-                    return;
+                    break;
                 case ConsoleKey.Backspace:
-                try
-                {
-                    if (selectedSeats.Contains((selectedOption.Row, selectedOption.Col)))
+                    try
                     {
-                        selectedSeats.Remove((selectedOption.Row, selectedOption.Col));
+                        if (selectedSeats.Contains((selectedOption.Row, selectedOption.Col)))
+                        {
+                            selectedSeats.Remove((selectedOption.Row, selectedOption.Col));
+                        }
                     }
-                }
-                catch
-                {
+                    catch
+                    {
 
-                }
-                break;
+                    }
+                    break;
 
                 case ConsoleKey.Escape:
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("U gaat terug naar het overzicht voor reserveringen.");
-                Thread.Sleep(3000);
-                Console.ResetColor();
-                CustomerRouteMenu.PrintedOverview();
-                break;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("U gaat terug naar het overzicht voor reserveringen.");
+                    Thread.Sleep(3000);
+                    Console.ResetColor();
+                    CustomerRouteMenu.PrintedOverview();
+                    break;
 
             }
             // Clear console and display options

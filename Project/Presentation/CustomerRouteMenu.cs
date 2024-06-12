@@ -24,13 +24,20 @@ public static class CustomerRouteMenu
         {
             if (bus.Route.Any() && bus.IsActive == true)
             {
-                busWithRoute.Add(bus);
+                foreach (RouteModel route in bus.Route)
+                {
+                    if(route.Stops != null && route.Stops.Count > 0 )
+                    {
+                        busWithRoute.Add(bus);
+                    }
+                }
             }
         }
         if (busWithRoute == null || busWithRoute.Count == 0)
         {
-            Console.WriteLine("Op dit moment zijn er geen beschikbare routes.");
-            Thread.Sleep(1000);
+            ColorPrint.PrintRed("Op dit moment zijn er geen beschikbare routes.");
+            ColorPrint.PrintYellow("U gaat terug naar het Klantmenu.");
+            Thread.Sleep(3000);
             CustomerStartMenu.Start();
             return;
         }
