@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public static class CustomerReservation
 {
     private static BusLogic busLogic = new();
@@ -76,6 +78,8 @@ public static class CustomerReservation
                                         Console.Clear();
                                         ShowAllReservations();
                                         break;
+                                    default:
+                                        continue;
                                 }
                                 // Clear console and display options
                                 Console.Clear();

@@ -1,3 +1,27 @@
 [
-  
+  {
+    "id": 1,
+    "duration": 4.9,
+    "name": "Joe",
+    "stops": [
+      {
+        "id": 26,
+        "name": "Blijdorp",
+        "time": "12:55:00"
+      },
+      {
+        "id": 1,
+        "name": "Centraal Station",
+        "time": "14:22:00"
+      },
+      {
+        "id": 14,
+        "name": "De Kuip",
+        "time": "17:49:00"
+      }
+    ],
+    "begin": "12:55:00",
+    "end": "17:49:00",
+    "isActive": true
+  }
 ]
