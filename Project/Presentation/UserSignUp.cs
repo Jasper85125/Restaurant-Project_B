@@ -78,14 +78,14 @@ public static class UserSignUp
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Controleer uw wachtwoord:");
+            Console.WriteLine("Bevestig uw wachtwoord:");
             string? password2 = Helper.StringHelper();
             if (password2 == "Escape/GoBack.") Menu.Start();
             Console.WriteLine();
             while (!Helper.IsValidString(password2))
             {
                 ColorPrint.PrintRed("Uw wachtwoord kan niet leeg zijn.");
-                Console.WriteLine("Controleer uw wachtwoord:");
+                Console.WriteLine("Bevestig uw wachtwoord:");
                 password2 = Helper.StringHelper();
                 if (password2 == "Escape/GoBack.") Menu.Start();
                 Console.WriteLine();
