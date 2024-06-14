@@ -1,9 +1,8 @@
 public class TableLogic<T>
 {
     public static int selectedOption = 1;
-
     public static int tableWidth = 145;
-     public static int TableCustomeWidth;
+    public static int TableCustomeWidth;
     public (List<string>, int)? PrintTable(List<string> Header, List<T> Data, Func<T, List<string>> GenerateRow, string Title,  Action<T> Listupdater, string Kind)
     {
         ConsoleKeyInfo keyInfo;
