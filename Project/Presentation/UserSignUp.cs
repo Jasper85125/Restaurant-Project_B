@@ -131,7 +131,7 @@ public static class UserSignUp
     }
     public static void SignUp(string email, string password, string fullName, bool IsAdmin)
     {
-        AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, true);
+        AccountModel newAcc = new AccountModel(accountsLogic.GenerateNewId(), email, password, fullName, IsAdmin);
         accountsLogic.UpdateList(newAcc);
         AccountModel acc = accountsLogic.CheckLogin(email, password);
 
