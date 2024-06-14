@@ -482,7 +482,7 @@ public static class AdminRouteMenu
 
     public static void PrintedOverview()
     { 
-        List<string> header = new() {"routenummer", "naam", "tijdsduur(uur)", "halte(s)", "begintijd", "eindtijd", "actieviteit"};
+        List<string> header = new() {"routenummer", "naam", "tijdsduur(uur)", "halte(s)", "begintijd", "eindtijd", "activiteit"};
         string title = "Routes overzicht";
         
         List<StopModel> stopsList = new() {};

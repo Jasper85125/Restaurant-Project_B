@@ -5,21 +5,6 @@
     "password": "Admin",
     "fullName": "Admin",
     "isAdmin": true,
-    "reservations": [
-      {
-        "id": 1,
-        "checkInStop": "Alexander",
-        "routeName": "Noord",
-        "busLicensePlate": 2,
-        "seatRow": [
-          0,
-          0
-        ],
-        "seatCol": [
-          1,
-          2
-        ]
-      }
-    ]
+    "reservations": []
   }
 ]

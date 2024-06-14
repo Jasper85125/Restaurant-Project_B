@@ -1,22 +1,11 @@
 [
   {
     "id": 1,
-    "duration": 0.5,
-    "name": "Noord",
-    "stops": [
-      {
-        "id": 5,
-        "name": "Alexander",
-        "time": "12:00:00"
-      },
-      {
-        "id": 4,
-        "name": "Beurs",
-        "time": "12:30:00"
-      }
-    ],
-    "begin": "12:00:00",
-    "end": "12:30:00",
-    "isActive": true
+    "duration": 0,
+    "name": "Nieuwe route",
+    "stops": [],
+    "begin": null,
+    "end": null,
+    "isActive": false
   }
 ]
